@@ -1,0 +1,36 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:js && npm run lint:prettier",
+    "lintfix": "prettier --write --list-different . && npm run lint:js --fix"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "@vue/eslint-config-airbnb": "^7.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "nuxt": "^3.3.2"
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.21.3",
+    "@nuxtjs/eslint-config": "^12.0.0",
+    "@nuxtjs/eslint-module": "^4.0.2",
+    "animejs": "^3.2.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.10.0",
+    "prettier": "^2.8.7",
+    "stats.js": "^0.17.0",
+    "three": "^0.150.1",
+    "tweakpane": "^3.1.7"
+  }
+}

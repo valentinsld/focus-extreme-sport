@@ -1,0 +1,73 @@
+{
+  "files.exclude": {},
+
+  "search.useIgnoreFiles": false,
+  "search.useGlobalIgnoreFiles": false,
+  "search.exclude": {
+    "**/.content-cache": true,
+    "**/.mm": true,
+    "**/node_modules": true,
+    ".firebaserc": true,
+    "firebase.json": true
+  },
+
+  "editor.autoClosingQuotes": "always",
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+
+  "editor.insertSpaces": false,
+  "editor.renderWhitespace": "all",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 4,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
+
+  "files.associations": {
+    "*.ejs": "html"
+  },
+
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+
+  "html.format.enable": false,
+  "html.validate.styles": false,
+  "html.validate.scripts": false,
+
+  "javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "javascript.suggestionActions.enabled": false,
+  "typescript.format.enable": false,
+  "typescript.validate.enable": false,
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss", "html", "ejs", "vue"],
+
+  "volar.codeLens.references": false,
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.inlayHints.eventArgumentInInlineHandlers": false,
+
+  "javascript.preferences.autoImportFileExcludePatterns": [
+    "@vue/runtime-core",
+    "@vue/runtime-dom",
+    "@vue/reactivity",
+    "@vue/shared"
+  ]
+}

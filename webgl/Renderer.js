@@ -1,4 +1,10 @@
-import * as THREE from 'three'
+import {
+  WebGLRenderer,
+  sRGBEncoding,
+  NoToneMapping,
+  WebGLRenderTarget,
+  LinearFilter,
+} from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import WebGL from './index.js'
@@ -24,7 +30,7 @@ export default class Renderer {
     this.clearColor = '#001e26'
 
     // Renderer
-    this.instance = new THREE.WebGLRenderer({
+    this.instance = new WebGLRenderer({
       alpha: false,
       antialias: true,
       canvas: this.WebGL.canvas,
@@ -41,10 +47,10 @@ export default class Renderer {
 
     this.instance.physicallyCorrectLights = true
     // this.instance.gammaOutPut = true
-    this.instance.outputEncoding = THREE.sRGBEncoding
+    this.instance.outputEncoding = sRGBEncoding
     // this.instance.shadowMap.type = THREE.PCFSoftShadowMap
     // this.instance.shadowMap.enabled = false
-    this.instance.toneMapping = THREE.NoToneMapping
+    this.instance.toneMapping = NoToneMapping
     this.instance.toneMappingExposure = 1
 
     this.context = this.instance.getContext()
@@ -71,15 +77,15 @@ export default class Renderer {
     /**
      * Effect composer
      */
-    this.renderTarget = new THREE.WebGLRenderTarget(
+    this.renderTarget = new WebGLRenderTarget(
       this.sizes.width,
       this.sizes.height,
       {
         generateMipmaps: false,
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.LinearFilter,
-        format: THREE.RGBFormat,
-        encoding: THREE.sRGBEncoding,
+        minFilter: LinearFilter,
+        magFilter: LinearFilter,
+        // format: RGBFormat,
+        encoding: sRGBEncoding,
         samples: 2,
       }
     )

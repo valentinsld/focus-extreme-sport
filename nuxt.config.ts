@@ -8,5 +8,12 @@ export default defineNuxtConfig({
 				},
 			},
 		},
+		assetsInclude: [
+			'**/*.glb',
+			'**/*.gltf',
+			'**/*.hdr',
+			'**/*.jpeg',
+			'**/*.png',
+		],
 	},
 });

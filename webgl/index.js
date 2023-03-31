@@ -3,6 +3,7 @@ import { Pane } from "tweakpane";
 
 import Sizes from "./Utils/Sizes.js";
 import Stats from "./Utils/Stats.js";
+import Assets from "./Utils/Loader.js"
 
 import Renderer from "./Renderer.js";
 import Camera from "./Camera.js";
@@ -27,6 +28,10 @@ export default class WebGL extends EventEmitter {
 
     this.sizes = new Sizes();
     this.raf = new Raf();
+    this.assets = new Assets();
+
+    this.ressourcesReady = false
+
     this.setScene();
     this.setDebug();
     this.setCamera();
@@ -36,13 +41,17 @@ export default class WebGL extends EventEmitter {
       this.resize();
     });
 
+    this.assets.on('ressourcesReady', () => {
+      this.ressourcesReady = true
+      this.trigger("endLoading");
+      // TODO REMOVE
+      this.initCube();
+    })
+
     this.raf.suscribe("webgl", this.update.bind(this));
 
     this.started = true;
-    this.trigger("endLoading");
 
-    // TODO REMOVE
-    this.initCube();
   }
 
   setDebug() {
@@ -69,7 +78,7 @@ export default class WebGL extends EventEmitter {
   }
 
   initCube() {
-    const sceneCube = new SceneCube();
+    const sceneCube = new SceneCube({assets: this.assets});
   }
 
   update() {

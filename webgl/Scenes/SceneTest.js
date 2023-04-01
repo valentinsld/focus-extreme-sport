@@ -4,14 +4,14 @@ import Raf from '../Utils/Raf.js'
 
 import WebGL from '../index.js'
 
-export default class SceneCube {
+export default class SceneTest {
   static singleton
 
   constructor(_options = {}) {
-    if (SceneCube.singleton) {
-      return SceneCube.singleton
+    if (SceneTest.singleton) {
+      return SceneTest.singleton
     }
-    SceneCube.singleton = this
+    SceneTest.singleton = this
 
     this.inView = false
     this.WebGL = new WebGL()

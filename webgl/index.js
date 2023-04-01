@@ -10,7 +10,7 @@ import Camera from "./Camera.js";
 import Raf from "./Utils/Raf.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
-import SceneCube from '~~/webgl/Scenes/SceneCube';
+import SceneTest from '~~/webgl/Scenes/SceneTest';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -78,7 +78,7 @@ export default class WebGL extends EventEmitter {
   }
 
   initCube() {
-    const sceneCube = new SceneCube({assets: this.assets});
+    const sceneTest = new SceneTest({ assets: this.assets });
   }
 
   update() {

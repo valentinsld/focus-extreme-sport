@@ -9,8 +9,6 @@
 <script setup>
 import WebGL from "~~/webgl";
 
-const test_aaa = ref("test");
-
 onMounted(() => {
   new WebGL();
 });

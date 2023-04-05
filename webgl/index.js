@@ -78,7 +78,7 @@ export default class WebGL extends EventEmitter {
   }
 
   initCube() {
-    const sceneTest = new SceneTest({ assets: this.assets });
+    new SceneTest({ assets: this.assets });
   }
 
   update() {

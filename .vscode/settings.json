@@ -69,5 +69,14 @@
     "@vue/runtime-dom",
     "@vue/reactivity",
     "@vue/shared"
-  ]
+  ],
+
+  "[typescript][javascript][json][jsonc][css][html][markdown][vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true
+    }
+  }
 }

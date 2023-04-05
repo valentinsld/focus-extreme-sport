@@ -2,12 +2,14 @@
   <div>
     <slot />
 
-    <canvas id="canvasWebgl"></canvas>
+    <canvas id="canvasWebgl" />
   </div>
 </template>
 
 <script setup>
 import WebGL from "~~/webgl";
+
+const test_aaa = ref("test");
 
 onMounted(() => {
   new WebGL();

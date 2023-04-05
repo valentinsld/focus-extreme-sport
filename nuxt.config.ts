@@ -1,6 +1,11 @@
+import eslintPlugin from 'vite-plugin-eslint';
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	vite: {
+		plugins: [
+			eslintPlugin()
+		],
 		css: {
 			preprocessorOptions: {
 				scss: {
@@ -16,4 +21,10 @@ export default defineNuxtConfig({
 			'**/*.png',
 		],
 	},
+	modules: [
+		'@nuxtjs/eslint-module'
+	  ],
+	  eslint: {
+		/* module options */
+	}
 });

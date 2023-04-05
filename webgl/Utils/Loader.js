@@ -8,7 +8,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { AudioLoader, LinearFilter, TextureLoader } from 'three'
 
 export default class Loader extends EventEmitter {
-	constructor(options) {
+	constructor() {
 		// Get parent methods
 		super()
 		// Set up

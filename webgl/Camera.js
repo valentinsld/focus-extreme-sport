@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 
 export default class Camera {
-  constructor(_options) {
+  constructor() {
     // Options
     this.WebGL = new WebGL()
     this.debug = this.WebGL.debug

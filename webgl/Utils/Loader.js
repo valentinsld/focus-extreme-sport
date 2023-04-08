@@ -21,6 +21,8 @@ export default class Loader extends EventEmitter {
 		this.sounds = {}
 		this.fonts = {}
 
+		this.URL_IMPORT = process.env.NODE_ENV !== 'production' ? window.location.origin : ''
+
 		this.setLoaders()
 		this.setRessourcesList()
 	}
@@ -137,7 +139,7 @@ export default class Loader extends EventEmitter {
 						.split('/models/')[1]
 						.split('.')[0]
 						.toLowerCase(),
-					src: window.location.origin + mod.default,
+					src: this.URL_IMPORT + mod.default,
 					type: 'model',
 				})
 			})
@@ -151,7 +153,7 @@ export default class Loader extends EventEmitter {
 						.split('/textures/')[1]
 						.split('.')[0]
 						.toLowerCase(),
-					src: window.location.origin + tex.default,
+					src: this.URL_IMPORT + tex.default,
 					type: 'texture',
 				})
 			})
@@ -162,7 +164,7 @@ export default class Loader extends EventEmitter {
 			await fontsContext[font]().then((tex) => {
 				this.ressourcesList.push({
 					name: font.split('/fonts/')[1].split('.')[0].toLowerCase(),
-					src: window.location.origin + tex.default,
+					src: this.URL_IMPORT + tex.default,
 					type: 'font',
 				})
 			})
@@ -176,7 +178,7 @@ export default class Loader extends EventEmitter {
 						.split('/sounds/')[1]
 						.split('.')[0]
 						.toLowerCase(),
-					src: window.location.origin + tex.default,
+					src: this.URL_IMPORT + tex.default,
 					type: 'sound',
 				})
 			})

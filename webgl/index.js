@@ -1,13 +1,13 @@
 import { AxesHelper, Scene} from "three";
 import { Pane } from "tweakpane";
 
+import RAFManager from "./Utils/RAFManager.js";
 import Sizes from "./Utils/Sizes.js";
 import Stats from "./Utils/Stats.js";
 import Assets from "./Utils/Loader.js"
 
 import Renderer from "./Renderer.js";
 import Camera from "./Camera.js";
-import Raf from "./Utils/Raf.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
 import SceneTest from '~~/webgl/Scenes/SceneTest';
@@ -27,7 +27,6 @@ export default class WebGL extends EventEmitter {
     this.started = false;
 
     this.sizes = new Sizes();
-    this.raf = new Raf();
     this.assets = new Assets();
 
     this.ressourcesReady = false
@@ -48,7 +47,7 @@ export default class WebGL extends EventEmitter {
       this.initCube();
     })
 
-    this.raf.suscribe("webgl", this.update.bind(this));
+    RAFManager.add("webgl", this.update.bind(this));
 
     this.started = true;
 

@@ -1,6 +1,5 @@
 import * as THREE from 'three'
-import anime from 'animejs'
-import Raf from '../Utils/Raf.js'
+import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
 
@@ -15,7 +14,6 @@ export default class SceneTest {
 
     this.inView = false
     this.WebGL = new WebGL()
-    this.Raf = new Raf()
     this.scene = this.WebGL.scene
     this.assets = _options.assets
 
@@ -44,46 +42,15 @@ export default class SceneTest {
 
     this.instance.add(...[this.light, this.mesh])
     this.scene.add(this.instance)
+
+    RAFManager.add("SceneTest", this.animRotation.bind(this))
   }
 
   //
   // Animation
   //
-  entered() {
-    this.inView = true
-    this.Raf.suscribe('rotateCube', this.animRotation.bind(this))
-  }
-
-  animRotation(e) {
-    this.cube.rotation.x = e * 0.4
-    this.cube.rotation.y = e * 0.2
-  }
-
-  exit() {
-    this.inView = false
-    this.Raf.unsuscribe('rotateCube', this.animRotation.bind(this))
-  }
-
-  //
-  // centerCamera
-  //
-  centerCamera(duration = 1500) {
-    const camera = this.WebGL.camera.instance
-    const orbitControls = this.WebGL.camera.orbitControls
-
-    anime({
-      targets: camera.position,
-      x: this.instance.position.x,
-      y: 7,
-      z: 7,
-      easing: 'easeOutQuart',
-      duration,
-    })
-    anime({
-      targets: orbitControls.target,
-      ...this.instance.position,
-      easing: 'easeOutQuart',
-      duration,
-    })
+  animRotation(time) {
+    this.instance.rotation.x = time * 0.4
+    this.instance.rotation.y = time * 0.2
   }
 }

@@ -61,6 +61,9 @@ export default class WebGL extends EventEmitter {
 
       const axesHelper = new AxesHelper(5);
       this.scene.add(axesHelper);
+
+      // add speed
+      this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
     }
   }
 

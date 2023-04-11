@@ -19,6 +19,7 @@
 */
 
 import { lerp } from './Lerp';
+import store from './Store';
 
 // simple polyfill by https://gist.github.com/paulirish/1579671
 // (function () {
@@ -31,7 +32,7 @@ import { lerp } from './Lerp';
 // 	}
 // }());
 
-const LERP = 0.05;
+const LERP = 0.025;
 
 const RAFManager = {
 	timer: null,
@@ -39,7 +40,7 @@ const RAFManager = {
 	lastTime: new Date(),
 	currentTime: 0,
 	speed: 1,
-	targetSpeed: 1,
+	targetSpeed: store.targetSpeed,
 	state: 'stop',
 	animations: [],
 

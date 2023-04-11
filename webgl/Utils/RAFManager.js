@@ -18,6 +18,9 @@
  *  	-- RAFManager.stop();
 */
 
+import { lerp } from './Lerp';
+import store from './Store';
+
 // simple polyfill by https://gist.github.com/paulirish/1579671
 // (function () {
 // 	let lastTime = 0;
@@ -29,8 +32,15 @@
 // 	}
 // }());
 
+const LERP = 0.025;
+
 const RAFManager = {
-	timer: 0,
+	timer: null,
+	time: new Date(),
+	lastTime: new Date(),
+	currentTime: 0,
+	speed: 1,
+	targetSpeed: store.targetSpeed,
 	state: 'stop',
 	animations: [],
 
@@ -70,16 +80,28 @@ const RAFManager = {
 		return this;
 	},
 
+	setSpeed(speed) {
+		this.targetSpeed = speed;
+
+		return this;
+	},
+
 	tick() {
-		this.lastTime = this.timer;
-		this.timer = requestAnimationFrame(() => { this.tick(); }) / 100;
+		this.timer = requestAnimationFrame(() => { this.tick(); })
+		this.lastTime = this.time
+		this.time = new Date()
+
+		this.speed = lerp(this.speed, this.targetSpeed, LERP)
+
+		const dt = this.time - this.lastTime;
+		this.currentTime += dt * this.speed / 1000;
 
 		for (const name in this.animations) {
 			const aniData = this.animations[name];
 			const callback = aniData.callback;
 			const param = aniData.param;
 
-			callback(this.timer, this.timer - this.lastTime, param);
+			callback(this.currentTime, dt, param);
 		}
 	}
 }

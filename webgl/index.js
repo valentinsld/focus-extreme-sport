@@ -11,6 +11,7 @@ import Camera from "./Camera.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
 import SceneTest from '~~/webgl/Scenes/SceneTest';
+import Store from '~~/webgl/Utils/Store.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -28,7 +29,6 @@ export default class WebGL extends EventEmitter {
 
     this.sizes = new Sizes();
     this.assets = new Assets();
-
     this.ressourcesReady = false
 
     this.setScene();
@@ -61,6 +61,20 @@ export default class WebGL extends EventEmitter {
 
       const axesHelper = new AxesHelper(5);
       this.scene.add(axesHelper);
+
+      // add speed
+      // this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
+
+      // change State of xp
+      this.debug.addButton({ title: "Slow speed" }).on("click", () => {
+        Store.targetSpeed = 0.05;
+        RAFManager.setSpeed(Store.targetSpeed);
+      });
+
+      this.debug.addButton({ title: "Normal Speed" }).on("click", () => {
+        Store.targetSpeed = 1;
+        RAFManager.setSpeed(Store.targetSpeed);
+      });
     }
   }
 

@@ -142,7 +142,10 @@ export default class WebGL extends EventEmitter {
   }
 
   initTestText() {
-    this.testText = new MSDFText();
+    this.testText = new MSDFText({
+      // font: FontFNT,
+      // atlas: FontAtlas,
+    });
     this.scene.add(this.testText.container);
   }
 

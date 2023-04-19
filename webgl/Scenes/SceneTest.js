@@ -50,7 +50,7 @@ export default class SceneTest {
   // Animation
   //
   animRotation(time) {
-    this.instance.rotation.x = time * 0.4
-    this.instance.rotation.y = time * 0.2
+    this.mesh.rotation.x = time
+    this.mesh.rotation.y = time * 0.8
   }
 }

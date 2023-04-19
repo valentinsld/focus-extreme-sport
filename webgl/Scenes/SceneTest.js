@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Group, Mesh, PointLight } from 'three'
 import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
@@ -21,8 +21,7 @@ export default class SceneTest {
   }
 
   init() {
-
-    this.instance = new THREE.Group()
+    this.instance = new Group()
 
     // this.cube = new THREE.Mesh(
     //   new THREE.BoxGeometry(1, 1, 1),
@@ -32,12 +31,12 @@ export default class SceneTest {
     // )
     this.testCD = this.assets.models["cd-02"].scene
 
-    this.mesh = new THREE.Mesh()
+    this.mesh = new Mesh()
     this.mesh.add(this.testCD)
 
     this.mesh.rotation.y = Math.PI / 2
 
-    this.light = new THREE.PointLight(0xffffff, 14, 12, 1)
+    this.light = new PointLight(0xffffff, 14, 12, 1)
     this.light.position.copy(this.WebGL.camera.initPosition)
 
     this.instance.add(...[this.light, this.mesh])

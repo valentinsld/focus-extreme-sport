@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { PlaneGeometry } from 'three'
 
 import WebGL from '../index.js'
 import { getVisibleHeightAtZDepth, getVisibleWidthAtZDepth } from '../Utils/ScreenInformations.js'
@@ -21,7 +21,7 @@ export default class TransitionPlane {
 
 	init() {
 
-		this.transitionGeo = new THREE.PlaneGeometry(getVisibleWidthAtZDepth(0.01, this.camera), getVisibleHeightAtZDepth(0.01, this.camera))
+		this.transitionGeo = new PlaneGeometry(getVisibleWidthAtZDepth(0.01, this.camera), getVisibleHeightAtZDepth(0.01, this.camera))
 
 	}
 }

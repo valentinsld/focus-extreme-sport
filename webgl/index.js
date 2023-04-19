@@ -14,6 +14,9 @@ import SceneTest from '~~/webgl/Scenes/SceneTest';
 import Store from '~~/webgl/Utils/Store.js';
 import MSDFText from './Components/MSDFText.js';
 
+import FontAtlas from '~~/assets/MSDFfonts/ChivoMono-Black.png'
+import FontFNT from '~~/assets/MSDFfonts/ChivoMono-Black.json'
+
 export default class WebGL extends EventEmitter {
   static instance;
 
@@ -97,7 +100,10 @@ export default class WebGL extends EventEmitter {
   }
 
   initTestText() {
-    this.testText = new MSDFText();
+    this.testText = new MSDFText({
+      // font: FontFNT,
+      // atlas: FontAtlas,
+    });
     this.scene.add(this.testText.container);
   }
 

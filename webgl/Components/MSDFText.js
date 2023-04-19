@@ -1,4 +1,4 @@
-import {Object3D, Mesh, TextureLoader, Vector3} from 'three'
+import {Object3D, Mesh, TextureLoader, Vector3, Color} from 'three'
 import { MSDFTextGeometry, MSDFTextMaterial } from "three-msdf-text-utils";
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 // import RAFManager from '../Utils/RAFManager.js'
@@ -27,6 +27,7 @@ export default class MSDFText {
 	  this.letterSpacing = _options.letterSpacing || 0
 	  this.lineHeight = _options.lineHeight || 0
 	  this.isUppercase = _options.isUppercase || false
+	  this.color = _options.color || '#ffffff'
 
 	  this.init()
 	}
@@ -44,8 +45,15 @@ export default class MSDFText {
 				lineHeight: this.lineHeight,
 			});
 
+			// const matOption = {
+			// 	uniforms: {
+			// 		ucolor: {value: new Color("#ffff00")},
+			// 	}
+			// }
+
 			this.material = new MSDFTextMaterial();
 			this.material.uniforms.uMap.value = atlas;
+			this.material.uniforms.uColor.value = new Color(this.color);
 
 			this.mesh = new Mesh(this.geometry, this.material);
 			this.container.add(this.mesh);

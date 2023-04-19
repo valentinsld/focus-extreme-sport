@@ -12,6 +12,7 @@ import EventEmitter from "./Utils/EventEmitter.js";
 
 import SceneTest from '~~/webgl/Scenes/SceneTest';
 import Store from '~~/webgl/Utils/Store.js';
+import MSDFText from './Components/MSDFText.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -45,6 +46,7 @@ export default class WebGL extends EventEmitter {
       this.trigger("endLoading");
       // TODO REMOVE
       this.initCube();
+      this.initTestText();
     })
 
     RAFManager.add("webgl", this.update.bind(this));
@@ -92,6 +94,11 @@ export default class WebGL extends EventEmitter {
 
   initCube() {
     new SceneTest({ assets: this.assets });
+  }
+
+  initTestText() {
+    this.testText = new MSDFText();
+    this.scene.add(this.testText.container);
   }
 
   update() {

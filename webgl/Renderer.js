@@ -45,7 +45,7 @@ export default class Renderer {
     this.instance.setSize(this.sizes.width, this.sizes.height)
     this.instance.setPixelRatio(this.sizes.pixelRatio)
 
-    this.instance.physicallyCorrectLights = true
+    this.instance.useLegacyLights = true
     // this.instance.gammaOutPut = true
     this.instance.outputEncoding = sRGBEncoding
     // this.instance.shadowMap.type = THREE.PCFSoftShadowMap

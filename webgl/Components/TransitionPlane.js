@@ -1,4 +1,5 @@
 import { PlaneGeometry } from 'three'
+// import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
 import { getVisibleHeightAtZDepth, getVisibleWidthAtZDepth } from '../Utils/ScreenInformations.js'

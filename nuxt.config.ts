@@ -22,9 +22,10 @@ export default defineNuxtConfig({
 		],
 	},
 	modules: [
-		'@nuxtjs/eslint-module'
-	  ],
-	  eslint: {
+		'@nuxtjs/eslint-module',
+		'@pinia/nuxt'
+	],
+	eslint: {
 		/* module options */
 	}
 });

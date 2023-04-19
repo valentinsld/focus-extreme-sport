@@ -7,7 +7,7 @@
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    color: colors(test-yellow);
-  }
+h1 {
+  color: colors(test-yellow);
+}
 </style>

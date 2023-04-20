@@ -56,6 +56,8 @@ onMounted(() => {
 		value.value += deltaTime * 0.0003 * targetValue + deltaTime * 0.0005 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 
+		RAFManager.setSpeed(1 - Math.abs(value.value))
+
 		emit('updated', value.value)
 	})
 
@@ -93,6 +95,7 @@ const interval = setInterval(() => {
 //
 onUnmounted(() => {
 	RAFManager.remove('QteBalance')
+	RAFManager.setSpeed(1)
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)

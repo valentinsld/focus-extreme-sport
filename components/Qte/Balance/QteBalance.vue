@@ -11,10 +11,6 @@
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const props = defineProps({
-  duration: {
-	type: Number,
-	default: 20000,
-  },
   delayChange: {
 	type: Number,
 	default: 2500,

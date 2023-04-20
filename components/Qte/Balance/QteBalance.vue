@@ -25,6 +25,8 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onInit', 'onEnd'])
+
 let targetValue = 0
 let value = ref(0)
 
@@ -36,13 +38,16 @@ let keydown = 0
 const onKeyDown = (ev) => {
 	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
 		keydown = -1
+		emit('onKeydown')
 	} else if (['ArrowRight', 'KeyD'].includes(ev.code)) {
 		keydown = 1
+		emit('onKeydown')
 	}
 }
 const onKeyUp = (ev) => {
 	if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(ev.code)) {
 		keydown = 0
+		emit('onKeyup')
 	}
 }
 
@@ -54,7 +59,11 @@ onMounted(() => {
 	RAFManager.add('QteBalance', (time, deltaTime) => {
 		value.value += deltaTime * 0.0003 * targetValue + deltaTime * 0.0005 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
+
+		emit('updated', value.value)
 	})
+
+	emit('onInit')
 })
 
 
@@ -91,6 +100,8 @@ onUnmounted(() => {
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)
+
+	emit('onEnd')
 })
 </script>
 

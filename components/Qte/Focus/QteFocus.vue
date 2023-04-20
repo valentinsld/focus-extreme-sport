@@ -23,7 +23,7 @@ const props = defineProps({
 	}
 })
 
-const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish', 'onInit', 'onEnd'])
+const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
 const value = ref(0)
 const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
@@ -63,8 +63,6 @@ onMounted(() => {
 			emit('onFinish')
 		}
 	})
-
-	emit('onInit')
 })
 
 //
@@ -77,8 +75,6 @@ const destroyedEvents = () => {
 }
 onUnmounted(() => {
 	destroyedEvents()
-
-	emit('onEnd')
 })
 </script>
 

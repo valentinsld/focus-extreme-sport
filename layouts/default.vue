@@ -12,6 +12,8 @@ import WebGL from "~~/webgl";
 onMounted(() => {
   new WebGL();
 });
+
+
 </script>
 
 <style scoped>

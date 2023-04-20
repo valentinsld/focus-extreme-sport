@@ -32,20 +32,17 @@ let value = ref(0)
 //
 // events
 //
-let isDownLeft = false
-let isDownRight = false
+let keydown = 0
 const onKeyDown = (ev) => {
 	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
-		isDownLeft = true
+		keydown = -1
 	} else if (['ArrowRight', 'KeyD'].includes(ev.code)) {
-		isDownRight = true
+		keydown = 1
 	}
 }
 const onKeyUp = (ev) => {
-	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
-		isDownLeft = false
-	} else if (['ArrowRight', 'KeyD'].includes(ev.code)) {
-		isDownRight = false
+	if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(ev.code)) {
+		keydown = 0
 	}
 }
 
@@ -55,13 +52,7 @@ onMounted(() => {
 
 	// init raf
 	RAFManager.add('QteBalance', (time, deltaTime) => {
-		value.value += deltaTime * 0.0003 * targetValue
-		if (isDownLeft) {
-			value.value -= deltaTime * 0.0005
-		} else if (isDownRight) {
-			value.value += deltaTime * 0.0005
-		}
-
+		value.value += deltaTime * 0.0003 * targetValue + deltaTime * 0.0005 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 	})
 })

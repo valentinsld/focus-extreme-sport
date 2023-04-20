@@ -21,7 +21,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onInit', 'onEnd'])
+const emit = defineEmits(['updated', 'onKeydown', 'onKeyup'])
 
 let targetValue = 0
 let value = ref(0)
@@ -60,8 +60,6 @@ onMounted(() => {
 
 		emit('updated', value.value)
 	})
-
-	emit('onInit')
 })
 
 
@@ -99,8 +97,6 @@ onUnmounted(() => {
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)
-
-	emit('onEnd')
 })
 </script>
 

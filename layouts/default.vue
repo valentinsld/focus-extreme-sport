@@ -2,12 +2,16 @@
   <div>
     <slot />
 
+    <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
     <canvas id="canvasWebgl" />
   </div>
 </template>
 
 <script setup>
-import WebGL from "~~/webgl";
+import useStore from '@/stores/index.js'
+import WebGL from '~~/webgl';
+
+const store = useStore()
 
 onMounted(() => {
   new WebGL();

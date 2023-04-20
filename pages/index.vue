@@ -27,6 +27,8 @@ onUnmounted(() => {
 let debugFolder
 const inutDebugGameState = () => {
   const webgl = new WebGL()
+  if (!webgl.debug) return
+
   debugFolder = webgl.debug.addFolder({ title: 'GameState' })
   debugFolder.addInput(store.state, 'gamestate', {
     options: {

@@ -17,11 +17,16 @@
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const props = defineProps({
+	delayReducedSpeed: {
+		type: Number,
+		default: 1000,
+	},
 	duration: {
 		type: Number,
 		default: 2000,
 	}
 })
+const START_SPEED = 0.15
 
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
@@ -50,14 +55,21 @@ onMounted(() => {
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)
 
+	setTimeout(() => {
+		RAFManager.setSpeed(START_SPEED)
+	}, props.delayReducedSpeed);
+
 	// init raf
 	RAFManager.add('QteFocus', (time, deltaTime) => {
 		value.value += deltaTime * keydown
 		value.value = Math.min(props.duration, Math.max(0, value.value))
 
+		RAFManager.setSpeed(START_SPEED + (value.value / props.duration) * (1 - START_SPEED))
+
 		emit('updated', value.value)
 
 		if (value.value === props.duration) {
+			RAFManager.setSpeed(1)
 			destroyedEvents()
 			isFinish.value = true
 			emit('onFinish')

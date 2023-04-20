@@ -6,6 +6,7 @@ const useStore = defineStore('store', () => {
 		{
 			gamestate: 'home',
 			gamestatestep: 0,
+			noEventPlayer: false,
 		}
 	)
 

@@ -15,6 +15,7 @@
 
 <script setup>
 import RAFManager from '~~/webgl/Utils/RAFManager';
+import NoEventKeyboard from '../NoEvent.js';
 
 const props = defineProps({
 	delayReducedSpeed: {
@@ -37,11 +38,13 @@ const isFinish = ref(false)
 //
 // events
 //
+const noEvent = new NoEventKeyboard({ delay:  props.duration * 0.75 })
 let keydown = 0
 const onKeyDown = (ev) => {
 	if (ev.code === 'Space') {
 		keydown = 1
 		emit('onKeydown')
+		noEvent.action()
 	}
 }
 const onKeyUp = (ev) => {
@@ -52,6 +55,7 @@ const onKeyUp = (ev) => {
 }
 
 onMounted(() => {
+	noEvent.action()
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)
 

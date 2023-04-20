@@ -9,6 +9,8 @@
 
 <script setup>
 import RAFManager from '~~/webgl/Utils/RAFManager';
+import NoEventKeyboard from '../NoEvent.js';
+
 
 const props = defineProps({
   delayChange: {
@@ -30,14 +32,17 @@ let value = ref(0)
 //
 // events
 //
+const noEvent = new NoEventKeyboard({})
 let keydown = 0
 const onKeyDown = (ev) => {
 	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
 		keydown = -1
 		emit('onKeydown')
+		noEvent.action()
 	} else if (['ArrowRight', 'KeyD'].includes(ev.code)) {
 		keydown = 1
 		emit('onKeydown')
+		noEvent.action()
 	}
 }
 const onKeyUp = (ev) => {
@@ -48,6 +53,7 @@ const onKeyUp = (ev) => {
 }
 
 onMounted(() => {
+	noEvent.action()
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)
 

@@ -5,10 +5,12 @@
     <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
     <GameSki v-else-if="store.state.gamestate === 'ski'" />
     <GameKayak v-else-if="store.state.gamestate === 'kayak'" />
-    <QteFigure
+    <!-- <QteFigure
       :data-children="dataChildren"
       @is-finished="qteFigureFinish"
-    />
+    /> -->
+    <!-- <QteBalance /> -->
+    <!-- <QteFocus /> -->
   </div>
 </template>
 
@@ -17,28 +19,28 @@ import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
 const store = useStore()
 
-const dataChildren = reactive([
-	{
-		validKey: 'ArrowRight',
-		delay: 3000,
-		duration: 2000
-	},
-	{
-		validKey: 'ArrowUp',
-		delay: 5000,
-		duration: 2000
-	},
-	{
-		validKey: 'ArrowLeft',
-		delay: 7000,
-		duration: 2000
-	},
-	{
-		validKey: 'ArrowDown',
-		delay: 8000,
-		duration: 2000
-	}
-])
+// const dataChildren = reactive([
+// 	{
+// 		validKey: 'ArrowRight',
+// 		delay: 3000,
+// 		duration: 2000
+// 	},
+// 	{
+// 		validKey: 'ArrowUp',
+// 		delay: 5000,
+// 		duration: 2000
+// 	},
+// 	{
+// 		validKey: 'ArrowLeft',
+// 		delay: 7000,
+// 		duration: 2000
+// 	},
+// 	{
+// 		validKey: 'ArrowDown',
+// 		delay: 8000,
+// 		duration: 2000
+// 	}
+// ])
 
 onMounted(() => {
   inutDebugGameState()
@@ -48,9 +50,9 @@ onUnmounted(() => {
   debugFolder.dispose()
 })
 
-function qteFigureFinish() {
-  console.log('QTE Figure is fineshed ma man');
-}
+// function qteFigureFinish() {
+//   console.log('QTE Figure is fineshed ma man');
+// }
 
 
 //

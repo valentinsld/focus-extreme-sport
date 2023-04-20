@@ -5,6 +5,7 @@
     <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
     <GameSki v-else-if="store.state.gamestate === 'ski'" />
     <GameKayak v-else-if="store.state.gamestate === 'kayak'" />
+    <QteFigure :data-children="dataChildren" />
   </div>
 </template>
 
@@ -12,6 +13,29 @@
 import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
 const store = useStore()
+
+const dataChildren = reactive([
+	{
+		validKey: 'ArrowRight',
+		delay: 3000,
+		duration: 2000
+	},
+	{
+		validKey: 'ArrowUp',
+		delay: 5000,
+		duration: 2000
+	},
+	{
+		validKey: 'ArrowLeft',
+		delay: 7000,
+		duration: 2000
+	},
+	{
+		validKey: 'ArrowDown',
+		delay: 8000,
+		duration: 2000
+	}
+])
 
 onMounted(() => {
   inutDebugGameState()

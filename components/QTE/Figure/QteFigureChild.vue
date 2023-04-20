@@ -45,7 +45,7 @@ onMounted(()=> {
 })
 
 onUnmounted(()=> {
-	border.value.removeEventListener('transitionend', enableClick)
+	if(border.value) border.value.removeEventListener('transitionend', enableClick)
 })
 
 function enableClick() {

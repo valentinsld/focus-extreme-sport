@@ -3,90 +3,93 @@
     class="qte-figure"
   >
     <QteFigureChild
-      v-for="i in 3"
+      v-for="i in props.dataChildren.length"
       :key="i"
       ref="figures"
       :keyboard-key="keyPressed"
-      :valid-key="dataChildren[i - 1].validKey"
+      :valid-key="props.dataChildren[i - 1].validKey"
       :class="{
-        'is-visible': dataChildren[i - 1].isVisible,
-        'is-animated': dataChildren[i - 1].isAnimated,
-        'is-clickable': dataChildren[i - 1].isClickable
+        'is-visible': objectStates[i - 1].isVisible,
+        'is-animated': objectStates[i - 1].isAnimated,
+        'is-clickable': objectStates[i - 1].isClickable
       }"
-      :duration="dataChildren[i - 1].duration"
-      :delay="dataChildren[i - 1].delay"
-      @is-clickable="enableClick(i)"
+      :duration="props.dataChildren[i - 1].duration"
+      :delay="props.dataChildren[i - 1].delay"
+      @is-clickable="enableClick(i - 1)"
     >
       <span>{{ i }}</span>
     </QteFigureChild>
-  </div>
+  </div>props.
 </template>
 
 <script setup>
 
 const figures = ref()
 const keyPressed = ref()
+const objectStates = reactive([])
 
-const dataChildren = reactive([
-	{
-		validKey: 'ArrowRight',
-		isVisible: false,
-		isAnimated: false,
-		isClickable: false,
-		delay: 3000,
-		duration: 2000
-	},
-	{
-		validKey: 'ArrowUp',
-		isVisible: false,
-		isAnimated: false,
-		isClickable: false,
-		delay: 5000,
-		duration: 2000
-	},
-	{
-		validKey: 'ArrowLeft',
-		isVisible: false,
-		isAnimated: false,
-		isClickable: false,
-		delay: 7000,
-		duration: 2000
+const props = defineProps({
+	dataChildren: {
+		type: Array,
+		default: () => []
 	}
-])
 
+	// To use it in parent, create a reactive const
+	// with value of the key, the delay before appear,
+	// and the duration before click is enable (also the time of the anime)
+
+	// const dataChildren = reactive([
+	// 	{
+	// 		validKey: 'ArrowRight',
+	// 		delay: 3000,
+	// 		duration: 2000
+	// 	},
+	// ])
+})
+
+for (let i = 0; i < props.dataChildren.length; i++) {
+
+	const state = {
+		isVisible: false,
+		isAnimated: false,
+		isClickable: false
+	}
+	objectStates.push(state)
+
+}
 
 onMounted(()=> {
 	window.addEventListener('keyup', keyPress)
 
 	for (let i = 0; i < figures.value.length; i++) {
 		setTimeout(()=> {
-			dataChildren.value[i].isVisible = true
-			dataChildren.value[i].isAnimated = true
-		}, dataChildren.value[i].delay)
+			objectStates[i].isVisible = true
+			objectStates[i].isAnimated = true
+		}, props.dataChildren[i].delay)
 	}
 })
 
 onUnmounted(()=> {
 	window.removeEventListener('keyup', keyPress)
+
 	for (let i = 0; i < figures.value.length; i++) {
-		dataChildren.value[i].isVisible = false
-		dataChildren.value[i].isAnimated = false
-		dataChildren.value[i].isClickable = false
+		objectStates[i].isVisible = false
+		objectStates[i].isAnimated = false
+		objectStates[i].isClickable = false
 	}
 })
 
 const keyPress = (e) => {
 	keyPressed.value = e.key;
-		checkKey()
+	checkKey()
 }
-
 
 function checkKey() {
 	for (let i = 0; i < figures.value.length; i++) {
 		const element = figures.value[i];
 
-		if(dataChildren.value[i].isClickable) {
-			if(keyPressed.value === dataChildren.value[i].validKey) {
+		if(objectStates[i].isClickable) {
+			if(keyPressed.value === props.dataChildren[i].validKey) {
 				element.$el.classList.remove('is-visible')
 			}
 		}
@@ -94,7 +97,7 @@ function checkKey() {
 }
 
 function enableClick(index) {
-	dataChildren.value[index - 1].isClickable = true
+	objectStates[index].isClickable = true
 }
 
 </script>

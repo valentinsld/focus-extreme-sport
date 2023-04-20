@@ -27,7 +27,7 @@
 const figures = ref()
 const keyPressed = ref()
 
-const dataChildren = ref([
+const dataChildren = reactive([
 	{
 		validKey: 'ArrowRight',
 		isVisible: false,

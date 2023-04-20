@@ -5,7 +5,10 @@
     <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
     <GameSki v-else-if="store.state.gamestate === 'ski'" />
     <GameKayak v-else-if="store.state.gamestate === 'kayak'" />
-    <QteFigure :data-children="dataChildren" />
+    <QteFigure
+      :data-children="dataChildren"
+      @is-finished="qteFigureFinish"
+    />
   </div>
 </template>
 
@@ -44,6 +47,11 @@ onMounted(() => {
 onUnmounted(() => {
   debugFolder.dispose()
 })
+
+function qteFigureFinish() {
+  console.log('QTE Figure is fineshed ma man');
+}
+
 
 //
 // debug

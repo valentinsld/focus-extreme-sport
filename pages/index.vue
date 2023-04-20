@@ -43,7 +43,7 @@ const store = useStore()
 // ])
 
 onMounted(() => {
-  inutDebugGameState()
+  initDebugGameState()
 })
 
 onUnmounted(() => {
@@ -59,7 +59,7 @@ onUnmounted(() => {
 // debug
 //
 let debugFolder
-const inutDebugGameState = () => {
+const initDebugGameState = () => {
   const webgl = new WebGL()
   if (!webgl.debug) return
 

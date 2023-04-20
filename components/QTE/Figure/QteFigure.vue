@@ -52,7 +52,8 @@ for (let i = 0; i < props.dataChildren.length; i++) {
 	const state = {
 		isVisible: false,
 		isAnimated: false,
-		isClickable: false
+		isClickable: false,
+		hasBeenClicked: false
 	}
 	objectStates.push(state)
 
@@ -91,14 +92,38 @@ function checkKey() {
 		if(objectStates[i].isClickable) {
 			if(keyPressed.value === props.dataChildren[i].validKey) {
 				element.$el.classList.remove('is-visible')
+				objectStates[i].hasBeenClicked = true
+				checkFinish()
 			}
 		}
+	}
+}
+
+function checkFinish() {
+	let isFinished = true
+
+	for (let i = 0; i < objectStates.length; i++) {
+		const element = objectStates[i];
+
+		if(!element.hasBeenClicked) {
+			isFinished = false
+		}
+	}
+
+	if(isFinished) {
+		setFinish()
 	}
 }
 
 function enableClick(index) {
 	objectStates[index].isClickable = true
 }
+
+function setFinish() {
+	emit('isFinished');
+}
+
+const emit = defineEmits(['isFinished'])
 
 </script>
 

@@ -10,8 +10,10 @@ import Renderer from "./Renderer.js";
 import Camera from "./Camera.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
-import SceneTest from '~~/webgl/Scenes/SceneTest';
+import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import Store from '~~/webgl/Utils/Store.js';
+import SceneManager from './Managers/SceneManager.js';
+import SceneIntro from './Scenes/SceneIntro.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -44,6 +46,7 @@ export default class WebGL extends EventEmitter {
       this.ressourcesReady = true
       this.trigger("endLoading");
       // TODO REMOVE
+      this.initCD();
       this.initCube();
     })
 
@@ -60,7 +63,7 @@ export default class WebGL extends EventEmitter {
       this.stats = new Stats(true);
 
       const axesHelper = new AxesHelper(5);
-      this.scene.add(axesHelper);
+      this.currentScene.add(axesHelper);
 
       // add speed
       // this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
@@ -79,7 +82,28 @@ export default class WebGL extends EventEmitter {
   }
 
   setScene() {
-    this.scene = new Scene();
+    this.sceneHome = new Scene();
+    this.sceneHome.name = 'Home';
+
+    this.sceneIntro = new Scene();
+    this.sceneIntro.name = 'Intro';
+
+    this.sceneSki = new Scene();
+    this.sceneSki.name = 'Ski';
+
+    this.sceneWingsuit = new Scene();
+    this.sceneWingsuit.name = 'Wingsuit';
+
+    this.sceneKayak = new Scene();
+    this.sceneKayak.name = 'Kayak';
+
+    this.currentScene = this.sceneHome
+
+    this.sceneArray = [this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak]
+  }
+
+  setSceneManager() {
+    this.sceneManager = new SceneManager()
   }
 
   setCamera() {
@@ -90,8 +114,12 @@ export default class WebGL extends EventEmitter {
     this.renderer = new Renderer();
   }
 
+  initCD() {
+    this.sceneHome.scene = new SceneHome({ assets: this.assets });
+  }
+
   initCube() {
-    new SceneTest({ assets: this.assets });
+    this.sceneIntro.scene = new SceneIntro()
   }
 
   update() {

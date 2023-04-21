@@ -3,21 +3,24 @@ import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
 
-export default class SceneTest {
+export default class SceneHome {
   static singleton
 
   constructor(_options = {}) {
-    if (SceneTest.singleton) {
-      return SceneTest.singleton
+    if (SceneHome.singleton) {
+      return SceneHome.singleton
     }
-    SceneTest.singleton = this
+    SceneHome.singleton = this
 
     this.inView = false
     this.WebGL = new WebGL()
-    this.scene = this.WebGL.scene
+    this.scene = this.WebGL.sceneHome
     this.assets = _options.assets
 
     this.init()
+
+    // Need only on home to activate anime and prevent undefined
+    this.startScene()
   }
 
   init() {
@@ -41,8 +44,6 @@ export default class SceneTest {
 
     this.instance.add(...[this.light, this.mesh])
     this.scene.add(this.instance)
-
-    RAFManager.add("SceneTest", this.animRotation.bind(this))
   }
 
   //
@@ -51,5 +52,17 @@ export default class SceneTest {
   animRotation(time) {
     this.mesh.rotation.x = time
     this.mesh.rotation.y = time * 0.8
+  }
+
+  startScene() {
+    //TODO : add function to start the scene (spline, RAFadd, etc..)
+    console.log('You start the scene' + this.scene.name);
+    RAFManager.add("SceneHome", this.animRotation.bind(this))
+  }
+
+  destroyScene() {
+    //TODO : add function to destroy the scene (spline, RAFremove, etc..)
+    console.log('You destroy the scene' + this.scene.name);
+    RAFManager.remove("SceneHome")
   }
 }

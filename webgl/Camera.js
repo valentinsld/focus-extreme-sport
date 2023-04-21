@@ -8,7 +8,7 @@ export default class Camera {
     this.WebGL = new WebGL()
     this.debug = this.WebGL.debug
     this.sizes = this.WebGL.sizes
-    this.scene = this.WebGL.scene
+    this.scene = this.WebGL.currentScene
 
     this.initPosition = {
       x: 0,

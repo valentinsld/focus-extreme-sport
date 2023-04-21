@@ -3,7 +3,7 @@ import WebGL from '../index'
 export default class SceneManager {
 	static singleton
 
-	constructor(_options) {
+	constructor() {
 		if (SceneManager.singleton) {
 			return SceneManager.singleton
 		  }

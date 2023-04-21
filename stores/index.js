@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
 
-import webglStore from '~~/webgl/Utils/Store'
-
 const useStore = defineStore('store', () => {
 	const state = reactive(
 		{
@@ -10,10 +8,6 @@ const useStore = defineStore('store', () => {
 			noEventPlayer: false,
 		}
 	)
-
-	watch(() => state.gamestate, (gamestate) => {
-		webglStore.state = gamestate
-	})
 
 	//
 	//

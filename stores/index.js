@@ -6,6 +6,14 @@ const useStore = defineStore('store', () => {
 			gamestate: 'home',
 			gamestatestep: 0,
 			noEventPlayer: false,
+			altimetre: {
+				scores: {
+					wingsuit: 0,
+					ski: 0,
+					kayak: 0,
+				},
+				altitude: 4000,
+			}
 		}
 	)
 

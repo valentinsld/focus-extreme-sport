@@ -11,6 +11,8 @@
     /> -->
     <!-- <QteBalance /> -->
     <!-- <QteFocus /> -->
+
+    <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
   </div>
 </template>
 

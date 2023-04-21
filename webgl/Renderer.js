@@ -15,7 +15,7 @@ export default class Renderer {
     this.debug = this.WebGL.debug
     this.stats = this.WebGL.stats
     this.sizes = this.WebGL.sizes
-    this.scene = this.WebGL.scene
+    this.scene = this.WebGL.currentScene
     this.camera = this.WebGL.camera
 
     // Debug

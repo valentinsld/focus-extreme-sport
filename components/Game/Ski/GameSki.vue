@@ -9,9 +9,9 @@ import useStore from '@/stores/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager';
 
 const store = useStore()
-const sceneManager = new SceneManager()
 
 onMounted(()=> {
+  const sceneManager = new SceneManager()
   sceneManager.setScene('ski')
 })
 </script>

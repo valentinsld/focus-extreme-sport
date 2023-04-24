@@ -35,43 +35,47 @@ def save_data(data):
         out_file_obj.write(data)
 
 def main():
-    print(get_path_to_mesh_data())
 
     DATA = "{"
 
-    D = bpy.data
+    i = 0
+    for ob in bpy.data.objects.values() :
+        if ob.type == 'CURVE' :
+            DATA += ('%s"%s": [' % (i==0 and ' ' or ', ', ob.name))
+            for spline in ob.data.splines :
+                if len(spline.bezier_points) > 0 :
+                    for y, bezier_point in enumerate(spline.bezier_points.values()) :
+                        handle_left  = ob.matrix_world @ bezier_point.handle_left
+                        co           = ob.matrix_world @ bezier_point.co
+                        handle_right = ob.matrix_world @ bezier_point.handle_right
 
-    for i in range(len(D.curves)):
+                        DATA += '{'
+                        DATA += ('"x": %s,' % (co[0]))
+                        DATA += ('"y": %s,' % (co[1]))
+                        DATA += ('"z": %s,' % (co[2]))
+                        DATA += ('"xl": %s,' % (handle_left[0]))
+                        DATA += ('"yl": %s,' % (handle_left[1]))
+                        DATA += ('"zl": %s,' % (handle_left[2]))
+                        DATA += ('"xr": %s,' % (handle_right[0]))
+                        DATA += ('"yr": %s,' % (handle_right[1]))
+                        DATA += ('"zr": %s' % (handle_right[2]))
+                        DATA += ("}%s" % ((len(spline.bezier_points)-1==y and ' ' or ',')))
 
-        spline = D.curves[i].splines[0]
-
-        DATA += ('%s"%s": [' % (i==0 and ' ' or ', ', D.curves[i].name_full))
-        for x in range(len(spline.bezier_points)):
-            DATA += '{'
-            DATA += ('"x": %s,' % (spline.bezier_points[x].co[0]))
-            DATA += ('"y": %s,' % (spline.bezier_points[x].co[1]))
-            DATA += ('"z": %s,' % (spline.bezier_points[x].co[2]))
-            DATA += ('"xl": %s,' % (spline.bezier_points[x].handle_left[0]))
-            DATA += ('"yl": %s,' % (spline.bezier_points[x].handle_left[1]))
-            DATA += ('"zl": %s,' % (spline.bezier_points[x].handle_left[2]))
-            DATA += ('"xr": %s,' % (spline.bezier_points[x].handle_right[0]))
-            DATA += ('"yr": %s,' % (spline.bezier_points[x].handle_right[1]))
-            DATA += ('"zr": %s' % (spline.bezier_points[x].handle_right[2]))
-            DATA += ("}%s" % ((len(spline.bezier_points)-1==x and ' ' or ',')))
-
-        DATA += ']'
-
+            DATA += ']'
+            i += 1
     DATA += '}'
-    print(DATA)
+
+    # print(DATA)
 
     save_data(DATA)
+
 
 #
 # Déclare button
 #
-class TestExporter(bpy.types.Operator):
-    """TEST TOOLTIP"""
-    bl_idname = "focus.test"
+class Exporter(bpy.types.Operator):
+    """TOOLTIP"""
+    bl_idname = "focus.exporter"
     bl_label = "Exporter les splines"
 
     def execute(self, content):
@@ -98,13 +102,18 @@ class LayoutDemoPanel(bpy.types.Panel):
         layout.label(text="Exporter les splines :")
         row = layout.row()
         row.scale_y = 2.0
-        row.operator("focus.test")
+        row.operator("focus.exporter")
 
 def register():
-    bpy.utils.register_class(TestExporter)
+    bpy.utils.register_class(Exporter)
     bpy.utils.register_class(LayoutDemoPanel)
 
 
 def unregister():
-    bpy.utils.unregister_class(TestExporter)
+    bpy.utils.unregister_class(Exporter)
     bpy.utils.unregister_class(LayoutDemoPanel)
+
+
+# Remove for addons blender
+# if __name__ == "__main__":
+#     register()

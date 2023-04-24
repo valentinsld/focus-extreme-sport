@@ -16,6 +16,7 @@ export default class Renderer {
     this.stats = this.WebGL.stats
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
+    this.transi = this.WebGL.sceneTransi
     this.camera = this.WebGL.camera
 
     // Debug
@@ -118,6 +119,13 @@ export default class Renderer {
     //   this.postProcess.composer.render()
     // } else {
     this.instance.render(this.scene, this.camera.instance)
+
+    this.instance.autoClear = false
+    this.instance.clearDepth()
+
+    this.instance.render(this.transi, this.camera.instance)
+
+    this.instance.autoClear = true
     // }
 
     if (this.stats) {

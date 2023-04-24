@@ -37,8 +37,11 @@ const LERP = 0.025;
 const RAFManager = {
 	timer: null,
 	time: new Date(),
+	startTime: new Date(),
 	lastTime: new Date(),
 	currentTime: 0,
+	dt: 0,
+	elapsedTime: 0,
 	speed: 1,
 	targetSpeed: store.targetSpeed,
 	state: 'stop',
@@ -68,6 +71,7 @@ const RAFManager = {
 		if (this.state === 'start') return;
 
 		this.state = 'start';
+		this.startTime = new Date();
 		this.tick();
 		return this;
 	},
@@ -93,15 +97,17 @@ const RAFManager = {
 
 		this.speed = lerp(this.speed, this.targetSpeed, LERP)
 
-		const dt = this.time - this.lastTime;
-		this.currentTime += dt * this.speed / 1000;
+		this.dt = this.time - this.lastTime;
+		this.elapsedTime = (this.time - this.startTime) / 1000;
+
+		this.currentTime += this.dt * this.speed / 1000;
 
 		for (const name in this.animations) {
 			const aniData = this.animations[name];
 			const callback = aniData.callback;
 			const param = aniData.param;
 
-			callback(this.currentTime, dt, param);
+			callback(this.currentTime, this.dt, param);
 		}
 	}
 }

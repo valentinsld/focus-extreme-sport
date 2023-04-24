@@ -14,7 +14,6 @@ export default class SceneIntro {
 
     this.inView = false
     this.WebGL = new WebGL()
-    console.log(this.WebGL);
     this.scene = this.WebGL.sceneIntro
     this.assets = _options.assets
 

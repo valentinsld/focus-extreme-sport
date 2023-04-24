@@ -14,6 +14,7 @@ import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import Store from '~~/webgl/Utils/Store.js';
 import SceneManager from './Managers/SceneManager.js';
 import SceneIntro from './Scenes/SceneIntro.js';
+import SceneTransi from './Scenes/SceneTransi.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -48,6 +49,7 @@ export default class WebGL extends EventEmitter {
       // TODO REMOVE
       this.initCD();
       this.initCube();
+      this.initTransi();
     })
 
     RAFManager.add("webgl", this.update.bind(this));
@@ -97,6 +99,9 @@ export default class WebGL extends EventEmitter {
     this.sceneKayak = new Scene();
     this.sceneKayak.name = 'Kayak';
 
+    this.sceneTransi = new Scene();
+    this.sceneTransi.name = 'Transition'
+
     this.currentScene = this.sceneHome
 
     this.sceneArray = [this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak]
@@ -120,6 +125,10 @@ export default class WebGL extends EventEmitter {
 
   initCube() {
     this.sceneIntro.scene = new SceneIntro()
+  }
+
+  initTransi() {
+    this.sceneTransi.scene = new SceneTransi()
   }
 
   update() {

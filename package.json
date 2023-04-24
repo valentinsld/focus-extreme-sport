@@ -32,11 +32,13 @@
     "animejs": "^3.2.1",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "motion": "^10.15.5",
     "pinia": "^2.0.34",
     "prettier": "^2.8.7",
     "stats.js": "^0.17.0",
     "three": "^0.150.1",
     "tweakpane": "^3.1.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite-plugin-glsl": "^1.1.2"
   }
 }

@@ -1,4 +1,4 @@
-import { PerspectiveCamera } from 'three'
+import { PerspectiveCamera, Object3D } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 
@@ -9,6 +9,9 @@ export default class Camera {
     this.debug = this.WebGL.debug
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
+
+    this.container = new Object3D()
+    this.container.name = "CameraContainer"
 
     this.initPosition = {
       x: 0,
@@ -30,8 +33,8 @@ export default class Camera {
     )
     this.instance.rotation.reorder('YXZ')
     this.instance.position.copy(this.initPosition)
-
-    this.scene.add(this.instance)
+    this.container = this.instance
+    this.scene.add(this.container)
   }
 
   setOrbitControls() {

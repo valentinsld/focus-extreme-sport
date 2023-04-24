@@ -23,10 +23,18 @@ export default class SceneManager {
 
 		if(newScene.scene) newScene.scene.startScene()
 
-		this.webgl.currentScene =  newScene
-		this.webgl.camera.scene = newScene
-		this.webgl.renderer.scene = newScene
+		if(this.webgl.sceneTransi.scene) {
+			this.webgl.sceneTransi.scene.container.children[0].material.animationIn()
 
-		if(this.oldScene.scene) this.oldScene.scene.destroyScene()
+			setTimeout(() => {
+				this.webgl.sceneTransi.scene.container.children[0].material.animationOut()
+				this.webgl.currentScene = newScene
+				this.webgl.camera.scene = newScene
+				this.webgl.renderer.scene = newScene
+				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
+			}, this.webgl.sceneTransi.scene.container.children[0].material.duration * 700)
+
+		}
+
 	}
 }

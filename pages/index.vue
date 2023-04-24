@@ -10,7 +10,7 @@
       @is-finished="qteFigureFinish"
     /> -->
     <!-- <QteBalance /> -->
-    <!-- <QteFocus /> -->
+    <QteFocus />
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
     <Altimetre v-if="store.state.gamestate !== 'home'" />

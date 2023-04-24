@@ -6,7 +6,7 @@ import WebGL from '../index.js'
 export default class SceneHome {
   static singleton
 
-  constructor(_options = {}) {
+  constructor() {
     if (SceneHome.singleton) {
       return SceneHome.singleton
     }
@@ -15,7 +15,7 @@ export default class SceneHome {
     this.inView = false
     this.WebGL = new WebGL()
     this.scene = this.WebGL.sceneHome
-    this.assets = _options.assets
+    this.assets = this.WebGL.assets
 
     this.init()
 

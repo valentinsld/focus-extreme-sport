@@ -1,7 +1,7 @@
 bl_info = {
     "name": "FOCUS PLUGINS",
     "author": "Valentin S",
-    "version": (1, 0),
+    "version": (1, 1),
     "blender": (2, 80, 0),
     "location": "RenderProperties",
     "description": "Exporter les splines",

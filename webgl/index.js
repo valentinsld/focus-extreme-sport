@@ -32,6 +32,7 @@ export default class WebGL extends EventEmitter {
 
     this.sizes = new Sizes();
     this.assets = new Assets();
+    this.sceneManager = new SceneManager();
     this.ressourcesReady = false
 
     this.setScene();
@@ -46,10 +47,13 @@ export default class WebGL extends EventEmitter {
     this.assets.on('ressourcesReady', () => {
       this.ressourcesReady = true
       this.trigger("endLoading");
-      // TODO REMOVE
-      this.initCD();
-      this.initCube();
+
       this.initTransi();
+
+      this.initSceneHome();
+      this.initSceneIntro();
+
+      this.sceneManager.startCurrentScene()
     })
 
     RAFManager.add("webgl", this.update.bind(this));
@@ -82,19 +86,19 @@ export default class WebGL extends EventEmitter {
 
   setScene() {
     this.sceneHome = new Scene();
-    this.sceneHome.name = 'Home';
+    this.sceneHome.name = 'home';
 
     this.sceneIntro = new Scene();
-    this.sceneIntro.name = 'Intro';
+    this.sceneIntro.name = 'intro';
 
     this.sceneSki = new Scene();
-    this.sceneSki.name = 'Ski';
+    this.sceneSki.name = 'ski';
 
     this.sceneWingsuit = new Scene();
-    this.sceneWingsuit.name = 'Wingsuit';
+    this.sceneWingsuit.name = 'wingsuit';
 
     this.sceneKayak = new Scene();
-    this.sceneKayak.name = 'Kayak';
+    this.sceneKayak.name = 'kayak';
 
     this.sceneTransi = new Scene();
     this.sceneTransi.name = 'Transition'
@@ -116,11 +120,11 @@ export default class WebGL extends EventEmitter {
     this.renderer = new Renderer()
   }
 
-  initCD() {
+  initSceneHome() {
     this.sceneHome.scene = new SceneHome()
   }
 
-  initCube() {
+  initSceneIntro() {
     this.sceneIntro.scene = new SceneIntro()
   }
 

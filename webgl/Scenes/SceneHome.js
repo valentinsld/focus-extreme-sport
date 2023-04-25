@@ -18,9 +18,6 @@ export default class SceneHome {
     this.assets = this.WebGL.assets
 
     this.init()
-
-    // Need only on home to activate anime and prevent undefined
-    this.startScene()
   }
 
   init() {

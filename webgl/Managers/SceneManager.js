@@ -11,14 +11,20 @@ export default class SceneManager {
 
 		this.webgl = new WebGL()
 
+		this.currentSceneName = 'home'
 		this.scenes = this.webgl.sceneArray
 		this.oldScene = null
 		this.currentScene = this.webgl.currentScene
 	}
 
+	startCurrentScene() {
+		this.setScene(this.currentSceneName)
+	}
+
 	setScene(scene, pauseDelay = .35) {
-		const capitalized = scene.charAt(0).toUpperCase() + scene.slice(1)
-		const newScene = this.scenes.find((scene) => scene.name === capitalized)
+		this.currentSceneName = scene
+		const lowerCase = scene.toLowerCase()
+		const newScene = this.scenes.find((scene) => scene.name === lowerCase)
 		this.oldScene = this.webgl.currentScene
 
 		if(newScene.scene) newScene.scene.startScene()
@@ -31,7 +37,7 @@ export default class SceneManager {
 				this.webgl.currentScene = newScene
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
-				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
+				if(this.oldScene.scene && this.oldScene.name !== this.currentSceneName) this.oldScene.scene.destroyScene()
 			}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay) * 1000)
 
 		}

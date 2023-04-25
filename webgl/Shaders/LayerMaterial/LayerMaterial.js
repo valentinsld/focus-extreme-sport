@@ -4,7 +4,7 @@ import { animate } from 'motion';
 import Sizes from '~~/webgl/Utils/Sizes.js';
 import RAFManager from '~~/webgl/Utils/RAFManager.js';
 
-import layerFrag from './LayerMaterial.frag'
+import layerFrag from './LayerFrag.frag'
 import { bigTriangleVertexShader } from './bigTriangle.js';
 
 export default class LayerMaterial extends RawShaderMaterial {
@@ -17,7 +17,8 @@ export default class LayerMaterial extends RawShaderMaterial {
 		this.transparent = true;
 		this.inProgressValue = this.outProgressValue = 0
 
-		this.duration = 1
+		// Time in seconds
+		this.duration = 1 * .5;
 
 		this.assets = props.assets
 
@@ -25,26 +26,14 @@ export default class LayerMaterial extends RawShaderMaterial {
 			res: {
 				value: new Vector2(),
 			},
-			color1: {
-				value: new Color(0x2A84B0),
-			},
-			color2: {
-				value: new Color(0x16759F),
-			},
-			color3: {
-				value: new Color(0x75B3CE),
-			},
 			noiseTex: {
-				value: this.assets.textures.displacement,
+				value: this.assets.textures.transition1,
 			},
-			inProgress: {
-				value: 0,
+			progress: {
+				value: 0.,
 			},
-			outProgress: {
-				value: 0,
-			},
-			time: {
-				value: 0,
+			threshold : {
+				value: .09,
 			}
 
 		};
@@ -58,12 +47,9 @@ export default class LayerMaterial extends RawShaderMaterial {
 
 	async animationIn() {
 		this?.outProgressTween?.stop();
-		this.uniforms.outProgress.value = 0;
-		this.outProgressValue = 0
 		this?.inProgressTween?.stop();
-		this.uniforms.inProgress.value = 0;
+		this.uniforms.progress.value = 0;
 		this.inProgressValue = 0
-
 
 		this.inProgressTween = animate((progress) => {
 			this.inProgressValue = progress
@@ -75,14 +61,14 @@ export default class LayerMaterial extends RawShaderMaterial {
 	}
 
 	async animationOut() {
-		this.uniforms.outProgress.value = 0;
-		this.outProgressValue = 0
+		this.inProgressValue = 1
 
 		this.outProgressTween = animate((progress) => {
-			this.outProgressValue = progress
+			this.inProgressValue = 1 - progress
 		},
 		{
 			duration: this.duration,
+			easing: ''
 		})
 	}
 
@@ -90,7 +76,6 @@ export default class LayerMaterial extends RawShaderMaterial {
 		this.uniforms.res.value.x = this.size.width * this.size.pixelRatio;
 		this.uniforms.res.value.y = this.size.height * this.size.pixelRatio;
 
-		this.uniforms.inProgress.value = 3.5 * this.inProgressValue;
-		this.uniforms.outProgress.value = 3.5 * this.outProgressValue;
+		this.uniforms.progress.value = this.inProgressValue;
 	}
 }

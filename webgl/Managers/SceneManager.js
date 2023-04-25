@@ -16,7 +16,7 @@ export default class SceneManager {
 		this.currentScene = this.webgl.currentScene
 	}
 
-	setScene(scene) {
+	setScene(scene, pauseDelay = .35) {
 		const capitalized = scene.charAt(0).toUpperCase() + scene.slice(1)
 		const newScene = this.scenes.find((scene) => scene.name === capitalized)
 		this.oldScene = this.webgl.currentScene
@@ -32,7 +32,7 @@ export default class SceneManager {
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
 				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-			}, this.webgl.sceneTransi.scene.container.children[0].material.duration * 700)
+			}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay) * 1000)
 
 		}
 

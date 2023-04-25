@@ -56,6 +56,7 @@ export default class LayerMaterial extends RawShaderMaterial {
 		},
 		{
 			duration: this.duration,
+			easing: '[0.22, 1, 0.36, 1]'
 		})
 
 	}
@@ -68,7 +69,7 @@ export default class LayerMaterial extends RawShaderMaterial {
 		},
 		{
 			duration: this.duration,
-			easing: ''
+			easing: '[0.22, 1, 0.36, 1]'
 		})
 	}
 

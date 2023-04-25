@@ -1,4 +1,4 @@
-import { AxesHelper, Scene} from "three";
+import { Scene} from "three";
 import { Pane } from "tweakpane";
 
 import RAFManager from "./Utils/RAFManager.js";
@@ -64,9 +64,6 @@ export default class WebGL extends EventEmitter {
       this.debug = new Pane();
       this.stats = new Stats(true);
 
-      const axesHelper = new AxesHelper(5);
-      this.currentScene.add(axesHelper);
-
       // add speed
       // this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
 
@@ -112,15 +109,15 @@ export default class WebGL extends EventEmitter {
   }
 
   setCamera() {
-    this.camera = new Camera();
+    this.camera = new Camera()
   }
 
   setRenderer() {
-    this.renderer = new Renderer();
+    this.renderer = new Renderer()
   }
 
   initCD() {
-    this.sceneHome.scene = new SceneHome({ assets: this.assets });
+    this.sceneHome.scene = new SceneHome()
   }
 
   initCube() {

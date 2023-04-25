@@ -97,10 +97,10 @@ const RAFManager = {
 
 		this.speed = lerp(this.speed, this.targetSpeed, LERP)
 
-		this.dt = this.time - this.lastTime;
+		this.dt = (this.time - this.lastTime) * this.speed / 1000;
 		this.elapsedTime = (this.time - this.startTime) / 1000;
 
-		this.currentTime += this.dt * this.speed / 1000;
+		this.currentTime += this.dt;
 
 		for (const name in this.animations) {
 			const aniData = this.animations[name];

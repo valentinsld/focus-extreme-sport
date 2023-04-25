@@ -1,7 +1,7 @@
 bl_info = {
     "name": "FOCUS PLUGINS",
     "author": "Valentin S",
-    "version": (1, 1),
+    "version": (1, 2),
     "blender": (2, 80, 0),
     "location": "RenderProperties",
     "description": "Exporter les splines",
@@ -58,7 +58,9 @@ def main():
                         DATA += ('"zl": %s,' % (handle_left[2]))
                         DATA += ('"xr": %s,' % (handle_right[0]))
                         DATA += ('"yr": %s,' % (handle_right[1]))
-                        DATA += ('"zr": %s' % (handle_right[2]))
+                        DATA += ('"zr": %s,' % (handle_right[2]))
+                        DATA += ('"ro": %s,' % (bezier_point.tilt))
+                        DATA += ('"sp": %s' % (bezier_point.radius))
                         DATA += ("}%s" % ((len(spline.bezier_points)-1==y and ' ' or ',')))
 
             DATA += ']'

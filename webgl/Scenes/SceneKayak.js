@@ -1,4 +1,4 @@
-import { Group, PointLight, AxesHelper } from 'three'
+import { Group, PointLight, AxesHelper, Vector3 } from 'three'
 import WebGL from '../index.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/river.json'
@@ -51,8 +51,7 @@ export default class SceneIntro {
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
     // 2 - add camera to kayak + set position
-    this.kayak.add(this.WebGL.camera.instance)
-    this.WebGL.camera.instance.position.set(0, 0.06, 0)
+    this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
 
     // 3- init animation with percent
     this.percent = 0
@@ -60,6 +59,9 @@ export default class SceneIntro {
       this.percent = (this.percent + dt * 0.03) % 1
       this.WebGL.camera.setTracking(this.percent, this.kayak)
     })
+
+    // 4 - switch to camera 3p
+    this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
   }
 
   destroyScene() {

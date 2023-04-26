@@ -72,7 +72,7 @@ export default class Renderer {
      */
     this.postProcess.renderPass = new RenderPass(
       this.scene,
-      this.camera.instance
+      this.camera.current
     )
 
     /**
@@ -118,12 +118,12 @@ export default class Renderer {
     // if (this.usePostprocess) {
     //   this.postProcess.composer.render()
     // } else {
-    this.instance.render(this.scene, this.camera.instance)
+    this.instance.render(this.scene, this.camera.current)
 
     this.instance.autoClear = false
     this.instance.clearDepth()
 
-    this.instance.render(this.transi, this.camera.instance)
+    this.instance.render(this.transi, this.camera.current)
 
     this.instance.autoClear = true
     // }

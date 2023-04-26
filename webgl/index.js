@@ -10,11 +10,12 @@ import Renderer from "./Renderer.js";
 import Camera from "./Camera.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
-import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import Store from '~~/webgl/Utils/Store.js';
+
 import SceneManager from './Managers/SceneManager.js';
-import SceneIntro from './Scenes/SceneIntro.js';
 import SceneTransi from './Scenes/SceneTransi.js';
+import SceneHome from '~~/webgl/Scenes/SceneHome.js';
+import SceneKayak from './Scenes/SceneKayak.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -51,7 +52,7 @@ export default class WebGL extends EventEmitter {
       this.initTransi();
 
       this.initSceneHome();
-      this.initSceneIntro();
+      this.initSceneKayak();
 
       this.sceneManager.startCurrentScene()
     })
@@ -124,8 +125,8 @@ export default class WebGL extends EventEmitter {
     this.sceneHome.scene = new SceneHome()
   }
 
-  initSceneIntro() {
-    this.sceneIntro.scene = new SceneIntro()
+  initSceneKayak() {
+    this.sceneKayak.scene = new SceneKayak()
   }
 
   initTransi() {

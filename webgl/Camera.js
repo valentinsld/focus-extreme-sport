@@ -23,6 +23,7 @@ export default class Camera {
     this.curveTrack = new CurvePath()
     this.positionLengthPoints = []
     this.curveRotation = new CurvePath()
+    this.rotationCam = 0
     this.curveSpeed = new CurvePath()
     this.tracking = 0
 
@@ -146,7 +147,8 @@ export default class Camera {
 
     // set rotation for camera on curve
     object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
-    object.rotation.z = Math.PI + this.curveRotation.getPointAt(this.tracking).y
+    this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
+    object.rotation.z = Math.PI + this.rotationCam
   }
 
 
@@ -160,6 +162,7 @@ export default class Camera {
 
   update() {
     this.orbitControls.update()
+    this.instance.rotation.z -= this.rotationCam
   }
 
   destroy() {

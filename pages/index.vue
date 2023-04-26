@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 50px;">
+  <div class="gameContainer">
     <Home v-if="store.state.gamestate === 'home'" />
     <GameIntro v-else-if="store.state.gamestate === 'intro'" />
     <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
@@ -86,3 +86,18 @@ const initDebugGameState = () => {
   })
 }
 </script>
+
+<style scoped lang="scss">
+.gameContainer {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 1;
+
+  padding: 50px;
+}
+</style>

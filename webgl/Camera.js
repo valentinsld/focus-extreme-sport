@@ -70,6 +70,7 @@ export default class Camera {
   setCurve(curve, data) {
     curve.curves = []
 
+    // set position first point of position
     this.positionLengthPoints.push(0)
 
     for (let i = 0; i < data.length - 1; i++) {
@@ -83,11 +84,13 @@ export default class Camera {
         new Vector3(p2.x, p2.z, -p2.y),
       ))
 
+      // set position of length for each points
       this.positionLengthPoints.push(curve.getLength())
     }
 
+    // if debug set visual curves
     if (this.debug) {
-      const geometry = new BufferGeometry().setFromPoints( curve.getSpacedPoints(200) );
+      const geometry = new BufferGeometry().setFromPoints( curve.getSpacedPoints(200) )
       var material = new LineBasicMaterial({
         color: 0xff0000
       })
@@ -117,7 +120,7 @@ export default class Camera {
     let lastD2 = 0
     for (let i = 0; i < data.length - 1; i++) {
       const d1 = lastD2;
-      const d2 = this.positionLengthPoints[i+1] / maxLength; // * data[i+1][type];
+      const d2 = this.positionLengthPoints[i+1] / maxLength;
 
       const p1 = lastP2;
       const p2 = lastP2 + (this.positionLengthPoints[i+1] - lastP2) * ((data[i+1][type] - 2) * -1);
@@ -133,11 +136,15 @@ export default class Camera {
   }
 
   setTracking (percent, object = this.instance ) {
+    // get percent of curves with speed
     this.tracking = this.curveSpeed.getPointAt(percent).y
 
+    // set position for camera on curve
     this.curveCam.getPointAt(this.tracking, object.position)
+    // set position for target on curve
     this.curveTrack.getPointAt(this.tracking, this.target)
 
+    // set rotation for camera on curve
     object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
     object.rotation.z = Math.PI + this.curveRotation.getPointAt(this.tracking).y
   }

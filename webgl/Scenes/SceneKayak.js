@@ -47,14 +47,14 @@ export default class SceneIntro {
   startScene() {
     console.log('You start the scene ' + this.scene.name);
 
-    // set curves for tracking camera
+    // 1 - set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
-    // add camera to kayak + set position
+    // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.instance)
     this.WebGL.camera.instance.position.set(0, 0.06, 0)
 
-    // init animation with percent
+    // 3- init animation with percent
     this.percent = 0
     RAFManager.add('sceneIntro', (currentTime, dt) => {
       this.percent = (this.percent + dt * 0.03) % 1

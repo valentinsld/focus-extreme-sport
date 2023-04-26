@@ -61,7 +61,7 @@ export default class SceneIntro {
     })
 
     // 4 - switch to camera 3p
-    this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+    // this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
   }
 
   destroyScene() {

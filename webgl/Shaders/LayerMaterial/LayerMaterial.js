@@ -1,4 +1,4 @@
-import { Color, RawShaderMaterial, Vector2 } from 'three';
+import { RawShaderMaterial, Vector2 } from 'three';
 import { animate } from 'motion';
 
 import Sizes from '~~/webgl/Utils/Sizes.js';

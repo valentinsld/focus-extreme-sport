@@ -10,7 +10,7 @@ bigQuadGeo.setAttribute('position', new BufferAttribute(positions, 2));
 export default class SceneTransi {
 	static singleton
 
-	constructor(_options = {}) {
+	constructor() {
 		if (SceneTransi.singleton) {
 			return SceneTransi.singleton
 		  }

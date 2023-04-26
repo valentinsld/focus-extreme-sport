@@ -45,7 +45,22 @@ export default class Camera {
     this.initCamera('3p')
 
     // Camera debug
-    this.initCamera('debug')
+    if (this.WebGL.debug) {
+      this.initCamera('debug')
+
+      this.debugFolder = this.debug.addFolder({ title: 'Cameras', expanded: false })
+
+      this.debugFolder.addButton({
+        title: 'Use Debug Camera',
+      }).on('click', () => {
+        const pos = new Vector3()
+        this.current.getWorldPosition(pos)
+        const target = (new Vector3()).copy(this.orbitControls.target)
+        this.setCamera('debug', pos, target)
+      })
+
+      this.debugFolder.addSeparator();
+    }
   }
 
   initCamera(name = 'fpv') {
@@ -62,7 +77,7 @@ export default class Camera {
     return this.listCamera[name]
   }
 
-  setCamera(name = 'fpv', position, target) {
+  setCamera(name = 'fpv', position, target = undefined) {
     this.current = this.listCamera[name]
 
     if (position) {
@@ -76,7 +91,7 @@ export default class Camera {
     this.orbitControls.target = target || this.target
     this.orbitControls.update()
 
-    // this.orbitControls.enabled = (name === 'debug')
+    this.orbitControls.enabled = (name === 'debug')
 
     return this.current
   }

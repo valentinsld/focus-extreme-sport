@@ -72,13 +72,15 @@ export default class WebGL extends EventEmitter {
       // add speed
       // this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
 
+      const speedFolder = this.debug.addFolder({ title: 'Speed', expanded: false })
+
       // change State of xp
-      this.debug.addButton({ title: "Slow speed" }).on("click", () => {
+      speedFolder.addButton({ title: "Slow speed" }).on("click", () => {
         Store.targetSpeed = 0.05;
         RAFManager.setSpeed(Store.targetSpeed);
       });
 
-      this.debug.addButton({ title: "Normal Speed" }).on("click", () => {
+      speedFolder.addButton({ title: "Normal Speed" }).on("click", () => {
         Store.targetSpeed = 1;
         RAFManager.setSpeed(Store.targetSpeed);
       });

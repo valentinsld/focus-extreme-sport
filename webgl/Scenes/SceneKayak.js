@@ -36,26 +36,30 @@ export default class SceneIntro {
 
     this.instance.add(...[this.light, this.map, this.kayak])
     this.scene.add(this.instance)
+
+    if(this.WebGL.debug) {
+      // three js add helper lines
+      const axesHelper = new AxesHelper(5)
+      this.instance.add(axesHelper)
+    }
   }
 
   startScene() {
-    //TODO : add function to start the scene (spline, RAFadd, etc..)
     console.log('You start the scene ' + this.scene.name);
 
+    // set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
+    // add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.instance)
     this.WebGL.camera.instance.position.set(0, 0.06, 0)
 
-    let percent = 0
+    // init animation with percent
+    this.percent = 0
     RAFManager.add('sceneIntro', (currentTime, dt) => {
-      percent = (percent + dt * 0.03) % 1
-      this.WebGL.camera.setTracking(percent, this.kayak)
+      this.percent = (this.percent + dt * 0.03) % 1
+      this.WebGL.camera.setTracking(this.percent, this.kayak)
     })
-
-    // three js add helper lines
-    const axesHelper = new AxesHelper(5)
-    this.instance.add(axesHelper)
   }
 
   destroyScene() {

@@ -27,31 +27,67 @@ export default class Camera {
     this.curveSpeed = new CurvePath()
     this.tracking = 0
 
-    this.setInstance()
+    this.current = null
+    this.listCamera = {}
+
+    this.initCameras()
     this.setOrbitControls()
   }
 
-  setInstance() {
-    // Set up
-    this.instance = new PerspectiveCamera(
+  //
+  // Cameras
+  //
+  initCameras() {
+    // Camera FPV
+    this.current = this.initCamera('fpv')
+
+    // Camera 3P
+    this.initCamera('3p')
+
+    // Camera debug
+    this.initCamera('debug')
+  }
+
+  initCamera(name = 'fpv') {
+    this.listCamera[name] = new PerspectiveCamera(
       90,
       this.sizes.width / this.sizes.height,
       0.01,
       20
     )
-    this.instance.rotation.reorder('YXZ')
-    this.instance.position.copy(this.initPosition)
-    this.container = this.instance
-    this.scene.add(this.container)
+    this.listCamera[name].name = name
+    this.listCamera[name].rotation.reorder('YXZ')
+    this.listCamera[name].position.copy(this.initPosition)
+
+    return this.listCamera[name]
+  }
+
+  setCamera(name = 'fpv', position, target) {
+    this.current = this.listCamera[name]
+
+    if (position) {
+      this.current.position.copy(position)
+      this.current.rotation.x = 0
+      this.current.rotation.y = 0
+      this.current.rotation.z = 0
+    }
+
+    this.orbitControls.object = this.current
+    this.orbitControls.target = target || this.target
+    this.orbitControls.update()
+
+    // this.orbitControls.enabled = (name === 'debug')
+
+    return this.current
   }
 
   setOrbitControls() {
-    this.orbitControls = new OrbitControls(this.instance, this.WebGL.canvas)
+    this.orbitControls = new OrbitControls(this.current, this.WebGL.canvas)
     this.orbitControls.enabled = false
-    // this.orbitControls.screenSpacePanning = true
-    // this.orbitControls.enableKeys = false
-    // this.orbitControls.zoomSpeed = 0.25
-    // this.orbitControls.enableDamping = true
+    this.orbitControls.screenSpacePanning = true
+    this.orbitControls.enableKeys = false
+    this.orbitControls.zoomSpeed = 0.25
+    this.orbitControls.enableDamping = true
     this.target = new Vector3()
     this.orbitControls.target = this.target
     this.orbitControls.update()
@@ -136,7 +172,7 @@ export default class Camera {
     }
   }
 
-  setTracking (percent, object = this.instance ) {
+  setTracking (percent, object = this.current) {
     // get percent of curves with speed
     this.tracking = this.curveSpeed.getPointAt(percent).y
 
@@ -156,13 +192,16 @@ export default class Camera {
   // Events
   //
   resize() {
-    this.instance.aspect = this.sizes.ratio
-    this.instance.updateProjectionMatrix()
+    for (const name in this.listCamera) {
+        const cam = this.listCamera[name];
+        cam.aspect = this.sizes.ratio
+        cam.updateProjectionMatrix()
+    }
   }
 
   update() {
     this.orbitControls.update()
-    this.instance.rotation.z -= this.rotationCam
+    this.listCamera.fpv.rotation.z -= this.rotationCam
   }
 
   destroy() {

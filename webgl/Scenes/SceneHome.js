@@ -23,12 +23,6 @@ export default class SceneHome {
   init() {
     this.instance = new Group()
 
-    // this.cube = new THREE.Mesh(
-    //   new THREE.BoxGeometry(1, 1, 1),
-    //   new THREE.MeshPhysicalMaterial({
-    //     color: 0x00dc82,
-    //   })
-    // )
     this.testCD = this.assets.models["cd-02"].scene
 
     this.mesh = new Mesh()

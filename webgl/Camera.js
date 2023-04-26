@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Object3D } from 'three'
+import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, LineCurve, Vector2 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 
@@ -19,6 +19,13 @@ export default class Camera {
       z: 7,
     }
 
+    this.curveCam = new CurvePath()
+    this.curveTrack = new CurvePath()
+    this.positionLengthPoints = []
+    this.curveRotation = new CurvePath()
+    this.curveSpeed = new CurvePath()
+    this.tracking = 0
+
     this.setInstance()
     this.setOrbitControls()
   }
@@ -26,10 +33,10 @@ export default class Camera {
   setInstance() {
     // Set up
     this.instance = new PerspectiveCamera(
-      25,
+      90,
       this.sizes.width / this.sizes.height,
-      0.1,
-      150
+      0.01,
+      20
     )
     this.instance.rotation.reorder('YXZ')
     this.instance.position.copy(this.initPosition)
@@ -39,14 +46,106 @@ export default class Camera {
 
   setOrbitControls() {
     this.orbitControls = new OrbitControls(this.instance, this.WebGL.canvas)
-    this.orbitControls.enabled = Boolean(this.debug)
-    this.orbitControls.screenSpacePanning = true
-    this.orbitControls.enableKeys = false
-    this.orbitControls.zoomSpeed = 0.25
-    this.orbitControls.enableDamping = true
+    this.orbitControls.enabled = false
+    // this.orbitControls.screenSpacePanning = true
+    // this.orbitControls.enableKeys = false
+    // this.orbitControls.zoomSpeed = 0.25
+    // this.orbitControls.enableDamping = true
+    this.target = new Vector3()
+    this.orbitControls.target = this.target
     this.orbitControls.update()
   }
 
+  //
+  // Tracking cam
+  //
+  setCurvesTracking(curveCam, curveTrack) {
+    this.setCurve(this.curveCam, curveCam)
+    this.setCurveRotation(this.curveRotation, curveCam)
+    this.setCurveSpeed(this.curveSpeed, curveCam)
+    this.setCurve(this.curveTrack, curveTrack)
+
+    this.setTracking(0)
+  }
+  setCurve(curve, data) {
+    curve.curves = []
+
+    this.positionLengthPoints.push(0)
+
+    for (let i = 0; i < data.length - 1; i++) {
+      const p1 = data[i];
+      const p2 = data[i+1];
+
+      curve.add(new CubicBezierCurve3(
+        new Vector3(p1.x, p1.z, -p1.y),
+        new Vector3(p1.xr, p1.zr, -p1.yr),
+        new Vector3(p2.xl, p2.zl, -p2.yl),
+        new Vector3(p2.x, p2.z, -p2.y),
+      ))
+
+      this.positionLengthPoints.push(curve.getLength())
+    }
+
+    if (this.debug) {
+      const geometry = new BufferGeometry().setFromPoints( curve.getSpacedPoints(200) );
+      var material = new LineBasicMaterial({
+        color: 0xff0000
+      })
+      const line = new Line(geometry, material)
+
+      this.WebGL.currentScene.add(line)
+    }
+  }
+  setCurveRotation(curve, data, type = "ro") {
+    curve.curves = []
+
+    for (let i = 0; i < data.length - 1; i++) {
+      const p1 = data[i][type];
+      const p2 = data[i+1][type];
+
+      curve.add(new LineCurve(
+        new Vector2(this.positionLengthPoints[i], p1),
+        new Vector2(this.positionLengthPoints[i+1], p2),
+      ))
+    }
+  }
+  setCurveSpeed(curve, data, type = "sp") {
+    curve.curves = []
+
+    const maxLength = this.positionLengthPoints[this.positionLengthPoints.length - 1]
+    let lastP2 = 0
+    let lastD2 = 0
+    for (let i = 0; i < data.length - 1; i++) {
+      const d1 = lastD2;
+      const d2 = this.positionLengthPoints[i+1] / maxLength; // * data[i+1][type];
+
+      const p1 = lastP2;
+      const p2 = lastP2 + (this.positionLengthPoints[i+1] - lastP2) * ((data[i+1][type] - 2) * -1);
+
+      curve.add(new LineCurve(
+        new Vector2(p1, d1),
+        new Vector2(p2, d2),
+      ))
+
+      lastP2 = p2
+      lastD2 = d2
+    }
+  }
+
+  setTracking (percent, object = this.instance ) {
+    this.tracking = this.curveSpeed.getPointAt(percent).y
+
+    this.curveCam.getPointAt(this.tracking, object.position)
+    this.curveTrack.getPointAt(this.tracking, this.target)
+
+    object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
+    object.rotation.z = Math.PI + this.curveRotation.getPointAt(this.tracking).y
+  }
+
+
+  //
+  // Events
+  //
   resize() {
     this.instance.aspect = this.sizes.ratio
     this.instance.updateProjectionMatrix()

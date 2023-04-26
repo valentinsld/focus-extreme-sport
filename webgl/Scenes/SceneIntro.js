@@ -1,7 +1,9 @@
-import { Group, Mesh, BoxGeometry, MeshPhysicalMaterial, PointLight, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, AxesHelper } from 'three'
+import { Group, PointLight, AxesHelper } from 'three'
 import WebGL from '../index.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/river.json'
+import RAFManager from '../Utils/RAFManager.js'
+
 
 export default class SceneIntro {
   static singleton
@@ -23,65 +25,45 @@ export default class SceneIntro {
   init() {
     this.instance = new Group()
 
-    this.cube = new Mesh(
-      new BoxGeometry(0.5, 0.5, 0.5),
-      new MeshPhysicalMaterial({
-        color: 0x00dc82,
-        wireframe: true,
-      })
-    )
-    // this.cube.position.set(-2.1048, 0.999047, -4.93115) // global position
-    this.cube.position.set(-1.942, 0.903, -1 * -5.704) // local  position : x, z, -y
     this.map = this.assets.models["river"].scene
+    this.kayak = new Group()
+    const kayak = this.assets.models["kayak"].scene
+    kayak.scale.set(0.03, 0.03, 0.03)
+    this.kayak.add(kayak)
 
     this.light = new PointLight(0xffffff, 14, 12, 1)
     this.light.position.copy(this.WebGL.camera.initPosition)
 
-    this.instance.add(...[this.light, this.map, this.cube])
+    this.instance.add(...[this.light, this.map, this.kayak])
     this.scene.add(this.instance)
-
-
-    var curves = new CurvePath()
-
-    const curve = TRAC_CAM["KAYAK_CURVE"]
-    for (let i = 0; i < curve.length - 1; i++) {
-      const p1 = curve[i];
-      const p2 = curve[i+1];
-
-      curves.add(new CubicBezierCurve3(
-        new Vector3(p1.x, p1.z, -p1.y),
-        new Vector3(p1.x, p1.z, -p1.y),
-        // new Vector3(p1.xr, p1.yr, p1.zr),
-        // new Vector3(p2.xl, p2.yl, p2.zl),
-        new Vector3(p2.x, p2.z, -p2.y),
-        new Vector3(p2.x, p2.z, -p2.y),
-      ))
-    }
-
-    console.log(TRAC_CAM)
-
-    const geometry = new BufferGeometry().setFromPoints( curves.getSpacedPoints() );
-    var material = new LineBasicMaterial({
-      color: 0xff0000
-    })
-    const line = new Line(geometry, material)
-
-    this.instance.add(line)
-
-    console.log(this.instance)
-
-    // three js add helper lines
-    const axesHelper = new AxesHelper(5);
-    this.instance.add(axesHelper);
   }
 
   startScene() {
     //TODO : add function to start the scene (spline, RAFadd, etc..)
     console.log('You start the scene ' + this.scene.name);
+
+    this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
+
+    this.kayak.add(this.WebGL.camera.instance)
+    this.WebGL.camera.instance.position.set(0, 0.06, 0)
+
+    let percent = 0
+    RAFManager.add('sceneIntro', (currentTime, dt) => {
+      percent = (percent + dt * 0.03) % 1
+      this.WebGL.camera.setTracking(percent, this.kayak)
+    })
+
+
+
+    // three js add helper lines
+    const axesHelper = new AxesHelper(5)
+    this.instance.add(axesHelper)
   }
 
   destroyScene() {
     //TODO : add function to destroy the scene (spline, RAFremove, etc..)
     console.log('You destroy the scene ' + this.scene.name);
+
+    RAFManager.remove('sceneIntro')
   }
 }

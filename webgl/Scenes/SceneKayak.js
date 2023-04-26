@@ -53,8 +53,6 @@ export default class SceneIntro {
       this.WebGL.camera.setTracking(percent, this.kayak)
     })
 
-
-
     // three js add helper lines
     const axesHelper = new AxesHelper(5)
     this.instance.add(axesHelper)

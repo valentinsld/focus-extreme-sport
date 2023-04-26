@@ -16,7 +16,7 @@ export default class SceneIntro {
 
     this.inView = false
     this.WebGL = new WebGL()
-    this.scene = this.WebGL.sceneIntro
+    this.scene = this.WebGL.sceneKayak
     this.assets = this.WebGL.assets
 
     this.init()

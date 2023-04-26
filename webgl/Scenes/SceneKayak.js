@@ -62,6 +62,22 @@ export default class SceneIntro {
 
     // 4 - switch to camera 3p
     // this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+
+    if (this.WebGL.debug) {
+      const cameraDebugFolder = this.WebGL.camera.debugFolder
+
+      this.debugFPV = cameraDebugFolder.addButton({
+        title: 'Switch POV',
+      }).on('click', () => {
+        this.WebGL.camera.setCamera('fpv')
+      })
+
+      this.debug3P = cameraDebugFolder.addButton({
+        title: 'Switch 3P',
+      }).on('click', () => {
+        this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+      })
+    }
   }
 
   destroyScene() {

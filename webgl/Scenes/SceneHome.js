@@ -1,7 +1,8 @@
-import { Group, Mesh, PointLight } from 'three'
+import { Group, Mesh, PointLight, Euler, Quaternion } from 'three'
 import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
+// import InstanciedSpeed from '../Components/Particles/Speed/InstanciedSpeed.js'
 
 export default class SceneHome {
   static singleton
@@ -16,6 +17,7 @@ export default class SceneHome {
     this.WebGL = new WebGL()
     this.scene = this.WebGL.sceneHome
     this.assets = this.WebGL.assets
+    this.camPos = this.WebGL.camera.container.position
 
     this.init()
   }
@@ -33,8 +35,15 @@ export default class SceneHome {
     this.light = new PointLight(0xffffff, 14, 12, 1)
     this.light.position.copy(this.WebGL.camera.initPosition)
 
+    // this.speedLine = new InstanciedSpeed({
+    //   assets: this.assets,
+    //   countAll: 100
+    // })
+
     this.instance.add(...[this.light, this.mesh])
     this.scene.add(this.instance)
+
+    this.WebGL.camera.setSpeedLines()
   }
 
   //
@@ -44,6 +53,7 @@ export default class SceneHome {
     this.mesh.rotation.x = time
     this.mesh.rotation.y = time * 0.8
   }
+
 
   startScene() {
     //TODO : add function to start the scene (spline, RAFadd, etc..)

@@ -1,6 +1,8 @@
 import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, LineCurve, Vector2 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
+import InstanciedSpeedBis from './Components/Particles/Speed/InstanciedSpeedBis.js'
+// import SpeedLine from './Components/Particles/Speed/SpeedLines.js'
 
 export default class Camera {
   constructor() {
@@ -9,6 +11,7 @@ export default class Camera {
     this.debug = this.WebGL.debug
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
+    this.assets = this.WebGL.assets
 
     this.container = new Object3D()
     this.container.name = "CameraContainer"
@@ -206,6 +209,18 @@ export default class Camera {
   //
   // Events
   //
+  setSpeedLines() {
+    this.speedLine = new InstanciedSpeedBis({
+      assets: this.assets,
+      camera: this.container,
+      debug: this.debug
+    })
+
+    this.speedLine.container.position.z = -.5
+
+    this.container.add(this.speedLine.container)
+  }
+
   resize() {
     for (const name in this.listCamera) {
         const cam = this.listCamera[name];
@@ -216,7 +231,12 @@ export default class Camera {
 
   update() {
     this.orbitControls.update()
+<<<<<<< HEAD
     this.listCamera.fpv.rotation.z -= this.rotationCam
+=======
+
+    if(this.speedLine) this.speedLine.updateParticles()
+>>>>>>> 2f25633 (:sparkles: SpeedLine - Add speedLine + animation)
   }
 
   destroy() {

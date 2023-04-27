@@ -114,6 +114,7 @@ export default class Camera {
   // Tracking cam
   //
   setCurvesTracking(curveCam, curveTrack) {
+    this.positionLengthPoints = []
     this.setCurve(this.curveCam, curveCam)
     this.setCurveRotation(this.curveRotation, curveCam)
     this.setCurveSpeed(this.curveSpeed, curveCam)

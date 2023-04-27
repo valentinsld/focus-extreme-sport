@@ -53,6 +53,7 @@ export default class SceneKayak extends BaseScene {
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
 
     // 3- init animation with percent
+    this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.timelineValue = (this.timelineValue + dt * 0.03) % 1
       this.WebGL.camera.setTracking(this.timelineValue, this.kayak)

@@ -16,6 +16,7 @@ import Store from '~~/webgl/Utils/Store.js';
 import SceneManager from './Managers/SceneManager.js';
 import SceneTransi from './Scenes/SceneTransi.js';
 import SceneHome from '~~/webgl/Scenes/SceneHome.js';
+import SceneWingsuit from './Scenes/SceneWingsuit.js';
 import SceneKayak from './Scenes/SceneKayak.js';
 
 // import FontAtlas from '~~/assets/MSDFfonts/ChivoMono-Black.png'
@@ -51,12 +52,13 @@ export default class WebGL extends EventEmitter {
 
     this.assets.on('ressourcesReady', () => {
       this.ressourcesReady = true
-      this.trigger("endLoading");
+      this.trigger("endLoading")
 
-      this.initTransi();
+      this.initTransi()
 
-      this.initSceneHome();
-      this.initSceneKayak();
+      this.initSceneHome()
+      this.initSceneWingsuit()
+      this.initSceneKayak()
 
       // this.initTestText()
 
@@ -136,6 +138,10 @@ export default class WebGL extends EventEmitter {
 
   initSceneHome() {
     this.sceneHome.scene = new SceneHome()
+  }
+
+  initSceneWingsuit() {
+    this.sceneWingsuit.scene = new SceneWingsuit()
   }
 
   initSceneKayak() {

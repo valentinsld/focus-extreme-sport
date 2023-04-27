@@ -231,12 +231,9 @@ export default class Camera {
 
   update() {
     this.orbitControls.update()
-<<<<<<< HEAD
     this.listCamera.fpv.rotation.z -= this.rotationCam
-=======
 
     if(this.speedLine) this.speedLine.updateParticles()
->>>>>>> 2f25633 (:sparkles: SpeedLine - Add speedLine + animation)
   }
 
   destroy() {

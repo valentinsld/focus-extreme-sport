@@ -1,19 +1,16 @@
 import { Group, Mesh, PointLight } from 'three'
+import BaseScene from './BaseScene.js'
 
-import WebGL from '../index.js'
-// import InstanciedSpeed from '../Components/Particles/Speed/InstanciedSpeed.js'
-
-export default class SceneHome {
+export default class SceneHome extends BaseScene {
   static singleton
 
   constructor() {
     if (SceneHome.singleton) {
       return SceneHome.singleton
     }
+    super() // must be before this
     SceneHome.singleton = this
 
-    this.inView = false
-    this.WebGL = new WebGL()
     this.scene = this.WebGL.sceneHome
     this.assets = this.WebGL.assets
     this.camPos = this.WebGL.camera.container.position

@@ -5,14 +5,14 @@ import TRAC_CAM from '@/assets/modelsCurves/river.json'
 import RAFManager from '../Utils/RAFManager.js'
 
 
-export default class SceneIntro {
+export default class SceneKayak {
   static singleton
 
   constructor() {
-    if (SceneIntro.singleton) {
-      return SceneIntro.singleton
+    if (SceneKayak.singleton) {
+      return SceneKayak.singleton
     }
-    SceneIntro.singleton = this
+    SceneKayak.singleton = this
 
     this.inView = false
     this.WebGL = new WebGL()
@@ -57,7 +57,7 @@ export default class SceneIntro {
 
     // 3- init animation with percent
     this.percent = 0
-    RAFManager.add('sceneIntro', (currentTime, dt) => {
+    RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.percent = (this.percent + dt * 0.03) % 1
       this.WebGL.camera.setTracking(this.percent, this.kayak)
     })
@@ -86,6 +86,6 @@ export default class SceneIntro {
     //TODO : add function to destroy the scene (spline, RAFremove, etc..)
     console.log('You destroy the scene ' + this.scene.name);
 
-    RAFManager.remove('sceneIntro')
+    RAFManager.remove('SceneKayak')
   }
 }

@@ -19,7 +19,7 @@ export default class SceneTransi {
 		this.WebGL = new WebGL()
 		this.scene = this.WebGL.sceneTransi
 
-		this.options = _options
+		// this.options = _options
 
 		this.container = new Object3D
 		this.container.name = "Transition container"

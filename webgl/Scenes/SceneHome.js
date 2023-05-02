@@ -42,8 +42,6 @@ export default class SceneHome {
 
     this.instance.add(...[this.light, this.mesh])
     this.scene.add(this.instance)
-
-    this.WebGL.camera.setSpeedLines()
   }
 
   //

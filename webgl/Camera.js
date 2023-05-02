@@ -210,15 +210,16 @@ export default class Camera {
   // Events
   //
   setSpeedLines() {
+    console.log('set speedlines');
     this.speedLine = new InstanciedSpeedBis({
       assets: this.assets,
       camera: this.container,
       debug: this.debug
     })
 
-    this.speedLine.container.position.z = -.5
+    this.speedLine.container.position.z = -.05
 
-    this.container.add(this.speedLine.container)
+    this.listCamera['fpv'].add(this.speedLine.container)
   }
 
   resize() {

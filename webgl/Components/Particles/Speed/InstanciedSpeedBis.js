@@ -65,10 +65,6 @@ export default class InstanciedSpeedBis {
 
 
 		 for (let i = 0; i < this.speedLineParams.count; i++) {
-			if(i === 0) {
-
-				console.log(this.speedLineParams.count)
-			}
 			const targetScale =  Math.sin(this.count * (this.properties[i].speed * this.speedLineParams.speedMultiplier)) + (this.properties[i].speed / 15 + 1)
 
 			// console.log(this.properties[i]);
@@ -86,8 +82,8 @@ export default class InstanciedSpeedBis {
 		const screenSize = new Sizes()
 
 		for (let i = 0; i < this.speedLineParams.count; i++) {
-			const ang = MathUtils.randFloat(0, Math.PI * 4);
-			const scaleXRand = MathUtils.randFloat(1 * this.speedLineParams.scaleMultiplier, 3 * this.speedLineParams.scaleMultiplier)
+			const ang = MathUtils.randFloat(0, Math.PI * 2);
+			const scaleXRand = MathUtils.randFloat(.05 * this.speedLineParams.scaleMultiplier, 1 * this.speedLineParams.scaleMultiplier)
 			const scaleYRand = MathUtils.randFloat(.0005, .005)
 			const radius = 0.29;
 			const ratio = screenSize.ratio;

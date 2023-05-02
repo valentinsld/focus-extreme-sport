@@ -37,6 +37,8 @@ export default class SceneIntro {
     this.instance.add(...[this.light, this.map, this.kayak])
     this.scene.add(this.instance)
 
+    this.WebGL.camera.setSpeedLines()
+
     if(this.WebGL.debug) {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)

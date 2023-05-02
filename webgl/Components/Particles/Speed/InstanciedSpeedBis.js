@@ -1,4 +1,4 @@
-import { Object3D, PlaneGeometry, MeshBasicMaterial, InstancedMesh, Matrix4, Vector3, DoubleSide, MathUtils, AdditiveBlending, DynamicDrawUsage } from 'three';
+import { Object3D, BoxGeometry, MeshBasicMaterial, MeshNormalMaterial, InstancedMesh, Matrix4, Vector3, Vector2, DoubleSide, MathUtils, AdditiveBlending, DynamicDrawUsage } from 'three';
 import Sizes from '~~/webgl/Utils/Sizes';
 
 export default class InstanciedSpeedBis {
@@ -12,8 +12,8 @@ export default class InstanciedSpeedBis {
 
 
 		this.speedLineParams = {
-			count: 150,
-			speedMultiplier: 4,
+			count: 20,
+			speedMultiplier: 1,
 			scaleMultiplier: 1
 		  }
 
@@ -24,22 +24,25 @@ export default class InstanciedSpeedBis {
 		this.dummy = new Object3D()
 		this.count = 0;
 		this.properties = []
+		this.ages = new Float32Array(this.speedLineParams.count)
 
 		this.init()
 		if(this.debug) this.initDebug()
 	}
 
 	init() {
-		this.geo = new PlaneGeometry(.5,.5)
+		this.geo = new BoxGeometry(.5,.5,.5)
 
 		this.mat = new MeshBasicMaterial({
-			// color: 0xff0000,
-			transparent: true,
+			color: 0xffffff,
+			// transparent: true,
 			side: DoubleSide,
-			map: this.assets.textures.speedline,
-			blending: AdditiveBlending,
+			// map: this.assets.textures.speedline,
+			// blending: AdditiveBlending,
 			depthTest: false,
 		})
+
+		// this.mat = new MeshNormalMaterial()
 
 		this.instancedThem(this.geo, this.mat, this.speedLineParams.count)
 
@@ -59,20 +62,28 @@ export default class InstanciedSpeedBis {
 		this.container.add(this.mesh)
 	}
 
-	updateParticles() {
-
-	 	this.count += 0.01
-
+	updateParticles(time) {
 
 		 for (let i = 0; i < this.speedLineParams.count; i++) {
-			const targetScale =  Math.sin(this.count * (this.properties[i].speed * this.speedLineParams.speedMultiplier)) + (this.properties[i].speed / 15 + 1)
-
-			// console.log(this.properties[i]);
+			this.ages[ i ] += (0.05 * (this.properties[i].speed * this.speedLineParams.speedMultiplier));
+			// this.ages[ i ] = ((time * 0.01) * (this.properties[i].speed * this.speedLineParams.speedMultiplier));
+			// this.ages[ i ] = time ;
 
 			this.dummy.matrix.copy(this.properties[i].mat)
-			this.dummy.matrix.scale(new Vector3( targetScale ,1, 1))
+
+			// this.dummy.matrix.scale(new Vector3( this.properties[i].scale.x + (this.ages[i] * 0.1) ,1, 1))
 
 			this.mesh.setMatrixAt(i, this.dummy.matrix)
+			this.dummy.matrix.setPosition( this.properties[i].pos.x, this.properties[i].pos.y, this.properties[i].pos.z + this.ages[i])
+
+			this.mesh.setMatrixAt(i, this.dummy.matrix)
+
+			if ( this.ages[ i ] >= 10 ) {
+
+				this.ages[ i ] = -1;
+				// return;
+
+			}
 		}
 
 		this.mesh.instanceMatrix.needsUpdate = true;
@@ -83,16 +94,20 @@ export default class InstanciedSpeedBis {
 
 		for (let i = 0; i < this.speedLineParams.count; i++) {
 			const ang = MathUtils.randFloat(0, Math.PI * 2);
-			const scaleXRand = MathUtils.randFloat(.05 * this.speedLineParams.scaleMultiplier, 1 * this.speedLineParams.scaleMultiplier)
-			const scaleYRand = MathUtils.randFloat(.0005, .005)
+			const scaleXRand = MathUtils.randFloat(.5 , 2)
+			const scaleYRand = MathUtils.randFloat(.001, .01)
+			const scaleZRand = MathUtils.randFloat(.001, .01)
 			const radius = 0.29;
 			const ratio = screenSize.ratio;
-			const x = Math.cos(ang) * radius * ratio;
-			const y = Math.sin(ang) * radius;
+			// const x = Math.cos(ang) * radius * ratio;
+			// const y = Math.sin(ang) * radius;
+
+			const x = MathUtils.randFloat(-5, 5)
+			const y = MathUtils.randFloat(-5, 5)
 
 			this.dummy.position.x = x;
 			this.dummy.position.y = y;
-			this.dummy.position.z = 0;
+			this.dummy.position.z = -10;
 
 			this.dummy.rotation.y = Math.PI/2 + ang;
 			this.dummy.rotation.x = Math.PI /2
@@ -102,7 +117,7 @@ export default class InstanciedSpeedBis {
 
 			this.dummy.scale.x = scaleXRand;
 			this.dummy.scale.y = scaleYRand;
-			this.dummy.scale.z = 1;
+			this.dummy.scale.z = scaleZRand;
 
 			this.dummy.updateMatrix()
 
@@ -110,7 +125,20 @@ export default class InstanciedSpeedBis {
 
 			newMat4.copy(this.dummy.matrix)
 
-			this.properties.push({mat: newMat4, speed: MathUtils.randFloat(2, 5)})
+			this.properties.push({
+				mat: newMat4,
+				speed: MathUtils.randFloat(1, 10),
+				pos: new Vector3(
+					this.dummy.position.x,
+					this.dummy.position.y,
+					this.dummy.position.z
+				),
+				scale: new Vector3(
+					this.dummy.scale.x,
+					this.dummy.scale.y,
+					this.dummy.scale.z
+				)
+				})
 
 
 			this.mesh.setMatrixAt( i, this.dummy.matrix );
@@ -120,6 +148,7 @@ export default class InstanciedSpeedBis {
 
 	setNumberOfLine(newCount) {
 		this.container.remove(this.mesh)
+		this.ages = new Float32Array(this.speedLineParams.count)
 		this.speedLineParams.count = newCount
 		this.init()
 	}

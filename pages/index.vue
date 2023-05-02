@@ -96,7 +96,7 @@ const initDebugGameState = () => {
   right: 0;
   bottom: 0;
 
-  z-index: 1;
+  // z-index: 1;
 
   padding: 50px;
 }

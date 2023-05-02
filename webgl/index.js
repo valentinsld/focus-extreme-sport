@@ -135,10 +135,10 @@ export default class WebGL extends EventEmitter {
     this.sceneTransi.scene = new SceneTransi()
   }
 
-  update() {
+  update(time) {
     if (this.stats) this.stats.update();
 
-    this.camera.update();
+    this.camera.update(time);
 
     this.renderer.update();
   }

@@ -230,11 +230,11 @@ export default class Camera {
     }
   }
 
-  update() {
+  update(time) {
     this.orbitControls.update()
     this.listCamera.fpv.rotation.z -= this.rotationCam
 
-    if(this.speedLine) this.speedLine.updateParticles()
+    if(this.speedLine) this.speedLine.updateParticles(time)
   }
 
   destroy() {

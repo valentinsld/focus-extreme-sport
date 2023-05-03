@@ -88,19 +88,20 @@ export default class InstanciedSpeedBis {
 	setInstancedMeshProperties() {
 		const screenSize = new Sizes()
 		const alphas = []
+		const maxAlphas = []
 
 		for (let i = 0; i < this.speedLineParams.count; i++) {
 			const ang = MathUtils.randFloat(0, Math.PI * 2);
 			const scaleXRand = MathUtils.randFloat(.5 , 2)
 			const scaleYRand = MathUtils.randFloat(.001, .01)
 			const scaleZRand = MathUtils.randFloat(.001, .01)
-			const radius = 0.29;
+			const radius = MathUtils.randFloat(2, 4);
 			const ratio = screenSize.ratio;
-			// const x = Math.cos(ang) * radius * ratio;
-			// const y = Math.sin(ang) * radius;
+			const x = Math.cos(ang) * radius * ratio;
+			const y = Math.sin(ang) * radius;
 
-			const x = MathUtils.randFloat(-5, 5)
-			const y = MathUtils.randFloat(-5, 5)
+			// const x = MathUtils.randFloat(-5, 5)
+			// const y = MathUtils.randFloat(-5, 5)
 
 			this.dummy.position.x = x;
 			this.dummy.position.y = y;
@@ -138,11 +139,13 @@ export default class InstanciedSpeedBis {
 				})
 
 			alphas.push(0)
+			maxAlphas.push(MathUtils.randFloat(.3, 1))
 
 			this.mesh.setMatrixAt( i, this.dummy.matrix );
 		}
 
 		this.mesh.geometry.setAttribute('aAlpha', new InstancedBufferAttribute(new Float32Array(alphas), 1))
+		this.mesh.geometry.setAttribute('aMaxAlpha', new InstancedBufferAttribute(new Float32Array(maxAlphas), 1))
 		this.mesh.instanceMatrix.needsUpdate = true;
 	}
 

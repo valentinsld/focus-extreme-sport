@@ -1,7 +1,14 @@
-varying vec2 vUv;
-varying float vProgress;
+attribute vec3 position;
+attribute mat4 instanceMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+
+attribute float aAlpha;
+varying float vAlpha;
 
 void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    vAlpha = aAlpha;
+
+    gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4( position, 1.0 );
 }

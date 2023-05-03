@@ -1,5 +1,8 @@
-import { Object3D, BoxGeometry, MeshBasicMaterial, MeshNormalMaterial, InstancedMesh, Matrix4, Vector3, Vector2, DoubleSide, MathUtils, AdditiveBlending, DynamicDrawUsage } from 'three';
+import { Object3D, BoxGeometry, RawShaderMaterial, InstancedBufferAttribute, InstancedMesh, Matrix4, Vector3, MathUtils, DynamicDrawUsage } from 'three';
 import Sizes from '~~/webgl/Utils/Sizes';
+
+import speedLineV from '../../../Shaders/Particles/SpeedLine/speedLineV.vert'
+import speedLineF from '../../../Shaders/Particles/SpeedLine/speedLineF.frag'
 
 export default class InstanciedSpeedBis {
 	constructor(options) {
@@ -12,7 +15,7 @@ export default class InstanciedSpeedBis {
 
 
 		this.speedLineParams = {
-			count: 20,
+			count: 100,
 			speedMultiplier: 1,
 			scaleMultiplier: 1
 		  }
@@ -33,16 +36,12 @@ export default class InstanciedSpeedBis {
 	init() {
 		this.geo = new BoxGeometry(.5,.5,.5)
 
-		this.mat = new MeshBasicMaterial({
-			color: 0xffffff,
-			// transparent: true,
-			side: DoubleSide,
-			// map: this.assets.textures.speedline,
-			// blending: AdditiveBlending,
+		this.mat = new RawShaderMaterial({
+			vertexShader: speedLineV,
+			fragmentShader: speedLineF,
+			transparent: true,
 			depthTest: false,
 		})
-
-		// this.mat = new MeshNormalMaterial()
 
 		this.instancedThem(this.geo, this.mat, this.speedLineParams.count)
 
@@ -62,35 +61,33 @@ export default class InstanciedSpeedBis {
 		this.container.add(this.mesh)
 	}
 
-	updateParticles(time) {
+	updateParticles() {
 
 		 for (let i = 0; i < this.speedLineParams.count; i++) {
 			this.ages[ i ] += (0.05 * (this.properties[i].speed * this.speedLineParams.speedMultiplier));
-			// this.ages[ i ] = ((time * 0.01) * (this.properties[i].speed * this.speedLineParams.speedMultiplier));
-			// this.ages[ i ] = time ;
 
 			this.dummy.matrix.copy(this.properties[i].mat)
-
-			// this.dummy.matrix.scale(new Vector3( this.properties[i].scale.x + (this.ages[i] * 0.1) ,1, 1))
 
 			this.mesh.setMatrixAt(i, this.dummy.matrix)
 			this.dummy.matrix.setPosition( this.properties[i].pos.x, this.properties[i].pos.y, this.properties[i].pos.z + this.ages[i])
 
 			this.mesh.setMatrixAt(i, this.dummy.matrix)
 
-			if ( this.ages[ i ] >= 10 ) {
+			this.mesh.geometry.attributes.aAlpha.setX(i, MathUtils.smoothstep((this.ages[i] / 15), .1, .8))
 
-				this.ages[ i ] = -1;
-				// return;
+			if ( this.ages[ i ] >= 50 ) {
+				this.ages[ i ] = 0;
 
 			}
 		}
+		this.mesh.geometry.attributes.aAlpha.needsUpdate = true
 
 		this.mesh.instanceMatrix.needsUpdate = true;
 	}
 
 	setInstancedMeshProperties() {
 		const screenSize = new Sizes()
+		const alphas = []
 
 		for (let i = 0; i < this.speedLineParams.count; i++) {
 			const ang = MathUtils.randFloat(0, Math.PI * 2);
@@ -140,9 +137,12 @@ export default class InstanciedSpeedBis {
 				)
 				})
 
+			alphas.push(0)
 
 			this.mesh.setMatrixAt( i, this.dummy.matrix );
 		}
+
+		this.mesh.geometry.setAttribute('aAlpha', new InstancedBufferAttribute(new Float32Array(alphas), 1))
 		this.mesh.instanceMatrix.needsUpdate = true;
 	}
 

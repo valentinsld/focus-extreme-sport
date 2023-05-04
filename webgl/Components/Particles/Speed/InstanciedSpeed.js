@@ -1,115 +1,196 @@
-import { Object3D, BoxGeometry, RawShaderMaterial, InstancedBufferGeometry, AdditiveBlending, Mesh, InstancedInterleavedBuffer, InterleavedBufferAttribute, DoubleSide } from 'three';
+import { Object3D, BoxGeometry, ConeGeometry, RawShaderMaterial, InstancedBufferAttribute, InstancedMesh, Matrix4, Vector3, MathUtils, DynamicDrawUsage } from 'three';
+import Sizes from '~~/webgl/Utils/Sizes';
 
-import SpeedLine from './SpeedLines';
+import speedLineV from '../../../Shaders/Particles/SpeedLine/speedLineV.vert'
 import speedLineF from '../../../Shaders/Particles/SpeedLine/speedLineF.frag'
-import speedLineV from '../../../shaders/Particles/SpeedLine/speedlineV.vert'
 
 export default class InstanciedSpeed {
 	constructor(options) {
 
 		// Call all options
 		this.assets = options.assets;
-		this.countAll = options.countAll;
+		// this.countAll = options.countAll;
+		this.camera = options.camera
+		this.debug = options.debug
 
-		// this.params = {
-		// 	gravity: 0.025,
-		// 	showedCount: 125,
-		// 	floatAmplitude: 1,
-		// 	floatFreq: 0.1,
-		// 	strengthPropY: 3.5,
-		// 	strengthPropX: 6,
-		// 	strengthPropZ: 6,
-		// 	spreadY: 0.95,
-		// 	spreadX: 0.99,
-		// 	spreadZ: 0.99,
-		// 	speedRot: 0.001,
-		// 	minScaleNorm: 0.2,
-		// 	maxScaleNorm: 1.2,
-		// };
+
+		this.speedLineParams = {
+			count: 100,
+			speedMultiplier: 3,
+			scaleMultiplier: 1
+		  }
 
 		// Set up
 		this.container = new Object3D();
 		this.container.name = 'Particle';
 
-		this.usedParticles = []
+		this.dummy = new Object3D()
+		this.count = 0;
+		this.properties = []
+		this.ages = new Float32Array(this.speedLineParams.count)
 
-		this.instancedParticle();
+		this.init()
+		if(this.debug) this.initDebug()
 	}
 
-	instancedParticle() {
-		this.planeGeo = new BoxGeometry(1, 1, 1);
-
-		// this.mat = new MeshBasicMaterial({
-		// 	transparent: true,
-		// 	// map: this.assets.textures.speedline,
-		// 	// blending: AdditiveBlending,
-		// 	color: 0xffffff,
-		// 	side: DoubleSide
-		// })
+	init() {
+		// this.geo = new BoxGeometry(.5,.5,.5)
+		this.geo = new ConeGeometry(.005, 1, 32)
 
 		this.mat = new RawShaderMaterial({
 			vertexShader: speedLineV,
 			fragmentShader: speedLineF,
-			side: DoubleSide
+			transparent: true,
+			depthTest: false,
 		})
 
-		this.geo = new InstancedBufferGeometry();
-		this.geo.index = this.planeGeo.index;
-		this.geo.attributes.scale = this.planeGeo.attributes.scale;
+		this.instancedThem(this.geo, this.mat, this.speedLineParams.count)
 
-		this.initAttributes();
-
-		// Create all particles
-		for (let i = 0; i < this.countAll; i++) {
-			// Call the class Particle.js
-			const particle = new SpeedLine({
-				count: this.countAll,
-				size: 1,
-				speed: .5
-			});
-
-			particle.index = i
-
-			// Set attributes for instancedBufferGeometry
-			this.buffer[ i * this.stride + 0 ] = particle.scale.x;
-			this.buffer[ i * this.stride + 1 ] = particle.scale.y;
-			this.buffer[ i * this.stride + 2 ] = particle.scale.z;
-
-			this.usedParticles.push(particle)
-		}
-
-		console.log(this.geo);
-		this.meshParticle = new Mesh(this.geo, this.mat);
-		// this.meshParticle.frustumCulled = false;
-		console.log(this.meshParticle);
-		this.container.add(this.meshParticle);
-		this.container.position.set(0,0,0)
+		this.container.add(this.mesh)
 	}
 
-	// Initialize attributes for preparing them into the shader.vert
-	initAttributes() {
-		// Adding number of transformation for each attribute
-		// 3 scale
-		this.stride = 3;
-		this.buffer = new Float32Array(this.countAll * this.stride);
-		this.interleavedBuffer = new InstancedInterleavedBuffer(this.buffer, this.stride);
-		this.geo.setAttribute('scale', new InterleavedBufferAttribute(this.interleavedBuffer, 3, 0, false));
-		this.interleavedBuffer.needsUpdate = true;
+	instancedThem(geometry, material, count) {
+		if(this.container.mesh) this.container.remove(this.mesh)
+
+		this.mesh = new InstancedMesh(geometry, material, count)
+
+		this.setInstancedMeshProperties()
+
+		this.mesh.instanceMatrix.setUsage(DynamicDrawUsage)
+		this.mesh.instanceMatrix.needsUpdate = true
+
+		this.container.add(this.mesh)
 	}
 
-	update(time) {
-		for (let i = this.usedParticles.length - 1; i >= 0; i--) {
-			const element = this.usedParticles[ i ];
+	updateParticles(dt) {
 
-			// console.log(element);
-			// Update attributes
-			this.buffer[ i * this.stride + 0 ] = 1;
-			this.buffer[ i * this.stride + 1 ] = 1;
-			this.buffer[ i * this.stride + 2 ] = 1;
-			element.update(time);
+		 for (let i = 0; i < this.speedLineParams.count; i++) {
+			this.ages[ i ] += ((dt * this.speedLineParams.speedMultiplier) * (this.properties[i].speed));
+
+			this.dummy.matrix.copy(this.properties[i].mat)
+
+			this.mesh.setMatrixAt(i, this.dummy.matrix)
+			this.dummy.matrix.setPosition( this.properties[i].pos.x, this.properties[i].pos.y, this.properties[i].pos.z + this.ages[i])
+
+			this.mesh.setMatrixAt(i, this.dummy.matrix)
+
+			this.mesh.geometry.attributes.aAlpha.setX(i, MathUtils.smoothstep((this.ages[i] / 10), 0, .8))
+
+			if ( this.ages[ i ] >= 50 ) {
+				this.ages[ i ] = 0;
+
+			}
+		}
+		this.mesh.geometry.attributes.aAlpha.needsUpdate = true
+
+		this.container.rotation.set(-this.camera.rotation.x , 0, -this.camera.rotation.z)
+
+		this.mesh.instanceMatrix.needsUpdate = true;
+	}
+
+	setInstancedMeshProperties() {
+		const screenSize = new Sizes()
+		const alphas = []
+		const maxAlphas = []
+
+		for (let i = 0; i < this.speedLineParams.count; i++) {
+			const ang = MathUtils.randFloat(0, Math.PI * 2);
+			const scaleXRand = MathUtils.randFloat(.1 , 2)
+			// const scaleYRand = MathUtils.randFloat(.001, .02)
+			const scaleYRand = MathUtils.randFloat(.5, 2)
+			const scaleZRand = MathUtils.randFloat(.001, .02)
+			const radius = MathUtils.randFloat(1, 4);
+			const ratio = screenSize.ratio;
+			const x = Math.cos(ang) * radius * ratio;
+			const y = Math.sin(ang) * radius;
+
+			// const x = MathUtils.randFloat(-5, 5)
+			// const y = MathUtils.randFloat(-5, 5)
+
+			this.dummy.position.x = x;
+			this.dummy.position.y = y;
+			this.dummy.position.z = -10;
+
+			// this.dummy.rotation.y = Math.PI/2 + ang;
+			// this.dummy.rotation.x = Math.PI /2
+			this.dummy.rotation.x = -Math.PI /2
+			// this.dummy.rotation.z = Math.PI/2
+
+			this.dummy.quaternion.setFromEuler( this.dummy.rotation );
+
+			// this.dummy.scale.x = scaleXRand;
+			this.dummy.scale.y = scaleYRand;
+			// this.dummy.scale.z = scaleZRand;
+
+			this.dummy.updateMatrix()
+
+			const newMat4 = new Matrix4()
+
+			newMat4.copy(this.dummy.matrix)
+
+			this.properties.push({
+				mat: newMat4,
+				speed: MathUtils.randFloat(5, 10),
+				pos: new Vector3(
+					this.dummy.position.x,
+					this.dummy.position.y,
+					this.dummy.position.z
+				),
+				scale: new Vector3(
+					this.dummy.scale.x,
+					this.dummy.scale.y,
+					this.dummy.scale.z
+				)
+				})
+
+			alphas.push(0)
+			maxAlphas.push(MathUtils.randFloat(.25, .8))
+
+			this.mesh.setMatrixAt( i, this.dummy.matrix );
 		}
 
-		this.interleavedBuffer.needsUpdate = true;
-		// this.meshParticle.geometry.instanceCount = count;
+		this.mesh.geometry.setAttribute('aAlpha', new InstancedBufferAttribute(new Float32Array(alphas), 1))
+		this.mesh.geometry.setAttribute('aMaxAlpha', new InstancedBufferAttribute(new Float32Array(maxAlphas), 1))
+		this.mesh.instanceMatrix.needsUpdate = true;
+	}
+
+	setNumberOfLine(newCount) {
+		this.container.remove(this.mesh)
+		this.ages = new Float32Array(this.speedLineParams.count)
+		this.speedLineParams.count = newCount
+		this.init()
+	}
+
+	setSpeed(newSpeed) {
+		this.speedLineParams.speedMultiplier = newSpeed
+	}
+
+	hideLines() {
+		this.mesh.visible = false
+	}
+
+	showLines() {
+		this.mesh.visible = true
+	}
+
+	initDebug() {
+		// console.log(this.debug);
+		this.debugFolder = this.debug.addFolder({ title: 'speedLine' })
+
+		this.debugFolder.addInput(this.speedLineParams, 'speedMultiplier').on('change', (e)=> {
+			this.setSpeed(e.value)
+    	})
+
+		this.debugFolder.addInput(this.speedLineParams, 'count').on('change', (e)=> {
+			this.setNumberOfLine(e.value)
+		})
+
+		this.debugFolder.addButton({ title: "Hide speedLines" }).on("click", () => {
+			this.hideLines()
+		  });
+
+		  this.debugFolder.addButton({ title: "Show speedLines" }).on("click", () => {
+			this.showLines()
+		  });
 	}
 }

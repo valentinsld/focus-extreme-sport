@@ -57,7 +57,12 @@ export default class WebGL extends EventEmitter {
       this.sceneManager.startCurrentScene()
     })
 
-    RAFManager.add("webgl", this.update.bind(this));
+    RAFManager.add("webgl",(currentTime, dt) => {
+      this.update.bind(this)
+      this.camera.update(dt);
+
+      this.renderer.update();
+    });
 
     this.started = true;
 
@@ -135,12 +140,8 @@ export default class WebGL extends EventEmitter {
     this.sceneTransi.scene = new SceneTransi()
   }
 
-  update(time) {
+  update() {
     if (this.stats) this.stats.update();
-
-    this.camera.update(time);
-
-    this.renderer.update();
   }
 
   resize() {

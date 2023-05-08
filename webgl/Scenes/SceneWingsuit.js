@@ -1,4 +1,4 @@
-import { Group, PointLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide } from 'three'
+import { Group, PointLight, AmbientLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide } from 'three'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
@@ -39,8 +39,11 @@ export default class SceneWingsuit extends BaseScene {
     // const character = this.assets.models["wingsuit_character"].scene
     // this.character.add(character)
 
-    this.light = new PointLight(0xffffff)
-    this.character.add(this.light)
+    // TODO remove
+    this.light = new PointLight(0xffffff, 14, 12, 1)
+    this.light.position.set(0, 10, 0)
+    this.ambientLight = new AmbientLight(0xffffff, 0.1)
+    this.scene.add(this.light, this.ambientLight)
 
     this.instance.add(...[this.map, this.character])
     this.scene.add(this.instance)

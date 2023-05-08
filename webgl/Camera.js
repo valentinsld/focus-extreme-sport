@@ -161,13 +161,61 @@ export default class Camera {
   setCurveRotation(curve, data, type = "ro") {
     curve.curves = []
 
-    for (let i = 0; i < data.length - 1; i++) {
-      const p1 = data[i][type];
-      const p2 = data[i+1][type];
+    const newDatas = []
 
-      curve.add(new LineCurve(
-        new Vector2(this.positionLengthPoints[i], p1),
-        new Vector2(this.positionLengthPoints[i+1], p2),
+    for (let i = 0; i < data.length; i++) {
+      newDatas.push({
+        p: {
+          x: this.positionLengthPoints[i],
+          y: data[i][type]
+        }
+      })
+    }
+
+    // calculate handle poinnts
+    const lengthNewData = newDatas.length - 1
+    for (let i = 1; i < lengthNewData; i++) {
+      const previousPoint = newDatas[i - 1].p
+      const currentPoint = newDatas[i].p
+      const nextPoint = newDatas[i + 1].p
+
+      // 1. calculate vector previous and next point
+      const vector = {
+        x: previousPoint.x - nextPoint.x,
+        y: previousPoint.y - nextPoint.y
+      }
+      vector.x *= CURVE_BEZIER_PERCENT
+      vector.y *= CURVE_BEZIER_PERCENT
+
+      // 2. apply vector to current point
+      const distancepn = nextPoint.x - previousPoint.x
+      const distancelp = (currentPoint.x - previousPoint.x) / distancepn
+      const distanceln = (nextPoint.x - currentPoint.x) / distancepn
+      newDatas[i].l = {
+        x: currentPoint.x + vector.x * distancelp,
+        y: currentPoint.y + vector.y * distancelp
+      }
+      newDatas[i].r = {
+        x: currentPoint.x - vector.x * distanceln,
+        y: currentPoint.y - vector.y * distanceln
+      }
+    }
+
+    // add handle to fisrt point and last point
+    newDatas[0].l = {...newDatas[0].p}
+    newDatas[0].r = {...newDatas[0].p}
+    newDatas[lengthNewData].l = {...newDatas[lengthNewData].p}
+    newDatas[lengthNewData].r = {...newDatas[lengthNewData].p}
+
+    // createCurve
+    for (let i = 0; i < lengthNewData; i++) {
+      const p1 = newDatas[i];
+      const p2 = newDatas[i + 1];
+      curve.add(new CubicBezierCurve(
+        new Vector2(p1.p.x, p1.p.y),
+        new Vector2(p1.r.x, p1.r.y),
+        new Vector2(p2.l.x, p2.l.y),
+        new Vector2(p2.p.x, p2.p.y),
       ))
     }
   }

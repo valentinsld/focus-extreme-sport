@@ -53,6 +53,8 @@ const onKeyUp = (ev) => {
 }
 
 onMounted(() => {
+	targetValue = randomValue()
+
 	noEvent.action()
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)

@@ -49,7 +49,7 @@ const RAFManager = {
 
 	add(name, callback, param = null) {
 		if (!name || !callback) {
-			console.error('RAFManager.add: name or callback is null');
+			console.error('RAFManager.add: name or callback is null', { name, callback });
 			return
 		}
 		const aniData = { callback, param };

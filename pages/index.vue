@@ -80,6 +80,7 @@ const store = useStore()
 // ])
 
 onMounted(() => {
+  eventWebGLStarted()
   initDebugGameState()
 })
 
@@ -87,10 +88,15 @@ onUnmounted(() => {
   debugFolder.dispose()
 })
 
-// function qteFigureFinish() {
-//   console.log('QTE Figure is fineshed ma man');
-// }
-
+//
+// event on webGL started
+//
+const eventWebGLStarted = () => {
+  const webgl = new WebGL()
+  webgl.on('endLoading', () => {
+    store.state.ressourcesLoaded = true
+  })
+}
 
 //
 // debug

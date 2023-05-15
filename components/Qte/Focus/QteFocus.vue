@@ -24,10 +24,10 @@ const props = defineProps({
 	},
 	duration: {
 		type: Number,
-		default: 2000,
+		default: 3000,
 	}
 })
-const START_SPEED = 0.15
+const START_SPEED = 0.01
 
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
@@ -49,7 +49,7 @@ const onKeyDown = (ev) => {
 }
 const onKeyUp = (ev) => {
 	if (ev.code === 'Space') {
-		keydown = -1
+		keydown = -0.5
 		emit('onKeyup')
 	}
 }
@@ -64,8 +64,8 @@ onMounted(() => {
 	}, props.delayReducedSpeed);
 
 	// init raf
-	RAFManager.add('QteFocus', (time, deltaTime) => {
-		value.value += deltaTime * keydown
+	RAFManager.add('QteFocus', (time, d, deltaTime) => {
+		value.value += deltaTime * keydown * 1000
 		value.value = Math.min(props.duration, Math.max(0, value.value))
 
 		RAFManager.setSpeed(START_SPEED + (value.value / props.duration) * (1 - START_SPEED))

@@ -73,7 +73,6 @@ onMounted(() => {
 		emit('updated', value.value)
 
 		if (value.value === props.duration) {
-			RAFManager.setSpeed(1)
 			destroyedEvents()
 			isFinish.value = true
 			emit('onFinish')
@@ -85,9 +84,11 @@ onMounted(() => {
 // on unmount
 //
 const destroyedEvents = () => {
-	RAFManager.remove('QteBalance')
+	RAFManager.remove('QteFocus')
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
+	RAFManager.setSpeed(1)
+	noEvent.destroy()
 }
 onUnmounted(() => {
 	destroyedEvents()

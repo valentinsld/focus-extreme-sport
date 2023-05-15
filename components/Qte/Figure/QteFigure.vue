@@ -11,7 +11,8 @@
       :class="{
         'is-visible': objectStates[i - 1].isVisible,
         'is-animated': objectStates[i - 1].isAnimated,
-        'is-clickable': objectStates[i - 1].isClickable
+        'is-clickable': objectStates[i - 1].isClickable,
+        'is-wrong': objectStates[i - 1].isWrong,
       }"
       :duration="props.dataChildren[i - 1].duration"
       :delay="props.dataChildren[i - 1].delay"
@@ -26,6 +27,7 @@
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const figures = ref()
+const currentFigure = ref(0)
 const keyPressed = ref()
 const objectStates = reactive([])
 
@@ -33,8 +35,11 @@ const props = defineProps({
 	dataChildren: {
 		type: Array,
 		default: () => []
+	},
+	delayWrong: {
+		type: Number,
+		default: 1500
 	}
-
 	// To use it in parent, create a reactive const
 	// with value of the key, the delay before appear,
 	// and the duration before click is enable (also the time of the anime)
@@ -54,6 +59,7 @@ for (let i = 0; i < props.dataChildren.length; i++) {
 		isVisible: false,
 		isAnimated: false,
 		isClickable: false,
+		isWrong: false,
 		hasBeenClicked: false
 	}
 	objectStates.push(state)
@@ -93,41 +99,38 @@ const keyPress = (e) => {
 }
 
 function checkKey() {
-	for (let i = 0; i < figures.value.length; i++) {
-		const element = figures.value[i];
-
-		if(objectStates[i].isClickable) {
-			if(keyPressed.value === props.dataChildren[i].validKey) {
-				element.$el.classList.remove('is-visible')
-				objectStates[i].hasBeenClicked = true
-				checkFinish()
-			}
-		}
+	const currentObject = objectStates[currentFigure.value]
+	if (!currentObject.isClickable) return
+	if (keyPressed.value === props.dataChildren[currentFigure.value].validKey) {
+		figures.value[currentFigure.value].$el.classList.remove('is-visible')
+		objectStates[currentFigure.value].hasBeenClicked = true
+	} else {
+		currentObject.isWrong = true
 	}
+	currentFigure.value++
+	checkFinish()
 }
 
 function checkFinish() {
-	let isFinished = true
-
-	for (let i = 0; i < objectStates.length; i++) {
-		const element = objectStates[i];
-
-		if(!element.hasBeenClicked) {
-			isFinished = false
-		}
-	}
-
-	if(isFinished) {
-		setFinish()
+	if(currentFigure.value === figures.value.length) {
+		const isSucess = objectStates.every((objectState) => objectState.hasBeenClicked)
+		setFinish(isSucess)
 	}
 }
 
 function enableClick(index) {
 	objectStates[index].isClickable = true
+
+	setTimeout(()=> {
+		if (objectStates[index].hasBeenClicked || objectStates[index].isWrong) return
+		objectStates[index].isWrong = true
+		currentFigure.value++
+	}, props.delayWrong)
 }
 
-function setFinish() {
-	emit('isFinished');
+function setFinish(isSucess) {
+	window.removeEventListener('keyup', keyPress)
+	emit('isFinished', isSucess);
 }
 
 const emit = defineEmits(['isFinished'])

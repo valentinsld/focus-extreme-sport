@@ -86,6 +86,9 @@ const emit = defineEmits(['isClickable'])
 		}
 	}
 
+	&.is-wrong {
+		background-color: red;
+	}
 }
 
 .border {

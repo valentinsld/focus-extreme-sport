@@ -35,6 +35,7 @@ let value = ref(0)
 const noEvent = new NoEventKeyboard({})
 let keydown = 0
 const onKeyDown = (ev) => {
+	console.log('onKeyDown', ev.code)
 	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
 		keydown = -1
 		emit('onKeydown')
@@ -64,6 +65,7 @@ onMounted(() => {
 		value.value += deltaTime * 0.25 * targetValue + deltaTime * 0.6 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 
+		console.log('QteBalance value', value.value)
 		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
 
 		emit('updated', value.value)
@@ -105,6 +107,7 @@ onUnmounted(() => {
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)
+	noEvent.destroy()
 })
 </script>
 

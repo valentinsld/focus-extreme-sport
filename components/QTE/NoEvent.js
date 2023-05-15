@@ -7,6 +7,8 @@ class NoEventKeyboard {
 		this.store = useStore()
 
 		this.debounceNoEvent = debounce(this.noEvent, this.delay, false, this)
+
+		this.isDestroyed = false
 	}
 
 	action() {
@@ -16,9 +18,15 @@ class NoEventKeyboard {
 	}
 
 	noEvent() {
+		if (this.isDestroyed) return
 		this.store.state.noEventPlayer = true
 
 		// TODO add event Fredo qui parle à la radio
+	}
+
+	destroy() {
+		this.isDestroyed = true
+		this.store.state.noEventPlayer = false
 	}
 }
 

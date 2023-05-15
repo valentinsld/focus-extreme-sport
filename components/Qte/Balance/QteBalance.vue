@@ -60,11 +60,11 @@ onMounted(() => {
 	document.addEventListener('keyup', onKeyUp)
 
 	// init raf
-	RAFManager.add('QteBalance', (time, deltaTime) => {
-		value.value += deltaTime * 0.3 * targetValue + deltaTime * 0.5 * keydown
+	RAFManager.add('QteBalance', (time, d, deltaTime) => {
+		value.value += deltaTime * 0.25 * targetValue + deltaTime * 0.6 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 
-		RAFManager.setSpeed(1 - Math.abs(value.value))
+		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
 
 		emit('updated', value.value)
 	})

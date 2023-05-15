@@ -74,5 +74,10 @@ const initStates = (scene) => {
   scene.setEventTimeline(0.69, () => {
     store.state.gamestatestep = 5
   })
+
+  // event end next scene
+  scene.setEventTimeline(0.83, () => {
+    store.state.gamestate = 'kayak'
+  })
 }
 </script>

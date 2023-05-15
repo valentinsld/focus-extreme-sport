@@ -22,7 +22,6 @@ export default class SceneManager {
 	}
 
 	setScene(scene, pauseDelay = .35, onTransitionEnd = null) {
-		console.error('setScene', {scene, pauseDelay, onTransitionEnd})
 		this.currentSceneName = scene
 		const lowerCase = scene.toLowerCase()
 		const newScene = this.scenes.find((scene) => scene.name === lowerCase)

@@ -59,7 +59,7 @@ onMounted(() => {
 
 	// init raf
 	RAFManager.add('QteBalance', (time, deltaTime) => {
-		value.value += deltaTime * 0.0003 * targetValue + deltaTime * 0.0005 * keydown
+		value.value += deltaTime * 0.3 * targetValue + deltaTime * 0.5 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 
 		RAFManager.setSpeed(1 - Math.abs(value.value))

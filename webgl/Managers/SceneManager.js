@@ -1,4 +1,5 @@
 import WebGL from '../index'
+import RAFManager from '../Utils/RAFManager'
 
 export default class SceneManager {
 	static singleton
@@ -29,7 +30,10 @@ export default class SceneManager {
 
 		if (this.oldScene.name === newScene.name) {
 			if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-			if(newScene.scene) newScene.scene.startScene()
+			if(newScene.scene) {
+				newScene.scene.startScene()
+				RAFManager.setSpeed(1)
+			}
 			return
 		}
 		if(this.webgl.sceneTransi.scene) {

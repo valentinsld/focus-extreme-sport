@@ -28,7 +28,7 @@
           duration: 2000
         }
       ]"
-      @is-finished="() => store.state.gamestatestep = 2"
+      @is-finished="endQteFigure"
     />
     <QteBalance v-if="store.state.gamestatestep === 3" />
     <QteFocus
@@ -79,5 +79,15 @@ const initStates = (scene) => {
   scene.setEventTimeline(0.83, () => {
     store.state.gamestate = 'kayak'
   })
+}
+
+const endQteFigure = (isSucess) => {
+  store.state.gamestatestep = 2
+
+  if (isSucess) {
+    // TODO : faire un rollover
+  } else {
+    // TODO : animation pas de rollover
+  }
 }
 </script>

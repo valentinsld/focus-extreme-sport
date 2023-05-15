@@ -125,6 +125,7 @@ function enableClick(index) {
 		if (objectStates[index].hasBeenClicked || objectStates[index].isWrong) return
 		objectStates[index].isWrong = true
 		currentFigure.value++
+		checkFinish()
 	}, props.delayWrong)
 }
 

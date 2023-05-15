@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const figures = ref()
 const keyPressed = ref()
@@ -68,6 +69,9 @@ onMounted(()=> {
 			objectStates[i].isAnimated = true
 		}, props.dataChildren[i].delay)
 	}
+
+	// enable slowMode
+	RAFManager.setSpeed(0.1);
 })
 
 onUnmounted(()=> {
@@ -78,6 +82,9 @@ onUnmounted(()=> {
 		objectStates[i].isAnimated = false
 		objectStates[i].isClickable = false
 	}
+
+	// disable slowMode
+	RAFManager.setSpeed(1);
 })
 
 const keyPress = (e) => {

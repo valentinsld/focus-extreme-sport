@@ -41,6 +41,7 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager';
+import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const store = useStore()
 
@@ -61,23 +62,26 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance
-    scene.setEventTimeline(0.2, () => {
+    scene.setEventTimeline(0.17, () => {
     store.state.gamestatestep = 3
   })
 
   // event QTE Balance END
-  scene.setEventTimeline(0.63, () => {
+  scene.setEventTimeline(0.53, () => {
     store.state.gamestatestep = 4
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.69, () => {
+  scene.setEventTimeline(0.58, () => {
     store.state.gamestatestep = 5
+    RAFManager.setSpeed(0.6)
   })
 
   // set camera position 3P
   scene.setEventTimeline(0.75, () => {
+    store.state.gamestatestep = 6
     scene.setCamera3P()
+    RAFManager.setSpeed(0.05)
   })
 
   // event end next scene

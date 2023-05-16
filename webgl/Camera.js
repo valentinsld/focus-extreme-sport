@@ -97,6 +97,12 @@ export default class Camera {
 
     this.orbitControls.enabled = (name === 'debug')
 
+    if (name === 'fpv') {
+      this.speedLine.showLines()
+    } else {
+      this.speedLine.hideLines()
+    }
+
     return this.current
   }
 

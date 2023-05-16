@@ -62,7 +62,7 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance
-    scene.setEventTimeline(0.17, () => {
+    scene.setEventTimeline(0.19, () => {
     store.state.gamestatestep = 3
   })
 
@@ -78,7 +78,7 @@ const initStates = (scene) => {
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.75, () => {
+  scene.setEventTimeline(0.74, () => {
     store.state.gamestatestep = 6
     scene.setCamera3P()
     RAFManager.setSpeed(0.05)

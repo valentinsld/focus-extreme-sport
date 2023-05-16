@@ -1,0 +1,48 @@
+@use "sass:math";
+@use "sass:list";
+
+@function _lerp($fromBp, $from, $toBp, $to, $raw: false) {
+	$m: math.div(($to - $from), ($toBp - $fromBp));
+	$b: $from - $m * $fromBp;
+	$sign: "+";
+
+	@if $b < 0 {
+		$sign: "-";
+		$b: math.abs($b);
+	}
+
+	@if $raw {
+		@return "#{$m * 100}vw #{$sign} #{$b}";
+	} @else {
+		@return calc(#{$m * 100}vw #{$sign} #{$b});
+	}
+}
+
+@mixin fluidSize($var, $bps, $demult: "h-demult") {
+	$demult: "--" + $demult;
+	$key: "--" + $var;
+	$last: list.length($bps);
+
+	@each $sizeObj in $bps {
+		$index: list.index($bps, $sizeObj);
+		$prevSizeObj: list.nth($bps, math.max(1, $index - 1));
+		$prevBp: list.nth($prevSizeObj, 1);
+		$prevSize: list.nth($prevSizeObj, 2);
+		$bp: list.nth($sizeObj, 1);
+		$size: list.nth($sizeObj, 2);
+
+		@if $index == 1 {
+			#{$key}: calc((#{$size}) * var(#{$demult}, 1));
+		} @else if ($size - $prevSize) > 1px {
+			@include between($prevBp, $bp) {
+				#{$key}: calc((#{_lerp($prevBp, $prevSize, $bp, $size, true)}) * var(#{$demult}, 1));
+			}
+		}
+
+		@if $index == $last {
+			@include above($bp) {
+				#{$key}: calc((#{$size}) * var(#{$demult}, 1));
+			}
+		}
+	}
+}

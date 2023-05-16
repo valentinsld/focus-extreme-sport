@@ -35,7 +35,6 @@ let value = ref(0)
 const noEvent = new NoEventKeyboard({})
 let keydown = 0
 const onKeyDown = (ev) => {
-	console.log('onKeyDown', ev.code)
 	if (['ArrowLeft', 'KeyA'].includes(ev.code)) {
 		keydown = -1
 		emit('onKeydown')

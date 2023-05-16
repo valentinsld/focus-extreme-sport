@@ -49,18 +49,13 @@ const packages = ref()
 const hoverIndex = ref(null);
 const isHovered = ref(false)
 
-
-onMounted(() => {
-	console.log(packages.value[0]);
-})
-
 function handleHover(index, state) {
 	hoverIndex.value = index;
 	isHovered.value = state
 }
 
 function selectPackage() {
-  store.state.gamestate = 'kayak'
+  store.state.gamestate = 'intro'
 }
 </script>
 

@@ -100,8 +100,8 @@ export default class SceneWingsuit extends BaseScene {
     console.log('You destroy the scene ' + this.scene.name);
 
     if (this.WebGL.debug) {
-      this.debugFPV.remove()
-      this.debug3P.remove()
+      this.debugFPV.dispose()
+      this.debug3P.dispose()
     }
 
     RAFManager.remove('SceneWingsuit')

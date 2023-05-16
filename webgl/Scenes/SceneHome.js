@@ -61,12 +61,12 @@ export default class SceneHome {
     this.WebGL.camera.current.position.copy(this.WebGL.camera.initPosition)
     this.instance.add(this.WebGL.camera.current)
 
-    RAFManager.add("SceneHome", this.animRotation.bind(this))
+    // RAFManager.add("SceneHome", this.animRotation.bind(this))
   }
 
   destroyScene() {
     //TODO : add function to destroy the scene (spline, RAFremove, etc..)
     console.log('You destroy the scene' + this.scene.name);
-    RAFManager.remove("SceneHome")
+    // RAFManager.remove("SceneHome")
   }
 }

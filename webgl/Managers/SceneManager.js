@@ -33,7 +33,7 @@ export default class SceneManager {
 			if(newScene.scene) {
 				newScene.scene.startScene()
 				RAFManager.setSpeed(1) // reset RAF speed
-				this.WebGL.camera.setCamera() // reset FPV camera
+				this.webgl.camera.setCamera() // reset FPV camera
 			}
 			return
 		}

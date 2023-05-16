@@ -30,11 +30,7 @@ export default class SceneManager {
 
 		if (this.oldScene.name === newScene.name) {
 			if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-			if(newScene.scene) {
-				newScene.scene.startScene()
-				RAFManager.setSpeed(1) // reset RAF speed
-				this.webgl.camera.setCamera() // reset FPV camera
-			}
+			if(newScene.scene) newScene.scene.startScene()
 			return
 		}
 		if(this.webgl.sceneTransi.scene) {
@@ -47,6 +43,8 @@ export default class SceneManager {
 				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
 				if(newScene.scene) {
 					newScene.scene.startScene()
+					RAFManager.setSpeed(1) // reset RAF speed
+					this.webgl.camera.setCamera() // reset FPV camera
 					if (onTransitionEnd) onTransitionEnd(newScene.scene)
 				}
 			} else {

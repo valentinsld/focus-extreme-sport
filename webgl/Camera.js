@@ -1,9 +1,7 @@
-import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, LineCurve, Vector2, AxesHelper, CubicBezierCurve } from 'three'
+import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 import InstanciedSpeed from './Components/Particles/Speed/InstanciedSpeed.js'
-
-import * as THREE from 'three'
 
 const CURVE_BEZIER_PERCENT = 0.75
 

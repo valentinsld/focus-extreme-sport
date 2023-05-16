@@ -1,5 +1,6 @@
 @import './utils/reset';
 @import './utils/animation';
+@import './utils/fluidsize';
 @import './utils/breakpoints';
 @import './utils/touch';
 @import './utils/variables';
@@ -16,11 +17,34 @@
 	// z-index: z(webgl);
 	// transform: rotate(const(angle));
 	transition: all 1s ease(ease_in-cubic);
-	@include below(bpw(desktop-md)) {
+	@include below(bpw(md)) {
 		// background-color: red;
 	}
 	@include hover-and-touch() {
 		transform: rotate(0deg);
 	}
 }
+
+:root {
+	--h-demult: 1;
+
+	@include below-height(bph(md)) {
+		@media (min-aspect-ratio: 17 / 10) { --h-demult: 0.96; }
+
+		@media (min-aspect-ratio: 18 / 10) { --h-demult: 0.88; }
+
+		@media (min-aspect-ratio: 20 / 10) { --h-demult: 0.84; }
+
+		@media (min-aspect-ratio: 22 / 10) { --h-demult: 0.78; }
+
+		@media (min-aspect-ratio: 28 / 10) { --h-demult: 0.72; }
+	}
+
+	@include fluidSize("test-size", (
+		bpw(s): 100px,
+		bpw(lg): 250px,
+		bpw(xxl): 350px
+	));
+}
+
 

@@ -1,6 +1,7 @@
 <template>
   <div class="gameContainer">
     <Home v-if="store.state.gamestate === 'home'" />
+    <Selection v-else-if="store.state.gamestate === 'selection'" />
     <GameIntro v-else-if="store.state.gamestate === 'intro'" />
     <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
     <GameSki v-else-if="store.state.gamestate === 'ski'" />
@@ -70,6 +71,7 @@ const initDebugGameState = () => {
   debugFolder.addInput(store.state, 'gamestate', {
     options: {
       home: 'home',
+      selection: 'selection',
       intro: 'intro',
       wingsuit: 'wingsuit',
       ski: 'ski',
@@ -89,15 +91,25 @@ const initDebugGameState = () => {
 
 <style scoped lang="scss">
 .gameContainer {
-  pointer-events: none;
+  // pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 
-  // z-index: 1;
+  z-index: 1;
 
   padding: 50px;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
 }
 </style>

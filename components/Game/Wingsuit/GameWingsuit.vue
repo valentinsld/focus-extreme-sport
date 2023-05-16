@@ -75,6 +75,11 @@ const initStates = (scene) => {
     store.state.gamestatestep = 5
   })
 
+  // set camera position 3P
+  scene.setEventTimeline(0.75, () => {
+    scene.setCamera3P()
+  })
+
   // event end next scene
   scene.setEventTimeline(0.83, () => {
     store.state.gamestate = 'kayak'

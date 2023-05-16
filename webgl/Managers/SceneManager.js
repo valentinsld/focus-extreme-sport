@@ -32,7 +32,8 @@ export default class SceneManager {
 			if(this.oldScene.scene) this.oldScene.scene.destroyScene()
 			if(newScene.scene) {
 				newScene.scene.startScene()
-				RAFManager.setSpeed(1)
+				RAFManager.setSpeed(1) // reset RAF speed
+				this.WebGL.camera.setCamera() // reset FPV camera
 			}
 			return
 		}

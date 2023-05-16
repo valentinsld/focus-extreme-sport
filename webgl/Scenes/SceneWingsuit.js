@@ -85,14 +85,24 @@ export default class SceneWingsuit extends BaseScene {
       this.debug3P = cameraDebugFolder.addButton({
         title: 'Switch 3P',
       }).on('click', () => {
-        this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+        this.setCamera3P()
       })
     }
+  }
+
+  setCamera3P() {
+    // TODO Use point from scene
+    this.WebGL.camera.setCamera('3p', new Vector3(12.80, -3.6, -4.7), new Vector3(11.80, -3.6, -4.7))
   }
 
   destroyScene() {
     //TODO : add function to destroy the scene (spline, RAFremove, etc..)
     console.log('You destroy the scene ' + this.scene.name);
+
+    if (this.WebGL.debug) {
+      this.debugFPV.remove()
+      this.debug3P.remove()
+    }
 
     RAFManager.remove('SceneWingsuit')
   }

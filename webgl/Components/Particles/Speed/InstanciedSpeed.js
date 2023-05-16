@@ -4,6 +4,12 @@ import Sizes from '~~/webgl/Utils/Sizes';
 import speedLineV from '../../../Shaders/Particles/SpeedLine/speedLineV.vert'
 import speedLineF from '../../../Shaders/Particles/SpeedLine/speedLineF.frag'
 
+const PARAMS = {
+	count: 100,
+	speedMultiplier: 3,
+	scaleMultiplier: 1
+}
+
 export default class InstanciedSpeed {
 	constructor(options) {
 
@@ -14,11 +20,7 @@ export default class InstanciedSpeed {
 		this.debug = options.debug
 
 
-		this.speedLineParams = {
-			count: 100,
-			speedMultiplier: 3,
-			scaleMultiplier: 1
-		  }
+		this.speedLineParams = {...PARAMS}
 
 		// Set up
 		this.container = new Object3D();
@@ -154,14 +156,14 @@ export default class InstanciedSpeed {
 		this.mesh.instanceMatrix.needsUpdate = true;
 	}
 
-	setNumberOfLine(newCount) {
+	setNumberOfLine(newCount = PARAMS.count) {
 		this.container.remove(this.mesh)
 		this.ages = new Float32Array(this.speedLineParams.count)
 		this.speedLineParams.count = newCount
 		this.init()
 	}
 
-	setSpeed(newSpeed) {
+	setSpeed(newSpeed = PARAMS.speedMultiplier) {
 		this.speedLineParams.speedMultiplier = newSpeed
 	}
 

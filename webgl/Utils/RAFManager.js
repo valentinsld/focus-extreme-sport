@@ -47,6 +47,10 @@ const RAFManager = {
 	state: 'stop',
 	animations: [],
 
+	has(name) {
+		return this.animations[name] ? true : false
+	},
+
 	add(name, callback, param = null) {
 		if (!name || !callback) {
 			console.error('RAFManager.add: name or callback is null', { name, callback });

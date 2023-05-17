@@ -11,6 +11,8 @@ export default class BaseScene {
     this.assets = this.WebGL.assets
 
     this.timelineValue = 0
+    this.timelineEvents = []
+    this.timelineEventsUid = MathUtils.generateUUID()
   }
 
   //
@@ -25,12 +27,22 @@ export default class BaseScene {
     }
   }
   setEventTimeline(value, callback) {
-    const uid = MathUtils.generateUUID()
+    this.timelineEvents.push({ value, callback })
 
-    RAFManager.add(uid, () => {
-      if (this.timelineValue > value) {
-        callback()
-        RAFManager.remove(uid)
+    // reorder this.timelineEvents by value
+    this.timelineEvents.sort((a, b) => {
+      return a.value - b.value
+    })
+
+    console.log(this.timelineEvents)
+
+    if (RAFManager.has(this.timelineEventsUid)) return
+    RAFManager.add(this.timelineEventsUid, () => {
+      if (this.timelineValue > this.timelineEvents[0].value) {
+        this.timelineEvents[0].callback()
+        this.timelineEvents.shift()
+
+        if (this.timelineEvents.length === 0) RAFManager.remove(this.timelineEventsUid)
       }
     })
   }

@@ -152,4 +152,24 @@ const initDebugGameState = () => {
   justify-content: center;
   flex-flow: column nowrap;
 }
+
+.home-enter-active,
+.home-leave-active {
+  transition: opacity 375ms cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.home-enter-from,
+.home-leave-to {
+  opacity: 0;
+}
+
+.selection-enter-active,
+.selection-leave-active {
+  transition: opacity 1s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.selection-enter-from,
+.selection-leave-to {
+  opacity: 0;
+}
 </style>

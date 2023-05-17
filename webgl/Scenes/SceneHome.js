@@ -50,9 +50,6 @@ export default class SceneHome extends BaseScene {
 
 
   startScene() {
-    //TODO : add function to start the scene (spline, RAFadd, etc..)
-    console.log('You start the scene' + this.scene.name);
-
     this.WebGL.camera.target.set(0, 0, 0)
     this.WebGL.camera.current.position.copy(this.WebGL.camera.initPosition)
     this.instance.add(this.WebGL.camera.current)

@@ -67,8 +67,6 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   startScene() {
-    console.log('You start the scene ' + this.scene.name);
-
     // 1 - set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
 

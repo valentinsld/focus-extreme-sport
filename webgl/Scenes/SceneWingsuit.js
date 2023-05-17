@@ -163,6 +163,14 @@ export default class SceneWingsuit extends BaseScene {
       duration: d,
       easing: 'easeOutSine',
     }, 200 + d * 3)
+    .add({
+      targets: this.WebGL.camera.listCamera['fpv'].position,
+      x: [0.1, 0],
+      y: [0.1, 0],
+      z: [-0.3, 0],
+      duration: 3300,
+      easing: 'easeOutQuint',
+    }, 200 + d * 3)
   }
 
   //

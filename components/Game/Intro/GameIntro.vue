@@ -43,7 +43,6 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import { splitText } from '~~/webgl/Utils/splitText';
-import SceneManager from '~~/webgl/Managers/SceneManager';
 
 const store = useStore()
 
@@ -54,9 +53,6 @@ const inhaleText = splitText('Inspire...')
 const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
-  // const sceneManager = new SceneManager()
-  // sceneManager.setScene('intro')
-
   setTimeout(()=> {
     breathe(1)
   }, 100)

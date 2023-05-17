@@ -22,14 +22,10 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager';
-import WebGL from '~~/webgl/index'
 
 const store = useStore()
-const webgl = WebGL.instance;
-const router = useRouter();
 
 onMounted(()=> {
-
   const sceneManager = new SceneManager()
   sceneManager.setScene('home')
 })

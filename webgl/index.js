@@ -11,7 +11,7 @@ import Camera from "./Camera.js";
 import EventEmitter from "./Utils/EventEmitter.js";
 
 import Store from '~~/webgl/Utils/Store.js';
-import MSDFText from './Components/MSDFText.js';
+// import MSDFText from './Components/MSDFText.js';
 
 import SceneManager from './Managers/SceneManager.js';
 import SceneTransi from './Scenes/SceneTransi.js';

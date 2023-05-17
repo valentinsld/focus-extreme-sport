@@ -1,5 +1,4 @@
-import { Group, Mesh, PointLight, Euler, Quaternion } from 'three'
-import RAFManager from '../Utils/RAFManager.js'
+import { Group, Mesh, PointLight } from 'three'
 
 import WebGL from '../index.js'
 // import InstanciedSpeed from '../Components/Particles/Speed/InstanciedSpeed.js'

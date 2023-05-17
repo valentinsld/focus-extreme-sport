@@ -1,4 +1,4 @@
-import { Object3D, BoxGeometry, ConeGeometry, RawShaderMaterial, InstancedBufferAttribute, InstancedMesh, Matrix4, Vector3, MathUtils, DynamicDrawUsage } from 'three';
+import { Object3D, ConeGeometry, RawShaderMaterial, InstancedBufferAttribute, InstancedMesh, Matrix4, Vector3, MathUtils, DynamicDrawUsage } from 'three';
 import Sizes from '~~/webgl/Utils/Sizes';
 
 import speedLineV from '../../../Shaders/Particles/SpeedLine/speedLineV.vert'
@@ -95,10 +95,10 @@ export default class InstanciedSpeed {
 
 		for (let i = 0; i < this.speedLineParams.count; i++) {
 			const ang = MathUtils.randFloat(0, Math.PI * 2);
-			const scaleXRand = MathUtils.randFloat(.1 , 2)
+			// const scaleXRand = MathUtils.randFloat(.1 , 2)
 			// const scaleYRand = MathUtils.randFloat(.001, .02)
 			const scaleYRand = MathUtils.randFloat(.5, 2)
-			const scaleZRand = MathUtils.randFloat(.001, .02)
+			// const scaleZRand = MathUtils.randFloat(.001, .02)
 			const radius = MathUtils.randFloat(1, 4);
 			const ratio = screenSize.ratio;
 			const x = Math.cos(ang) * radius * ratio;

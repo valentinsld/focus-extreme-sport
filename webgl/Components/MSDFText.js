@@ -65,7 +65,7 @@ export default class MSDFText {
 	}
 
 	loadFontAtlas(path) {
-		const promise = new Promise((resolve, reject) => {
+		const promise = new Promise((resolve/*, reject*/) => {
 			const loader = new TextureLoader();
 			loader.load(path, resolve);
 		});

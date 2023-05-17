@@ -1,4 +1,4 @@
-import { Group, PointLight, AmbientLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide } from 'three'
+import { Group, PointLight, AmbientLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide, AnimationMixer } from 'three'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
@@ -34,9 +34,21 @@ export default class SceneWingsuit extends BaseScene {
       }
     })
 
-    this.character = new Group()
-    // const character = this.assets.models["wingsuit_character"].scene
-    // this.character.add(character)
+    this.characterContainer = new Group()
+    this.character = this.assets.models["wingsuit_character"].scene
+    this.character.scale.set(0.001, 0.001, 0.001)
+    this.character.position.set(-0.01, -0.03, 0)
+    // this.WebGL.debug.addInput(this.character.scale, 'x', { step: 0.001, min: 0, max: 0.02}).on('change', () => {
+    //   this.character.scale.set(this.character.scale.x, this.character.scale.x, this.character.scale.x)
+    // })
+    // this.WebGL.debug.addInput(this.character.position, 'x', {step: 0.01, min: -2, max: 2})
+    // this.WebGL.debug.addInput(this.character.position, 'y', {step: 0.01, min: -2, max: 2})
+    // this.WebGL.debug.addInput(this.character.position, 'z', {step: 0.01, min: -2, max: 2})
+    // play animation character
+    this.mixerCharacter = new AnimationMixer(this.character);
+    this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
+
+    this.characterContainer.add(this.character)
 
     // TODO remove
     this.light = new PointLight(0xffffff, 14, 12, 1)
@@ -44,7 +56,7 @@ export default class SceneWingsuit extends BaseScene {
     this.ambientLight = new AmbientLight(0xffffff, 0.1)
     this.scene.add(this.light, this.ambientLight)
 
-    this.instance.add(...[this.map, this.character])
+    this.instance.add(...[this.map, this.characterContainer])
     this.scene.add(this.instance)
 
     if(this.WebGL.debug) {
@@ -60,18 +72,19 @@ export default class SceneWingsuit extends BaseScene {
     // 1 - set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
 
-    // 2 - add camera to kayak + set position
-    this.character.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
+    // 2 - add camera to wingsuit + set position
+    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0, 0)))
 
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneWingsuit', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.03 * this.WebGL.camera.getSpeed(this.timelineValue)), 1)
-      this.WebGL.camera.setTracking(this.timelineValue, this.character)
+      this.WebGL.camera.setTracking(this.timelineValue, this.characterContainer)
+
+      // animation mixer character
+      this.mixerCharacter.update(dt);
     })
 
-    // 4 - switch to camera 3p
-    // this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
 
     if (this.WebGL.debug) {
       const cameraDebugFolder = this.WebGL.camera.debugFolder
@@ -96,9 +109,6 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   destroyScene() {
-    //TODO : add function to destroy the scene (spline, RAFremove, etc..)
-    console.log('You destroy the scene ' + this.scene.name);
-
     if (this.WebGL.debug) {
       this.debugFPV.dispose()
       this.debug3P.dispose()

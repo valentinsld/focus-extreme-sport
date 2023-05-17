@@ -81,14 +81,14 @@ const initStates = (scene) => {
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.74, () => {
+  scene.setEventTimeline(0.76, () => {
     store.state.gamestatestep = 6
     scene.setCamera3P()
     RAFManager.setSpeed(0.05)
   })
 
   // event end next scene
-  scene.setEventTimeline(0.83, () => {
+  scene.setEventTimeline(0.89, () => {
     store.state.gamestate = 'kayak'
   })
 }

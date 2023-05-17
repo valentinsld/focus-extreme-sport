@@ -103,8 +103,7 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   setCamera3P() {
-    // TODO Use point from scene
-    this.WebGL.camera.setCamera('3p', new Vector3(12.80, -3.6, -4.7), new Vector3(11.80, -3.6, -4.7))
+    this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('WING_FOCUS_CAM_3P').position, this.characterContainer.position)
   }
 
   //

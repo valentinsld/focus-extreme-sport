@@ -315,6 +315,7 @@ export default class Camera {
   // Events
   //
   setSpeedLines() {
+    console.log('set speedlines');
     this.speedLine = new InstanciedSpeed({
       assets: this.assets,
       camera: this.current,

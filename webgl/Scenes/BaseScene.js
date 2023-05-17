@@ -38,11 +38,19 @@ export default class BaseScene {
   //
   // Event for scene
   //
-  startScene() {
+  startSceneMain() {
     console.log('You start the scene ' + this.scene.name);
+
+    if (this.startScene) this.startScene()
   }
 
-  destroyScene() {
+  destroySceneMain() {
     console.log('You destroy the scene ' + this.scene.name);
+
+    RAFManager.setSpeed(1) // reset RAF speed
+    RAFManager.remove(this.timelineEventsUid) // remove timeline events
+    this.WebGL.camera.setCamera() // reset FPV camera
+
+    if (this.destroyScene) this.destroyScene()
   }
 }

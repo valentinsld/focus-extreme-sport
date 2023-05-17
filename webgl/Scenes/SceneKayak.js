@@ -44,8 +44,6 @@ export default class SceneKayak extends BaseScene {
   }
 
   startScene() {
-    console.log('You start the scene ' + this.scene.name);
-
     // 1 - set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
@@ -80,9 +78,6 @@ export default class SceneKayak extends BaseScene {
   }
 
   destroyScene() {
-    //TODO : add function to destroy the scene (spline, RAFremove, etc..)
-    console.log('You destroy the scene ' + this.scene.name);
-
     RAFManager.remove('SceneKayak')
   }
 }

@@ -1,5 +1,4 @@
 import WebGL from '../index'
-import RAFManager from '../Utils/RAFManager'
 
 export default class SceneManager {
 	static singleton
@@ -29,8 +28,8 @@ export default class SceneManager {
 		this.oldScene = this.webgl.currentScene
 
 		if (this.oldScene.name === newScene.name) {
-			if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-			if(newScene.scene) newScene.scene.startScene()
+			if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+			if(newScene.scene) newScene.scene.startSceneMain()
 			return
 		}
 		if(this.webgl.sceneTransi.scene) {
@@ -40,11 +39,9 @@ export default class SceneManager {
 				this.webgl.currentScene = newScene
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
-				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
+				if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
 				if(newScene.scene) {
-					newScene.scene.startScene()
-					RAFManager.setSpeed(1) // reset RAF speed
-					this.webgl.camera.setCamera() // reset FPV camera
+					newScene.scene.startSceneMain()
 					if (onTransitionEnd) onTransitionEnd(newScene.scene)
 				}
 			} else {

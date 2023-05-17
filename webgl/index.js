@@ -18,6 +18,9 @@ import SceneTransi from './Scenes/SceneTransi.js';
 import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import SceneKayak from './Scenes/SceneKayak.js';
 
+// import FontAtlas from '~~/assets/MSDFfonts/ChivoMono-Black.png'
+// import FontFNT from '~~/assets/MSDFfonts/ChivoMono-Black.json'
+
 export default class WebGL extends EventEmitter {
   static instance;
 
@@ -54,6 +57,8 @@ export default class WebGL extends EventEmitter {
 
       this.initSceneHome();
       this.initSceneKayak();
+
+      // this.initTestText()
 
       this.sceneManager.startCurrentScene()
     })
@@ -141,13 +146,13 @@ export default class WebGL extends EventEmitter {
     this.sceneTransi.scene = new SceneTransi()
   }
 
-  initTestText() {
-    this.testText = new MSDFText({
-      // font: FontFNT,
-      // atlas: FontAtlas,
-    });
-    this.scene.add(this.testText.container);
-  }
+  // initTestText() {
+  //   this.testText = new MSDFText({
+  //     font: FontFNT,
+  //     atlas: FontAtlas,
+  //   });
+  //   this.sceneHome.add(this.testText.container);
+  // }
 
   update() {
     if (this.stats) this.stats.update();

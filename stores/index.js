@@ -13,7 +13,8 @@ const useStore = defineStore('store', () => {
 					kayak: 0,
 				},
 				altitude: 4000,
-			}
+			},
+			isIntroFinished: false,
 		}
 	)
 

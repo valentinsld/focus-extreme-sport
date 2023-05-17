@@ -3,8 +3,10 @@ import WebGL from '../index.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/river.json'
 import RAFManager from '../Utils/RAFManager.js'
+import QuoteBlock from '../components/Quote.js'
 
-
+import GothamAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
+import GothamFNT from '~~/assets/MSDFfonts/Gotham-BookItalic.json'
 export default class SceneIntro {
   static singleton
 
@@ -34,7 +36,16 @@ export default class SceneIntro {
     this.light = new PointLight(0xffffff, 14, 12, 1)
     this.light.position.copy(this.WebGL.camera.initPosition)
 
-    this.instance.add(...[this.light, this.map, this.kayak])
+    this.quote = new QuoteBlock({
+      contentWidth: 1000,
+      contentLineHeight: 40,
+      quoteContent: '\" [Tu sais jamais ce qu\'il y a comme rapide,] c\'est bien d\'avoir peur, c\'est un super voyant qui permet de rester concentré. Je reste contente d\'avoir peur, ça te sauve la vie. \"'
+    })
+    console.log(this.quote.container);
+    this.quote.container.position.set(0, .5, 0)
+    this.quote.container.scale.set(.001, .001, .001)
+
+    this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
     this.scene.add(this.instance)
 
     this.WebGL.camera.setSpeedLines()

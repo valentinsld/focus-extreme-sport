@@ -76,7 +76,7 @@ export default class SceneWingsuit extends BaseScene {
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneWingsuit', (currentTime, dt) => {
-      this.timelineValue = Math.min((this.timelineValue + dt * 0.03 * this.WebGL.camera.getSpeed(this.timelineValue)), 1)
+      this.timelineValue = Math.min((this.timelineValue + dt * 0.028 * this.WebGL.camera.getSpeed(this.timelineValue)), 1)
       this.WebGL.camera.setTracking(this.timelineValue, this.characterContainer)
 
       // animation mixer character

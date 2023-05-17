@@ -1,5 +1,6 @@
 import { Group, PointLight, AmbientLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide, AnimationMixer } from 'three'
 import BaseScene from './BaseScene.js'
+import anime from "animejs"
 
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
 import RAFManager from '../Utils/RAFManager.js'
@@ -71,7 +72,7 @@ export default class SceneWingsuit extends BaseScene {
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
 
     // 2 - add camera to wingsuit + set position
-    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0, 0)))
+    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0.1, 0.1, -0.3)))
 
     // 3- init animation with percent
     this.timelineValue = 0
@@ -106,6 +107,68 @@ export default class SceneWingsuit extends BaseScene {
     this.WebGL.camera.setCamera('3p', new Vector3(12.80, -3.6, -4.7), new Vector3(11.80, -3.6, -4.7))
   }
 
+  //
+  // animation first QTE
+  //
+  animationSucessQTE(callback = null) {
+    // console.log('success')
+
+    anime.timeline({
+      // complete: () => {
+      //   if (callback) callback()
+      // }
+    })
+    .add({
+      targets: this.character.rotation,
+      z: [0, Math.PI * 2],
+      delay: 200,
+      duration: 2500,
+      easing: 'easeInOutElastic(1.8, 2)',
+      complete: () => {
+        if (callback) callback()
+      }
+    })
+    .add({
+      targets: this.WebGL.camera.listCamera['fpv'].position,
+      x: [0.1, 0],
+      y: [0.1, 0],
+      z: [-0.3, 0],
+      duration: 3300,
+      easing: 'easeOutQuint',
+    }, 1800)
+  }
+  animationFailsQTE(callback = null) {
+    // console.log('fails')
+
+    const d = 300
+    anime.timeline({
+      complete: () => {
+        if (callback) callback()
+      }
+    })
+    .add({
+      targets: this.character.rotation,
+      z: Math.PI * 0.075,
+      duration: d,
+      easing: 'easeOutSine',
+    }, 200)
+    .add({
+      targets: this.character.rotation,
+      z: -Math.PI * 0.075,
+      duration: d * 2,
+      easing: 'easeInOutSine',
+    }, 200 + d)
+    .add({
+      targets: this.character.rotation,
+      z: 0,
+      duration: d,
+      easing: 'easeOutSine',
+    }, 200 + d * 3)
+  }
+
+  //
+  // DESTROY SCENE
+  //
   destroyScene() {
     if (this.WebGL.debug) {
       this.debugFPV.dispose()

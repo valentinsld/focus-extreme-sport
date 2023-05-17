@@ -44,6 +44,7 @@ import SceneManager from '~~/webgl/Managers/SceneManager';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const store = useStore()
+let currentScene = null
 
 onMounted(()=> {
   store.state.gamestatestep = 0
@@ -56,6 +57,8 @@ onMounted(()=> {
 // event change state
 //
 const initStates = (scene) => {
+  currentScene = scene
+
   // event QTE FIGURE
   scene.setEventTimeline(0.05, () => {
     store.state.gamestatestep = 1
@@ -95,8 +98,10 @@ const endQteFigure = (isSucess) => {
 
   if (isSucess) {
     // TODO : faire un rollover
+    currentScene.animationSucessQTE()
   } else {
     // TODO : animation pas de rollover
+    currentScene.animationFailsQTE()
   }
 }
 </script>

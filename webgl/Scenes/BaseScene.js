@@ -34,8 +34,6 @@ export default class BaseScene {
       return a.value - b.value
     })
 
-    console.log(this.timelineEvents)
-
     if (RAFManager.has(this.timelineEventsUid)) return
     RAFManager.add(this.timelineEventsUid, () => {
       if (this.timelineValue > this.timelineEvents[0].value) {

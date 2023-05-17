@@ -305,7 +305,7 @@ export default class Camera {
     // set rotation for camera on curve
     object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
     this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
-    object.rotation.z = Math.PI + this.rotationCam
+    object.rotation.z += this.rotationCam
   }
 
 

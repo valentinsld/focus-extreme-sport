@@ -1,7 +1,7 @@
 <template>
   <div class="qte-focus">
     <p class="qte-focus__title">
-      Appuyer sur espace
+      Maintiens la touche espace
     </p>
 
     <div class="qte-focus__indicator">

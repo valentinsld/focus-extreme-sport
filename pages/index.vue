@@ -1,11 +1,44 @@
 <template>
-  <div class="gameContainer">
-    <Home v-if="store.state.gamestate === 'home'" />
-    <Selection v-else-if="store.state.gamestate === 'selection'" />
-    <GameIntro v-else-if="store.state.gamestate === 'intro'" />
-    <GameWingsuit v-else-if="store.state.gamestate === 'wingsuit'" />
-    <GameSki v-else-if="store.state.gamestate === 'ski'" />
-    <GameKayak v-else-if="store.state.gamestate === 'kayak'" />
+  <div
+    class="gameContainer"
+    :class="{'is-game': store.isIntroFinished}"
+  >
+    <Transition
+      name="home"
+      appear
+    >
+      <Home v-if="store.state.gamestate === 'home'" />
+    </Transition>
+    <Transition
+      name="selection"
+      appear
+    >
+      <Selection v-if="store.state.gamestate === 'selection'" />
+    </Transition>
+    <Transition
+      name="intro"
+      appear
+    >
+      <GameIntro v-if="store.state.gamestate === 'intro'" />
+    </Transition>
+    <Transition
+      name="wingsuit"
+      appear
+    >
+      <GameWingsuit v-if="store.state.gamestate === 'wingsuit'" />
+    </Transition>
+    <Transition
+      name="ski"
+      appear
+    >
+      <GameSki v-if="store.state.gamestate === 'ski'" />
+    </Transition>
+    <Transition
+      name="kayak"
+      appear
+    >
+      <GameKayak v-if="store.state.gamestate === 'kayak'" />
+    </Transition>
     <!-- <QteFigure
       :data-children="dataChildren"
       @is-finished="qteFigureFinish"
@@ -101,6 +134,13 @@ const initDebugGameState = () => {
   z-index: 1;
 
   padding: 50px;
+  background-color: rgba(colors(black), 1);
+
+  transition: background-color 4s ease(out-swift);
+
+  &.is-game {
+    background-color: rgba(colors(black), 0);
+  }
 }
 
 .page {

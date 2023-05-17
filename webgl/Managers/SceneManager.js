@@ -33,18 +33,32 @@ export default class SceneManager {
 			return
 		}
 		if(this.webgl.sceneTransi.scene) {
-			this.webgl.sceneTransi.scene.container.children[0].material.animationIn()
 
-			setTimeout(() => {
+			if(this.oldScene.name === 'home') {
+
 				this.webgl.currentScene = newScene
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
 				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
 				if(newScene.scene) newScene.scene.startScene()
-			}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay * 0.1) * 1000)
-			setTimeout(() => {
-				this.webgl.sceneTransi.scene.container.children[0].material.animationOut()
-			}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay) * 1000)
+
+			} else {
+
+				this.webgl.sceneTransi.scene.container.children[0].material.animationIn()
+
+				setTimeout(() => {
+					this.webgl.currentScene = newScene
+					this.webgl.camera.scene = newScene
+					this.webgl.renderer.scene = newScene
+					if(this.oldScene.scene) this.oldScene.scene.destroyScene()
+					if(newScene.scene) newScene.scene.startScene()
+				}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay * 0.1) * 1000)
+				setTimeout(() => {
+					this.webgl.sceneTransi.scene.container.children[0].material.animationOut()
+				}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay) * 1000)
+
+			}
+
 		}
 	}
 }

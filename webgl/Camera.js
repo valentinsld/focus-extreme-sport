@@ -36,6 +36,8 @@ export default class Camera {
 
     this.initCameras()
     this.setOrbitControls()
+
+    this.setSpeedLines()
   }
 
   //

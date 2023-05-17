@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
 
@@ -53,6 +54,8 @@ const onKeyUp = (ev) => {
 }
 
 onMounted(() => {
+	const webgl = new WebGL()
+
 	targetValue = randomValue()
 
 	noEvent.action()
@@ -65,6 +68,7 @@ onMounted(() => {
 		value.value = Math.min(1, Math.max(-1, value.value))
 
 		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
+		webgl.camera.speedLine.setSpeed(3 + (0.8 - Math.min(Math.abs(value.value), 0.8)) * 6)
 
 		emit('updated', value.value)
 	})

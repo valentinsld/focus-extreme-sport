@@ -70,25 +70,28 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance END
-  scene.setEventTimeline(0.51, () => {
+  scene.setEventTimeline(0.53, () => {
     store.state.gamestatestep = 4
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.54, () => {
+  scene.setEventTimeline(0.56, () => {
     store.state.gamestatestep = 5
     RAFManager.setSpeed(0.6)
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.76, () => {
+  scene.setEventTimeline(0.87, () => {
     store.state.gamestatestep = 6
     scene.setCamera3P()
-    RAFManager.setSpeed(0.05)
+  })
+
+  scene.setEventTimeline(0.89, () => {
+    RAFManager.setSpeed(0.02)
   })
 
   // event end next scene
-  scene.setEventTimeline(0.89, () => {
+  scene.setEventTimeline(0.93, () => {
     store.state.gamestate = 'kayak'
   })
 }

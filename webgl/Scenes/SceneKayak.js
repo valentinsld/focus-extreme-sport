@@ -7,6 +7,7 @@ import QuoteBlock from '../components/Quote.js'
 
 import GothamAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
 import GothamFNT from '~~/assets/MSDFfonts/Gotham-BookItalic.json'
+import { DegToRad } from '../Utils/Math.js'
 export default class SceneIntro {
   static singleton
 
@@ -38,17 +39,19 @@ export default class SceneIntro {
 
     this.quote = new QuoteBlock({
       contentWidth: 1000,
-      contentLineHeight: 40,
+      contentLineHeight: 50,
       quoteContent: '\" [Tu sais jamais ce qu\'il y a comme rapide,] c\'est bien d\'avoir peur, c\'est un super voyant qui permet de rester concentré. Je reste contente d\'avoir peur, ça te sauve la vie. \"',
 
       authorWidth: 1000,
       quoteAuthor: 'NOURIA NEWMAN',
+      authorColor: '#C4FE1F',
 
       jobWidth: 1000,
       quoteJob: 'Kayakiste professionnelle',
     })
-    this.quote.container.position.set(0, .5, 0)
-    this.quote.container.scale.set(.001, .001, .001)
+    this.quote.container.position.set(0, -1.25, -5)
+    this.quote.container.rotation.y = DegToRad(115)
+    this.quote.container.scale.set(.0005, .0005, .0005)
 
     this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
     this.scene.add(this.instance)

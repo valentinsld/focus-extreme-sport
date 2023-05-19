@@ -35,9 +35,14 @@ export default class SceneKayak extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 40,
-      quoteContent: '\" [Tu sais jamais ce qu\'il y a comme rapide,] c\'est bien d\'avoir peur, c\'est un super voyant qui permet de rester concentré. Je reste contente d\'avoir peur, ça te sauve la vie. \"'
+      quoteContent: '\" [Tu sais jamais ce qu\'il y a comme rapide,] c\'est bien d\'avoir peur, c\'est un super voyant qui permet de rester concentré. Je reste contente d\'avoir peur, ça te sauve la vie. \"',
+
+      authorWidth: 1000,
+      quoteAuthor: 'NOURIA NEWMAN',
+
+      jobWidth: 1000,
+      quoteJob: 'Kayakiste professionnelle',
     })
-    console.log(this.quote.container);
     this.quote.container.position.set(0, .5, 0)
     this.quote.container.scale.set(.001, .001, .001)
 

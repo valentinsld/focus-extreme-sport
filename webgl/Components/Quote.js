@@ -1,11 +1,11 @@
-import {Object3D, Group, Vector3} from 'three'
+import {Object3D} from 'three'
 // import RAFManager from '../Utils/RAFManager.js'
 
-import FontAtlas from '~~/assets/MSDFfonts/roboto-regular.png'
-import FontFNT from '~~/assets/MSDFfonts/roboto-regular.json'
+import GothamItalicAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
+import GothamItalicFNT from '~~/assets/MSDFfonts/Gotham-BookItalic.json'
 
-import GothamAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
-import GothamFNT from '~~/assets/MSDFfonts/Gotham-BookItalic.json'
+import GothamAtlas from '~~/assets/MSDFfonts/Gotham-Book.png'
+import GothamFNT from '~~/assets/MSDFfonts/Gotham-Book.json'
 
 import AkiraAtlas from '~~/assets/MSDFfonts/AkiraSuperBold.png'
 import AkiraFNT from '~~/assets/MSDFfonts/AkiraSuperBold.json'
@@ -29,7 +29,7 @@ export default class QuoteBlock {
 	  this.jobAlign = _options.jobAlign || 'left'
 
 	  this.quoteContent = _options.quoteContent || 'Test text'
-	  this.quoteAuthor = _options.quoteAuthor || 'Margaux Clement'
+	  this.quoteAuthor = _options.quoteAuthor || 'MARGAUX CLEMENT'
 	  this.quoteJob = _options.quoteJob || 'Kayakiste Professionnelle'
 
 	  this.contentLetterSpacing = _options.contentLetterSpacing || 0
@@ -43,26 +43,44 @@ export default class QuoteBlock {
 	  this.init()
 	}
 
-	init() {
+	async init() {
 
-		this.infos = new Group()
+		this.infos = new Object3D()
 
 		this.content = new MSDFText({
-			font: GothamFNT,
-			atlas: GothamAtlas,
+			font: GothamItalicFNT,
+			atlas: GothamItalicAtlas,
 			text: this.quoteContent,
 			lineHeight: this.contentLineHeight,
 			width: this.contentWidth,
 			align: this.contentAlign,
+			// isSmall: true,
 		  });
 
 		this.author = new MSDFText({
 			font: AkiraFNT,
 			atlas: AkiraAtlas,
 			text: this.quoteAuthor,
+			align: this.authorAlign,
+			lineHeight: this.authorLineHeight,
+			width: this.authorWidth,
+			color: '#C4FE1F'
 		})
 
-		this.infos.add(this.author.container)
+		this.job = new MSDFText({
+			font: GothamFNT,
+			atlas: GothamAtlas,
+			text: this.quoteJob,
+			lineHeight: this.jobLineHeight,
+			width: this.jobWidth,
+			align: this.jobAlign,
+			// isSmall: true,
+		})
+
+		this.infos.position.y = -80
+		this.job.container.position.y = -40
+
+		this.infos.add(...[this.author.container, this.job.container])
 
 		this.container.add(...[this.content.container, this.infos])
 	}

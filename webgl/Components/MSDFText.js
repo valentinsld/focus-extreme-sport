@@ -6,14 +6,11 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import FontAtlas from '~~/assets/MSDFfonts/roboto-regular.png'
 import FontFNT from '~~/assets/MSDFfonts/roboto-regular.json'
 
-import WebGL from '../index.js'
-
 export default class MSDFText {
 
 	constructor(_options = {}) {
 
 	  this.inView = false
-	  this.WebGL = new WebGL()
 	  this.container = new Object3D
 	  this.container.name = 'MSDFText'
 
@@ -27,6 +24,7 @@ export default class MSDFText {
 	  this.letterSpacing = _options.letterSpacing || 0
 	  this.lineHeight = _options.lineHeight || 1
 	  this.isUppercase = _options.isUppercase || false
+	  this.isSmall = _options.isSmall || false
 	  this.color = _options.color || '#ffffff'
 
 	  this.init()
@@ -35,32 +33,29 @@ export default class MSDFText {
 	init() {
 		Promise.all([
 			this.loadFontAtlas(this.atlas),
-		]).then(([atlas]) => {
-			this.geometry = new MSDFTextGeometry({
+			this.loadFont(this.font)
+		]).then(([atlas, font]) => {
+			const geometry = new MSDFTextGeometry({
 				text: this.isUppercase ? this.text.toUpperCase() : this.text,
-				font: this.loadFont(this.font).data,
+				font: font.data,
 				width:this.width,
 				align: this.align,
 				letterSpacing: this.letterSpacing,
 				lineHeight: this.lineHeight,
+				multipage: true,
 			});
 
-			// const matOption = {
-			// 	uniforms: {
-			// 		ucolor: {value: new Color("#ffff00")},
-			// 	}
-			// }
+			const material = new MSDFTextMaterial();
+			const uniforms = JSON.parse(JSON.stringify(material.uniforms))
+			material.uniforms = uniforms
+			material.uniforms.uMap.value = atlas;
+			material.uniforms.uColor.value = new Color(this.color);
+			material.side = DoubleSide
+			material.defines.IS_SMALL = this.isSmall
 
-			this.material = new MSDFTextMaterial();
-			this.material.uniforms.uMap.value = atlas;
-			this.material.uniforms.uColor.value = new Color(this.color);
-			this.material.side = DoubleSide
-
-			this.mesh = new Mesh(this.geometry, this.material);
+			this.mesh = new Mesh(geometry, material);
 			this.container.add(this.mesh);
 			this.container.rotation.x = Math.PI
-			// this.container.position.set(this.position.x, this.position.y, this.position.z)
-			// this.container.scale.set(this.scale.x, this.scale.y, this.scale.z)
 		});
 
 	}

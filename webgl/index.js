@@ -19,9 +19,6 @@ import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import SceneWingsuit from './Scenes/SceneWingsuit.js';
 import SceneKayak from './Scenes/SceneKayak.js';
 
-import FontAtlas from '~~/assets/MSDFfonts/ChivoMono-Black.png'
-import FontFNT from '~~/assets/MSDFfonts/ChivoMono-Black.json'
-
 export default class WebGL extends EventEmitter {
   static instance;
 

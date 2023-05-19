@@ -40,6 +40,10 @@ export default class QuoteBlock {
 	  this.authorLineHeight = _options.authorLineHeight || 0
 	  this.jobLineHeight = _options.jobLineHeight || 0
 
+	  this.contentColor = _options.contentColor || '#ffffff'
+	  this.authorColor = _options.authorColor || '#ffffff'
+	  this.jobColor = _options.jobColor || '#ffffff'
+
 	  this.init()
 	}
 
@@ -54,6 +58,7 @@ export default class QuoteBlock {
 			lineHeight: this.contentLineHeight,
 			width: this.contentWidth,
 			align: this.contentAlign,
+			color: this.contentColor
 			// isSmall: true,
 		  });
 
@@ -64,7 +69,7 @@ export default class QuoteBlock {
 			align: this.authorAlign,
 			lineHeight: this.authorLineHeight,
 			width: this.authorWidth,
-			color: '#C4FE1F'
+			color: this.authorColor
 		})
 
 		this.job = new MSDFText({
@@ -74,6 +79,7 @@ export default class QuoteBlock {
 			lineHeight: this.jobLineHeight,
 			width: this.jobWidth,
 			align: this.jobAlign,
+			color: this.jobColor
 			// isSmall: true,
 		})
 
@@ -83,5 +89,14 @@ export default class QuoteBlock {
 		this.infos.add(...[this.author.container, this.job.container])
 
 		this.container.add(...[this.content.container, this.infos])
+		this.container.visible = false
+	}
+
+	hideQuote() {
+		this.container.visible = false
+	}
+
+	showQuote() {
+		this.container.visible = true
 	}
 }

@@ -10,11 +10,18 @@
     <div class="start">
       <p>Pour une expérience optimale, muni-toi d’un casque</p>
       <button
+        v-if="store.state.ressourcesLoaded"
         class="btn-start"
         @click="startProject"
       >
         <span>commencer</span>
       </button>
+      <p
+        v-else
+        style="font-style: italic;"
+      >
+        Données en cours de chargement, veuillez patienter...
+      </p>
     </div>
   </section>
 </template>

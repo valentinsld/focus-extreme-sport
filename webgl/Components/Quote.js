@@ -89,7 +89,7 @@ export default class QuoteBlock {
 		this.infos.add(...[this.author.container, this.job.container])
 
 		this.container.add(...[this.content.container, this.infos])
-		this.container.visible = false
+		// this.container.visible = false
 	}
 
 	hideQuote() {

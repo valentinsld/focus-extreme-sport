@@ -21,15 +21,15 @@ export default class SceneManager {
 		this.setScene(this.currentSceneName)
 	}
 
-	setScene(scene, pauseDelay = .35) {
+	setScene(scene, pauseDelay = .35, onTransitionEnd = null) {
 		this.currentSceneName = scene
 		const lowerCase = scene.toLowerCase()
 		const newScene = this.scenes.find((scene) => scene.name === lowerCase)
 		this.oldScene = this.webgl.currentScene
 
 		if (this.oldScene.name === newScene.name) {
-			if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-			if(newScene.scene) newScene.scene.startScene()
+			if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+			if(newScene.scene) newScene.scene.startSceneMain()
 			return
 		}
 		if(this.webgl.sceneTransi.scene) {
@@ -39,9 +39,11 @@ export default class SceneManager {
 				this.webgl.currentScene = newScene
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
-				if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-				if(newScene.scene) newScene.scene.startScene()
-
+				if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+				if(newScene.scene) {
+					newScene.scene.startSceneMain()
+					if (onTransitionEnd) onTransitionEnd(newScene.scene)
+				}
 			} else {
 
 				this.webgl.sceneTransi.scene.container.children[0].material.animationIn()

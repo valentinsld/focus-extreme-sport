@@ -1,26 +1,23 @@
 import { Group, PointLight, AxesHelper, Vector3 } from 'three'
-import WebGL from '../index.js'
+import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/river.json'
 import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../components/Quote.js'
 
-import GothamAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
-import GothamFNT from '~~/assets/MSDFfonts/Gotham-BookItalic.json'
 import { DegToRad } from '../Utils/Math.js'
-export default class SceneIntro {
+
+export default class SceneKayak extends BaseScene {
   static singleton
 
   constructor() {
-    if (SceneIntro.singleton) {
-      return SceneIntro.singleton
+    if (SceneKayak.singleton) {
+      return SceneKayak.singleton
     }
-    SceneIntro.singleton = this
+    super() // must be before this
+    SceneKayak.singleton = this
 
-    this.inView = false
-    this.WebGL = new WebGL()
     this.scene = this.WebGL.sceneKayak
-    this.assets = this.WebGL.assets
 
     this.init()
   }
@@ -56,8 +53,6 @@ export default class SceneIntro {
     this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
     this.scene.add(this.instance)
 
-    this.WebGL.camera.setSpeedLines()
-
     if(this.WebGL.debug) {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)
@@ -66,8 +61,6 @@ export default class SceneIntro {
   }
 
   startScene() {
-    console.log('You start the scene ' + this.scene.name);
-
     // 1 - set curves for tracking camera
     this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
@@ -75,10 +68,10 @@ export default class SceneIntro {
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
 
     // 3- init animation with percent
-    this.percent = 0
-    RAFManager.add('sceneIntro', (currentTime, dt) => {
-      this.percent = (this.percent + dt * 0.03) % 1
-      this.WebGL.camera.setTracking(this.percent, this.kayak)
+    this.timelineValue = 0
+    RAFManager.add('SceneKayak', (currentTime, dt) => {
+      this.timelineValue = (this.timelineValue + dt * 0.03) % 1
+      this.WebGL.camera.setTracking(this.timelineValue, this.kayak)
     })
 
     // 4 - switch to camera 3p
@@ -102,9 +95,6 @@ export default class SceneIntro {
   }
 
   destroyScene() {
-    //TODO : add function to destroy the scene (spline, RAFremove, etc..)
-    console.log('You destroy the scene ' + this.scene.name);
-
-    RAFManager.remove('sceneIntro')
+    RAFManager.remove('SceneKayak')
   }
 }

@@ -47,9 +47,13 @@ const RAFManager = {
 	state: 'stop',
 	animations: [],
 
+	has(name) {
+		return this.animations[name] ? true : false
+	},
+
 	add(name, callback, param = null) {
 		if (!name || !callback) {
-			console.error('RAFManager.add: name or callback is null');
+			console.error('RAFManager.add: name or callback is null', { name, callback });
 			return
 		}
 		const aniData = { callback, param };
@@ -97,7 +101,8 @@ const RAFManager = {
 
 		this.speed = lerp(this.speed, this.targetSpeed, LERP)
 
-		this.dt = (this.time - this.lastTime) * this.speed / 1000;
+		this.realDt = (this.time - this.lastTime) / 1000;
+		this.dt = this.realDt * this.speed;
 		this.elapsedTime = (this.time - this.startTime) / 1000;
 
 		this.currentTime += this.dt;
@@ -107,7 +112,7 @@ const RAFManager = {
 			const callback = aniData.callback;
 			const param = aniData.param;
 
-			callback(this.currentTime, this.dt, param);
+			callback(this.currentTime, this.dt, this.realDt, param);
 		}
 	}
 }

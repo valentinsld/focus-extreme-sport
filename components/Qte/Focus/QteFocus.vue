@@ -1,39 +1,35 @@
 <template>
   <div class="qte-focus">
     <p class="qte-focus__title">
-      Appuyer sur espace
+      Maintiens la touche espace
     </p>
 
     <div class="qte-focus__indicator">
       <div
         :style="{ width: valuePercent }"
-        :class="{isFinish: isFinish}"
+        :class="{isMax: valuePercent === '100%'}"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
 
 const props = defineProps({
-	delayReducedSpeed: {
-		type: Number,
-		default: 1000,
-	},
 	duration: {
 		type: Number,
-		default: 2000,
+		default: 3000,
 	}
 })
-const START_SPEED = 0.15
+const START_SPEED = 3
 
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
 const value = ref(0)
 const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
-const isFinish = ref(false)
 
 //
 // events
@@ -49,35 +45,27 @@ const onKeyDown = (ev) => {
 }
 const onKeyUp = (ev) => {
 	if (ev.code === 'Space') {
-		keydown = -1
+		keydown = -0.5
 		emit('onKeyup')
 	}
 }
 
 onMounted(() => {
+	const webgl = new WebGL()
+
 	noEvent.action()
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)
 
-	setTimeout(() => {
-		RAFManager.setSpeed(START_SPEED)
-	}, props.delayReducedSpeed);
-
 	// init raf
-	RAFManager.add('QteFocus', (time, deltaTime) => {
-		value.value += deltaTime * keydown
+	RAFManager.add('QteFocus', (time, d, deltaTime) => {
+		value.value += deltaTime * keydown * 1000
 		value.value = Math.min(props.duration, Math.max(0, value.value))
 
-		RAFManager.setSpeed(START_SPEED + (value.value / props.duration) * (1 - START_SPEED))
+		const speedLine = START_SPEED + (value.value * 10 / props.duration)
+		webgl.camera.speedLine.setSpeed(speedLine)
 
 		emit('updated', value.value)
-
-		if (value.value === props.duration) {
-			RAFManager.setSpeed(1)
-			destroyedEvents()
-			isFinish.value = true
-			emit('onFinish')
-		}
 	})
 })
 
@@ -85,9 +73,13 @@ onMounted(() => {
 // on unmount
 //
 const destroyedEvents = () => {
-	RAFManager.remove('QteBalance')
+	const webgl = new WebGL()
+
+	RAFManager.remove('QteFocus')
+	webgl.camera.speedLine.setSpeed()
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
+	noEvent.destroy()
 }
 onUnmounted(() => {
 	destroyedEvents()
@@ -122,7 +114,7 @@ $indicator: 10px;
 			height: 100%;
 			background-color: black;
 
-			&.isFinish {
+			&.isMax {
 				background-color: green;
 			}
 		}

@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
 
@@ -53,16 +54,21 @@ const onKeyUp = (ev) => {
 }
 
 onMounted(() => {
+	const webgl = new WebGL()
+
+	targetValue = randomValue()
+
 	noEvent.action()
 	document.addEventListener('keydown', onKeyDown)
 	document.addEventListener('keyup', onKeyUp)
 
 	// init raf
-	RAFManager.add('QteBalance', (time, deltaTime) => {
-		value.value += deltaTime * 0.0003 * targetValue + deltaTime * 0.0005 * keydown
+	RAFManager.add('QteBalance', (time, d, deltaTime) => {
+		value.value += deltaTime * 0.25 * targetValue + deltaTime * 0.6 * keydown
 		value.value = Math.min(1, Math.max(-1, value.value))
 
-		RAFManager.setSpeed(1 - Math.abs(value.value))
+		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
+		webgl.camera.speedLine.setSpeed(3 + (0.8 - Math.min(Math.abs(value.value), 0.8)) * 6)
 
 		emit('updated', value.value)
 	})
@@ -103,6 +109,7 @@ onUnmounted(() => {
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)
+	noEvent.destroy()
 })
 </script>
 

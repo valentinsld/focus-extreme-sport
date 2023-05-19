@@ -1,7 +1,9 @@
-import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, LineCurve, Vector2 } from 'three'
+import { PerspectiveCamera, Object3D, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 import InstanciedSpeed from './Components/Particles/Speed/InstanciedSpeed.js'
+
+const CURVE_BEZIER_PERCENT = 0.75
 
 export default class Camera {
   constructor() {
@@ -34,6 +36,8 @@ export default class Camera {
 
     this.initCameras()
     this.setOrbitControls()
+
+    this.setSpeedLines()
   }
 
   //
@@ -95,6 +99,12 @@ export default class Camera {
 
     this.orbitControls.enabled = (name === 'debug')
 
+    if (name === 'fpv') {
+      this.speedLine.showLines()
+    } else {
+      this.speedLine.hideLines()
+    }
+
     return this.current
   }
 
@@ -114,6 +124,7 @@ export default class Camera {
   // Tracking cam
   //
   setCurvesTracking(curveCam, curveTrack) {
+    this.positionLengthPoints = []
     this.setCurve(this.curveCam, curveCam)
     this.setCurveRotation(this.curveRotation, curveCam)
     this.setCurveSpeed(this.curveSpeed, curveCam)
@@ -156,42 +167,137 @@ export default class Camera {
   setCurveRotation(curve, data, type = "ro") {
     curve.curves = []
 
-    for (let i = 0; i < data.length - 1; i++) {
-      const p1 = data[i][type];
-      const p2 = data[i+1][type];
+    const newDatas = []
 
-      curve.add(new LineCurve(
-        new Vector2(this.positionLengthPoints[i], p1),
-        new Vector2(this.positionLengthPoints[i+1], p2),
+    for (let i = 0; i < data.length; i++) {
+      newDatas.push({
+        p: {
+          x: this.positionLengthPoints[i],
+          y: data[i][type]
+        }
+      })
+    }
+
+    // calculate handle poinnts
+    const lengthNewData = newDatas.length - 1
+    for (let i = 1; i < lengthNewData; i++) {
+      const previousPoint = newDatas[i - 1].p
+      const currentPoint = newDatas[i].p
+      const nextPoint = newDatas[i + 1].p
+
+      // 1. calculate vector previous and next point
+      const vector = {
+        x: previousPoint.x - nextPoint.x,
+        y: previousPoint.y - nextPoint.y
+      }
+      vector.x *= CURVE_BEZIER_PERCENT
+      vector.y *= CURVE_BEZIER_PERCENT
+
+      // 2. apply vector to current point
+      const distancepn = nextPoint.x - previousPoint.x
+      const distancelp = (currentPoint.x - previousPoint.x) / distancepn
+      const distanceln = (nextPoint.x - currentPoint.x) / distancepn
+      newDatas[i].l = {
+        x: currentPoint.x + vector.x * distancelp,
+        y: currentPoint.y + vector.y * distancelp
+      }
+      newDatas[i].r = {
+        x: currentPoint.x - vector.x * distanceln,
+        y: currentPoint.y - vector.y * distanceln
+      }
+    }
+
+    // add handle to fisrt point and last point
+    newDatas[0].l = {...newDatas[0].p}
+    newDatas[0].r = {...newDatas[0].p}
+    newDatas[lengthNewData].l = {...newDatas[lengthNewData].p}
+    newDatas[lengthNewData].r = {...newDatas[lengthNewData].p}
+
+    // createCurve
+    for (let i = 0; i < lengthNewData; i++) {
+      const p1 = newDatas[i];
+      const p2 = newDatas[i + 1];
+      curve.add(new CubicBezierCurve(
+        new Vector2(p1.p.x, p1.p.y),
+        new Vector2(p1.r.x, p1.r.y),
+        new Vector2(p2.l.x, p2.l.y),
+        new Vector2(p2.p.x, p2.p.y),
       ))
     }
   }
   setCurveSpeed(curve, data, type = "sp") {
     curve.curves = []
 
+    // new datas
+    const newDatas = []
+
+    // calculate points
     const maxLength = this.positionLengthPoints[this.positionLengthPoints.length - 1]
-    let lastP2 = 0
-    let lastD2 = 0
-    for (let i = 0; i < data.length - 1; i++) {
-      const d1 = lastD2;
-      const d2 = this.positionLengthPoints[i+1] / maxLength;
-
-      const p1 = lastP2;
-      const p2 = lastP2 + (this.positionLengthPoints[i+1] - lastP2) * ((data[i+1][type] - 2) * -1);
-
-      curve.add(new LineCurve(
-        new Vector2(p1, d1),
-        new Vector2(p2, d2),
-      ))
-
-      lastP2 = p2
-      lastD2 = d2
+    for (let i = 0; i < data.length; i++) {
+      newDatas.push({
+        p: {
+          x: this.positionLengthPoints[i] / maxLength,
+          y: data[i][type],
+        }
+      })
     }
+
+    // calculate handle poinnts
+    const lengthNewData = newDatas.length - 1
+    for (let i = 1; i < lengthNewData; i++) {
+      const previousPoint = newDatas[i - 1].p
+      const currentPoint = newDatas[i].p
+      const nextPoint = newDatas[i + 1].p
+
+      // 1. calculate vector previous and next point
+      const vector = {
+        x: previousPoint.x - nextPoint.x,
+        y: previousPoint.y - nextPoint.y
+      }
+      vector.x *= CURVE_BEZIER_PERCENT
+      vector.y *= CURVE_BEZIER_PERCENT
+
+      // 2. apply vector to current point
+      const distancepn = nextPoint.x - previousPoint.x
+      const distancelp = (currentPoint.x - previousPoint.x) / distancepn
+      const distanceln = (nextPoint.x - currentPoint.x) / distancepn
+      newDatas[i].l = {
+        x: currentPoint.x + vector.x * distancelp,
+        y: currentPoint.y + vector.y * distancelp
+      }
+      newDatas[i].r = {
+        x: currentPoint.x - vector.x * distanceln,
+        y: currentPoint.y - vector.y * distanceln
+      }
+
+    }
+
+    // add handle to fisrt point and last point
+    newDatas[0].l = {...newDatas[0].p}
+    newDatas[0].r = {...newDatas[0].p}
+    newDatas[lengthNewData].l = {...newDatas[lengthNewData].p}
+    newDatas[lengthNewData].r = {...newDatas[lengthNewData].p}
+
+    // create curve
+
+    for (let i = 0; i < lengthNewData; i++) {
+      const p1 = newDatas[i];
+      const p2 = newDatas[i + 1];
+      curve.add(new CubicBezierCurve(
+        new Vector2(p1.p.x, p1.p.y),
+        new Vector2(p1.r.x, p1.r.y),
+        new Vector2(p2.l.x, p2.l.y),
+        new Vector2(p2.p.x, p2.p.y),
+      ))
+    }
+  }
+  getSpeed(percent = 0) {
+    return  this.curveSpeed.getPointAt(percent).y
   }
 
   setTracking (percent, object = this.current) {
-    // get percent of curves with speed
-    this.tracking = this.curveSpeed.getPointAt(percent).y
+    // set tracking percent
+    this.tracking = percent
 
     // set position for camera on curve
     this.curveCam.getPointAt(this.tracking, object.position)
@@ -201,7 +307,7 @@ export default class Camera {
     // set rotation for camera on curve
     object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
     this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
-    object.rotation.z = Math.PI + this.rotationCam
+    object.rotation.z += this.rotationCam
   }
 
 
@@ -209,7 +315,6 @@ export default class Camera {
   // Events
   //
   setSpeedLines() {
-    console.log('set speedlines');
     this.speedLine = new InstanciedSpeed({
       assets: this.assets,
       camera: this.current,

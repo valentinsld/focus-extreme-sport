@@ -67,7 +67,7 @@ function breathe(count) {
 
   const breatheLoop = () => {
     if (step >= count) {
-      store.state.gamestate = 'kayak'
+      store.state.gamestate = 'wingsuit'
       store.isIntroFinished = true
       return;
     }

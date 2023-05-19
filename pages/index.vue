@@ -39,15 +39,9 @@
     >
       <GameKayak v-if="store.state.gamestate === 'kayak'" />
     </Transition>
-    <!-- <QteFigure
-      :data-children="dataChildren"
-      @is-finished="qteFigureFinish"
-    /> -->
-    <!-- <QteBalance /> -->
-    <!-- <QteFocus /> -->
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
-    <Altimetre v-if="store.state.gamestate !== 'home'" />
+    <Altimetre v-if="!['home', 'selection', 'intro'].includes(store.state.gamestate)" />
   </div>
 </template>
 
@@ -56,29 +50,6 @@ import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
 const store = useStore()
 
-// const dataChildren = reactive([
-// 	{
-// 		validKey: 'ArrowRight',
-// 		delay: 3000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowUp',
-// 		delay: 5000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowLeft',
-// 		delay: 7000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowDown',
-// 		delay: 8000,
-// 		duration: 2000
-// 	}
-// ])
-
 onMounted(() => {
   initDebugGameState()
 })
@@ -86,10 +57,6 @@ onMounted(() => {
 onUnmounted(() => {
   debugFolder.dispose()
 })
-
-// function qteFigureFinish() {
-//   console.log('QTE Figure is fineshed ma man');
-// }
 
 
 //

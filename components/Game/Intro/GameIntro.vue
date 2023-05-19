@@ -54,7 +54,7 @@ const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
   setTimeout(()=> {
-    breathe(3)
+    breathe(1)
   }, 100)
 })
 

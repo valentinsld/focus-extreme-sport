@@ -130,7 +130,7 @@ const initDebugGameState = () => {
 
 <style scoped lang="scss">
 .gameContainer {
-  // pointer-events: none;
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -140,9 +140,9 @@ const initDebugGameState = () => {
   z-index: 1;
 
   padding: 50px;
-  background-color: rgba(colors(black), 1);
+  // background-color: rgba(colors(black), 1);
 
-  transition: background-color 4s ease(out-swift);
+  // transition: background-color 4s ease(out-swift);
 
   &.is-game {
     background-color: rgba(colors(black), 0);

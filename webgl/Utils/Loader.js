@@ -6,6 +6,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import { AudioLoader, LinearFilter, TextureLoader } from 'three'
+import useStore from '~~/stores'
 
 export default class Loader extends EventEmitter {
 	constructor() {
@@ -214,6 +215,8 @@ export default class Loader extends EventEmitter {
 		})
 	}
 	loadComplete(ressource, loaded) {
+		const store = useStore()
+
 		this.done++
 		this.createNestedObject(
 			this[`${ressource.type}s`],
@@ -225,6 +228,8 @@ export default class Loader extends EventEmitter {
 
 		if (this.total === this.done) {
 			setTimeout(() => {
+				console.log('All ressources loaded')
+				store.state.dataIsLoaded = true
 				this.trigger('ressourcesReady')
 			}, 1000)
 		}

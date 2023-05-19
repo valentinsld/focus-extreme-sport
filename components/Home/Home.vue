@@ -9,12 +9,20 @@
     </div>
     <div class="start">
       <p>Pour une expérience optimale, muni-toi d’un casque</p>
+      <br>
       <button
+        v-if="store.state.dataIsLoaded"
         class="btn-start"
         @click="startProject"
       >
         <span>commencer</span>
       </button>
+      <p
+        v-else
+        style="font-style: italic;"
+      >
+        Donneés en cours de chargement....
+      </p>
     </div>
   </section>
 </template>

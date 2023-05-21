@@ -3,7 +3,7 @@ import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/river.json'
 import RAFManager from '../Utils/RAFManager.js'
-import QuoteBlock from '../components/Quote.js'
+import QuoteBlock from '../Components/Quote.js'
 import { DegToRad } from '../Utils/Math.js'
 
 export default class SceneKayak extends BaseScene {

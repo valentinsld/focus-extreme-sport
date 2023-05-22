@@ -20,7 +20,7 @@
     >
       <span>{{ i }}</span>
     </QteFigureChild>
-  </div>props.
+  </div>
 </template>
 
 <script setup>

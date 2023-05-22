@@ -128,9 +128,8 @@ const initDebugGameState = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .gameContainer {
-  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -146,6 +145,13 @@ const initDebugGameState = () => {
 
   &.is-game {
     background-color: rgba(colors(black), 0);
+  }
+
+  pointer-events: none;
+
+  button,
+  a {
+    pointer-events: initial !important;
   }
 }
 

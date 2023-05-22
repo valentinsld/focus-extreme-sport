@@ -2,13 +2,17 @@ import { Group, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, Buffer
 import RAFManager from '../Utils/RAFManager.js'
 import { MathUtils } from 'three'
 import WebGL from '../index.js'
+import useStore from '~~/stores/index.js'
 
 const CURVE_BEZIER_PERCENT = 0.75
+const normliaze = (value, min, max) => ((value - min) / (max - min))
 
 export default class BaseScene {
   static singleton
 
   constructor() {
+    this.store = useStore()
+
     this.inView = false
     this.WebGL = new WebGL()
     this.assets = this.WebGL.assets
@@ -59,15 +63,23 @@ export default class BaseScene {
     })
   }
 
-    //
+  //
   // Tracking cam
   //
-  setCurvesTracking(curveCam, curveTrack) {
+  setCurvesTracking(curveCam, curveTrack, altimeterTop, altimeterBottom) {
+    this.altimeter = altimeterTop
+    this.altimeterTop = altimeterTop
+    this.altimeterBottom = altimeterBottom
+
     this.positionLengthPoints = []
     this.setCurve(this.curveCam, curveCam)
     this.setCurveRotation(this.curveRotation, curveCam)
     this.setCurveSpeed(this.curveSpeed, curveCam)
     this.setCurve(this.curveTrack, curveTrack)
+
+    // calculate altimeter Min & Max
+    this.altimeterMin = this.curveTrack.getPointAt(0).y
+    this.altimeterMax = this.curveTrack.getPointAt(1).y
 
     this.setTracking(0)
   }
@@ -248,6 +260,10 @@ export default class BaseScene {
     this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
     this.WebGL.camera.rotationCam = this.rotationCam
     object.rotation.z += this.rotationCam
+
+    // altimeter
+    this.altimeter = Math.round(normliaze(this.curveCam.getPointAt(this.tracking).y, this.altimeterMax, this.altimeterMin) * (this.altimeterTop - this.altimeterBottom) + this.altimeterBottom)
+    this.store.state.altimetre.altitude = this.altimeter
   }
 
   //

@@ -67,7 +67,7 @@ export default class SceneWingsuit extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
+    this.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM, 4000, 2600)
 
     // 2 - add camera to wingsuit + set position
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0.1, 0.1, -0.3)))

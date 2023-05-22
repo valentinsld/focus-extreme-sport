@@ -21,8 +21,6 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   init() {
-    this.instance = new Group()
-
     this.map = this.assets.models["wingsuit_map"].scene
     // TODO remove
     const LanscapeMaterial = new MeshLambertMaterial({
@@ -69,7 +67,7 @@ export default class SceneWingsuit extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.WebGL.camera.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
+    this.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM)
 
     // 2 - add camera to wingsuit + set position
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0.1, 0.1, -0.3)))
@@ -77,8 +75,8 @@ export default class SceneWingsuit extends BaseScene {
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneWingsuit', (currentTime, dt) => {
-      this.timelineValue = Math.min((this.timelineValue + dt * 0.028 * this.WebGL.camera.getSpeed(this.timelineValue)), 1)
-      this.WebGL.camera.setTracking(this.timelineValue, this.characterContainer)
+      this.timelineValue = Math.min((this.timelineValue + dt * 0.028 * this.getSpeed(this.timelineValue)), 1)
+      this.setTracking(this.timelineValue, this.characterContainer)
 
       // animation mixer character
       this.mixerCharacter.update(dt);

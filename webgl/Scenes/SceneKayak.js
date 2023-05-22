@@ -22,8 +22,6 @@ export default class SceneKayak extends BaseScene {
   }
 
   init() {
-    this.instance = new Group()
-
     this.map = this.assets.models["river"].scene
     this.kayak = new Group()
     const kayak = this.assets.models["kayak"].scene
@@ -61,7 +59,7 @@ export default class SceneKayak extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.WebGL.camera.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
+    this.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE)
 
     // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
@@ -70,7 +68,7 @@ export default class SceneKayak extends BaseScene {
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.timelineValue = (this.timelineValue + dt * 0.03) % 1
-      this.WebGL.camera.setTracking(this.timelineValue, this.kayak)
+      this.setTracking(this.timelineValue, this.kayak)
     })
 
     // 4 - switch to camera 3p

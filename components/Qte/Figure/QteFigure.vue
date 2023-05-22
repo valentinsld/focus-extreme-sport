@@ -9,9 +9,9 @@
       :keyboard-key="keyPressed"
       :valid-key="props.dataChildren[i - 1].validKey"
       :class="{
-        'is-visible': objectStates[i - 1].isVisible,
         'is-animated': objectStates[i - 1].isAnimated,
         'is-clickable': objectStates[i - 1].isClickable,
+        'is-right': objectStates[i - 1].isRight,
         'is-wrong': objectStates[i - 1].isWrong,
       }"
       :duration="props.dataChildren[i - 1].duration"
@@ -56,11 +56,10 @@ const props = defineProps({
 for (let i = 0; i < props.dataChildren.length; i++) {
 
 	const state = {
-		isVisible: false,
 		isAnimated: false,
 		isClickable: false,
+		isRight: false,
 		isWrong: false,
-		hasBeenClicked: false
 	}
 	objectStates.push(state)
 
@@ -103,7 +102,7 @@ function checkKey() {
 	if (!currentObject.isClickable) return
 	if (keyPressed.value === props.dataChildren[currentFigure.value].validKey) {
 		figures.value[currentFigure.value].$el.classList.remove('is-visible')
-		objectStates[currentFigure.value].hasBeenClicked = true
+		objectStates[currentFigure.value].isRight = true
 	} else {
 		currentObject.isWrong = true
 	}
@@ -113,7 +112,7 @@ function checkKey() {
 
 function checkFinish() {
 	if(currentFigure.value === figures.value.length) {
-		const isSucess = objectStates.every((objectState) => objectState.hasBeenClicked)
+		const isSucess = objectStates.every((objectState) => objectState.isRight)
 		setFinish(isSucess)
 	}
 }
@@ -122,7 +121,7 @@ function enableClick(index) {
 	objectStates[index].isClickable = true
 
 	setTimeout(()=> {
-		if (objectStates[index].hasBeenClicked || objectStates[index].isWrong) return
+		if (objectStates[index].isRight || objectStates[index].isWrong) return
 		objectStates[index].isWrong = true
 		currentFigure.value++
 		checkFinish()

@@ -47,7 +47,7 @@
     <!-- <QteFocus /> -->
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
-    <Altimetre v-if="store.state.gamestate !== 'home'" />
+    <Altimetre v-if="['wingsuit', 'ski', 'kayak'].includes(store.state.gamestate)" />
   </div>
 </template>
 

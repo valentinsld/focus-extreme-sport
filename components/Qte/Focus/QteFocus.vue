@@ -14,9 +14,14 @@
 </template>
 
 <script setup>
+import useStore from '~~/stores';
 import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
+const SCORE_MAX = 25
+const START_SPEED = 3
+
+const store = useStore()
 
 const props = defineProps({
 	duration: {
@@ -24,12 +29,14 @@ const props = defineProps({
 		default: 3000,
 	}
 })
-const START_SPEED = 3
 
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
 const value = ref(0)
 const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
+
+let score = 0
+let scoreMax = 0
 
 //
 // events
@@ -65,9 +72,16 @@ onMounted(() => {
 		const speedLine = START_SPEED + (value.value * 10 / props.duration)
 		webgl.camera.speedLine.setSpeed(speedLine)
 
+		score += deltaTime * Math.max(keydown, 0)
+		scoreMax += deltaTime
+
 		emit('updated', value.value)
 	})
 })
+
+function setScore() {
+	store.state.altimetre.scores[store.state.gamestate] += score / scoreMax * SCORE_MAX
+}
 
 //
 // on unmount
@@ -80,6 +94,8 @@ const destroyedEvents = () => {
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	noEvent.destroy()
+
+	setScore()
 }
 onUnmounted(() => {
 	destroyedEvents()

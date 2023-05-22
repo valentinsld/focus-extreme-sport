@@ -59,6 +59,7 @@ const emit = defineEmits(['isClickable'])
 <style lang="scss" scoped>
 .key {
 	background-color: #fff;
+	color: colors(black);
 	width: 50px;
 	height: 50px;
 	z-index: 1;
@@ -78,7 +79,7 @@ const emit = defineEmits(['isClickable'])
 
 	&.is-clickable {
 		.border {
-			border: 1px solid #00ff00;
+			border: 3px solid #00ff00;
 		}
 	}
 
@@ -96,7 +97,7 @@ const emit = defineEmits(['isClickable'])
 	height: 100%;
 	position: absolute;
 	content: "";
-	border: 1px solid red;
+	border: 3px solid red;
 	top: 0;
 	left: 0;
 	z-index: -1;

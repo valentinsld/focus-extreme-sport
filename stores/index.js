@@ -15,7 +15,6 @@ const useStore = defineStore('store', () => {
 				},
 				altitude: 4000,
 			},
-			isIntroFinished: false,
 		}
 	)
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="gameContainer"
-    :class="{'is-game': store.isIntroFinished}"
+    :class="{'is-game': isIntroFinished}"
   >
     <Transition
       name="home"
@@ -47,7 +47,7 @@
     <!-- <QteFocus /> -->
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
-    <Altimetre v-if="['wingsuit', 'ski', 'kayak'].includes(store.state.gamestate)" />
+    <Altimetre v-if="isIntroFinished" />
   </div>
 </template>
 
@@ -56,28 +56,7 @@ import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
 const store = useStore()
 
-// const dataChildren = reactive([
-// 	{
-// 		validKey: 'ArrowRight',
-// 		delay: 3000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowUp',
-// 		delay: 5000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowLeft',
-// 		delay: 7000,
-// 		duration: 2000
-// 	},
-// 	{
-// 		validKey: 'ArrowDown',
-// 		delay: 8000,
-// 		duration: 2000
-// 	}
-// ])
+const isIntroFinished = computed(() => ['wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))
 
 onMounted(() => {
   eventWebGLStarted()
@@ -139,9 +118,9 @@ const initDebugGameState = () => {
   z-index: 1;
 
   padding: 50px;
-  // background-color: rgba(colors(black), 1);
+  background-color: rgba(colors(black), 1);
 
-  // transition: background-color 4s ease(out-swift);
+  transition: background-color 4s ease(out-swift);
 
   &.is-game {
     background-color: rgba(colors(black), 0);

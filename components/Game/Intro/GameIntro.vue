@@ -1,5 +1,8 @@
 <template>
-  <section class="page page-intro">
+  <section
+    class="page page-intro"
+    :class="{'is-hide': isHide}"
+  >
     <div class="breathe-container">
       <div
         v-for="i in 6"
@@ -49,12 +52,15 @@ const store = useStore()
 const isInhaling = ref(false)
 const circles = ref()
 
+const isHide = ref(false)
+const DURATION_BEFORE_FADE = 1500
+
 const inhaleText = splitText('Inspire...')
 const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
   setTimeout(()=> {
-    breathe(1)
+    breathe(3)
   }, 100)
 })
 
@@ -67,7 +73,8 @@ function breathe(count) {
 
   const breatheLoop = () => {
     if (step >= count) {
-      store.state.gamestate = 'wingsuit'
+      isHide.value = true
+      setTimeout(() => store.state.gamestate = 'wingsuit', DURATION_BEFORE_FADE)
       return;
     }
 

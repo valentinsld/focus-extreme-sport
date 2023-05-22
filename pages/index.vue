@@ -142,6 +142,12 @@ const initDebugGameState = () => {
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
+
+  transition: opacity 0.4s ease-out;
+
+  &.is-hide {
+    opacity: 0;
+  }
 }
 
 .home-enter-active,

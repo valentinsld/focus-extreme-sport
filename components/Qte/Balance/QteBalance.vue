@@ -108,7 +108,6 @@ const interval = setInterval(() => {
 }, props.delayChange);
 
 function setScore() {
-	console.log('score', score, scoreMax, SCORE_MAX, score / scoreMax * SCORE_MAX)
 	store.state.altimetre.scores[store.state.gamestate] += score / scoreMax * SCORE_MAX
 }
 

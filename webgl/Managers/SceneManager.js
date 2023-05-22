@@ -52,8 +52,8 @@ export default class SceneManager {
 					this.webgl.currentScene = newScene
 					this.webgl.camera.scene = newScene
 					this.webgl.renderer.scene = newScene
-					if(this.oldScene.scene) this.oldScene.scene.destroyScene()
-					if(newScene.scene) newScene.scene.startScene()
+					if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+					if(newScene.scene) newScene.scene.startSceneMain()
 				}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay * 0.1) * 1000)
 				setTimeout(() => {
 					this.webgl.sceneTransi.scene.container.children[0].material.animationOut()

@@ -68,22 +68,22 @@ const emit = defineEmits(['isClickable'])
 	opacity: 0;
 	transition: opacity .3s ease-in-out;
 
-	&.is-visible {
-		opacity: 1;
-	}
-
 	&.is-animated {
+		opacity: 1;
+
 		.border {
 			transform: scale(1);
 		}
 	}
 
 	&.is-clickable {
-		background-color: #00FF00;
-
 		.border {
 			border: 1px solid #00ff00;
 		}
+	}
+
+	&.is-right {
+		background-color: #00FF00;
 	}
 
 	&.is-wrong {

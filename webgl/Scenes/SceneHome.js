@@ -1,4 +1,4 @@
-import { Group, Mesh, PointLight } from 'three'
+import { Group } from 'three'
 import BaseScene from './BaseScene.js'
 
 export default class SceneHome extends BaseScene {
@@ -21,45 +21,21 @@ export default class SceneHome extends BaseScene {
   init() {
     this.instance = new Group()
 
-    this.testCD = this.assets.models["cd-02"].scene
+    // TODO : scene
 
-    this.mesh = new Mesh()
-    this.mesh.add(this.testCD)
-
-    this.mesh.rotation.y = Math.PI / 2
-
-    this.light = new PointLight(0xffffff, 14, 12, 1)
-    this.light.position.copy(this.WebGL.camera.initPosition)
-
-    // this.speedLine = new InstanciedSpeed({
-    //   assets: this.assets,
-    //   countAll: 100
-    // })
-
-    this.instance.add(...[this.light, this.mesh])
     this.scene.add(this.instance)
   }
-
-  //
-  // Animation
-  //
-  animRotation(time) {
-    this.mesh.rotation.x = time
-    this.mesh.rotation.y = time * 0.8
-  }
-
 
   startScene() {
     this.WebGL.camera.target.set(0, 0, 0)
     this.WebGL.camera.current.position.copy(this.WebGL.camera.initPosition)
     this.instance.add(this.WebGL.camera.current)
 
-    // RAFManager.add("SceneHome", this.animRotation.bind(this))
+    // disable lines
+    this.WebGL.camera.speedLine.hideLines()
   }
 
   destroyScene() {
-    //TODO : add function to destroy the scene (spline, RAFremove, etc..)
-    console.log('You destroy the scene' + this.scene.name);
-    // RAFManager.remove("SceneHome")
+    this.WebGL.camera.speedLine.showLines()
   }
 }

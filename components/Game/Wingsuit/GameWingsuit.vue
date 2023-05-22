@@ -70,12 +70,12 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance END
-  scene.setEventTimeline(0.53, () => {
+  scene.setEventTimeline(0.54, () => {
     store.state.gamestatestep = 4
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.58, () => {
+  scene.setEventTimeline(0.62, () => {
     store.state.gamestatestep = 5
     RAFManager.setSpeed(0.6)
   })

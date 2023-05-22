@@ -8,10 +8,13 @@
 </template>
 
 <script setup>
+import useStore from '~~/stores';
 import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
+const SCORE_MAX = 50
 
+const store = useStore()
 
 const props = defineProps({
   delayChange: {
@@ -29,6 +32,8 @@ const emit = defineEmits(['updated', 'onKeydown', 'onKeyup'])
 let targetValue = 0
 let value = ref(0)
 
+let score = 0
+let scoreMax = 0
 
 //
 // events
@@ -70,6 +75,9 @@ onMounted(() => {
 		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
 		webgl.camera.speedLine.setSpeed(3 + (0.8 - Math.min(Math.abs(value.value), 0.8)) * 6)
 
+		score += deltaTime * Math.max(Math.abs(keydown), Math.round(1 - value.value * 0.625))
+		scoreMax += deltaTime
+
 		emit('updated', value.value)
 	})
 })
@@ -99,6 +107,10 @@ const interval = setInterval(() => {
 	targetValue = randomValue()
 }, props.delayChange);
 
+function setScore() {
+	console.log('score', score, scoreMax, SCORE_MAX, score / scoreMax * SCORE_MAX)
+	store.state.altimetre.scores[store.state.gamestate] += score / scoreMax * SCORE_MAX
+}
 
 //
 // on unmount
@@ -110,6 +122,8 @@ onUnmounted(() => {
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)
 	noEvent.destroy()
+
+	setScore()
 })
 </script>
 

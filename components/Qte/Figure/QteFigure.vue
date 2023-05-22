@@ -24,7 +24,11 @@
 </template>
 
 <script setup>
+import useStore from '~~/stores';
 import RAFManager from '~~/webgl/Utils/RAFManager';
+const SCORE_MAX = 25
+
+const store = useStore()
 
 const figures = ref()
 const currentFigure = ref(0)
@@ -90,6 +94,9 @@ onUnmounted(()=> {
 
 	// disable slowMode
 	RAFManager.setSpeed(1);
+
+	// set score
+	setScore()
 })
 
 const keyPress = (e) => {
@@ -126,6 +133,12 @@ function enableClick(index) {
 		currentFigure.value++
 		checkFinish()
 	}, props.delayWrong)
+}
+
+function setScore() {
+	const score = objectStates.reduce((a, b) => a + (b.isRight ? 1 : 0), 0) / objectStates.length * SCORE_MAX
+
+	store.state.altimetre.scores[store.state.gamestate] += score
 }
 
 function setFinish(isSucess) {

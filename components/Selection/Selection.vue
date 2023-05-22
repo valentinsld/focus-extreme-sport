@@ -68,6 +68,9 @@ function selectPackage() {
 }
 
 .package {
+	// event hover
+	pointer-events: initial !important;
+
 	max-width: 30%;
 	border: 1px solid red;
 	display: flex;

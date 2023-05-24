@@ -4,6 +4,7 @@ import anime from "animejs"
 
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
 import RAFManager from '../Utils/RAFManager.js'
+import QuoteBlock from '../Components/Quote.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -25,7 +26,6 @@ export default class SceneWingsuit extends BaseScene {
   init() {
     // MAP
     this.map = this.assets.models["wingsuit_map"].scene
-    this.scene.add(this.map)
 
     // character
     this.characterContainer = new Group()
@@ -35,14 +35,45 @@ export default class SceneWingsuit extends BaseScene {
     this.mixerCharacter = new AnimationMixer(this.character);
     this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
     this.characterContainer.add(this.character)
-    this.scene.add(this.characterContainer)
 
     // light
     this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.7)
-    this.scene.add(this.ambientLight)
 
     // position camera 3p
-    this.scene.getObjectByName('CAM_F').position.y += 0.1
+    this.map.getObjectByName('CAM_F').position.y += 0.05
+
+    // add quote
+    this.quote = new QuoteBlock({
+      contentWidth: 1000,
+      contentLineHeight: 50,
+      quoteContent: 'Quand on est en vitesse moyenne, on est autour des 200 kilomètres heure, mais si on prend de la vitesse on peut passer les 250 donc ça va très vite',
+
+      authorWidth: 1000,
+      quoteAuthor: 'Fred Fugen',
+      authorColor: '#C4FE1F',
+
+      jobWidth: 1000,
+      quoteJob: 'Spécialiste de la chute libre',
+    })
+    this.quote.container.position //.set(17.48, -5, -4.89)
+      .copy(this.map.getObjectByName('CAM_F_TARGET').position)
+      .sub(new Vector3(-0.54, 0.5, 0.081))
+
+    this.quote.container.rotation.y = 1.53
+    this.quote.container.scale.set(.0005, .0005, .0005)
+    this.quote.hideQuote()
+
+    // TODO REMOVE
+    if (this.WebGL.debug) {
+      this.WebGL.debug.addInput(this.quote.container.position, 'x', { label: 'quote x', step: 0.01 })
+      this.WebGL.debug.addInput(this.quote.container.position, 'y', { label: 'quote y', step: 0.01 })
+      this.WebGL.debug.addInput(this.quote.container.position, 'z', { label: 'quote z', step: 0.01 })
+      this.WebGL.debug.addInput(this.quote.container.rotation, 'y', { label: 'rotation y', step: 0.01 })
+      // this.WebGL.debug.addInput(this.quote.container, 'visible')
+    }
+
+    // add to scene
+    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container])
 
     if(this.WebGL.debug) {
       // three js add helper lines
@@ -90,6 +121,7 @@ export default class SceneWingsuit extends BaseScene {
 
   setCamera3P() {
     this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('CAM_F').position, this.scene.getObjectByName('CAM_F_TARGET').position)
+    this.quote.showQuote()
   }
 
   //

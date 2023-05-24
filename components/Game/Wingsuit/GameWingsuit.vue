@@ -4,32 +4,41 @@
       Game Wingsuit  {{ store.state.gamestatestep }}
     </h1>
 
-    <QteFigure
-      v-if="store.state.gamestatestep === 1"
-      :data-children="[
-        {
-          validKey: 'ArrowRight',
-          delay: 500,
-          duration: 2000
-        },
-        {
-          validKey: 'ArrowUp',
-          delay: 2500,
-          duration: 2000
-        },
-        {
-          validKey: 'ArrowLeft',
-          delay: 4500,
-          duration: 2000
-        },
-        {
-          validKey: 'ArrowDown',
-          delay: 6500,
-          duration: 2000
-        }
-      ]"
-      @is-finished="endQteFigure"
-    />
+    <Transition
+      name="figure"
+      appear
+    >
+      <div
+        v-if="store.state.gamestatestep === 1"
+        class="container"
+      >
+        <QteFigure
+          :data-children="[
+            {
+              validKey: 'ArrowRight',
+              delay: 500,
+              duration: 2000
+            },
+            {
+              validKey: 'ArrowUp',
+              delay: 2500,
+              duration: 2000
+            },
+            {
+              validKey: 'ArrowLeft',
+              delay: 4500,
+              duration: 2000
+            },
+            {
+              validKey: 'ArrowDown',
+              delay: 6500,
+              duration: 2000
+            }
+          ]"
+          @is-finished="endQteFigure"
+        />
+      </div>
+    </Transition>
     <QteBalance v-if="store.state.gamestatestep === 3" />
     <QteFocus
       v-if="store.state.gamestatestep === 5"
@@ -111,3 +120,15 @@ const endQteFigure = (isSucess) => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.figure-enter-active,
+.figure-leave-active {
+  transition: opacity 1s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.figure-enter-from,
+.figure-leave-to {
+  opacity: 0;
+}
+</style>

@@ -43,3 +43,15 @@
 
 	}
 }
+
+@keyframes GrowthRipple {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	to {
+		transform: scale(1.35);
+		opacity: 0;
+	}
+}

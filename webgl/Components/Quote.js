@@ -1,4 +1,4 @@
-import {Object3D} from 'three'
+import { Object3D } from 'three'
 // import RAFManager from '../Utils/RAFManager.js'
 
 import GothamItalicAtlas from '~~/assets/MSDFfonts/Gotham-BookItalic.png'
@@ -17,7 +17,7 @@ export default class QuoteBlock {
 
 	constructor(_options = {}) {
 	  this.webgl = new WebGL()
-	  this.container = new Object3D
+	  this.container = new Object3D()
 	  this.container.name = 'Quote Block'
 
 	  this.contentWidth = _options.contentWidth || 500
@@ -29,7 +29,7 @@ export default class QuoteBlock {
 	  this.jobAlign = _options.jobAlign || 'left'
 
 	  this.quoteContent = _options.quoteContent || 'Test text'
-	  this.quoteAuthor = _options.quoteAuthor || 'MARGAUX CLEMENT'
+	  this.quoteAuthor = _options.quoteAuthor.toUpperCase() || 'MARGAUX CLEMENT'
 	  this.quoteJob = _options.quoteJob || 'Kayakiste Professionnelle'
 
 	  this.contentLetterSpacing = _options.contentLetterSpacing || 0

@@ -20,7 +20,7 @@
     >
       <span>{{ i }}</span>
     </QteFigureChild>
-  </div>props.
+  </div>
 </template>
 
 <script setup>
@@ -120,7 +120,9 @@ function checkKey() {
 function checkFinish() {
 	if(currentFigure.value === figures.value.length) {
 		const isSucess = objectStates.every((objectState) => objectState.isRight)
-		setFinish(isSucess)
+		setTimeout(()=> {
+			setFinish(isSucess)
+		}, 500)
 	}
 }
 
@@ -152,8 +154,8 @@ const emit = defineEmits(['isFinished'])
 
 <style lang="scss" scoped>
 .qte-figure {
-	width: 50px;
-	height: 50px;
+	// width: 50px;
+	// height: 50px;
 	position: absolute;
 	top: 50%;
 	left: 50%;

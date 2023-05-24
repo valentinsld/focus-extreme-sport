@@ -46,6 +46,10 @@
     <!-- <QteBalance /> -->
     <!-- <QteFocus /> -->
 
+    <div class="test">
+      <QteFigureChild />
+    </div>
+
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
     <Altimetre v-if="isIntroFinished" />
   </div>
@@ -168,5 +172,9 @@ const initDebugGameState = () => {
 .selection-enter-from,
 .selection-leave-to {
   opacity: 0;
+}
+
+.test {
+  transform: translateY(-150%);
 }
 </style>

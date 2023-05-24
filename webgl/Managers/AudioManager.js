@@ -1,4 +1,5 @@
 import Pz from 'pizzicato'
+import anime from 'animejs'
 
 import WebGL from '../index'
 import RAFManager from '../Utils/RAFManager'
@@ -85,13 +86,22 @@ export default class AudioManager {
 		this.sounds[name].play()
 	}
 
-	stop(name) {
+	stop(name, duration = 1000, onTransitionEnd = null) {
 		if (!name) return console.error('No sound name provided')
 
 		if (!this.sounds[name]) {
 			return console.error(`Sound ${name} not playing`)
 		} else {
-			this.sounds[name].stop()
+			anime({
+				targets: this.sounds[name],
+				volume: 0,
+				duration,
+				easing: 'easeOutQuad',
+				complete: () => {
+					this.sounds[name].stop()
+					if (onTransitionEnd) onTransitionEnd()
+				}
+			})
 		}
 	}
 }

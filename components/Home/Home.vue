@@ -45,6 +45,10 @@ onMounted(()=> {
     const audioManager = new AudioManager()
     audioManager.play('damso', true)
 
+    setTimeout(() => {
+      audioManager.stop('damso')
+    }, 10000);
+
     const modif = {
       frequency: 1,
     }

@@ -28,13 +28,39 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
+import WebGL from '~~/webgl/index.js';
 import SceneManager from '~~/webgl/Managers/SceneManager';
+import AudioManager from '~~/webgl/Managers/AudioManager';
 
 const store = useStore()
 
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('home')
+
+  //
+  // TODO remove it on main
+  //
+  const init = () => {
+    const audioManager = new AudioManager()
+    audioManager.play('damso', true)
+
+    const modif = {
+      frequency: 1,
+    }
+
+    const WEBGL = new WebGL()
+    if (WEBGL.debug) {
+      WEBGL.debug.addInput(modif, 'frequency', { min: 0, max: 1, step: 0.01 }).on('change', (e) => {
+        audioManager.setFrequencyLowPass(e.value)
+      })
+    }
+
+    window.removeEventListener('click', init)
+  }
+
+  window.addEventListener('click', init)
+  // TODO end remove
 })
 
 function startProject() {

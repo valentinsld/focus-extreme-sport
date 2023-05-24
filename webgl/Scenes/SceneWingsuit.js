@@ -90,8 +90,6 @@ export default class SceneWingsuit extends BaseScene {
 
   setCamera3P() {
     this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('CAM_F').position, this.scene.getObjectByName('CAM_F_TARGET').position)
-
-    this.WebGL.debug.addInput(this.WebGL.camera.current.position, 'y')
   }
 
   //

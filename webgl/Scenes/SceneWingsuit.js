@@ -1,9 +1,11 @@
-import { Group, PointLight, AmbientLight, AxesHelper, Vector3, MeshLambertMaterial, DoubleSide, AnimationMixer } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer } from 'three'
 import BaseScene from './BaseScene.js'
 import anime from "animejs"
 
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
 import RAFManager from '../Utils/RAFManager.js'
+
+const CLEAR_COLOR = 0x93CBE5
 
 export default class SceneWingsuit extends BaseScene {
   static singleton
@@ -21,42 +23,26 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   init() {
+    // MAP
     this.map = this.assets.models["wingsuit_map"].scene
-    // TODO remove
-    const LanscapeMaterial = new MeshLambertMaterial({
-      color: 0xffffff,
-      side: DoubleSide
-    })
-    this.map.traverse((obj) => {
-      if (obj.name.includes("Landscape")) {
-        obj.material = LanscapeMaterial
-      }
-    })
+    this.scene.add(this.map)
 
+    // character
     this.characterContainer = new Group()
     this.character = this.assets.models["wingsuit_character"].scene
     this.character.scale.set(0.001, 0.001, 0.001)
     this.character.position.set(-0.01, -0.03, 0)
-    // this.WebGL.debug.addInput(this.character.scale, 'x', { step: 0.001, min: 0, max: 0.02}).on('change', () => {
-    //   this.character.scale.set(this.character.scale.x, this.character.scale.x, this.character.scale.x)
-    // })
-    // this.WebGL.debug.addInput(this.character.position, 'x', {step: 0.01, min: -2, max: 2})
-    // this.WebGL.debug.addInput(this.character.position, 'y', {step: 0.01, min: -2, max: 2})
-    // this.WebGL.debug.addInput(this.character.position, 'z', {step: 0.01, min: -2, max: 2})
-    // play animation character
     this.mixerCharacter = new AnimationMixer(this.character);
     this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
-
     this.characterContainer.add(this.character)
+    this.scene.add(this.characterContainer)
 
-    // TODO remove
-    this.light = new PointLight(0xffffff, 14, 12, 1)
-    this.light.position.set(0, 10, 0)
-    this.ambientLight = new AmbientLight(0xffffff, 0.1)
-    this.scene.add(this.light, this.ambientLight)
+    // light
+    this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.7)
+    this.scene.add(this.ambientLight)
 
-    this.instance.add(...[this.map, this.characterContainer])
-    this.scene.add(this.instance)
+    // position camera 3p
+    this.scene.getObjectByName('CAM_F').position.y += 0.1
 
     if(this.WebGL.debug) {
       // three js add helper lines
@@ -67,7 +53,7 @@ export default class SceneWingsuit extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.WING_CURVE_PERSO, TRAC_CAM.WING_CURVE_CAM, 4000, 2600)
+    this.setCurvesTracking(TRAC_CAM.CURVE_CAM, TRAC_CAM.CURVE_TARGET, 4000, 2600)
 
     // 2 - add camera to wingsuit + set position
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0.1, 0.1, -0.3)))
@@ -82,6 +68,8 @@ export default class SceneWingsuit extends BaseScene {
       this.mixerCharacter.update(dt);
     })
 
+    // set clearColor scene
+    this.WebGL.renderer.instance.setClearColor(CLEAR_COLOR, 1)
 
     if (this.WebGL.debug) {
       const cameraDebugFolder = this.WebGL.camera.debugFolder
@@ -101,7 +89,9 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   setCamera3P() {
-    this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('WING_FOCUS_CAM_3P').position, this.characterContainer.position)
+    this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('CAM_F').position, this.scene.getObjectByName('CAM_F_TARGET').position)
+
+    this.WebGL.debug.addInput(this.WebGL.camera.current.position, 'y')
   }
 
   //

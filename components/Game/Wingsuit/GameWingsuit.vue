@@ -65,13 +65,21 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance
-    scene.setEventTimeline(0.17, () => {
+    scene.setEventTimeline(0.15, () => {
     store.state.gamestatestep = 3
   })
 
   // event QTE Balance END
-  scene.setEventTimeline(0.54, () => {
+  scene.setEventTimeline(0.495, () => {
     store.state.gamestatestep = 4
+  })
+
+  // switch camera 3P _ 1
+  scene.setEventTimeline(0.52, () => {
+    scene.setCamera3P_2()
+  })
+  scene.setEventTimeline(0.575, () => {
+    scene.WebGL.camera.setCamera()
   })
 
   // event QTE Focus
@@ -97,10 +105,8 @@ const endQteFigure = (isSucess) => {
   store.state.gamestatestep = 2
 
   if (isSucess) {
-    // TODO : faire un rollover
     currentScene.animationSucessQTE()
   } else {
-    // TODO : animation pas de rollover
     currentScene.animationFailsQTE()
   }
 }

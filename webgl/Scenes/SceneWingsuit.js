@@ -41,6 +41,7 @@ export default class SceneWingsuit extends BaseScene {
 
     // position camera 3p
     this.map.getObjectByName('CAM_F').position.y += 0.05
+    this.map.getObjectByName('CAM_2').position.y -= 0.9
 
     // add quote
     this.quote = new QuoteBlock({
@@ -62,15 +63,6 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.container.rotation.y = 1.53
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
-
-    // TODO REMOVE
-    if (this.WebGL.debug) {
-      this.WebGL.debug.addInput(this.quote.container.position, 'x', { label: 'quote x', step: 0.01 })
-      this.WebGL.debug.addInput(this.quote.container.position, 'y', { label: 'quote y', step: 0.01 })
-      this.WebGL.debug.addInput(this.quote.container.position, 'z', { label: 'quote z', step: 0.01 })
-      this.WebGL.debug.addInput(this.quote.container.rotation, 'y', { label: 'rotation y', step: 0.01 })
-      // this.WebGL.debug.addInput(this.quote.container, 'visible')
-    }
 
     // add to scene
     this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container])
@@ -119,8 +111,19 @@ export default class SceneWingsuit extends BaseScene {
     }
   }
 
+  setCamera3P_2() {
+    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
+
+    anime({
+      targets: this.map.getObjectByName('CAM_2_TARGET').position,
+      x: '+=1.5',
+      delay: 500,
+      duration: 2000,
+      easing: 'easeOutSine'
+    })
+  }
   setCamera3P() {
-    this.WebGL.camera.setCamera('3p', this.scene.getObjectByName('CAM_F').position, this.scene.getObjectByName('CAM_F_TARGET').position)
+    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_F').position, this.map.getObjectByName('CAM_F_TARGET').position)
     this.quote.showQuote()
   }
 

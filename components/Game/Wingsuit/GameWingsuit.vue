@@ -84,9 +84,6 @@ const initStates = (scene) => {
   scene.setEventTimeline(0.87, () => {
     store.state.gamestatestep = 6
     scene.setCamera3P()
-  })
-
-  scene.setEventTimeline(0.89, () => {
     RAFManager.setSpeed(0.02)
   })
 

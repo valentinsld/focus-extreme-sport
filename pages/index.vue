@@ -46,9 +46,9 @@
     <!-- <QteBalance /> -->
     <!-- <QteFocus /> -->
 
-    <div class="test">
-      <QteFigureChild />
-    </div>
+    <!-- <div class="test">
+      <QteBalance />
+    </div> -->
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
     <Altimetre v-if="isIntroFinished" />

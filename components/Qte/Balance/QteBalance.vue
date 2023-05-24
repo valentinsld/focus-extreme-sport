@@ -1,9 +1,71 @@
 <template>
-  <div class="qte-balance">
+  <!-- <div class="qte-balance">
     <div
       class="qte-balance__indicator"
       :style="{ transform: `translateX(${value * 250}px)` }"
     />
+  </div> -->
+
+  <div
+    ref="balance"
+    class="balance"
+  >
+    <div class="gauge">
+      <svg
+        viewBox="0 0 2092 483"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      ><path
+        d="M1046 0C627.409 0 252.601 187.457.945 483 138.13 337.167 539.198 68.5 1046 68.5c506.8 0 907.87 268.667 1045.05 414.5C1839.4 187.457 1464.59 0 1046 0Z"
+        fill="#A5A5A5"
+      /></svg>
+      <div
+        class="cursor"
+        :style="{ transform: `translateY(-35%) rotate(${value * 35}deg)` }"
+      >
+        <svg
+          viewBox="0 0 184 184"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="cursor-icon"
+        >
+          <path
+            d="M183.142 91.57a145.346 145.346 0 0 0-91.57 91.572A145.347 145.347 0 0 0 0 91.57 145.347 145.347 0 0 0 91.571 0a145.347 145.347 0 0 0 91.571 91.57Z"
+            fill="#C4FE1F"
+          />
+        </svg>
+      </div>
+    </div>
+    <div class="arrows">
+      <div class="left">
+        <svg
+          viewBox="0 0 202 202"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
+            fill="#fff"
+          />
+        </svg>
+      </div>
+      <div class="right">
+        <svg
+          viewBox="0 0 202 202"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
+            fill="#fff"
+          />
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +96,14 @@ let value = ref(0)
 
 let score = 0
 let scoreMax = 0
+
+const balance = ref()
+
+const cursorGradient = [
+	'#C4FE1F',
+	'#FFE500',
+	'#FD2B90'
+]
 
 //
 // events
@@ -77,6 +147,10 @@ onMounted(() => {
 
 		score += deltaTime * Math.max(Math.abs(keydown), Math.round(1 - value.value * 0.625))
 		scoreMax += deltaTime
+
+		// console.log(Math.round(Math.abs(value.value) * (cursorGradient.length - 1)));
+
+		balance.value.style.setProperty('--cursor-color', cursorGradient[Math.round(Math.abs(value.value) * (cursorGradient.length - 1))])
 
 		emit('updated', value.value)
 	})
@@ -129,31 +203,105 @@ onUnmounted(() => {
 <style scoped lang="scss">
 $indicator: 10px;
 
-.qte-balance {
+// .qte-balance {
+// 	position: absolute;
+// 	top: 85vh;
+// 	left: 50vw;
+// 	transform: translate3d(-50%, 0, 0);
+
+// 	width: 500px;
+// 	height: $indicator;
+
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+
+// 	border: 1px solid black;
+
+// 	background: rgb(255, 0, 0);
+// 	background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 161, 0, 1) 30%, rgba(20, 255, 0, 1) 50%, rgba(255, 161, 0, 1) 70%, rgba(255, 0, 0, 1) 100%);
+
+// 	&__indicator {
+// 		width: $indicator;
+// 		height: $indicator;
+
+// 		background-color: white;
+// 		border: 1px solid black;
+// 		border-radius: 50%;
+// 	}
+// }
+
+.balance {
+	@include fluidSize("balance-size",
+		(bpw(s): 150px,
+			bpw(lg): 250px));
+
+	width: var(--balance-size);
+	// position: relative;
 	position: absolute;
-	top: 85vh;
+	bottom: 5vh;
 	left: 50vw;
 	transform: translate3d(-50%, 0, 0);
-
-	width: 500px;
-	height: $indicator;
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-flow: column nowrap;
 
-	border: 1px solid black;
+}
 
-	background: rgb(255, 0, 0);
-	background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 161, 0, 1) 30%, rgba(20, 255, 0, 1) 50%, rgba(255, 161, 0, 1) 70%, rgba(255, 0, 0, 1) 100%);
+.gauge {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-flow: column nowrap;
+}
 
-	&__indicator {
-		width: $indicator;
-		height: $indicator;
+.cursor {
+	@include fluidSize("cursor-size",
+		(bpw(s): 30px,
+			bpw(lg): 40px,
+			bpw(xxl): 50px));
 
-		background-color: white;
-		border: 1px solid black;
-		border-radius: 50%;
+	position: absolute;
+	width: var(--cursor-size);
+	height: var(--cursor-size);
+	// transform: translateY(-25%);
+	transform-origin: 50% 600%;
+}
+
+.cursor-icon {
+	path {
+		fill: var(--cursor-color);
+		transition: fill .7s ease(out-swift);
 	}
+}
+
+.arrows {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.left,
+.right {
+	@include fluidSize("arrow-size",
+		(bpw(s): 20px,
+			bpw(lg): 30px,
+			bpw(xxl): 40px));
+
+	display: block;
+	width: var(--arrow-size);
+
+	svg {}
+}
+
+.left {
+	transform: translateX(-50%) rotate(180deg);
+}
+
+.right {
+	transform: translateX(50%);
 }
 </style>

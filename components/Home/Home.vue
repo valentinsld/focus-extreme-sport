@@ -28,7 +28,6 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
-import WebGL from '~~/webgl/index.js';
 import SceneManager from '~~/webgl/Managers/SceneManager';
 import AudioManager from '~~/webgl/Managers/AudioManager';
 
@@ -48,17 +47,6 @@ onMounted(()=> {
     setTimeout(() => {
       audioManager.stop('damso')
     }, 10000);
-
-    const modif = {
-      frequency: 1,
-    }
-
-    const WEBGL = new WebGL()
-    if (WEBGL.debug) {
-      WEBGL.debug.addInput(modif, 'frequency', { min: 0, max: 1, step: 0.01 }).on('change', (e) => {
-        audioManager.setFrequencyLowPass(e.value)
-      })
-    }
 
     window.removeEventListener('click', init)
   }

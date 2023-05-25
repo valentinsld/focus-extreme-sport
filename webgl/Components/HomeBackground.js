@@ -22,6 +22,9 @@ export default class HomeBackground {
 			colorA: '#5c80a2', // #46698B
 			colorB: '#89ADCE',
 			posX: 1,
+			size2: 3,
+			scaleY2: 3,
+			intensity: 0.96,
 		}
 
 		this.init()
@@ -33,10 +36,14 @@ export default class HomeBackground {
 		const material = new RawShaderMaterial({
 			uniforms: {
 				uTime: { value: 0 },
-				uPosX: { value: this.params.posX},
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
 				uColorB: { value: new Color(this.params.colorB) },
+				// TODO remove
+				uPosX: { value: this.params.posX},
+				uSize2: { value: this.params.size2},
+				uScaleY2: { value: this.params.scaleY2},
+				uIntensity: { value: this.params.intensity},
 			},
 			vertexShader,
 			fragmentShader
@@ -59,6 +66,21 @@ export default class HomeBackground {
 			// posX
 			this.debugFolder.addInput(this.params, 'posX').on('change', () => {
 				material.uniforms.uPosX.value = this.params.posX
+			})
+
+			// size2
+			this.debugFolder.addInput(this.params, 'size2').on('change', () => {
+				material.uniforms.uSize2.value = this.params.size2
+			})
+
+			// scaleY2
+			this.debugFolder.addInput(this.params, 'scaleY2').on('change', () => {
+				material.uniforms.uScaleY2.value = this.params.scaleY2
+			})
+
+			// intensity
+			this.debugFolder.addInput(this.params, 'intensity').on('change', () => {
+				material.uniforms.uIntensity.value = this.params.intensity
 			})
 		}
 

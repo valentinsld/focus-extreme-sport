@@ -112,7 +112,7 @@ const initDebugGameState = () => {
   z-index: 1;
 
   padding: 50px;
-  background-color: rgba(colors(black), 1);
+  // background-color: rgba(colors(black), 1);
 
   transition: background-color 4s ease(out-swift);
 

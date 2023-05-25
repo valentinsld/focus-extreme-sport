@@ -29,30 +29,12 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager';
-import AudioManager from '~~/webgl/Managers/AudioManager';
 
 const store = useStore()
 
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('home')
-
-  //
-  // TODO remove it on main
-  //
-  const init = () => {
-    const audioManager = new AudioManager()
-    audioManager.play('damso', true)
-
-    setTimeout(() => {
-      audioManager.stop('damso')
-    }, 10000);
-
-    window.removeEventListener('click', init)
-  }
-
-  window.addEventListener('click', init)
-  // TODO end remove
 })
 
 function startProject() {

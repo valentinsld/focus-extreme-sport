@@ -3,6 +3,7 @@ import RAFManager from '../Utils/RAFManager.js'
 import { MathUtils } from 'three'
 import WebGL from '../index.js'
 import useStore from '~~/stores/index.js'
+import AudioManager from '~~/webgl/Managers/AudioManager';
 
 const CURVE_BEZIER_PERCENT = 0.75
 const normliaze = (value, min, max) => ((value - min) / (max - min))
@@ -16,6 +17,7 @@ export default class BaseScene {
     this.inView = false
     this.WebGL = new WebGL()
     this.assets = this.WebGL.assets
+    this.audioManager = new AudioManager()
 
     this.timelineValue = 0
     this.timelineEvents = []

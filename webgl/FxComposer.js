@@ -59,7 +59,9 @@ export default class FXComposer {
 			  uFc: { value: new Vector2(1,1) },  // focal length
 			  uAlpha_c: { value: 0 }, // skew coeff
 			  uAmount: {value: 0},
-			  uAngle: {value: 0}
+			  uAngle: {value: 0},
+			  uOffset: {value: 0},
+			  uDarkness: {value: 0},
 			},
 			vertexShader: postProV,
 			fragmentShader: postProF,

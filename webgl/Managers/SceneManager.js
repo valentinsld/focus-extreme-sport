@@ -39,6 +39,7 @@ export default class SceneManager {
 				this.webgl.currentScene = newScene
 				this.webgl.camera.scene = newScene
 				this.webgl.renderer.scene = newScene
+				this.webgl.fxComposer.renderPass.scene = newScene
 				if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
 				if(newScene.scene) {
 					newScene.scene.startSceneMain()
@@ -46,21 +47,22 @@ export default class SceneManager {
 				}
 			} else {
 
-				this.webgl.sceneTransi.scene.container.children[0].material.animationIn()
+				this.webgl.fxComposer.animationIn()
 
 				setTimeout(() => {
 					this.webgl.currentScene = newScene
 					this.webgl.camera.scene = newScene
 					this.webgl.renderer.scene = newScene
+					this.webgl.fxComposer.renderPass.scene = newScene
 					if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
 					if(newScene.scene) {
 						newScene.scene.startSceneMain()
 						if (onTransitionEnd) onTransitionEnd(newScene.scene)
 					}
-				}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay * 0.1) * 1000)
+				}, (this.webgl.fxComposer.duration + pauseDelay * 0.1))
 				setTimeout(() => {
-					this.webgl.sceneTransi.scene.container.children[0].material.animationOut()
-				}, (this.webgl.sceneTransi.scene.container.children[0].material.duration + pauseDelay) * 1000)
+					this.webgl.fxComposer.animationOut()
+				}, (this.webgl.fxComposer.duration + pauseDelay))
 
 			}
 

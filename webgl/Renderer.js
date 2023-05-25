@@ -118,14 +118,14 @@ export default class Renderer {
     // if (this.usePostprocess) {
     //   this.postProcess.composer.render()
     // } else {
-    this.instance.render(this.scene, this.camera.current)
+    // this.instance.render(this.scene, this.camera.current)
 
-    this.instance.autoClear = false
-    this.instance.clearDepth()
+    // this.instance.autoClear = false
+    // this.instance.clearDepth()
 
-    this.instance.render(this.transi, this.camera.current)
+    // this.instance.render(this.transi, this.camera.current)
 
-    this.instance.autoClear = true
+    // this.instance.autoClear = true
     // }
 
     if (this.stats) {

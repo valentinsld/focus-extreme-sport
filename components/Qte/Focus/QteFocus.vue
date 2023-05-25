@@ -37,6 +37,7 @@ const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
 
 let score = 0
 let scoreMax = 0
+let disto = 0
 
 //
 // events
@@ -75,6 +76,14 @@ onMounted(() => {
 		score += deltaTime * Math.max(keydown, 0)
 		scoreMax += deltaTime
 
+		disto = (value.value / props.duration)
+
+		if(webgl.fxComposer.isUpdatable) {
+			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
+			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
+			webgl.fxComposer.postProcessingPass.uniforms.uAmount.value = (disto * 0.0075)
+		}
+
 		emit('updated', value.value)
 	})
 })
@@ -91,6 +100,7 @@ const destroyedEvents = () => {
 
 	RAFManager.remove('QteFocus')
 	webgl.camera.speedLine.setSpeed()
+	webgl.fxComposer.resetEffect()
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	noEvent.destroy()

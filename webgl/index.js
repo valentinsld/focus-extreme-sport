@@ -18,6 +18,7 @@ import SceneTransi from './Scenes/SceneTransi.js';
 import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import SceneWingsuit from './Scenes/SceneWingsuit.js';
 import SceneKayak from './Scenes/SceneKayak.js';
+import FXComposer from './FxComposer.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -42,6 +43,7 @@ export default class WebGL extends EventEmitter {
     this.setDebug();
     this.setCamera();
     this.setRenderer();
+    this.setFxComposer();
 
     this.sizes.on("resize", () => {
       this.resize();
@@ -65,8 +67,9 @@ export default class WebGL extends EventEmitter {
     RAFManager.add("webgl",(currentTime, dt) => {
       this.update.bind(this)
       this.camera.update(dt);
+      this.fxComposer.update()
 
-      this.renderer.update();
+      // this.renderer.update();
     });
 
     this.started = true;
@@ -133,6 +136,10 @@ export default class WebGL extends EventEmitter {
     this.renderer = new Renderer()
   }
 
+  setFxComposer() {
+    this.fxComposer = new FXComposer()
+  }
+
   initSceneHome() {
     this.sceneHome.scene = new SceneHome()
   }
@@ -158,7 +165,7 @@ export default class WebGL extends EventEmitter {
   }
 
   update() {
-    if (this.stats) this.stats.update();
+    // if (this.stats) this.stats.update();
   }
 
   resize() {

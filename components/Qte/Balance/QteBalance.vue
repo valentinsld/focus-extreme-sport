@@ -74,6 +74,7 @@ import useStore from '~~/stores';
 import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
+import { lerp } from '~~/webgl/Utils/Lerp';
 const SCORE_MAX = 50
 
 const store = useStore()
@@ -96,6 +97,10 @@ let value = ref(0)
 
 let score = 0
 let scoreMax = 0
+let disto = 0
+let disX = 0
+let disY = 0
+let chroma = 0
 
 const balance = ref()
 
@@ -148,9 +153,20 @@ onMounted(() => {
 		score += deltaTime * Math.max(Math.abs(keydown), Math.round(1 - value.value * 0.625))
 		scoreMax += deltaTime
 
-		// console.log(Math.round(Math.abs(value.value) * (cursorGradient.length - 1)));
-
 		balance.value.style.setProperty('--cursor-color', cursorGradient[Math.round(Math.abs(value.value) * (cursorGradient.length - 1))])
+		disto = 1 - Math.abs(value.value)
+
+		if(webgl.fxComposer.isUpdatable) {
+			// webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
+			disX = lerp(disX,-(disto * .3), 0.01) // (disto * .1) * 3
+			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = disX
+			// webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
+			disY = lerp(disY,-(disto * .3), 0.01) // (disto * .1) * 3
+			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = disY
+
+			chroma = lerp(chroma,(disto * 0.0075), 0.01)
+			webgl.fxComposer.postProcessingPass.uniforms.uAmount.value = chroma
+		}
 
 		emit('updated', value.value)
 	})
@@ -189,8 +205,11 @@ function setScore() {
 // on unmount
 //
 onUnmounted(() => {
+	const webgl = new WebGL()
+
 	RAFManager.remove('QteBalance')
 	RAFManager.setSpeed(1)
+	// webgl.fxComposer.resetEffect()
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	clearInterval(interval)

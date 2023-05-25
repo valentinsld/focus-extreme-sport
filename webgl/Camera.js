@@ -76,6 +76,7 @@ export default class Camera {
 
   setCamera(name = 'fpv', position, target = undefined) {
     this.current = this.listCamera[name]
+    this.WebGL.fxComposer.renderPass.camera = this.current
 
     if (position) {
       this.current.position.copy(position)
@@ -94,6 +95,7 @@ export default class Camera {
       this.speedLine.showLines()
     } else {
       this.speedLine.hideLines()
+      this.WebGL.fxComposer.resetEffect()
     }
 
     return this.current

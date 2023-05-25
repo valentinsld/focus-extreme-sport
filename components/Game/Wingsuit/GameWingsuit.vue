@@ -49,11 +49,14 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
+import WebGL from '~~/webgl';
 import SceneManager from '~~/webgl/Managers/SceneManager';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
 const store = useStore()
 let currentScene = null
+
+const webgl = new WebGL()
 
 onMounted(()=> {
   store.state.gamestatestep = 0
@@ -74,7 +77,8 @@ const initStates = (scene) => {
   })
 
   // event QTE Balance
-    scene.setEventTimeline(0.15, () => {
+  scene.setEventTimeline(0.15, () => {
+    webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
   })
 
@@ -93,6 +97,7 @@ const initStates = (scene) => {
 
   // event QTE Focus
   scene.setEventTimeline(0.62, () => {
+    webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
     RAFManager.setSpeed(0.6)
   })

@@ -49,20 +49,21 @@ export default class WebGL extends EventEmitter {
       this.resize();
     });
 
-    this.assets.on('ressourcesReady', () => {
-      this.ressourcesReady = true
-      this.trigger("endLoading")
+    this.initSceneHome()
 
-      this.initTransi()
+    // this.assets.on('ressourcesReady', () => {
+    //   this.ressourcesReady = true
+    //   this.trigger("endLoading")
 
-      this.initSceneHome()
-      this.initSceneWingsuit()
-      this.initSceneKayak()
+    //   this.initTransi()
 
-      // this.initTestText()
+    //   this.initSceneWingsuit()
+    //   this.initSceneKayak()
 
-      this.sceneManager.startCurrentScene()
-    })
+    //   // this.initTestText()
+
+    //   this.sceneManager.startCurrentScene()
+    // })
 
     RAFManager.add("webgl",(currentTime, dt) => {
       this.update.bind(this)

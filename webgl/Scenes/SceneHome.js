@@ -1,4 +1,5 @@
 import { Group } from 'three'
+import HomeBackground from '../Components/HomeBackground.js'
 import BaseScene from './BaseScene.js'
 
 export default class SceneHome extends BaseScene {
@@ -22,6 +23,7 @@ export default class SceneHome extends BaseScene {
     this.instance = new Group()
 
     // TODO : scene
+    new HomeBackground()
 
     this.scene.add(this.instance)
   }

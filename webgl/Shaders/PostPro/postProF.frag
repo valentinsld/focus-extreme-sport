@@ -14,6 +14,9 @@ uniform float uAlpha_c;
 uniform float uAmount;
 uniform float uAngle;
 
+uniform float uOffset;
+uniform float uDarkness;
+
 varying vec2 vUv;
 
 void main() {
@@ -37,6 +40,10 @@ void main() {
 	vec4 cb = texture2D(tDiffuse, Xp - offset);
 
 	vec4 diffuse = vec4(cr.r, cga.g, cb.b, cga.a);
+
+	//Vignette
+	float vignette = distance( vUv, vec2( 0.5 ) );
+	diffuse.rgb *= smoothstep( 0.8, uOffset * 0.799, vignette *( uDarkness + uOffset ) );
 
 	// Transi layout
 	vec4 noise = texture2D(uNoise, vUv);

@@ -52,7 +52,7 @@ export default class AudioManager {
 	//
 	// Action
 	//
-	play(name, loop = false, volume = 1) {
+	play(name, loop = false, volume = 1, duration = 0) {
 		if (!name) return console.error('No sound name provided')
 		if (!this.listSounds[name]) return console.error(`Sound ${name} not found`)
 
@@ -84,6 +84,15 @@ export default class AudioManager {
 		this.sounds[name].loop = loop
 		this.sounds[name].volume = volume
 		this.sounds[name].play()
+
+		if (duration <= 0) return
+		this.sounds[name].volume = 0
+		anime({
+			targets: this.sounds[name],
+			volume,
+			duration,
+			easing: 'easeOutQuad'
+		})
 	}
 
 	stop(name, duration = 1000, onTransitionEnd = null) {

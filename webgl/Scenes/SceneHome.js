@@ -37,6 +37,10 @@ export default class SceneHome extends BaseScene {
     this.WebGL.camera.speedLine.hideLines()
   }
 
+  playDark() {
+    this.bkg.playDark()
+  }
+
   destroyScene() {
     if (this.bkg) this.bkg.destroy()
     this.WebGL.camera.speedLine.showLines()

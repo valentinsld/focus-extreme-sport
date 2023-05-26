@@ -21,7 +21,7 @@ export default class SceneManager {
 		this.setScene(this.currentSceneName)
 	}
 
-	setScene(scene, pauseDelay = .35, onTransitionEnd = null) {
+	setScene(scene, pauseDelay = 100, onTransitionEnd = null) {
 		this.currentSceneName = scene
 		const lowerCase = scene.toLowerCase()
 		const newScene = this.scenes.find((scene) => scene.name === lowerCase)
@@ -35,16 +35,25 @@ export default class SceneManager {
 		if(this.webgl.sceneTransi.scene) {
 
 			if(this.oldScene.name === 'home') {
+				const FadeDiv = document.querySelector('#absolute-fade')
+				FadeDiv.style.transitionDuration = this.webgl.fxComposer.duration + 'ms'
+				FadeDiv.classList.add('is-active')
 
-				this.webgl.currentScene = newScene
-				this.webgl.camera.scene = newScene
-				this.webgl.renderer.scene = newScene
-				this.webgl.fxComposer.renderPass.scene = newScene
-				if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
-				if(newScene.scene) {
-					newScene.scene.startSceneMain()
-					if (onTransitionEnd) onTransitionEnd(newScene.scene)
-				}
+				setTimeout(() => {
+					this.webgl.currentScene = newScene
+					this.webgl.camera.scene = newScene
+					this.webgl.renderer.scene = newScene
+					this.webgl.fxComposer.renderPass.scene = newScene
+					if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+					if(newScene.scene) {
+						newScene.scene.startSceneMain()
+						if (onTransitionEnd) onTransitionEnd(newScene.scene)
+					}
+				}, (this.webgl.fxComposer.duration + pauseDelay * 0.1))
+				setTimeout(() => {
+					FadeDiv.classList.remove('is-active')
+				}, (this.webgl.fxComposer.duration + pauseDelay))
+
 			} else {
 
 				this.webgl.fxComposer.animationIn()

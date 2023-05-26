@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="gameContainer"
-    :class="{'is-game': isIntroFinished}"
-  >
+  <div class="gameContainer">
     <Transition
       name="home"
       appear
@@ -112,13 +109,6 @@ const initDebugGameState = () => {
   z-index: 1;
 
   padding: 50px;
-  // background-color: rgba(colors(black), 1);
-
-  transition: background-color 4s ease(out-swift);
-
-  &.is-game {
-    background-color: rgba(colors(black), 0);
-  }
 
   pointer-events: none;
 

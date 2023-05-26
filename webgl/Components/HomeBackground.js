@@ -25,7 +25,8 @@ export default class HomeBackground {
 		this.params = {
 			colorA: '#668aac', // #46698B
 			colorB: '#89ADCE',
-			animAppear: 0,
+			colorDarkA: '#0c2349',
+			colorDarkB: '#18305c',
 			animDark: 0,
 		}
 
@@ -43,11 +44,9 @@ export default class HomeBackground {
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
 				uColorB: { value: new Color(this.params.colorB) },
-				// TODO remove
-				uPosX: { value: this.params.posX},
-				uSize2: { value: this.params.size2},
-				uScaleY2: { value: this.params.scaleY2},
-				uIntensity: { value: this.params.intensity},
+				uColorDarkA: { value: new Color(this.params.colorDarkA) },
+				uColorDarkB: { value: new Color(this.params.colorDarkB) },
+				uAnimDark: { value: this.params.animDark },
 			},
 			vertexShader,
 			fragmentShader
@@ -65,6 +64,21 @@ export default class HomeBackground {
 			})
 			this.debugFolder.addInput(this.params, 'colorB').on('change', () => {
 				material.uniforms.uColorB.value = new Color(this.params.colorB)
+			})
+
+			this.debugFolder.addSeparator()
+
+			// colors DARK
+			this.debugFolder.addInput(this.params, 'colorDarkA').on('change', () => {
+				material.uniforms.uColorDarkA.value = new Color(this.params.colorDarkA)
+			})
+			this.debugFolder.addInput(this.params, 'colorDarkB').on('change', () => {
+				material.uniforms.uColorDarkB.value = new Color(this.params.colorDarkB)
+			})
+
+			// anim
+			this.debugFolder.addInput(this.params, 'animDark', { min: 0, max: 1, step: 0.01 }).on('change', () => {
+				material.uniforms.uAnimDark.value = this.params.animDark
 			})
 		}
 

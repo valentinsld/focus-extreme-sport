@@ -45,6 +45,7 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
+import SceneHome from '~~/webgl/Scenes/SceneHome';
 import { splitText } from '~~/webgl/Utils/splitText';
 
 const store = useStore()
@@ -59,6 +60,10 @@ const inhaleText = splitText('Inspire...')
 const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
+  const sceneHome = new SceneHome()
+
+  sceneHome.playDark()
+
   setTimeout(()=> {
     breathe(3)
   }, 100)

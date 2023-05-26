@@ -2,6 +2,7 @@ import { PlaneGeometry, Mesh, RawShaderMaterial, Color, BufferGeometry, BufferAt
 // import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
+import anime from 'animejs'
 import { getVisibleHeightAtZDepth, getVisibleWidthAtZDepth } from '../Utils/ScreenInformations.js'
 
 import vertexShader from '../Shaders/HomeBackground/HomeBackground.vert'
@@ -157,8 +158,16 @@ export default class HomeBackground {
 		this.particles.material.uniforms.uTime.value = t * 0.035
 	}
 
+	playDark() {
+		anime({
+			targets: this.plane.material.uniforms.uAnimDark,
+			value: 1,
+			duration: 1500,
+			easing: 'easeInOutQuad'
+		})
+	}
+
 	destroy() {
-		console.log('HomeBackground destroy')
 		RAFManager.remove('HomeBackground')
 
 		if (this.debugFolder) {

@@ -1,4 +1,4 @@
-import { PlaneGeometry, Mesh, RawShaderMaterial, Color, BufferGeometry, BufferAttribute, ShaderMaterial, AdditiveBlending, Points } from 'three'
+import { PlaneGeometry, Mesh, RawShaderMaterial, Color, BufferGeometry, BufferAttribute, ShaderMaterial, AdditiveBlending, Points, Group } from 'three'
 // import RAFManager from '../Utils/RAFManager.js'
 
 import WebGL from '../index.js'
@@ -10,6 +10,7 @@ import particlesVertexShader from '../Shaders/HomeBackground/Particules.vert'
 import particlesFragmentShader from '../Shaders/HomeBackground/Particules.frag'
 import Sizes from '../Utils/Sizes.js'
 import RAFManager from '../Utils/RAFManager.js'
+import clearThree from '../Utils/ClearScene.js'
 
 const count = 2000
 
@@ -34,6 +35,8 @@ export default class HomeBackground {
 	}
 
 	init() {
+		this.instance = new Group()
+
 		//
 		// PLANE
 		//
@@ -52,8 +55,8 @@ export default class HomeBackground {
 			fragmentShader
 		})
 
-		this.instance = new Mesh(geometry, material)
-		this.instance.position.z = -0.1
+		this.plane = new Mesh(geometry, material)
+		this.plane.position.z = -0.1
 
 		if(this.WebGL.debug) {
 			this.debugFolder = this.WebGL.debug.addFolder({ title: 'Home Background', expanded: true })
@@ -82,7 +85,7 @@ export default class HomeBackground {
 			})
 		}
 
-		this.camera.add(this.instance)
+		this.instance.add(this.plane)
 
 		//
 		// ADD particules
@@ -133,6 +136,8 @@ export default class HomeBackground {
 		this.particles.position.set(-0.25, -0.25, 0)
 		this.instance.add(this.particles)
 
+		// add instance
+		this.camera.add(this.instance)
 
 		// Resize
 		this.sizes.on('resize', () => {
@@ -153,5 +158,13 @@ export default class HomeBackground {
 
 	destroy() {
 		RAFManager.remove('HomeBackground')
+
+		if (this.debugFolder) {
+			this.debugFolder.dispose()
+		}
+
+		this.camera.remove(this.instance)
+
+		clearThree(this.instance)
 	}
 }

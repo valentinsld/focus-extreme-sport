@@ -5,12 +5,6 @@ uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 
-// TODO remove
-uniform float uPosX;
-uniform float uSize2;
-uniform float uScaleY2;
-uniform float uIntensity;
-
 //	Classic Perlin 3D Noise
 //	by Stefan Gustavson
 //
@@ -92,7 +86,7 @@ void main()
 
 	// layer bkg
 	vec2 coord = gl_FragCoord.xy * 0.01;
-	coord.x += (-0.5 + st.y) * gl_FragCoord.x * 0.0023 * uPosX;
+	coord.x += (-0.5 + st.y) * gl_FragCoord.x * 0.0023;
 	coord.x *= 0.5;
 	coord.y *= 0.1;
 	coord.y += uTime * 2.;
@@ -101,9 +95,9 @@ void main()
 	vec3 color = mix(uColorA, uColorB, noise);
 
 	// moove layer bkg
-	vec2 coord2 = coord * uSize2;
-	coord2.y += uTime * uScaleY2;
-	color *= mix(vec3(1), vec3(uIntensity), cnoise(vec3(coord2, uTime)));
+	vec2 coord2 = coord * 3.;
+	coord2.y += uTime * 3.;
+	color *= mix(vec3(1), vec3(0.96), cnoise(vec3(coord2, uTime)));
 
 	// add some noise white
 

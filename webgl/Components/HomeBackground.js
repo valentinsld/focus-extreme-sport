@@ -25,10 +25,6 @@ export default class HomeBackground {
 		this.params = {
 			colorA: '#668aac', // #46698B
 			colorB: '#89ADCE',
-			posX: 1,
-			size2: 3,
-			scaleY2: 3,
-			intensity: 0.96,
 		}
 
 		this.init()
@@ -61,33 +57,7 @@ export default class HomeBackground {
 		if(this.WebGL.debug) {
 			this.debugFolder = this.WebGL.debug.addFolder({ title: 'Home Background', expanded: true })
 
-			// colors
-			this.debugFolder.addInput(this.params, 'colorA').on('change', () => {
-				material.uniforms.uColorA.value = new Color(this.params.colorA)
-			})
-			this.debugFolder.addInput(this.params, 'colorB').on('change', () => {
-				material.uniforms.uColorB.value = new Color(this.params.colorB)
-			})
 
-			// posX
-			this.debugFolder.addInput(this.params, 'posX').on('change', () => {
-				material.uniforms.uPosX.value = this.params.posX
-			})
-
-			// size2
-			this.debugFolder.addInput(this.params, 'size2').on('change', () => {
-				material.uniforms.uSize2.value = this.params.size2
-			})
-
-			// scaleY2
-			this.debugFolder.addInput(this.params, 'scaleY2').on('change', () => {
-				material.uniforms.uScaleY2.value = this.params.scaleY2
-			})
-
-			// intensity
-			this.debugFolder.addInput(this.params, 'intensity').on('change', () => {
-				material.uniforms.uIntensity.value = this.params.intensity
-			})
 		}
 
 		this.camera.add(this.instance)

@@ -45,12 +45,15 @@ export default class Renderer {
     this.instance.useLegacyLights = false
     // this.instance.gammaOutPut = true
     this.instance.outputEncoding = sRGBEncoding
-    // this.instance.shadowMap.type = THREE.PCFSoftShadowMap
-    // this.instance.shadowMap.enabled = false
+    this.instance.shadowMap.type = PCFSoftShadowMap
+    this.instance.shadowMap.enabled = true
+    this.instance.shadowMapSoft = true
     this.instance.toneMapping = NoToneMapping
     this.instance.toneMappingExposure = 1
 
     this.context = this.instance.getContext()
+
+    this.generator = new PMREMGenerator(this.instance)
 
     // Debug
     if (this.debug) {

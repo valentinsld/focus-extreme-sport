@@ -165,7 +165,7 @@ export default class WebGL extends EventEmitter {
   }
 
   update() {
-    // if (this.stats) this.stats.update();
+    if (this.stats) this.stats.update();
   }
 
   resize() {

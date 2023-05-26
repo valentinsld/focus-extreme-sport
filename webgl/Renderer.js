@@ -5,8 +5,6 @@ import {
   WebGLRenderTarget,
   LinearFilter,
 } from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import WebGL from './index.js'
 
 export default class Renderer {
@@ -64,69 +62,16 @@ export default class Renderer {
     }
   }
 
-  setPostProcess() {
-    this.postProcess = {}
-
-    /**
-     * Render pass
-     */
-    this.postProcess.renderPass = new RenderPass(
-      this.scene,
-      this.camera.current
-    )
-
-    /**
-     * Effect composer
-     */
-    this.renderTarget = new WebGLRenderTarget(
-      this.sizes.width,
-      this.sizes.height,
-      {
-        generateMipmaps: false,
-        minFilter: LinearFilter,
-        magFilter: LinearFilter,
-        // format: RGBFormat,
-        encoding: sRGBEncoding,
-        samples: 2,
-      }
-    )
-    this.postProcess.composer = new EffectComposer(
-      this.instance,
-      this.renderTarget
-    )
-    this.postProcess.composer.setSize(this.sizes.width, this.sizes.height)
-    this.postProcess.composer.setPixelRatio(this.sizes.pixelRatio)
-
-    this.postProcess.composer.addPass(this.postProcess.renderPass)
-  }
-
   resize() {
     // Instance
     this.instance.setSize(this.sizes.width, this.sizes.height)
     this.instance.setPixelRatio(this.sizes.pixelRatio)
-
-    // Post process
-    // this.postProcess.composer.setSize(this.sizes.width, this.sizes.height)
-    // this.postProcess.composer.setPixelRatio(this.sizes.pixelRatio)
   }
 
   update() {
     if (this.stats) {
       this.stats.beforeRender()
     }
-
-    // if (this.usePostprocess) {
-    //   this.postProcess.composer.render()
-    // } else {
-    // this.instance.render(this.scene, this.camera.current)
-
-    // this.instance.autoClear = false
-    // this.instance.clearDepth()
-
-    // this.instance.render(this.transi, this.camera.current)
-
-    // this.instance.autoClear = true
-    // }
 
     if (this.stats) {
       this.stats.afterRender()
@@ -137,7 +82,5 @@ export default class Renderer {
     this.instance.renderLists.dispose()
     this.instance.dispose()
     this.renderTarget.dispose()
-    // this.postProcess.composer.renderTarget1.dispose()
-    // this.postProcess.composer.renderTarget2.dispose()
   }
 }

@@ -5,6 +5,11 @@ uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 
+// uniform anim
+uniform float uAnimDark;
+uniform vec3 uColorDarkA;
+uniform vec3 uColorDarkB;
+
 //	Classic Perlin 3D Noiseintensity
 //	by Stefan Gustavson
 //
@@ -93,7 +98,11 @@ void main()
 	coord.y += uTime * 2.;
 
 	float noise = cnoise(vec3(coord, uTime));
-	vec3 color = mix(uColorA, uColorB, noise);
+	vec3 color = mix(
+		mix(uColorA, uColorDarkA, uAnimDark),
+		mix(uColorB, uColorDarkB, uAnimDark),
+		noise
+	);
 
 	// moove layer bkg
 	vec2 coord2 = coord * 3.;

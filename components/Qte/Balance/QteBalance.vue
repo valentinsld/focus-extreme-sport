@@ -203,34 +203,6 @@ onUnmounted(() => {
 <style scoped lang="scss">
 $indicator: 10px;
 
-// .qte-balance {
-// 	position: absolute;
-// 	top: 85vh;
-// 	left: 50vw;
-// 	transform: translate3d(-50%, 0, 0);
-
-// 	width: 500px;
-// 	height: $indicator;
-
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-
-// 	border: 1px solid black;
-
-// 	background: rgb(255, 0, 0);
-// 	background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 161, 0, 1) 30%, rgba(20, 255, 0, 1) 50%, rgba(255, 161, 0, 1) 70%, rgba(255, 0, 0, 1) 100%);
-
-// 	&__indicator {
-// 		width: $indicator;
-// 		height: $indicator;
-
-// 		background-color: white;
-// 		border: 1px solid black;
-// 		border-radius: 50%;
-// 	}
-// }
-
 .balance {
 	@include fluidSize("balance-size",
 		(bpw(s): 150px,

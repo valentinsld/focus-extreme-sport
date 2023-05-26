@@ -1,10 +1,14 @@
 import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer } from 'three'
-import BaseScene from './BaseScene.js'
 import anime from "animejs"
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 
+import BaseScene from './BaseScene.js'
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
 import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
+import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
+
+import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -19,6 +23,7 @@ export default class SceneWingsuit extends BaseScene {
     SceneWingsuit.singleton = this
 
     this.scene = this.WebGL.sceneWingsuit
+    this.generator = this.WebGL.renderer.generator
 
     this.init()
   }
@@ -36,8 +41,37 @@ export default class SceneWingsuit extends BaseScene {
     this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
     this.characterContainer.add(this.character)
 
+    new RGBELoader().load(wingsuitHdr, (map) => {
+		  this.envmap = this.generator.fromEquirectangular(map)
+      this.map.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = 0.2
+          element.castShadow = true
+          element.receiveShadow = true
+        }
+      })
+      this.character.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = 0.2
+          element.castShadow = true
+          element.receiveShadow = true
+        }
+      })
+    })
+
     // light
-    this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.7)
+    this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.5)
+
+    this.dirLight = new DirectionalLightSource({
+      color: 0xebfffd,
+      intensity: 1,
+      positions: new Vector3(-70, 60, -20),
+      castShadow: true,
+      shadowMapSize: 2048,
+      shadowBias: -0.004
+    })
 
     // position camera 3p
     this.map.getObjectByName('CAM_F').position.y += 0.05
@@ -65,7 +99,7 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container])
+    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container, this.dirLight.container])
 
     if(this.WebGL.debug) {
       // three js add helper lines
@@ -115,7 +149,8 @@ export default class SceneWingsuit extends BaseScene {
   }
 
   setCamera3P_2() {
-    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
+    // this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
+    this.WebGL.camera.setCamera('3p', new Vector3(7, 1.5, -1.75), this.map.getObjectByName('CAM_2_TARGET').position)
 
     anime({
       targets: this.map.getObjectByName('CAM_2_TARGET').position,

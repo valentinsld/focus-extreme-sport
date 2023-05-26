@@ -62,10 +62,10 @@ export default class Camera {
 
   initCamera(name = 'fpv') {
     this.listCamera[name] = new PerspectiveCamera(
-      name === '3p' ? 40 : 90,
+      name === '3p' ? 60 : 100,
       this.sizes.width / this.sizes.height,
       0.01,
-      20
+      500
     )
     this.listCamera[name].name = name
     this.listCamera[name].rotation.reorder('YXZ')

@@ -28,7 +28,7 @@ export default class SceneManager {
 		this.oldScene = this.webgl.currentScene
 
 		if (this.oldScene.name === newScene.name) {
-			if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
+			// if(this.oldScene.scene) this.oldScene.scene.destroySceneMain()
 			if(newScene.scene) newScene.scene.startSceneMain()
 			return
 		}

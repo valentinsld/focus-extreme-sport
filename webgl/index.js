@@ -1,4 +1,4 @@
-import { Scene} from "three";
+import { Scene, Fog } from "three";
 import { Pane } from "tweakpane";
 
 import RAFManager from "./Utils/RAFManager.js";
@@ -111,6 +111,7 @@ export default class WebGL extends EventEmitter {
     this.sceneSki.name = 'ski';
 
     this.sceneWingsuit = new Scene();
+    // this.sceneWingsuit.fog = new Fog(0x001e26, 0, 20)
     this.sceneWingsuit.name = 'wingsuit';
 
     this.sceneKayak = new Scene();

@@ -39,16 +39,6 @@
     >
       <GameKayak v-if="store.state.gamestate === 'kayak'" />
     </Transition>
-    <!-- <QteFigure
-      :data-children="dataChildren"
-      @is-finished="qteFigureFinish"
-    /> -->
-    <!-- <QteBalance /> -->
-    <!-- <QteFocus /> -->
-
-    <!-- <div class="test">
-      <QteBalance />
-    </div> -->
 
     <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
     <Altimetre v-if="isIntroFinished" />
@@ -172,9 +162,5 @@ const initDebugGameState = () => {
 .selection-enter-from,
 .selection-leave-to {
   opacity: 0;
-}
-
-.test {
-  transform: translateY(-150%);
 }
 </style>

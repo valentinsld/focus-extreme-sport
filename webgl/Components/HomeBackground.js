@@ -153,10 +153,10 @@ export default class HomeBackground {
 
 	update(t) {
 		// update time background
-		this.instance.material.uniforms.uTime.value = t * 0.35
+		this.instance.material.uniforms.uTime.value = t * 0.15
 
 		// update particules
-		this.particles.material.uniforms.uTime.value = t * 0.35
+		this.particles.material.uniforms.uTime.value = t * 0.1
 	}
 
 	destroy() {

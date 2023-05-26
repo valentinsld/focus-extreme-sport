@@ -150,13 +150,14 @@ export default class HomeBackground {
 
 	update(t) {
 		// update time background
-		this.instance.material.uniforms.uTime.value = t * 0.1
+		this.plane.material.uniforms.uTime.value = t * 0.1
 
 		// update particules
 		this.particles.material.uniforms.uTime.value = t * 0.035
 	}
 
 	destroy() {
+		console.log('HomeBackground destroy')
 		RAFManager.remove('HomeBackground')
 
 		if (this.debugFolder) {

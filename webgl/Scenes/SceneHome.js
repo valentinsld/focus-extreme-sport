@@ -20,9 +20,9 @@ export default class SceneHome extends BaseScene {
   }
 
   init() {
+    this.destroyScene()
     this.instance = new Group()
 
-    // TODO : scene
     this.bkg = new HomeBackground()
 
     this.scene.add(this.instance)
@@ -38,7 +38,7 @@ export default class SceneHome extends BaseScene {
   }
 
   destroyScene() {
-    this.bkg.destroy()
+    if (this.bkg) this.bkg.destroy()
     this.WebGL.camera.speedLine.showLines()
   }
 }

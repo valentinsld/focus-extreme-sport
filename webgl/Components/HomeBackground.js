@@ -24,10 +24,10 @@ export default class HomeBackground {
 		this.camera = this.WebGL.camera.current
 
 		this.params = {
-			colorA: '#668aac', // #46698B
-			colorB: '#89ADCE',
-			colorDarkA: '#0c2349',
-			colorDarkB: '#18305c',
+			colorA: '#305272', // #668aac
+			colorB: '#537799', // #89ADCE
+			colorDarkA: '#000c1f', // #0c2349
+			colorDarkB: '#03132f', // #18305c
 			animDark: 0,
 		}
 
@@ -35,6 +35,7 @@ export default class HomeBackground {
 	}
 
 	init() {
+		console.log('init HomeBackground')
 		this.instance = new Group()
 
 		//

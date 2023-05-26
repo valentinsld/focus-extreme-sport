@@ -5,7 +5,7 @@ uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 
-//	Classic Perlin 3D Noise
+//	Classic Perlin 3D Noiseintensity
 //	by Stefan Gustavson
 //
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
@@ -87,6 +87,7 @@ void main()
 	// layer bkg
 	vec2 coord = gl_FragCoord.xy * 0.01;
 	coord.x += (-0.5 + st.y) * gl_FragCoord.x * 0.0023;
+	coord.x += cos(uTime * 1.5 + coord.y * 1.5) * 0.07;
 	coord.x *= 0.5;
 	coord.y *= 0.1;
 	coord.y += uTime * 2.;
@@ -98,9 +99,6 @@ void main()
 	vec2 coord2 = coord * 3.;
 	coord2.y += uTime * 3.;
 	color *= mix(vec3(1), vec3(0.96), cnoise(vec3(coord2, uTime)));
-
-	// add some noise white
-
 
 	gl_FragColor = vec4(color, 1.0);
 }

@@ -25,6 +25,8 @@ export default class HomeBackground {
 		this.params = {
 			colorA: '#668aac', // #46698B
 			colorB: '#89ADCE',
+			animAppear: 0,
+			animDark: 0,
 		}
 
 		this.init()
@@ -57,7 +59,13 @@ export default class HomeBackground {
 		if(this.WebGL.debug) {
 			this.debugFolder = this.WebGL.debug.addFolder({ title: 'Home Background', expanded: true })
 
-
+			// colors
+			this.debugFolder.addInput(this.params, 'colorA').on('change', () => {
+				material.uniforms.uColorA.value = new Color(this.params.colorA)
+			})
+			this.debugFolder.addInput(this.params, 'colorB').on('change', () => {
+				material.uniforms.uColorB.value = new Color(this.params.colorB)
+			})
 		}
 
 		this.camera.add(this.instance)
@@ -102,7 +110,7 @@ export default class HomeBackground {
 
 			uniforms: {
 				uTime: { value: 0 },
-				uSize: { value: 35 },
+				uSize: { value: 25 },
 			},
 		})
 
@@ -123,10 +131,10 @@ export default class HomeBackground {
 
 	update(t) {
 		// update time background
-		this.instance.material.uniforms.uTime.value = t * 0.15
+		this.instance.material.uniforms.uTime.value = t * 0.1
 
 		// update particules
-		this.particles.material.uniforms.uTime.value = t * 0.1
+		this.particles.material.uniforms.uTime.value = t * 0.035
 	}
 
 	destroy() {

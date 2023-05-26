@@ -1,5 +1,11 @@
 <template>
   <div>
+    <Transition
+      name="loader"
+      appear
+    >
+      <Loader v-if="!store.state.ressourcesLoaded && !IS_DEV" />
+    </Transition>
     <div id="absolute-fade" />
     <slot />
 
@@ -9,6 +15,10 @@
 
 <script setup>
 import WebGL from '~~/webgl';
+import useStore from '~/stores'
+const store = useStore()
+
+const IS_DEV = process.dev
 
 onMounted(() => {
   new WebGL();
@@ -17,7 +27,17 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.loader-enter-active,
+.loader-leave-active {
+  transition: opacity 1s ease;
+}
+
+.loader-enter-from,
+.loader-leave-to {
+  opacity: 0;
+}
+
 #absolute-fade {
   position: fixed;
   z-index: 2;

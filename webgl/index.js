@@ -51,19 +51,17 @@ export default class WebGL extends EventEmitter {
 
     this.initSceneHome()
 
-    // this.assets.on('ressourcesReady', () => {
-    //   this.ressourcesReady = true
-    //   this.trigger("endLoading")
+    this.assets.on('ressourcesReady', () => {
+      this.ressourcesReady = true
+      this.trigger("endLoading")
 
-    //   this.initTransi()
+      this.initTransi()
 
-    //   this.initSceneWingsuit()
-    //   this.initSceneKayak()
+      this.initSceneWingsuit()
+      this.initSceneKayak()
 
-    //   // this.initTestText()
-
-    //   this.sceneManager.startCurrentScene()
-    // })
+      this.sceneManager.startCurrentScene()
+    })
 
     RAFManager.add("webgl",(currentTime, dt) => {
       this.update.bind(this)
@@ -155,14 +153,6 @@ export default class WebGL extends EventEmitter {
 
   initTransi() {
     this.sceneTransi.scene = new SceneTransi()
-  }
-
-  initTestText() {
-    this.testText = new MSDFText({
-      font: FontFNT,
-      atlas: FontAtlas,
-    });
-    this.sceneHome.add(this.testText.container);
   }
 
   update() {

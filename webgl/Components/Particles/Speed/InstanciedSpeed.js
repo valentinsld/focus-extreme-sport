@@ -176,7 +176,7 @@ export default class InstanciedSpeed {
 	}
 
 	initDebug() {
-		this.debugFolder = this.debug.addFolder({ title: 'speedLine' })
+		this.debugFolder = this.debug.addFolder({ title: 'speedLine', expanded: false })
 
 		this.debugFolder.addInput(this.speedLineParams, 'speedMultiplier').on('change', (e)=> {
 			this.setSpeed(e.value)

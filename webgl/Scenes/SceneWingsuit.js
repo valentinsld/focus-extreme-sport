@@ -1,6 +1,8 @@
-import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer } from 'three'
 import anime from "animejs"
+
+import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+import { Sky } from 'three/addons/objects/Sky.js';
 
 import BaseScene from './BaseScene.js'
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
@@ -9,8 +11,9 @@ import QuoteBlock from '../Components/Quote.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 
 import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
+import SkyCustom from '../Components/Environment/Sky.js';
 
-const CLEAR_COLOR = 0x93CBE5
+const CLEAR_COLOR = 0xd6eeff
 
 export default class SceneWingsuit extends BaseScene {
   static singleton
@@ -24,8 +27,15 @@ export default class SceneWingsuit extends BaseScene {
 
     this.scene = this.WebGL.sceneWingsuit
     this.generator = this.WebGL.renderer.generator
+    this.debug = this.WebGL.debug
+
 
     this.init()
+    // Debug
+    // if (this.debug) {
+    //   this.debugFolder = this.debug.addFolder({ title: 'wingsuit', expanded: false })
+    //   this.initDebug()
+    // }
   }
 
   init() {
@@ -77,6 +87,17 @@ export default class SceneWingsuit extends BaseScene {
     this.map.getObjectByName('CAM_F').position.y += 0.05
     this.map.getObjectByName('CAM_2').position.y -= 0.9
 
+    // this.initSky();
+    this.sky = new SkyCustom({
+      debug: this.debug,
+      sphereTopColor: 0x0096ff,
+      sphereBottomColor: 0xa2dcfc,
+      offset: 20,
+      exponent: 2,
+    })
+
+    this.sky.container.position.set(0, -50, 0)
+
     // add quote
     this.quote = new QuoteBlock({
       contentWidth: 1000,
@@ -99,7 +120,7 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container, this.dirLight.container])
+    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container, this.dirLight.container, this.sky.container])
 
     if(this.WebGL.debug) {
       // three js add helper lines

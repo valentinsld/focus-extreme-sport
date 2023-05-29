@@ -2,8 +2,6 @@ import {
   WebGLRenderer,
   sRGBEncoding,
   NoToneMapping,
-  WebGLRenderTarget,
-  LinearFilter,
 } from 'three'
 import WebGL from './index.js'
 

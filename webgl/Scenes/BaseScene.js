@@ -1,4 +1,4 @@
-import { Group, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve } from 'three'
+import { Group, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve, AxesHelper } from 'three'
 import RAFManager from '../Utils/RAFManager.js'
 import { MathUtils } from 'three'
 import WebGL from '../index.js'
@@ -84,6 +84,15 @@ export default class BaseScene {
     this.altimeterMax = this.curveTrack.getPointAt(1).y
 
     this.setTracking(0)
+
+    if (this.WebGL.debug) {
+      const target = new AxesHelper(0.3)
+      this.scene.add(target)
+
+      RAFManager.add('debug-target'+Math.random(), () => {
+        target.position.copy(this.WebGL.camera.target)
+      })
+    }
   }
   setCurve(curve, data) {
     curve.curves = []
@@ -114,7 +123,7 @@ export default class BaseScene {
       })
       const line = new Line(geometry, material)
 
-      this.instance.add(line)
+      this.scene.add(line)
     }
   }
   setCurveRotation(curve, data, type = "ro") {
@@ -260,6 +269,8 @@ export default class BaseScene {
     // set rotation for camera on curve
     object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
     this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
+    // this.rotationCam = 0
+    // console.log(this.rotationCam)
     this.WebGL.camera.rotationCam = this.rotationCam
     object.rotation.z += this.rotationCam
 

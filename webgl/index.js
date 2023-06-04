@@ -18,6 +18,7 @@ import SceneHome from '~~/webgl/Scenes/SceneHome.js';
 import SceneWingsuit from './Scenes/SceneWingsuit.js';
 import SceneKayak from './Scenes/SceneKayak.js';
 import FXComposer from './FxComposer.js';
+import SceneSki from './Scenes/SceneSki.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -57,6 +58,7 @@ export default class WebGL extends EventEmitter {
       this.initTransi()
 
       this.initSceneWingsuit()
+      this.initSceneSki()
       this.initSceneKayak()
 
       this.sceneManager.startCurrentScene()
@@ -145,6 +147,10 @@ export default class WebGL extends EventEmitter {
 
   initSceneWingsuit() {
     this.sceneWingsuit.scene = new SceneWingsuit()
+  }
+
+  initSceneSki() {
+    this.sceneSki.scene = new SceneSki()
   }
 
   initSceneKayak() {

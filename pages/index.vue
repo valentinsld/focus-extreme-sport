@@ -153,4 +153,14 @@ const initDebugGameState = () => {
 .selection-leave-to {
   opacity: 0;
 }
+
+.figure-enter-active,
+.figure-leave-active {
+  transition: opacity 1s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.figure-enter-from,
+.figure-leave-to {
+  opacity: 0;
+}
 </style>

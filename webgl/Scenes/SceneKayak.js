@@ -59,7 +59,7 @@ export default class SceneKayak extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE, 1600, 1400)
+    this.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE, 2000, 1650)
 
     // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))

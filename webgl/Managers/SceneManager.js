@@ -49,7 +49,7 @@ export default class SceneManager {
 						newScene.scene.startSceneMain()
 						if (onTransitionEnd) onTransitionEnd(newScene.scene)
 					}
-				}, (this.webgl.fxComposer.duration + pauseDelay * 0.1))
+				}, (this.webgl.fxComposer.duration + pauseDelay * 0.95))
 				setTimeout(() => {
 					FadeDiv.classList.remove('is-active')
 				}, (this.webgl.fxComposer.duration + pauseDelay))

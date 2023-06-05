@@ -9,8 +9,6 @@ import QuoteBlock from '../Components/Quote.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 
 import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
-
-import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';
 import Clouds from '../Components/Environment/Clouds.js';
 

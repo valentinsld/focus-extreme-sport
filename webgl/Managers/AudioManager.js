@@ -1,5 +1,4 @@
 import Pz from 'pizzicato'
-import anime from 'animejs'
 
 import WebGL from '../index'
 import RAFManager from '../Utils/RAFManager'
@@ -21,7 +20,6 @@ export default class AudioManager {
 		this.sounds = {}
 
 		this.effetcs = {}
-		this.initEffects()
 
 		this.initRAF()
 	}
@@ -29,14 +27,11 @@ export default class AudioManager {
 	//
 	// EFFETCS
 	//
-	initEffects() {
-		this.effetcs.lowPassFilter = new Pz.Effects.LowPassFilter({
-			frequency: END_LOWPASS,
-			peak: 10
-		});
-	}
 	setFrequencyLowPass(value) {
-		this.effetcs.lowPassFilter.frequency = value * (END_LOWPASS - START_LOWPASS) + START_LOWPASS
+		const v = value * (END_LOWPASS - START_LOWPASS) + START_LOWPASS
+		for (const name in this.sounds) {
+			this.sounds[name].effects[0].frequency = v
+		}
 	}
 
 	//
@@ -67,32 +62,19 @@ export default class AudioManager {
 						  return node;
 						}
 					},
-					loop: loop,
-					volume: volume
 				}
 			})
-
-			for (const key in this.effetcs) {
-				if (Object.hasOwnProperty.call(this.effetcs, key)) {
-					const element = this.effetcs[key];
-					this.sounds[name].addEffect(element)
-				}
-			}
+			this.sounds[name].addEffect(new Pz.Effects.LowPassFilter({
+				frequency: END_LOWPASS,
+				peak: 10
+			}))
 		}
 
 		this.sounds[name].stop()
 		this.sounds[name].loop = loop
 		this.sounds[name].volume = volume
+		this.sounds[name].attack = duration / 1000
 		this.sounds[name].play()
-
-		if (duration <= 0) return
-		this.sounds[name].volume = 0
-		anime({
-			targets: this.sounds[name],
-			volume,
-			duration,
-			easing: 'easeOutQuad'
-		})
 	}
 
 	stop(name, duration = 1000, onTransitionEnd = null) {
@@ -101,16 +83,11 @@ export default class AudioManager {
 		if (!this.sounds[name]) {
 			return console.error(`Sound ${name} not playing`)
 		} else {
-			anime({
-				targets: this.sounds[name],
-				volume: 0,
-				duration,
-				easing: 'easeOutQuad',
-				complete: () => {
-					this.sounds[name].stop()
-					if (onTransitionEnd) onTransitionEnd()
-				}
-			})
+			this.sounds[name].relase = duration / 1000
+			this.sounds[name].stop()
+			setTimeout(() => {
+				if (onTransitionEnd) onTransitionEnd()
+			}, duration)
 		}
 	}
 }

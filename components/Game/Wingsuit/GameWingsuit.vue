@@ -46,6 +46,7 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
+import AudioManager from '~~/webgl/Managers/AudioManager';
 import SceneManager from '~~/webgl/Managers/SceneManager';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
@@ -54,11 +55,19 @@ let currentScene = null
 
 const webgl = new WebGL()
 
+const Audio = new AudioManager()
+
 onMounted(()=> {
   store.state.gamestatestep = 0
 
   const sceneManager = new SceneManager()
-  sceneManager.setScene('wingsuit', .35, initStates)
+  sceneManager.setScene('wingsuit', 10000, initStates)
+
+  // start sound
+  Audio.play('cinematique', false, 1, 4000)
+  setTimeout(() => {
+    Audio.play('wingsuit-montagne', true, 1, 6000)
+  }, 6600)
 })
 
 //

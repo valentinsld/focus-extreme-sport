@@ -196,9 +196,6 @@ export default class SceneWingsuit extends BaseScene {
     // set clearColor scene
     this.WebGL.renderer.instance.setClearColor(CLEAR_COLOR, 1)
 
-    // play sound
-    this.audioManager.play('wingsuit-montagne', true, 1, 4000)
-
     if (this.WebGL.debug) {
       const cameraDebugFolder = this.WebGL.camera.debugFolder
 

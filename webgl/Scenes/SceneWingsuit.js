@@ -1,14 +1,14 @@
-import anime from "animejs"
-
 import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils } from 'three'
+import anime from "animejs"
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
-import { Sky } from 'three/addons/objects/Sky.js';
 
 import BaseScene from './BaseScene.js'
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'
 import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
+
+import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 
 import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';

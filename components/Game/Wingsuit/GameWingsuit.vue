@@ -71,9 +71,9 @@ onMounted(()=> {
 const initStates = (scene) => {
   currentScene = scene
 
-  scene.timelineValue = 0.
+  // scene.timelineValue = 0.
 
-  // // event QTE FIGURE
+  // event QTE FIGURE
   scene.setEventTimeline(0.05, () => {
     store.state.gamestatestep = 1
   })

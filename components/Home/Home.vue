@@ -8,7 +8,7 @@
       <p>A la poursuite de l’Etat de flow</p>
     </div>
     <div class="start">
-      <p>Pour une expérience optimale, muni-toi d’un casque</p>
+      <p>Pour une expérience optimale, munis-toi d’un casque</p>
       <button
         v-if="store.state.ressourcesLoaded"
         class="btn-start"

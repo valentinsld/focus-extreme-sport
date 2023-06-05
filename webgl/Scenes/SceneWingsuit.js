@@ -1,6 +1,6 @@
 import anime from "animejs"
 
-import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { Sky } from 'three/addons/objects/Sky.js';
 
@@ -12,6 +12,7 @@ import DirectionalLightSource from '../Components/Environment/DirectionalLight.j
 
 import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';
+import Clouds from '../Components/Environment/Clouds.js';
 
 const CLEAR_COLOR = 0xd6eeff
 const CAM2_POS = new Vector3(7.45, .75, -1.75)
@@ -99,6 +100,39 @@ export default class SceneWingsuit extends BaseScene {
 
     this.sky.container.position.set(0, -50, 0)
 
+    this.cl1 = new Clouds({
+      index: Math.round(MathUtils.randFloat(1,6)),
+      size: MathUtils.randFloat(8,12),
+      opacity: MathUtils.randFloat(0.2, 0.4),
+    })
+    this.cl1.container.position.set(-12, 7, 5)
+    this.cl1.container.rotation.x = -Math.PI / 4
+
+    this.cl2 = new Clouds({
+      index: Math.round(MathUtils.randFloat(1,6)),
+      size: MathUtils.randFloat(8,12),
+      opacity: MathUtils.randFloat(.2, .4),
+    })
+    this.cl2.container.position.set(-5, 7, 5)
+    this.cl2.container.rotation.x = -Math.PI / 4
+    this.cl2.container.rotation.z = Math.PI / 6
+
+    this.cl3 = new Clouds({
+      index: Math.round(MathUtils.randFloat(1,6)),
+      size: MathUtils.randFloat(8,12),
+      opacity: MathUtils.randFloat(.2, .4),
+    })
+    this.cl3.container.position.set(-7, 5, 7)
+    this.cl3.container.rotation.x = -Math.PI / 2
+
+    this.cl4 = new Clouds({
+      index: Math.round(MathUtils.randFloat(1,6)),
+      size: MathUtils.randFloat(8,12),
+      opacity: MathUtils.randFloat(.2, .4),
+    })
+    this.cl4.container.position.set(-12, 7, 8.5)
+    this.cl4.container.rotation.x = -Math.PI / 2
+
     // add quote
     this.quote = new QuoteBlock({
       contentWidth: 1000,
@@ -121,7 +155,18 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(...[this.map, this.characterContainer, this.ambientLight, this.quote.container, this.dirLight.container, this.sky.container])
+    this.scene.add(...[
+      this.map,
+      this.characterContainer,
+      this.ambientLight,
+      this.quote.container,
+      this.dirLight.container,
+      this.sky.container,
+      this.cl1.container,
+      this.cl2.container,
+      this.cl3.container,
+      this.cl4.container,
+    ])
 
     if(this.WebGL.debug) {
       // three js add helper lines
@@ -142,6 +187,8 @@ export default class SceneWingsuit extends BaseScene {
     RAFManager.add('SceneWingsuit', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.028 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
+      // this.cl1.container.rotation.copy(this.WebGL.camera.current.rotation)
+      // this.cl2.container.rotation.copy(this.WebGL.camera.current.rotation)
       // animation mixer character
       this.mixerCharacter.update(dt);
     })

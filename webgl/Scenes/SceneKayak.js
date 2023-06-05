@@ -6,6 +6,12 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import { DegToRad } from '../Utils/Math.js'
 
+const CAM_3P_1 = {
+  x: 2.48,
+  y: 0.5,
+  z: -2.01,
+}
+
 export default class SceneKayak extends BaseScene {
   static singleton
 
@@ -25,7 +31,7 @@ export default class SceneKayak extends BaseScene {
     this.map = this.assets.models["kayak_map"].scene
     this.kayak = new Group()
     const kayak = this.assets.models["kayak"].scene
-    kayak.scale.set(0.03, 0.03, 0.03)
+    kayak.scale.set(0.022, 0.022, 0.022)
     this.kayak.add(kayak)
 
     this.light = new PointLight(0xffffff, 14, 12, 1)
@@ -43,8 +49,8 @@ export default class SceneKayak extends BaseScene {
       jobWidth: 1000,
       quoteJob: 'Kayakiste professionnelle',
     })
-    this.quote.container.position.set(0, -1.25, -5)
-    this.quote.container.rotation.y = DegToRad(115)
+    this.quote.container.position.set(0.66, -1.05, -11.20)
+    this.quote.container.rotation.y = DegToRad(145)
     this.quote.container.scale.set(.0005, .0005, .0005)
 
     this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
@@ -54,6 +60,8 @@ export default class SceneKayak extends BaseScene {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)
       this.instance.add(axesHelper)
+
+      this.debugQuotePosition = this.WebGL.debug.addInput(this.quote.container, 'position', { step: 0.01 })
     }
   }
 
@@ -67,7 +75,7 @@ export default class SceneKayak extends BaseScene {
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
-      this.timelineValue = (this.timelineValue + dt * 0.03) % 1
+      this.timelineValue = (this.timelineValue + dt * 0.022) % 1
       this.setTracking(this.timelineValue, this.kayak)
     })
 
@@ -84,14 +92,43 @@ export default class SceneKayak extends BaseScene {
       })
 
       this.debug3P = cameraDebugFolder.addButton({
-        title: 'Switch 3P',
+        title: 'Switch 3P _1',
       }).on('click', () => {
-        this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+        this.setCamera3P_1()
       })
+
+      this.debug3P = cameraDebugFolder.addButton({
+        title: 'Switch 3P finish',
+      }).on('click', () => {
+        this.setCamera3P_finish()
+      })
+
+      this.cam3p = cameraDebugFolder.addInput(this.WebGL.camera.listCamera['3p'], 'position', {step: 0.01})
     }
   }
 
+  //
+  // Cams
+  //
+  setCamera3P_1() {
+    this.WebGL.camera.setCamera('3p', CAM_3P_1, this.kayak.position)
+    this.cam3p?.refresh()
+  }
+  setCamera3P_finish() {
+    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_F').position, this.map.getObjectByName('CAM_F_TARGET').position)
+    this.cam3p?.refresh()
+    this.quote.showQuote()
+  }
+
   destroyScene() {
+    if (this.WebGL.debug) {
+      this.debugFPV.dispose()
+      this.debug3P.dispose()
+
+      this.cam3p.dispose()
+      this.debugQuotePosition.dispose()
+    }
+
     RAFManager.remove('SceneKayak')
   }
 }

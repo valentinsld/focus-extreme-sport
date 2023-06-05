@@ -1,3 +1,5 @@
+import { Object3D, PlaneGeometry, MeshBasicMaterial, Mesh, DoubleSide } from 'three';
+
 import WebGL from '~~/webgl';
 
 export default class Clouds {
@@ -5,24 +7,36 @@ export default class Clouds {
 
 		// Call all options
 		this.webgl = new WebGL()
-		this.assets = options.assets;
-		// this.countAll = options.countAll;
-		this.camera = options.camera
-		this.debug = options.debug
+		this.camera = this.webgl.camera.container
+		this.texture = this.webgl.assets.textures;
 
-
-		this.speedLineParams = {...PARAMS}
+		this.size = options.size
+		this.index = options.index
+		this.opacity = options.opacity
 
 		// Set up
 		this.container = new Object3D();
-		this.container.name = 'Particle';
-
-		this.dummy = new Object3D()
-		this.count = 0;
+		this.container.name = 'Clouds';
 		this.properties = []
-		this.ages = new Float32Array(this.speedLineParams.count)
 
 		this.init()
-		if(this.debug) this.initDebug()
+	}
+
+	init() {
+
+		this.geo = new PlaneGeometry(this.size, this.size)
+		this.material = new MeshBasicMaterial({
+			transparent: true,
+			color: 0xffffff,
+			map: this.texture[`cloud_${this.index}`],
+			depthTest: true,
+			depthWrite: false,
+			side: DoubleSide,
+			opacity: this.opacity
+		})
+
+		this.mesh = new Mesh(this.geo, this.material)
+
+		this.container.add(this.mesh)
 	}
 }

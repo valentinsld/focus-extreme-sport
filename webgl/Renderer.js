@@ -2,6 +2,8 @@ import {
   WebGLRenderer,
   sRGBEncoding,
   NoToneMapping,
+  PCFSoftShadowMap,
+  PMREMGenerator
 } from 'three'
 import WebGL from './index.js'
 

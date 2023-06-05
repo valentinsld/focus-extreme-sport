@@ -1,9 +1,5 @@
 <template>
   <div>
-    <h1>
-      Game Wingsuit  {{ store.state.gamestatestep }}
-    </h1>
-
     <Transition
       name="figure"
       appear

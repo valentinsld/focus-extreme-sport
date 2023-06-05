@@ -3,43 +3,51 @@
     class="page page-intro"
     :class="{'is-hide': isHide}"
   >
-    <div class="breathe-container">
-      <div
-        v-for="i in 6"
-        :key="i"
-        ref="circles"
-        class="breathe-circle"
-        :class="[
-          'circle-'+i,
-          {'is-inhaling': isInhaling},
-          {'is-exhaling': !isInhaling},
-        ]"
-      />
-      <div class="breathe-point" />
-    </div>
-    <transition
-      name="text"
-      appear
-    >
-      <div
-        v-if="isInhaling"
-        class="text"
-      >
-        <p
-          class="t1"
-          v-html="inhaleText"
-        />
+    <Transition name="stepIntro">
+      <p v-if="!isBreating">
+        Le sport est régi par la concentration.<br>
+        Délicate et capricieuse, elle est le fruit d’une préparation intense.
+      </p>
+      <div v-else>
+        <div class="breathe-container">
+          <div
+            v-for="i in 6"
+            :key="i"
+            ref="circles"
+            class="breathe-circle"
+            :class="[
+              'circle-'+i,
+              {'is-inhaling': isInhaling},
+              {'is-exhaling': !isInhaling},
+            ]"
+          />
+          <div class="breathe-point" />
+        </div>
+        <transition
+          name="text"
+          appear
+        >
+          <div
+            v-if="isInhaling"
+            class="text"
+          >
+            <p
+              class="t1"
+              v-html="inhaleText"
+            />
+          </div>
+          <div
+            v-else
+            class="text"
+          >
+            <p
+              class="t2"
+              v-html="exhaleText"
+            />
+          </div>
+        </transition>
       </div>
-      <div
-        v-else
-        class="text"
-      >
-        <p
-          class="t2"
-          v-html="exhaleText"
-        />
-      </div>
-    </transition>
+    </Transition>
   </section>
 </template>
 
@@ -50,6 +58,7 @@ import { splitText } from '~~/webgl/Utils/splitText';
 
 const store = useStore()
 
+const isBreating = ref(false)
 const isInhaling = ref(false)
 const circles = ref()
 
@@ -64,9 +73,13 @@ onMounted(()=> {
 
   sceneHome.playDark()
 
-  setTimeout(()=> {
-    breathe(3)
-  }, 100)
+  setTimeout(() => {
+    isBreating.value = true
+
+    setTimeout(()=> {
+      breathe(3)
+    }, 300)
+  }, 10000)
 })
 
 function breathe(count) {
@@ -99,6 +112,35 @@ function breathe(count) {
 </script>
 
 <style lang="scss" scoped>
+.page-intro {
+  position: relative;
+
+  &>* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+  }
+}
+
+.stepIntro-enter-active,
+.stepIntro-leave-active {
+  transition: opacity 375ms cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.stepIntro-enter-from,
+.stepIntro-leave-to {
+  opacity: 0;
+}
+
 .breathe-container {
   --breathe-duration: 3s;
 

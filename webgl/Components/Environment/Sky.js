@@ -114,26 +114,26 @@ export default class SkyCustom {
 	  }
 
 	  initDebug() {
-		this.debugFolder.addInput(this.skyController, 'turbidity', {min: 0, max: 10, step: 0.001}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'turbidity', {min: 0, max: 10, step: 0.001}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'rayleigh', {min: 0, max: 4, step: 0.001}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'rayleigh', {min: 0, max: 4, step: 0.001}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'mieCoefficient', {min: 0, max: 1, step: 0.001}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'mieCoefficient', {min: 0, max: 1, step: 0.001}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'mieDirectionalG', {min: 0, max: 1, step: 0.001}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'mieDirectionalG', {min: 0, max: 1, step: 0.001}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'elevation', {min: 0, max: 90, step: 0.1}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'elevation', {min: 0, max: 90, step: 0.1}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'azimuth', {min: 0, max: 360, step: 0.1}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'azimuth', {min: 0, max: 360, step: 0.1}).on('change', ()=> {
+			this.changeSky()
 		})
-		this.debugFolder.addInput(this.skyController, 'exposure', {min: 0, max: 1, step: 0.001}).on('change', (e)=> {
-				this.changeSky()
+		this.debugFolder.addInput(this.skyController, 'exposure', {min: 0, max: 1, step: 0.001}).on('change', ()=> {
+			this.changeSky()
 		})
 	  }
 }

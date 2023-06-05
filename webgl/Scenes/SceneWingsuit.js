@@ -2,7 +2,7 @@ import anime from "animejs"
 
 import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
-import { Sky } from 'three/addons/objects/Sky.js';
+// import { Sky } from 'three/addons/objects/Sky.js';
 
 import BaseScene from './BaseScene.js'
 import TRAC_CAM from '@/assets/modelsCurves/wingsuit.json'

@@ -1,4 +1,4 @@
-import { Scene, Fog } from "three";
+import { Scene } from "three";
 import { Pane } from "tweakpane";
 
 import RAFManager from "./Utils/RAFManager.js";

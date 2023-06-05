@@ -67,7 +67,7 @@ export default class DirectionalLightSource {
 		this.light.position.y = this.params.positions.y
 		this.light.position.z = this.params.positions.z
 
-		const helper = new DirectionalLightHelper(this.light, 5)
+		// const helper = new DirectionalLightHelper(this.light, 5)
 		// this.container.add(helper)
 	}
 

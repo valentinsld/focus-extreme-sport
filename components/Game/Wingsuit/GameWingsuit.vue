@@ -71,20 +71,20 @@ onMounted(()=> {
 const initStates = (scene) => {
   currentScene = scene
 
-  // scene.timelineValue = 0.
+  scene.timelineValue = 0.
 
-  // event QTE FIGURE
+  // // event QTE FIGURE
   scene.setEventTimeline(0.05, () => {
     store.state.gamestatestep = 1
   })
 
-  // event QTE Balance
+  // // event QTE Balance
   scene.setEventTimeline(0.15, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
   })
 
-  // event QTE Balance END
+  // // event QTE Balance END
   scene.setEventTimeline(0.495, () => {
     store.state.gamestatestep = 4
   })
@@ -93,11 +93,11 @@ const initStates = (scene) => {
   scene.setEventTimeline(0.52, () => {
     scene.setCamera3P_2()
   })
-  scene.setEventTimeline(0.575, () => {
+  scene.setEventTimeline(0.595, () => {
     scene.WebGL.camera.setCamera()
   })
 
-  // event QTE Focus
+  // // event QTE Focus
   scene.setEventTimeline(0.62, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
@@ -112,7 +112,7 @@ const initStates = (scene) => {
   })
 
   // event end next scene
-  scene.setEventTimeline(0.91, () => {
+  scene.setEventTimeline(0.915, () => {
     store.state.gamestate = 'kayak'
   })
 }

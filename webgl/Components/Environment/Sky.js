@@ -8,7 +8,7 @@ import {
 	Vector3
   } from 'three'
 
-// import { Sky } from 'three/addons/objects/Sky.js';
+import { Sky } from 'three/addons/objects/Sky.js';
 
 import { DegToRad } from '~~/webgl/Utils/Math.js';
 import SkyF from '~~/webgl/Shaders/Sky/SkyF.frag'
@@ -32,14 +32,14 @@ export default class SkyCustom {
 		this.container = new Object3D()
 		this.container.name = "Sky"
 
-		// this.init()
+		this.init()
 
 		// if (this.debug) {
 		// 	this.debugFolder = this.debug.addFolder({ title: 'sky', expanded: false })
 		// 	this.initDebug()
 		// }
 
-		this.initCustom()
+		// this.initCustom()
 	}
 
 	init() {

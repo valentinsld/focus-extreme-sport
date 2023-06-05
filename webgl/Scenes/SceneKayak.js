@@ -1,7 +1,7 @@
 import { Group, PointLight, AxesHelper, Vector3 } from 'three'
 import BaseScene from './BaseScene.js'
 
-import TRAC_CAM from '@/assets/modelsCurves/river.json'
+import TRAC_CAM from '@/assets/modelsCurves/kayak.json'
 import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import { DegToRad } from '../Utils/Math.js'
@@ -22,7 +22,7 @@ export default class SceneKayak extends BaseScene {
   }
 
   init() {
-    this.map = this.assets.models["river"].scene
+    this.map = this.assets.models["kayak_map"].scene
     this.kayak = new Group()
     const kayak = this.assets.models["kayak"].scene
     kayak.scale.set(0.03, 0.03, 0.03)
@@ -59,7 +59,7 @@ export default class SceneKayak extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.KAYAK_CURVE, TRAC_CAM.TRACKING_CURVE, 2000, 1650)
+    this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, 2000, 1650)
 
     // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))

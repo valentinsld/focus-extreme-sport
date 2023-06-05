@@ -1,7 +1,6 @@
 import {
 	Object3D,
-	DirectionalLight,
-	DirectionalLightHelper
+	DirectionalLight
 } from 'three'
 
 export default class DirectionalLightSource {

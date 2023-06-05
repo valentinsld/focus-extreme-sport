@@ -62,7 +62,7 @@ export default class Camera {
 
   initCamera(name = 'fpv') {
     this.listCamera[name] = new PerspectiveCamera(
-      name === '3p' ? 60 : 100,
+      name === '3p' ? 40 : 100,
       this.sizes.width / this.sizes.height,
       0.01,
       500

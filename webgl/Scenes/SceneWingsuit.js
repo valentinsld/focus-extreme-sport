@@ -14,6 +14,7 @@ import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';
 
 const CLEAR_COLOR = 0xd6eeff
+const CAM2_POS = new Vector3(7.45, .75, -1.75)
 
 export default class SceneWingsuit extends BaseScene {
   static singleton
@@ -141,7 +142,6 @@ export default class SceneWingsuit extends BaseScene {
     RAFManager.add('SceneWingsuit', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.028 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
-
       // animation mixer character
       this.mixerCharacter.update(dt);
     })
@@ -171,7 +171,7 @@ export default class SceneWingsuit extends BaseScene {
 
   setCamera3P_2() {
     // this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
-    this.WebGL.camera.setCamera('3p', new Vector3(7, 1.5, -1.75), this.map.getObjectByName('CAM_2_TARGET').position)
+    this.WebGL.camera.setCamera('3p', CAM2_POS, this.map.getObjectByName('CAM_2_TARGET').position)
 
     anime({
       targets: this.map.getObjectByName('CAM_2_TARGET').position,

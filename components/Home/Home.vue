@@ -4,7 +4,7 @@
   </h1> -->
   <section class="page-home page">
     <div class="title">
-      <h1>Focus</h1>
+      <img src="/logo.png">
       <p>A la poursuite de l’Etat de flow</p>
     </div>
     <div class="start">
@@ -43,15 +43,19 @@ function startProject() {
 </script>
 
 <style lang="scss" scoped>
+.page-home {
+  color: colors(black);
+}
+
 .title {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
 
-  h1 {
-    color: red;
-    text-transform: uppercase;
+  img {
+    width: 60%;
+    max-width: 800px;
   }
 }
 

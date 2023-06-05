@@ -25,7 +25,7 @@ export default class HomeBackground {
 		this.camera = this.WebGL.camera.current
 
 		this.params = {
-			colorA: '#305272', // #668aac
+			colorA: '#7395b5', // #668aac
 			colorB: '#537799', // #89ADCE
 			colorDarkA: '#000c1f', // #0c2349
 			colorDarkB: '#03132f', // #18305c

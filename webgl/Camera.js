@@ -65,7 +65,7 @@ export default class Camera {
       name === '3p' ? 40 : 100,
       this.sizes.width / this.sizes.height,
       0.01,
-      500
+      200
     )
     this.listCamera[name].name = name
     this.listCamera[name].rotation.reorder('YXZ')

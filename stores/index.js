@@ -4,7 +4,7 @@ const useStore = defineStore('store', () => {
 	const state = reactive(
 		{
 			ressourcesLoaded: false,
-			gamestate: 'ski',
+			gamestate: 'home',
 			gamestatestep: 0,
 			noEventPlayer: false,
 			altimetre: {

@@ -72,7 +72,6 @@ function selectPackage() {
 	pointer-events: initial !important;
 
 	max-width: 30%;
-	border: 1px solid red;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -92,6 +91,7 @@ function selectPackage() {
 	min-width: var(--test-size);
 	min-height: var(--test-size);
 	background-color: #fff;
+	border-radius: 20px;
 }
 
 .title {
@@ -107,8 +107,9 @@ function selectPackage() {
 }
 
 .picto {
-	width: 30%;
+	width: 25%;
 	aspect-ratio: 1 / 1;
-	background-color: blue;
+	background-color: grey;
+	border-radius: 50%;
 }
 </style>

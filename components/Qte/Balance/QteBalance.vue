@@ -205,8 +205,6 @@ function setScore() {
 // on unmount
 //
 onUnmounted(() => {
-	const webgl = new WebGL()
-
 	RAFManager.remove('QteBalance')
 	RAFManager.setSpeed(1)
 	// webgl.fxComposer.resetEffect()

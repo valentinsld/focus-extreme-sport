@@ -4,9 +4,9 @@
       Altimètre : {{ store.state.altimetre.altitude }}
     </h2>
 
-    <p>
+    <!-- <p>
       scores : {{ store.state.altimetre.scores }}
-    </p>
+    </p> -->
   </div>
 </template>
 
@@ -18,12 +18,12 @@ const store = useStore()
 
 <style lang="scss">
 .altimetre {
-	position: absolute;
-	left: 20px;
-	bottom: 20px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
 
-	border: 1px solid red;
-	background-color: black;
-	color: white;
+  border: 1px solid red;
+  background-color: black;
+  color: white;
 }
 </style>

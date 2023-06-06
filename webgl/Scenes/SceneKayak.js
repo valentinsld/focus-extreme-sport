@@ -52,6 +52,7 @@ export default class SceneKayak extends BaseScene {
     this.quote.container.position.set(0.66, -1.05, -11.20)
     this.quote.container.rotation.y = DegToRad(145)
     this.quote.container.scale.set(.0005, .0005, .0005)
+    this.quote.hideQuote()
 
     this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
     this.scene.add(this.instance)
@@ -75,7 +76,7 @@ export default class SceneKayak extends BaseScene {
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
-      this.timelineValue = (this.timelineValue + dt * 0.022) % 1
+      this.timelineValue = (this.timelineValue + dt * 0.022)
       this.setTracking(this.timelineValue, this.kayak)
     })
 

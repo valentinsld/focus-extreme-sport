@@ -55,7 +55,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  debugFolder.dispose()
+  debugFolder?.dispose()
 })
 
 //

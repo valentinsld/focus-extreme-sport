@@ -80,8 +80,10 @@ export default class SceneSki extends BaseScene {
     RAFManager.add('SceneSki', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)  % 1
       this.setTracking(this.timelineValue, this.characterContainer)
-
     })
+
+    // play audio
+    this.audioManager.play('ski-global', true, 1, 3500)
 
     // set clearColor scene
     this.WebGL.renderer.instance.setClearColor(CLEAR_COLOR, 1)
@@ -117,7 +119,7 @@ export default class SceneSki extends BaseScene {
       this.debug3P.dispose()
     }
 
-    this.audioManager.stop('wingsuit-montagne')
+    this.audioManager.stop('ski-global', 2000)
 
     RAFManager.remove('SceneSki')
   }

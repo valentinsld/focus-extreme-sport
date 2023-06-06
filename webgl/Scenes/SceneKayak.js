@@ -80,8 +80,8 @@ export default class SceneKayak extends BaseScene {
       this.setTracking(this.timelineValue, this.kayak)
     })
 
-    // 4 - switch to camera 3p
-    // this.WebGL.camera.setCamera('3p', new Vector3(0, 2, 0), this.kayak.position)
+    // play audio
+    this.audioManager.play('kayak-global', true, 1, 3500)
 
     if (this.WebGL.debug) {
       const cameraDebugFolder = this.WebGL.camera.debugFolder
@@ -129,6 +129,8 @@ export default class SceneKayak extends BaseScene {
       this.cam3p.dispose()
       this.debugQuotePosition.dispose()
     }
+
+    this.audioManager.stop('kayak-global', 2000)
 
     RAFManager.remove('SceneKayak')
   }

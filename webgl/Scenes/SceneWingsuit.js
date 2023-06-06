@@ -304,7 +304,7 @@ export default class SceneWingsuit extends BaseScene {
       this.debug3P.dispose()
     }
 
-    this.audioManager.stop('wingsuit-montagne')
+    this.audioManager.stop('wingsuit-montagne', 2000)
 
     RAFManager.remove('SceneWingsuit')
   }

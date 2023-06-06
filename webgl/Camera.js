@@ -97,7 +97,7 @@ export default class Camera {
       Pz.volume = 1;
     } else {
       this.speedLine.hideLines()
-      Pz.volume = 0.2;
+      Pz.volume = 0.15;
       this.WebGL.fxComposer.resetEffect()
     }
 

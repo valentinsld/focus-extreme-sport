@@ -12,6 +12,13 @@ const store = useStore()
 
 onMounted(()=> {
   const sceneManager = new SceneManager()
-  sceneManager.setScene('ski')
+  sceneManager.setScene('ski', 0.35, initStates)
 })
+
+function initStates(scene) {
+    // event end next scene
+    scene.setEventTimeline(0.95, () => {
+      store.state.gamestate = 'kayak'
+    })
+}
 </script>

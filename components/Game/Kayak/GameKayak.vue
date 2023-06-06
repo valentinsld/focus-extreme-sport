@@ -55,12 +55,12 @@ function initStates (scene) {
   scene.setEventTimeline(0.94, () => {
     store.state.gamestatestep = 4
     scene.setCamera3P_finish()
-    RAFManager.setSpeed(0.1)
+    RAFManager.setSpeed(0.2)
   })
 
   // event end next scene
-  scene.setEventTimeline(0.999, () => {
-    // store.state.gamestate = 'ski'
+  scene.setEventTimeline(0.97, () => {
+    navigateTo('/stickers-rewards')
   })
 }
 </script>

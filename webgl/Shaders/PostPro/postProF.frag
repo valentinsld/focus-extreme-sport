@@ -19,9 +19,29 @@ uniform float uDarkness;
 
 varying vec2 vUv;
 
+float rand( vec2 seed ){
+
+	// get pseudo-random number
+	return fract( sin( dot( seed.xy, vec2( 12.9898, 78.233 ) ) ) * 43758.5453 );
+
+}
+
+vec3 dithering( vec3 colImg ) {
+	//Calculate grid position
+	float grid_position = rand( gl_FragCoord.xy );
+
+	//Shift the individual colors differently, thus making it even harder to see the dithering pattern
+	vec3 dither_shift_RGB = vec3( 0.25 / 255.0, -0.25 / 255.0, 0.25 / 255.0 );
+
+	//modify shift according to grid position.
+	dither_shift_RGB = mix( 2.0 * dither_shift_RGB, -2.0 * dither_shift_RGB, grid_position );
+
+	//shift the color by dither_shift
+	return colImg + dither_shift_RGB;
+}
+
 void main() {
 	vec2 mainUv = vUv;
-
 
 	// Distortion
 	vec2 Xn = 2. * ( vUv.st - .5 ); // -1..1
@@ -44,6 +64,8 @@ void main() {
 	//Vignette
 	float vignette = distance( vUv, vec2( 0.5 ) );
 	diffuse.rgb *= smoothstep( 0.8, uOffset * 0.2, vignette *( uDarkness + uOffset ) );
+
+	vec4 diffuseDither = vec4(dithering(diffuse.rgb), diffuse.a);
 
 	// Transi layout
 	vec4 noise = texture2D(uNoise, vUv);

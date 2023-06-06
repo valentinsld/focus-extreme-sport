@@ -1,6 +1,6 @@
 import anime from "animejs"
 
-import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils, FogExp2 } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 // import { Sky } from 'three/addons/objects/Sky.js';
 
@@ -30,6 +30,8 @@ export default class SceneWingsuit extends BaseScene {
     this.scene = this.WebGL.sceneWingsuit
     this.generator = this.WebGL.renderer.generator
     this.debug = this.WebGL.debug
+
+    this.scene.fog = new FogExp2(0x9bc8fa, 0.025)
 
 
     this.init()
@@ -61,6 +63,9 @@ export default class SceneWingsuit extends BaseScene {
           element.material.envMapIntensity = 0.2
           element.castShadow = true
           element.receiveShadow = true
+        }
+        if(element.name.includes("SKY")) {
+          element.material.envMapIntensity = .65
         }
       })
       this.character.traverse((element) => {
@@ -110,12 +115,13 @@ export default class SceneWingsuit extends BaseScene {
 
     this.cl2 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),
-      size: MathUtils.randFloat(8,12),
+      size: MathUtils.randFloat(5,8),
       opacity: MathUtils.randFloat(.2, .4),
     })
     this.cl2.container.position.set(-5, 7, 5)
-    this.cl2.container.rotation.x = -Math.PI / 4
-    this.cl2.container.rotation.z = Math.PI / 6
+    this.cl2.container.rotation.x = -Math.PI / 2
+    this.cl2.container.rotation.z = -Math.PI / 4
+    this.cl2.container.rotation.y = -Math.PI / 4
 
     this.cl3 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),

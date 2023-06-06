@@ -95,7 +95,7 @@ const initStates = (scene) => {
   })
 
   // switch camera 3P _ 1
-  scene.setEventTimeline(0.52, () => {
+  scene.setEventTimeline(0.526, () => {
     scene.setCamera3P_2()
   })
   scene.setEventTimeline(0.595, () => {
@@ -110,7 +110,7 @@ const initStates = (scene) => {
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.865, () => {
+  scene.setEventTimeline(0.852, () => {
     store.state.gamestatestep = 6
     scene.setCamera3P()
     RAFManager.setSpeed(0.04)

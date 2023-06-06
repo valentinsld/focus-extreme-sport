@@ -66,7 +66,7 @@ export default class AudioManager {
 			})
 			this.sounds[name].addEffect(new Pz.Effects.LowPassFilter({
 				frequency: END_LOWPASS,
-				peak: 10
+				peak: 0.1
 			}))
 		}
 

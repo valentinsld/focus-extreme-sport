@@ -59,7 +59,7 @@ function initStates (scene) {
   })
 
   // event end next scene
-  scene.setEventTimeline(0.97, () => {
+  scene.setEventTimeline(0.99, () => {
     navigateTo('/stickers-rewards')
   })
 }

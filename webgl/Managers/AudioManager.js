@@ -83,7 +83,7 @@ export default class AudioManager {
 		if (!this.sounds[name]) {
 			return console.error(`Sound ${name} not playing`)
 		} else {
-			this.sounds[name].relase = duration / 1000
+			this.sounds[name].release = duration / 1000
 			this.sounds[name].stop()
 			setTimeout(() => {
 				if (onTransitionEnd) onTransitionEnd()

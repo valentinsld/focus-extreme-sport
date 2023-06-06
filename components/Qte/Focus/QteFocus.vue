@@ -82,6 +82,7 @@ onMounted(() => {
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
 			webgl.fxComposer.postProcessingPass.uniforms.uAmount.value = (disto * 0.0075)
+			webgl.fxComposer.postProcessingPass.uniforms.uDarkness.value = (disto * 0.35)
 		}
 
 		emit('updated', value.value)

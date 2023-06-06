@@ -60,7 +60,7 @@ export default class FXComposer {
 			  uAlpha_c: { value: 0 }, // skew coeff
 			  uAmount: {value: 0},
 			  uAngle: {value: 0},
-			  uOffset: {value: 0},
+			  uOffset: {value: .75},
 			  uDarkness: {value: 0},
 			},
 			vertexShader: postProV,
@@ -105,6 +105,7 @@ export default class FXComposer {
 		this.postProcessingPass.uniforms.uK0.value.x = 0
 		this.postProcessingPass.uniforms.uK0.value.y = 0
 		this.postProcessingPass.uniforms.uAmount.value = 0;
+		this.postProcessingPass.uniforms.uDarkness.value = 0;
 	  }
 
 	update() {

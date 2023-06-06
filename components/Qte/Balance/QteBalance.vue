@@ -101,6 +101,7 @@ let disto = 0
 let disX = 0
 let disY = 0
 let chroma = 0
+let vignette = 0
 
 const balance = ref()
 
@@ -166,6 +167,9 @@ onMounted(() => {
 
 			chroma = lerp(chroma,(disto * 0.0075), 0.01)
 			webgl.fxComposer.postProcessingPass.uniforms.uAmount.value = chroma
+
+			vignette = lerp(vignette,(disto * 0.35), 0.01)
+			webgl.fxComposer.postProcessingPass.uniforms.uDarkness.value = vignette
 		}
 
 		emit('updated', value.value)

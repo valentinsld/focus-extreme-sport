@@ -43,7 +43,7 @@ void main() {
 
 	//Vignette
 	float vignette = distance( vUv, vec2( 0.5 ) );
-	diffuse.rgb *= smoothstep( 0.8, uOffset * 0.799, vignette *( uDarkness + uOffset ) );
+	diffuse.rgb *= smoothstep( 0.8, uOffset * 0.2, vignette *( uDarkness + uOffset ) );
 
 	// Transi layout
 	vec4 noise = texture2D(uNoise, vUv);

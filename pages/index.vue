@@ -1,11 +1,7 @@
 <template>
   <div class="gameContainer">
-    <Transition
-      name="home"
-      appear
-    >
-      <Home v-if="store.state.gamestate === 'home'" />
-    </Transition>
+    <Home />
+
     <Transition
       name="selection"
       appear
@@ -108,7 +104,6 @@ const initDebugGameState = () => {
 
   z-index: 1;
 
-  padding: 50px;
 
   pointer-events: none;
 
@@ -132,16 +127,6 @@ const initDebugGameState = () => {
   &.is-hide {
     opacity: 0;
   }
-}
-
-.home-enter-active,
-.home-leave-active {
-  transition: opacity 375ms cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.home-enter-from,
-.home-leave-to {
-  opacity: 0;
 }
 
 .selection-enter-active,

@@ -11,23 +11,6 @@
 
 @import './lib/fix_tweakpane.scss';
 
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	text-align: center;
-	color: colors(black);
-	-moz-osx-font-smoothing: grayscale;
-	// z-index: z(webgl);
-	// transform: rotate(const(angle));
-	transition: all 1s ease(ease_in-cubic);
-	@include below(bpw(md)) {
-		// background-color: red;
-	}
-	@include hover-and-touch() {
-		transform: rotate(0deg);
-	}
-}
-
 :root {
 	--h-demult: 1;
 
@@ -43,11 +26,14 @@
 		@media (min-aspect-ratio: 28 / 10) { --h-demult: 0.72; }
 	}
 
-	@include fluidSize("test-size", (
-		bpw(s): 100px,
-		bpw(lg): 250px,
-		bpw(xxl): 350px
+	@include fluidSize("base-text", (
+		bpw(s): 8px,
+		bpw(lg): 10px,
+		bpw(xxl): 12px
 	));
+
+	-webkit-font-smoothing: antialiased;
+	font-size: var(--base-text);
 }
 
 

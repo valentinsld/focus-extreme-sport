@@ -53,8 +53,6 @@
         class="bar-container kayak-bar"
       />
     </div>
-    =======
-    >>>>>>> ac43cbf (feat(altimetre): remove scores for test)
   </div>
 </template>
 

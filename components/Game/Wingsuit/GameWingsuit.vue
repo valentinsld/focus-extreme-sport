@@ -105,9 +105,7 @@ onMounted(()=> {
 const initStates = (scene) => {
   currentScene = scene
 
-  scene.timelineValue = 0.
-
-  // // Show lottie rollover
+  //Show lottie rollover
   scene.setEventTimeline(0.022, () => {
     isBackflipVisible.value = true
   })
@@ -115,31 +113,27 @@ const initStates = (scene) => {
     backflipAnime.play()
   })
 
-  // // event QTE FIGURE
+  //event QTE FIGURE
   scene.setEventTimeline(0.07, () => {
     store.state.gamestatestep = 1
   })
 
-  // // event QTE Balance
+  //event QTE Balance
   scene.setEventTimeline(0.17, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
   })
 
-  // // event QTE Balance END
+  // event QTE Balance END
   scene.setEventTimeline(0.48, () => {
     store.state.gamestatestep = 4
   })
 
-  // switch camera 3P _ 1
   scene.setEventTimeline(0.526, () => {
     scene.setCamera3P_2()
   })
-  scene.setEventTimeline(0.595, () => {
-    scene.WebGL.camera.setCamera()
-  })
 
-  // // event QTE Focus
+  // event QTE Focus
   scene.setEventTimeline(0.62, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5

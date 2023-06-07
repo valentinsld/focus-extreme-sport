@@ -1,0 +1,90 @@
+$font-path: "~~/assets/fonts";
+$font-display: "block";
+
+/* Akira - bold */
+@font-face {
+	font-family: "AkiraExpanded";
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url($font-path + "/akira/AkiraExpanded-Bold.woff2") format("woff2"),
+		url($font-path + "/akira/AkiraExpanded-Bold.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Akira — Super-bold */
+@font-face {
+	font-family: "AkiraExpanded";
+	font-style: normal;
+	font-weight: 900;
+	src:
+		url($font-path + "/akira/AkiraExpanded-SuperBold.woff2") format("woff2"),
+		url($font-path + "/akira/AkiraExpanded-SuperBold.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Gotham  */
+@font-face {
+	font-family: "Gotham";
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url($font-path + "/gotham/GothamBook.woff2") format("woff2"),
+		url($font-path + "/gotham/GothamBook.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Gotham - Italic */
+@font-face {
+	font-family: "Gotham";
+	font-style: italic;
+	font-weight: 400;
+	src:
+		url($font-path + "/gotham/GothamBook-Italic.woff2") format("woff2"),
+		url($font-path + "/gotham/GothamBook-Italic.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Tusker - 3500 */
+@font-face {
+	font-family: "Tusker";
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url($font-path + "/tusker/TuskerGrotesk-3500Medium.woff2") format("woff2"),
+		url($font-path + "/tusker/TuskerGrotesk-3500Medium.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Tusker - 3600 */
+@font-face {
+	font-family: "Tusker";
+	font-style: normal;
+	font-weight: 500;
+	src:
+		url($font-path + "/tusker/TuskerGrotesk-3600Semibold.woff2") format("woff2"),
+		url($font-path + "/tusker/TuskerGrotesk-3600Semibold.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Tusker - 4600 */
+@font-face {
+	font-family: "Tusker";
+	font-style: normal;
+	font-weight: 600;
+	src:
+		url($font-path + "/tusker/TuskerGrotesk-4600Semibold.woff2") format("woff2"),
+		url($font-path + "/tusker/TuskerGrotesk-4600Semibold.woff") format("woff");
+	font-display: $font-display;
+}
+
+/* Tusker - 5600 */
+@font-face {
+	font-family: "Tusker";
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url($font-path + "/tusker/TuskerGrotesk-5600Semibold.woff2") format("woff2"),
+		url($font-path + "/tusker/TuskerGrotesk-5600Semibold.woff") format("woff");
+	font-display: $font-display;
+}

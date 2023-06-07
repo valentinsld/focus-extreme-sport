@@ -1,13 +1,17 @@
 <template>
   <div class="gameContainer">
     <Home />
-
-    <Transition
+    <!-- <Transition
       name="selection"
+      :duration="{enter: 1000, leave: 1000}"
       appear
-    >
-      <Selection v-if="store.state.gamestate === 'selection'" />
-    </Transition>
+      v-if="store.state.gamestate === 'selection'"
+    > -->
+    <Selection
+      :class="{'is-visible': store.state.gamestate === 'selection'}"
+    />
+    <!-- </Transition> -->
+
     <Transition
       name="intro"
       appear
@@ -129,15 +133,22 @@ const initDebugGameState = () => {
   }
 }
 
-.selection-enter-active,
-.selection-leave-active {
-  transition: opacity 1s cubic-bezier(0.55, 0, 0.1, 1);
-}
+// .selection-enter-active {
+//   transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
 
-.selection-enter-from,
-.selection-leave-to {
-  opacity: 0;
-}
+// }
+
+// .selection-leave-active {}
+
+// .selection-enter-from {
+
+//   transform: translateY(4rem) scale(1.2);
+//   opacity: 0;
+
+
+// }
+
+// .selection-leave-to {}
 
 .figure-enter-active,
 .figure-leave-active {

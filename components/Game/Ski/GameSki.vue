@@ -101,4 +101,5 @@ const endQteFigure = (isSucess) => {
   } else {
     currentScene.animationFailsQTE()
   }
-}</script>
+}
+</script>

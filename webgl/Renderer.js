@@ -1,6 +1,7 @@
 import {
   WebGLRenderer,
   sRGBEncoding,
+  ACESFilmicToneMapping,
   NoToneMapping,
   PCFSoftShadowMap,
   PMREMGenerator
@@ -46,11 +47,11 @@ export default class Renderer {
 
     this.instance.useLegacyLights = false
     // this.instance.gammaOutPut = true
-    this.instance.outputEncoding = sRGBEncoding
+    // this.instance.outputEncoding = sRGBEncoding
     this.instance.shadowMap.type = PCFSoftShadowMap
     this.instance.shadowMap.enabled = true
     this.instance.shadowMapSoft = true
-    this.instance.toneMapping = NoToneMapping
+    this.instance.toneMapping = ACESFilmicToneMapping
     this.instance.toneMappingExposure = 1
 
     this.context = this.instance.getContext()

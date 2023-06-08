@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'no-cursor': noCursor}">
     <Transition
       name="loader"
       appear
@@ -24,6 +24,8 @@ onMounted(() => {
   new WebGL();
 });
 
+const noCursor = computed(() => ['intro', 'wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))
+
 
 </script>
 
@@ -36,6 +38,10 @@ onMounted(() => {
 .loader-enter-from,
 .loader-leave-to {
   opacity: 0;
+}
+
+.no-cursor {
+  cursor: none;
 }
 
 #absolute-fade {

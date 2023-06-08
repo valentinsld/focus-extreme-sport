@@ -1,5 +1,7 @@
 <template>
-  <div class="gameContainer">
+  <div
+    class="gameContainer"
+  >
     <Home />
     <!-- <Transition
       name="selection"
@@ -37,7 +39,7 @@
       <GameKayak v-if="store.state.gamestate === 'kayak'" />
     </Transition>
 
-    <QteInfoNoEvent :hidden="store.state.noEventPlayer" />
+    <!-- <QteInfoNoEvent :hidden="store.state.noEventPlayer" /> -->
     <Altimetre v-if="isIntroFinished" />
   </div>
 </template>

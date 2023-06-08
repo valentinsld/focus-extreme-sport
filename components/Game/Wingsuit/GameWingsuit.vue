@@ -35,6 +35,11 @@
         />
       </div>
     </Transition>
+
+    <div
+      ref="lotie"
+      class="lottie"
+    />
     <QteBalance v-if="store.state.gamestatestep === 3" />
     <QteFocus
       v-if="store.state.gamestatestep === 5"
@@ -50,6 +55,11 @@ import AudioManager from '~~/webgl/Managers/AudioManager';
 import SceneManager from '~~/webgl/Managers/SceneManager';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 
+import lottie  from 'lottie-web'
+
+import bounce from '~~/assets/lottieJson/bounce.json'
+
+
 const store = useStore()
 let currentScene = null
 
@@ -57,8 +67,24 @@ const webgl = new WebGL()
 
 const Audio = new AudioManager()
 
+const lotie = ref()
+
+let anime;
+
 onMounted(()=> {
+
+  console.log(bounce);
   store.state.gamestatestep = 0
+
+  console.log(lottie);
+
+  anime = lottie.loadAnimation({
+    container: lotie.value, // the dom element that will contain the animation
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    animationData: bounce
+  });
 
   const sceneManager = new SceneManager()
   sceneManager.setScene('wingsuit', 10000, initStates)

@@ -200,7 +200,7 @@ function selectPackage() {
 	.word2 {
 		font-weight: 400;
 		font-size: 6.4rem;
-		line-height: 112%;
+		line-height: 110%;
 		letter-spacing: 0.05rem;
 	}
 }

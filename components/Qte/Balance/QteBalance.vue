@@ -1,27 +1,47 @@
 <template>
-  <!-- <div class="qte-balance">
-    <div
-      class="qte-balance__indicator"
-      :style="{ transform: `translateX(${value * 250}px)` }"
-    />
-  </div> -->
-
   <div
     ref="balance"
     class="balance"
   >
+    <div class="left">
+      <svg
+        viewBox="0 0 202 202"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
+          fill="#fff"
+        />
+      </svg>
+    </div>
     <div class="gauge">
       <svg
-        viewBox="0 0 2092 483"
+        width="205"
+        height="50"
+        viewBox="0 0 205 50"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       ><path
-        d="M1046 0C627.409 0 252.601 187.457.945 483 138.13 337.167 539.198 68.5 1046 68.5c506.8 0 907.87 268.667 1045.05 414.5C1839.4 187.457 1464.59 0 1046 0Z"
-        fill="#A5A5A5"
-      /></svg>
+        d="M103.102 11.148C45.186 11.796 10.544 37.306.462 49.981 7.763 33.38 38.509.99 103.103.99s94.793 32.39 101.818 48.99c-9.808-13.214-43.902-39.48-101.818-38.833Z"
+        fill="url(#a)"
+      /><defs><radialGradient
+        id="a"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="matrix(-98.7221 0 0 -408.066 102.691 25.081)"
+      ><stop stop-color="#fff" /><stop
+        offset="1"
+        stop-color="#fff"
+        stop-opacity="0"
+      /></radialGradient></defs></svg>
       <div
         class="cursor"
-        :style="{ transform: `translateY(-35%) rotate(${value * 35}deg)` }"
+        :style="{ transform: `translateY(-40%) rotate(${value * 35}deg)` }"
       >
         <svg
           viewBox="0 0 184 184"
@@ -36,35 +56,19 @@
         </svg>
       </div>
     </div>
-    <div class="arrows">
-      <div class="left">
-        <svg
-          viewBox="0 0 202 202"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
-            fill="#fff"
-          />
-        </svg>
-      </div>
-      <div class="right">
-        <svg
-          viewBox="0 0 202 202"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
-            fill="#fff"
-          />
-        </svg>
-      </div>
+    <div class="right">
+      <svg
+        viewBox="0 0 202 202"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M201.182.657A225.8 225.8 0 0 1-.001.657 225.8 225.8 0 0 1 0 201.84a225.797 225.797 0 0 1 201.183 0 225.796 225.796 0 0 1 0-201.183ZM72.986 64.19h34.366l29.75 37.482-29.75 37.483H72.986l29.75-37.483-29.75-37.482Z"
+          fill="#fff"
+        />
+      </svg>
     </div>
   </div>
 </template>
@@ -225,29 +229,29 @@ onUnmounted(() => {
 $indicator: 10px;
 
 .balance {
-	@include fluidSize("balance-size",
-		(bpw(s): 150px,
-			bpw(lg): 250px));
-
-	width: var(--balance-size);
 	// position: relative;
 	position: absolute;
 	bottom: 5vh;
 	left: 50vw;
 	transform: translate3d(-50%, 0, 0);
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: center;
-	flex-flow: column nowrap;
+	flex-flow: row nowrap;
 
 }
 
 .gauge {
-	width: 100%;
+	@include fluidSize("balance-size",
+		(bpw(s): 150px,
+			bpw(lg): 250px));
+
+	width: var(--balance-size);
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 	flex-flow: column nowrap;
+	margin: 0 1rem;
 }
 
 .cursor {
@@ -260,10 +264,12 @@ $indicator: 10px;
 	width: var(--cursor-size);
 	height: var(--cursor-size);
 	// transform: translateY(-25%);
-	transform-origin: 50% 600%;
+	transform-origin: 50% 500%;
 }
 
 .cursor-icon {
+	filter: drop-shadow(0px 0px 5px rgba(colors(black), .5));
+
 	path {
 		fill: var(--cursor-color);
 		transition: fill .7s ease(out-swift);
@@ -279,22 +285,16 @@ $indicator: 10px;
 
 .left,
 .right {
-	@include fluidSize("arrow-size",
-		(bpw(s): 20px,
-			bpw(lg): 30px,
-			bpw(xxl): 40px));
 
 	display: block;
-	width: var(--arrow-size);
+	width: 3rem;
 
-	svg {}
+	svg {
+		width: 100%;
+	}
 }
 
 .left {
-	transform: translateX(-50%) rotate(180deg);
-}
-
-.right {
-	transform: translateX(50%);
+	transform: rotate(180deg);
 }
 </style>

@@ -1,6 +1,6 @@
 import { Group, AmbientLight, AxesHelper, Vector3, Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
 import BaseScene from './BaseScene.js'
-// import anime from "animejs"
+import anime from "animejs"
 
 import TRAC_CAM from '@/assets/modelsCurves/ski.json'
 import RAFManager from '../Utils/RAFManager.js'
@@ -31,8 +31,9 @@ export default class SceneSki extends BaseScene {
 
     // character
     this.characterContainer = new Group()
-    this.character = new Mesh(new BoxGeometry(0.1, 0.2, 0.1), new MeshBasicMaterial({ color: 0xff0000 }))
-    this.character.position.set(0, 0.1, 0)
+    const box = new BoxGeometry(0.1, 0.2, 0.1)
+    box.translate(0, 0.1, 0)
+    this.character = new Mesh(box, new MeshBasicMaterial({ color: 0xff0000 }))
     this.characterContainer.add(this.character)
 
     // light
@@ -142,11 +143,52 @@ export default class SceneSki extends BaseScene {
   // End QTE
   //
   animationSucessQTE () {
-    console.log('animationSucessQTE')
+    RAFManager.setSpeed(0.3)
+    console.log('animationSucessQTE', this.characterContainer.rotation.x)
+
+    const delay = 1000
+    const duration = 5000
+    const durationHalf = duration * 0.5
+    anime.timeline({
+      easing: 'linear',
+    })
+    .add({
+      targets: this.character.rotation,
+      duration: duration * 0.44,
+      x: `+=${Math.PI * -1.6}}`,
+      easing: 'linear',
+    }, delay)
+    .add({
+      targets: this.character.rotation,
+      duration: duration * 0.56,
+      x: `+=${Math.PI * -0.4}}`,
+      easing: 'linear',
+      complete: () => {
+        console.log('complete')
+        RAFManager.setSpeed(1)
+      }
+    }, delay + duration * 0.44)
+    .add({
+      targets: this.character.position,
+      duration: duration * 0.44,
+      y: 0.23,
+      easing: 'linear',
+    }, delay)
+    .add({
+      targets: this.character.position,
+      duration: duration * 0.56,
+      y: 0,
+      easing: 'linear',
+    }, delay + duration * 0.44)
   }
 
   animationFailsQTE () {
+    RAFManager.setSpeed(0.3)
     console.log('animationFailsQTE')
+
+    setTimeout(() => {
+      RAFManager.setSpeed(1)
+    }, 6500);
   }
 
   //

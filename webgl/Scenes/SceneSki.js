@@ -75,12 +75,12 @@ export default class SceneSki extends BaseScene {
     this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, datas.altitude['ski'].max, datas.altitude['ski'].min)
 
     // 2 - add camera to wingsuit + set position
-    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.2, 0)))
+    this.setCameraFPV()
 
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneSki', (currentTime, dt) => {
-      this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)  % 1
+      this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
     })
 
@@ -107,9 +107,46 @@ export default class SceneSki extends BaseScene {
     }
   }
 
+  //
+  // Cameras
+  //
+
+  setCameraFPV () {
+    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.2, 0)))
+  }
+  setCameraTravelling () {
+    const addVector = new Vector3(-0.3, -0.05, -2)
+    this.WebGL.camera.setCamera('3p', addVector, this.characterContainer.position)
+
+    RAFManager.add('ski-travelling', () => {
+      this.characterContainer.getWorldPosition(this.WebGL.camera.current.position).add(addVector)
+    })
+  }
+  removeCameraTravelling () {
+    RAFManager.remove('ski-travelling')
+    this.setCameraFPV()
+  }
+
+  setCameraQteFigure () {
+    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
+  }
+
   setCamera3P() {
-    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_F').position, this.map.getObjectByName('CAM_F_TARGET').position)
+    // const positionCam = this.map.getObjectByName('CAM_F').position
+    const positionCam = { x: 16.5, y: 0.9, z: 3.6 }
+    this.WebGL.camera.setCamera('3p', positionCam, this.map.getObjectByName('CAM_F_TARGET').position)
     this.quote.showQuote()
+  }
+
+  //
+  // End QTE
+  //
+  animationSucessQTE () {
+    console.log('animationSucessQTE')
+  }
+
+  animationFailsQTE () {
+    console.log('animationFailsQTE')
   }
 
   //

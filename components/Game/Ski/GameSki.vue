@@ -1,7 +1,37 @@
 <template>
-  <h1>
-    Game Ski {{ store.state.gamestatestep }}
-  </h1>
+  <div>
+    <QteBalance v-if="store.state.gamestatestep === 1" />
+    <QteFocus
+      v-if="store.state.gamestatestep === 3"
+      :delay-reduced-speed="0"
+    />
+    <QteFigure
+      v-if="store.state.gamestatestep === 5"
+      :data-children="[
+        {
+          validKey: 'ArrowUp',
+          delay: 500,
+          duration: 2000
+        },
+        {
+          validKey: 'ArrowLeft',
+          delay: 2500,
+          duration: 2000
+        },
+        {
+          validKey: 'ArrowRight',
+          delay: 4500,
+          duration: 2000
+        },
+        {
+          validKey: 'ArrowDown',
+          delay: 6500,
+          duration: 2000
+        }
+      ]"
+      @is-finished="endQteFigure"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -10,15 +40,65 @@ import SceneManager from '~~/webgl/Managers/SceneManager';
 
 const store = useStore()
 
+let currentScene = null
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('ski', 0.35, initStates)
 })
 
 function initStates(scene) {
-    // event end next scene
-    scene.setEventTimeline(0.95, () => {
-      store.state.gamestate = 'kayak'
-    })
+  currentScene = scene
+
+  // event QTE Balance
+  scene.setEventTimeline(0.07, () => {
+    store.state.gamestatestep = 1
+  })
+
+  // event QTE End Balance
+  scene.setEventTimeline(0.5, () => {
+    store.state.gamestatestep = 2
+  })
+
+  // start travelling 3P
+  scene.setEventTimeline(0.56, () => {
+    scene.setCameraTravelling()
+  })
+
+  // end travelling 3P
+  scene.setEventTimeline(0.65, () => {
+    scene.removeCameraTravelling()
+  })
+
+  // event QTE Focus
+  scene.setEventTimeline(0.7, () => {
+    store.state.gamestatestep = 3
+  })
+
+  // event END QTE Focus
+  scene.setEventTimeline(0.82, () => {
+    store.state.gamestatestep = 4
+  })
+
+  // event QTE Figure
+  scene.setEventTimeline(0.84, () => {
+    store.state.gamestatestep = 5
+  })
+
+
+  // event end next scene
+  scene.setEventTimeline(0.999, () => {
+    store.state.gamestate = 'kayak'
+  })
 }
-</script>
+
+const endQteFigure = (isSucess) => {
+  store.state.gamestatestep = 6
+
+  currentScene.setCameraQteFigure()
+
+  if (isSucess) {
+    currentScene.animationSucessQTE()
+  } else {
+    currentScene.animationFailsQTE()
+  }
+}</script>

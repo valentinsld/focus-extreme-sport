@@ -276,7 +276,6 @@ export default class BaseScene {
 
     // altimeter
     this.altimeter = Math.round(normliaze(this.curveCam.getPointAt(this.tracking).y, this.altimeterMax, this.altimeterMin) * (this.altimeterTop - this.altimeterBottom) + this.altimeterBottom)
-    console.log(this.altimeterMax, this.altimeterMin, this.altimeterTop, this.altimeterBottom);
     this.store.state.altimetre.altitude = this.altimeter
   }
 

@@ -10,7 +10,7 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 
-import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
+import wingsuitHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';
 import Clouds from '../Components/Environment/Clouds.js';
 
@@ -62,18 +62,18 @@ export default class SceneWingsuit extends BaseScene {
       this.map.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = 0.2
+          element.material.envMapIntensity = .25
           element.castShadow = true
           element.receiveShadow = true
         }
         if(element.name.includes("SKY")) {
-          element.material.envMapIntensity = .65
+          element.material.envMapIntensity = .8
         }
       })
       this.character.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = 0.2
+          element.material.envMapIntensity = 0.25
           element.castShadow = true
           element.receiveShadow = true
         }
@@ -84,7 +84,8 @@ export default class SceneWingsuit extends BaseScene {
     this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.5)
 
     this.dirLight = new DirectionalLightSource({
-      color: 0xebfffd,
+      color: 0xffffff,
+      // 0xAECDE5
       intensity: 1,
       positions: new Vector3(-70, 60, -20),
       castShadow: true,
@@ -110,7 +111,7 @@ export default class SceneWingsuit extends BaseScene {
     this.cl1 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),
       size: MathUtils.randFloat(8,12),
-      opacity: MathUtils.randFloat(0.2, 0.4),
+      opacity: MathUtils.randFloat(0.35, 0.6),
     })
     this.cl1.container.position.set(-12, 7, 5)
     this.cl1.container.rotation.x = -Math.PI / 4
@@ -118,7 +119,7 @@ export default class SceneWingsuit extends BaseScene {
     this.cl2 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),
       size: MathUtils.randFloat(5,8),
-      opacity: MathUtils.randFloat(.2, .4),
+      opacity: MathUtils.randFloat(.35, .6),
     })
     this.cl2.container.position.set(-5, 7, 5)
     this.cl2.container.rotation.x = -Math.PI / 2
@@ -128,7 +129,7 @@ export default class SceneWingsuit extends BaseScene {
     this.cl3 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),
       size: MathUtils.randFloat(8,12),
-      opacity: MathUtils.randFloat(.2, .4),
+      opacity: MathUtils.randFloat(.35, .6),
     })
     this.cl3.container.position.set(-7, 5, 7)
     this.cl3.container.rotation.x = -Math.PI / 2
@@ -136,7 +137,7 @@ export default class SceneWingsuit extends BaseScene {
     this.cl4 = new Clouds({
       index: Math.round(MathUtils.randFloat(1,6)),
       size: MathUtils.randFloat(8,12),
-      opacity: MathUtils.randFloat(.2, .4),
+      opacity: MathUtils.randFloat(.35, .6),
     })
     this.cl4.container.position.set(-12, 7, 8.5)
     this.cl4.container.rotation.x = -Math.PI / 2

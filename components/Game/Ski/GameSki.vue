@@ -84,9 +84,18 @@ function initStates(scene) {
     store.state.gamestatestep = 5
   })
 
+  // set new Cam
+  scene.setEventTimeline(0.93, () => {
+    scene.setCamera3P()
+  })
+
+  scene.setEventTimeline(0.988, () => {
+    console.log('TODO : animation de ski avec neige')
+  })
+
 
   // event end next scene
-  scene.setEventTimeline(0.999, () => {
+  scene.setEventTimeline(0.995, () => {
     store.state.gamestate = 'kayak'
   })
 }

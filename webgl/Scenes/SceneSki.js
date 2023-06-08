@@ -10,6 +10,10 @@ import datas from "~~/webgl/data/data.json"
 
 const CLEAR_COLOR = 0x93CBE5
 
+const CAM_F = new Vector3(19.8, 1.85, 4.1)
+const QUOTE_POS = new Vector3(17.90, 1.60, 3.68)
+const CAM_F_TARGET = new Vector3(QUOTE_POS.x, QUOTE_POS.y, 3.98)
+
 export default class SceneSki extends BaseScene {
   static singleton
 
@@ -44,25 +48,23 @@ export default class SceneSki extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: 'Quand on est en vitesse moyenne, on est autour des 200 kilomètres heure, mais si on prend de la vitesse on peut passer les 250 donc ça va très vite',
+      quoteContent: 'Tu joues avec la montagne, la montagne n’est jamais pareil, tu t’adaptes au terrain : c’est un sport d’improvisation',
 
       authorWidth: 1000,
-      quoteAuthor: 'Fred Fugen',
+      quoteAuthor: 'Richard Permin',
       authorColor: '#C4FE1F',
 
       jobWidth: 1000,
       quoteJob: 'Spécialiste de la chute libre',
     })
-    // this.quote.container.position //.set(17.48, -5, -4.89)
-    //   .copy(this.map.getObjectByName('CAM_F_TARGET').position)
-    //   .sub(new Vector3(-0.54, 0.5, 0.081))
+    this.quote.container.position.copy(QUOTE_POS)
 
-    // this.quote.container.rotation.y = 1.53
-    // this.quote.container.scale.set(.0005, .0005, .0005)
-    // this.quote.hideQuote()
+    this.quote.container.rotation.y = 1.2
+    this.quote.container.scale.set(.0005, .0005, .0005)
+    this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(...[this.map, this.characterContainer, this.ambientLight/*, this.quote.container*/])
+    this.scene.add(this.map, this.characterContainer, this.ambientLight, this.quote.container)
 
     if(this.WebGL.debug) {
       // three js add helper lines
@@ -133,9 +135,8 @@ export default class SceneSki extends BaseScene {
   }
 
   setCamera3P() {
-    // const positionCam = this.map.getObjectByName('CAM_F').position
-    const positionCam = { x: 16.5, y: 0.9, z: 3.6 }
-    this.WebGL.camera.setCamera('3p', positionCam, this.map.getObjectByName('CAM_F_TARGET').position)
+    RAFManager.setSpeed(0.25)
+    this.WebGL.camera.setCamera('3p', CAM_F, CAM_F_TARGET)
     this.quote.showQuote()
   }
 
@@ -150,7 +151,7 @@ export default class SceneSki extends BaseScene {
     const duration = 5000
     const durationHalf = duration * 0.5
     anime.timeline({
-      easing: 'linear',
+      easing: 'linear'
     })
     .add({
       targets: this.character.rotation,
@@ -163,10 +164,6 @@ export default class SceneSki extends BaseScene {
       duration: duration * 0.56,
       x: `+=${Math.PI * -0.4}}`,
       easing: 'linear',
-      complete: () => {
-        console.log('complete')
-        RAFManager.setSpeed(1)
-      }
     }, delay + duration * 0.44)
     .add({
       targets: this.character.position,

@@ -64,7 +64,7 @@ export default class SceneKayak extends BaseScene {
       const axesHelper = new AxesHelper(5)
       this.instance.add(axesHelper)
 
-      this.debugQuotePosition = this.WebGL.debug.addInput(this.quote.container, 'position', { step: 0.01 })
+      // this.debugQuotePosition = this.WebGL.debug.addInput(this.quote.container, 'position', { step: 0.01 })
     }
   }
 

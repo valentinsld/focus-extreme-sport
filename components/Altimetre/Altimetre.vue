@@ -84,10 +84,6 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   position: absolute;
   left: 20px;
   bottom: 20px;
-  <<<<<<< HEAD border: 1px solid red;
-  background-color: black;
-  color: white;
-  =======
 }
 
 .score {
@@ -142,7 +138,5 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   &::after {
     transform: translateX(calc(-100% + var(--kayak-translate)));
   }
-
-  >>>>>>>34a1b40 (Add gauge on score)
 }
 </style>

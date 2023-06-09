@@ -145,38 +145,45 @@ export default class SceneSki extends BaseScene {
   //
   animationSucessQTE () {
     RAFManager.setSpeed(0.3)
-    console.log('animationSucessQTE', this.characterContainer.rotation.x)
 
-    const delay = 1000
-    const duration = 5000
-    const durationHalf = duration * 0.5
+    const delay = 2000
+    const duration = 6000
     anime.timeline({
       easing: 'linear'
     })
     .add({
       targets: this.character.rotation,
-      duration: duration * 0.44,
-      x: `+=${Math.PI * -1.6}}`,
-      easing: 'linear',
+      duration: delay,
+      x: `+=${Math.PI * -0.2}}`,
+      easing: 'easeInSine'
+    }, 0)
+    .add({
+      targets: this.character.rotation,
+      duration: duration * 0.35,
+      x: `+=${Math.PI * -1.5}}`,
+      easing: 'easeInOutSine'
     }, delay)
     .add({
       targets: this.character.rotation,
-      duration: duration * 0.56,
-      x: `+=${Math.PI * -0.4}}`,
-      easing: 'linear',
-    }, delay + duration * 0.44)
+      duration: duration * 0.4,
+      x: `+=${Math.PI * -0.3}}`,
+      easing: 'easeInSine',
+      complete: () => {
+        RAFManager.setSpeed(0.45)
+      }
+    }, delay + duration * 0.35)
     .add({
       targets: this.character.position,
-      duration: duration * 0.44,
-      y: 0.23,
-      easing: 'linear',
+      duration: duration * 0.25,
+      y: 0.35,
+      easing: 'easeInOutSine',
     }, delay)
     .add({
       targets: this.character.position,
-      duration: duration * 0.56,
+      duration: duration * 0.45,
       y: 0,
-      easing: 'linear',
-    }, delay + duration * 0.44)
+      easing: 'easeInSine',
+    }, delay + duration * 0.25)
   }
 
   animationFailsQTE () {

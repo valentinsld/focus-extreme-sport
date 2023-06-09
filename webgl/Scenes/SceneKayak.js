@@ -129,7 +129,7 @@ export default class SceneKayak extends BaseScene {
       this.debug3P.dispose()
 
       this.cam3p.dispose()
-      this.debugQuotePosition.dispose()
+      // this.debugQuotePosition.dispose()
     }
 
     this.audioManager.stop('kayak-global', 2000)

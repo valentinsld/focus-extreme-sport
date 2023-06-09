@@ -1,5 +1,7 @@
 <template>
-  <div :class="{'no-cursor': noCursor}">
+  <div
+    :class="{'no-cursor': noCursor}"
+  >
     <Transition
       name="loader"
       appear

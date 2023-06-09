@@ -6,6 +6,8 @@ import TRAC_CAM from '@/assets/modelsCurves/ski.json'
 import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 
+import datas from "~~/webgl/data/data.json"
+
 const CLEAR_COLOR = 0x93CBE5
 
 export default class SceneSki extends BaseScene {
@@ -70,7 +72,7 @@ export default class SceneSki extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, 2600, 2000)
+    this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, datas.altitude['ski'].max, datas.altitude['ski'].min)
 
     // 2 - add camera to wingsuit + set position
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.2, 0)))

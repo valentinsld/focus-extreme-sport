@@ -1,8 +1,8 @@
 <template>
-  <div class="altimetre">
-    <!-- <h2>
-      Altimètre : {{ store.state.altimetre.altitude }}
-    </h2> -->
+  <div
+    class="altimetre"
+    :class="[store.state.gamestate]"
+  >
     <div class="altimetre-graduation">
       <div
         v-for="i in 4"
@@ -10,6 +10,24 @@
         class="graduation"
         :class="['gradution-'+ i]"
       />
+      <div
+        class="altimetre-cursor"
+        :style="{ transform: `translateY(${offset + translateCursor}vh)` }"
+      >
+        <svg
+          viewBox="0 0 184 184"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="cursor-icon"
+        >
+          <path
+            d="M183.142 91.57a145.346 145.346 0 0 0-91.57 91.572A145.347 145.347 0 0 0 0 91.57 145.347 145.347 0 0 0 91.571 0a145.347 145.347 0 0 0 91.571 91.57Z"
+          />
+        </svg>
+        <p class="altimetre-height">
+          {{ store.state.altimetre.altitude }} <span>m</span>
+        </p>
+      </div>
     </div>
     <div class="score">
       <svg
@@ -62,12 +80,16 @@
       />
     </div>
   </div>
-  </div>
 </template>
 
 <script setup>
 // call store
 import useStore from '@/stores/index.js'
+import { normalizeValue, clamp } from '~~/webgl/Utils/Math';
+import RAFManager from '~~/webgl/Utils/RAFManager';
+
+import datas from "~~/webgl/data/data.json"
+
 const store = useStore()
 
 const wingsuit = ref()
@@ -85,6 +107,39 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   watch(() => store.state.altimetre.scores.kayak, (value) => {
   kayak.value.style.setProperty('--kayak-translate', value + '%')
 	}, { immediate: false });
+let translate = 0
+
+const translateCursor = ref(0)
+const offset = ref(0)
+
+onMounted(()=> {
+  RAFManager.add('Altimeter', () => {
+    translate = normalizeValue(store.state.altimetre.altitude, datas.altitude[store.state.gamestate].max, datas.altitude[store.state.gamestate].min) // (Altitude, Top alti, Min Alti)
+    translateCursor.value = clamp(translate * (70 / 3), 0, (70 / 3));
+  })
+})
+
+watch(() => store.state.gamestate, (value) => {
+		switch (value) {
+      case 'ski':
+        offset.value = (70 / 3)
+        break;
+
+      case 'kayak':
+        offset.value = 2 * (70 / 3)
+        break;
+
+      default:
+        offset.value = 0
+        break;
+    }
+	}, { immediate: true });
+
+onBeforeUnmount(()=> {
+  RAFManager.remove('Altimeter')
+})
+
+
 </script>
 
 <style lang="scss">
@@ -146,13 +201,12 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   &::after {
     transform: translateX(calc(-100% + var(--kayak-translate)));
   }
-
-  top: 4rem;
 }
 
 .altimetre-graduation {
   height: 70vh;
   display: flex;
+  position: relative;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
@@ -163,5 +217,52 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   width: 1rem;
   height: 1px;
   background-color: colors(white);
+}
+
+.altimetre-cursor {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: -.8rem;
+  left: -.8rem;
+  transition: transform .1s ease(out-swift);
+
+  svg {
+    width: 1.6rem;
+    margin-right: 1rem;
+    filter: drop-shadow(0px 0px 5px rgba(colors(black), .5));
+
+    path {
+      transition: fill .3s ease(out-swift);
+
+      .wingsuit & {
+        fill: colors(f_green);
+      }
+
+      .ski & {
+        fill: colors(f_pink);
+      }
+
+      .kayak & {
+        fill: colors(f_purple);
+      }
+    }
+  }
+}
+
+.altimetre-height {
+  display: flex;
+  align-items: center;
+  font-family: const(font-akira);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0px 0px 5px rgba(colors(black), .5);
+
+  span {
+    margin-left: .5rem;
+  }
+
 }
 </style>

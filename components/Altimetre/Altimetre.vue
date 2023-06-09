@@ -3,7 +3,14 @@
     <!-- <h2>
       Altimètre : {{ store.state.altimetre.altitude }}
     </h2> -->
-
+    <div class="altimetre-graduation">
+      <div
+        v-for="i in 4"
+        :key="i"
+        class="graduation"
+        :class="['gradution-'+ i]"
+      />
+    </div>
     <div class="score">
       <svg
         viewBox="0 0 61 60"
@@ -54,6 +61,7 @@
         class="bar-container kayak-bar"
       />
     </div>
+  </div>
   </div>
 </template>
 
@@ -138,5 +146,22 @@ watch(() => store.state.altimetre.scores.ski, (value) => {
   &::after {
     transform: translateX(calc(-100% + var(--kayak-translate)));
   }
+
+  top: 4rem;
+}
+
+.altimetre-graduation {
+  height: 70vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  border-left: 1px solid colors(white);
+}
+
+.graduation {
+  width: 1rem;
+  height: 1px;
+  background-color: colors(white);
 }
 </style>

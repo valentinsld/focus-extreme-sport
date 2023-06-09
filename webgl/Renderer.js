@@ -1,8 +1,6 @@
 import {
   WebGLRenderer,
-  sRGBEncoding,
   ACESFilmicToneMapping,
-  NoToneMapping,
   PCFSoftShadowMap,
   PMREMGenerator
 } from 'three'

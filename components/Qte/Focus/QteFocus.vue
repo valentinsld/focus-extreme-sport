@@ -4,12 +4,35 @@
       Maintiens la touche espace
     </p>
 
-    <div class="qte-focus__indicator">
+    <div
+      class="qte-focus__indicator"
+      :style="{
+        '--green-percent': 100 - gradientMove * 10 + '%',
+        '--blue-percent': 100 - gradientMove * 7 + '%',
+        '--purple-percent': 100 - gradientMove * 2 + '%',
+      }"
+    >
       <div
         :style="{ width: valuePercent }"
-        :class="{isMax: valuePercent === '100%'}"
+        :class="[
+          {isMax: valuePercent === '100%'},
+          {isFlashing: valuePercent === '100%' && score >= 4}
+        ]"
       />
     </div>
+    <svg
+      width="0"
+      height="0"
+    >
+      <defs>
+        <clipPath id="focusBar">
+          <path
+            d="M0 8h628a7.545 7.545 0 0 1 0-8H0a11.392 11.392 0 0 1 0 8Z"
+            fill="#C4FE1F"
+          />
+        </clipPath>
+      </defs>
+    </svg>
   </div>
 </template>
 
@@ -18,6 +41,7 @@ import useStore from '~~/stores';
 import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
+import { clamp } from '~~/webgl/Utils/Math';
 const SCORE_MAX = 25
 const START_SPEED = 3
 
@@ -33,6 +57,8 @@ const props = defineProps({
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
 const value = ref(0)
+const gradientMove = ref(0)
+const keyPressed = ref(false)
 const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
 
 let score = 0
@@ -47,6 +73,7 @@ let keydown = 0
 const onKeyDown = (ev) => {
 	if (ev.code === 'Space') {
 		keydown = 1
+		keyPressed.value = true
 		emit('onKeydown')
 		noEvent.action()
 	}
@@ -54,6 +81,7 @@ const onKeyDown = (ev) => {
 const onKeyUp = (ev) => {
 	if (ev.code === 'Space') {
 		keydown = -0.5
+		keyPressed.value = false
 		emit('onKeyup')
 	}
 }
@@ -78,6 +106,14 @@ onMounted(() => {
 
 		disto = (value.value / props.duration)
 
+		if(value.value === 3000 && keyPressed.value) {
+			gradientMove.value += deltaTime
+			gradientMove.value =clamp(gradientMove.value, 0, 100)
+		} else if(!keyPressed.value) {
+			gradientMove.value += deltaTime * keydown
+			gradientMove.value = clamp(gradientMove.value, 0, 100)
+		}
+
 		if(webgl.fxComposer.isUpdatable) {
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
@@ -99,6 +135,7 @@ function setScore() {
 const destroyedEvents = () => {
 	const webgl = new WebGL()
 
+	gradientMove.value = 0
 	RAFManager.remove('QteFocus')
 	webgl.camera.speedLine.setSpeed()
 	webgl.fxComposer.resetEffect()
@@ -133,17 +170,22 @@ $indicator: 10px;
 		width: 100%;
 		height: $indicator;
 
-		background-color: white;
-		border: 1px solid black;
-		border-radius: $indicator;
+		background-color: rgba(colors(white), .5);
+		// border-radius: $indicator;
+		clip-path: url(#focusBar);
 
 		&>div {
 			height: 100%;
-			background-color: black;
+			background-color: colors(white);
+			transition: background .3s ease(out-swift);
 
 			&.isMax {
-				background-color: green;
+				// background-color: colors(f_green);
+				background: linear-gradient(270deg, #C4FE1F var(--green-percent), #1FF1FE var(--blue-percent), #A7A6F0 var(--purple-percent));
+				animation: gradient .5s linear backwards infinite;
 			}
+
+			&.isFlashing {}
 		}
 	}
 }

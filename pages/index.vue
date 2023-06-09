@@ -10,6 +10,7 @@
       v-if="store.state.gamestate === 'selection'"
     > -->
     <Selection
+      v-if="store.state.gamestate === 'selection'"
       :class="{'is-visible': store.state.gamestate === 'selection'}"
     />
     <!-- </Transition> -->

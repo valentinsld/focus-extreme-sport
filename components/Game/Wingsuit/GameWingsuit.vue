@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game-wingsuit">
     <Transition
       name="figure"
       appear
@@ -37,8 +37,9 @@
     </Transition>
 
     <div
-      ref="lotie"
+      ref="backflipLottie"
       class="lottie"
+      :class="{'is-visible': isBackflipVisible}"
     />
     <QteBalance v-if="store.state.gamestatestep === 3" />
     <QteFocus
@@ -57,7 +58,7 @@ import RAFManager from '~~/webgl/Utils/RAFManager';
 
 import lottie  from 'lottie-web'
 
-import bounce from '~~/assets/lottieJson/bounce.json'
+import backflip from '~~/assets/lottieJson/backflip.json'
 
 
 const store = useStore()
@@ -67,24 +68,26 @@ const webgl = new WebGL()
 
 const Audio = new AudioManager()
 
-const lotie = ref()
+const backflipLottie = ref()
+const isBackflipVisible = ref(false)
 
-let anime;
+let backflipAnime;
 
 onMounted(()=> {
 
-  console.log(bounce);
-  store.state.gamestatestep = 0
-
-  console.log(lottie);
-
-  anime = lottie.loadAnimation({
-    container: lotie.value, // the dom element that will contain the animation
+  backflipAnime = lottie.loadAnimation({
+    container: backflipLottie.value, // the dom element that will contain the animation
     renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    animationData: bounce
+    loop: false,
+    autoplay: false,
+    animationData: backflip,
   });
+
+  backflipAnime.onComplete = function(){
+    isBackflipVisible.value = false
+  }
+
+  store.state.gamestatestep = 0
 
   const sceneManager = new SceneManager()
   sceneManager.setScene('wingsuit', 10000, initStates)
@@ -104,19 +107,27 @@ const initStates = (scene) => {
 
   scene.timelineValue = 0.
 
+  // // Show lottie rollover
+  scene.setEventTimeline(0.022, () => {
+    isBackflipVisible.value = true
+  })
+  scene.setEventTimeline(0.025, () => {
+    backflipAnime.play()
+  })
+
   // // event QTE FIGURE
-  scene.setEventTimeline(0.05, () => {
+  scene.setEventTimeline(0.07, () => {
     store.state.gamestatestep = 1
   })
 
   // // event QTE Balance
-  scene.setEventTimeline(0.15, () => {
+  scene.setEventTimeline(0.17, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
   })
 
   // // event QTE Balance END
-  scene.setEventTimeline(0.495, () => {
+  scene.setEventTimeline(0.48, () => {
     store.state.gamestatestep = 4
   })
 
@@ -158,3 +169,24 @@ const endQteFigure = (isSucess) => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.game-wingsuit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.lottie {
+  position: absolute;
+  width: 120rem;
+  transition: opacity .3s ease(out-swift);
+  opacity: 0;
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
+</style>

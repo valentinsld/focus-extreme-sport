@@ -291,6 +291,7 @@ $indicator: 10px;
 
 	svg {
 		width: 100%;
+		filter: drop-shadow(0px 0px 5px rgba(colors(black), .5));
 	}
 }
 

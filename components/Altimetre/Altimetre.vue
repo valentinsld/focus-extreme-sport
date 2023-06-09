@@ -3,7 +3,10 @@
     class="altimetre"
     :class="[store.state.gamestate]"
   >
-    <div class="altimetre-graduation">
+    <div
+      class="altimetre-graduation"
+      :style="`--graduation-height: ${ height }vh;`"
+    >
       <div
         v-for="i in 4"
         :key="i"
@@ -112,21 +115,23 @@ let translate = 0
 const translateCursor = ref(0)
 const offset = ref(0)
 
+const height = 70
+
 onMounted(()=> {
   RAFManager.add('Altimeter', () => {
     translate = normalizeValue(store.state.altimetre.altitude, datas.altitude[store.state.gamestate].max, datas.altitude[store.state.gamestate].min) // (Altitude, Top alti, Min Alti)
-    translateCursor.value = clamp(translate * (70 / 3), 0, (70 / 3));
+    translateCursor.value = clamp(translate * (height / 3), 0, (height / 3));
   })
 })
 
 watch(() => store.state.gamestate, (value) => {
 		switch (value) {
       case 'ski':
-        offset.value = (70 / 3)
+        offset.value = (height / 3)
         break;
 
       case 'kayak':
-        offset.value = 2 * (70 / 3)
+        offset.value = 2 * (height / 3)
         break;
 
       default:
@@ -204,7 +209,7 @@ onBeforeUnmount(()=> {
 }
 
 .altimetre-graduation {
-  height: 70vh;
+  height: var(--graduation-height);
   display: flex;
   position: relative;
   align-items: flex-start;

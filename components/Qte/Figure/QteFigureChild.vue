@@ -114,6 +114,7 @@ const emit = defineEmits(['isClickable'])
 	position: relative;
 	opacity: 0;
 	transition: opacity .3s ease-in-out;
+	filter: drop-shadow(0px 0px 5px rgba(colors(black), .2));
 
 	&.ArrowRight {
 		transform: rotate(90deg);

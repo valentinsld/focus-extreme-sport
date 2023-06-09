@@ -6,6 +6,8 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import { DegToRad } from '../Utils/Math.js'
 
+import datas from "~~/webgl/data/data.json"
+
 const CAM_3P_1 = {
   x: 2.48,
   y: 0.5,
@@ -68,7 +70,7 @@ export default class SceneKayak extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, 2000, 1650)
+    this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, datas.altitude['kayak'].max, datas.altitude['kayak'].min)
 
     // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))

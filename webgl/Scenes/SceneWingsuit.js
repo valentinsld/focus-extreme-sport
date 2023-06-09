@@ -14,6 +14,8 @@ import wingsuitHdr from '~~/assets/hdr/snowy_field_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js';
 import Clouds from '../Components/Environment/Clouds.js';
 
+import datas from "~~/webgl/data/data.json"
+
 const CLEAR_COLOR = 0xd6eeff
 const CAM2_POS = new Vector3(7.45, .75, -1.75)
 
@@ -183,7 +185,7 @@ export default class SceneWingsuit extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
-    this.setCurvesTracking(TRAC_CAM.CURVE_CAM, TRAC_CAM.CURVE_TARGET, 4000, 2600)
+    this.setCurvesTracking(TRAC_CAM.CURVE_CAM, TRAC_CAM.CURVE_TARGET, datas.altitude['wingsuit'].max, datas.altitude['wingsuit'].min)
 
     // 2 - add camera to wingsuit + set position
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0.1, 0.1, -0.3)))

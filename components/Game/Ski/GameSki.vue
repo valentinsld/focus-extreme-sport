@@ -49,38 +49,40 @@ onMounted(()=> {
 function initStates(scene) {
   currentScene = scene
 
-  // event QTE Balance
-  scene.setEventTimeline(0.07, () => {
-    store.state.gamestatestep = 1
-  })
+  scene.timelineValue = 0.83
 
-  // event QTE End Balance
-  scene.setEventTimeline(0.5, () => {
-    store.state.gamestatestep = 2
-  })
+  // // event QTE Balance
+  // scene.setEventTimeline(0.07, () => {
+  //   store.state.gamestatestep = 1
+  // })
 
-  // start travelling 3P
-  scene.setEventTimeline(0.56, () => {
-    scene.setCameraTravelling()
-  })
+  // // event QTE End Balance
+  // scene.setEventTimeline(0.5, () => {
+  //   store.state.gamestatestep = 2
+  // })
 
-  // end travelling 3P
-  scene.setEventTimeline(0.65, () => {
-    scene.removeCameraTravelling()
-  })
+  // // start travelling 3P
+  // scene.setEventTimeline(0.56, () => {
+  //   scene.setCameraTravelling()
+  // })
 
-  // event QTE Focus
-  scene.setEventTimeline(0.7, () => {
-    store.state.gamestatestep = 3
-  })
+  // // end travelling 3P
+  // scene.setEventTimeline(0.65, () => {
+  //   scene.removeCameraTravelling()
+  // })
 
-  // event END QTE Focus
-  scene.setEventTimeline(0.82, () => {
-    store.state.gamestatestep = 4
-  })
+  // // event QTE Focus
+  // scene.setEventTimeline(0.7, () => {
+  //   store.state.gamestatestep = 3
+  // })
+
+  // // event END QTE Focus
+  // scene.setEventTimeline(0.82, () => {
+  //   store.state.gamestatestep = 4
+  // })
 
   // event QTE Figure
-  scene.setEventTimeline(0.84, () => {
+  scene.setEventTimeline(0.85, () => {
     store.state.gamestatestep = 5
   })
 
@@ -105,10 +107,12 @@ const endQteFigure = (isSucess) => {
 
   currentScene.setCameraQteFigure()
 
-  if (isSucess) {
-    currentScene.animationSucessQTE()
-  } else {
-    currentScene.animationFailsQTE()
-  }
+  nextTick(() => {
+    if (isSucess) {
+      currentScene.animationSucessQTE()
+    } else {
+      currentScene.animationSucessQTE()
+    }
+  })
 }
 </script>

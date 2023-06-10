@@ -61,7 +61,7 @@ export default class HomeBackground {
 		this.plane.position.z = -0.1
 
 		if(this.WebGL.debug) {
-			this.debugFolder = this.WebGL.debug.addFolder({ title: 'Home Background', expanded: true })
+			this.debugFolder = this.WebGL.debug.addFolder({ title: 'Home Background', expanded: false })
 
 			// colors
 			this.debugFolder.addInput(this.params, 'colorA').on('change', () => {

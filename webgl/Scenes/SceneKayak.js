@@ -1,4 +1,4 @@
-import { Group, PointLight, AxesHelper, Vector3 } from 'three'
+import { Group, PointLight, AxesHelper, Vector3, CurvePath } from 'three'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/kayak.json'
@@ -25,6 +25,9 @@ export default class SceneKayak extends BaseScene {
     SceneKayak.singleton = this
 
     this.scene = this.WebGL.sceneKayak
+
+    this.curveCam_R = new CurvePath()
+    this.curveTrack_R = new CurvePath()
 
     this.init()
   }
@@ -71,6 +74,8 @@ export default class SceneKayak extends BaseScene {
   startScene() {
     // 1 - set curves for tracking camera
     this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, datas.altitude['kayak'].max, datas.altitude['kayak'].min)
+    this.setCurve(this.curveCam_R, TRAC_CAM.CURVE_PERSO_R)
+    this.setCurve(this.curveTrack_R, TRAC_CAM.CURVE_TARGET)
 
     // 2 - add camera to kayak + set position
     this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
@@ -108,6 +113,14 @@ export default class SceneKayak extends BaseScene {
 
       this.cam3p = cameraDebugFolder.addInput(this.WebGL.camera.listCamera['3p'], 'position', {step: 0.01})
     }
+  }
+
+  //
+  // switch curves
+  //
+  switchCurve () {
+    this.curveCam = this.curveCam_R
+    this.curveTrack = this.curveTrack_R
   }
 
   //

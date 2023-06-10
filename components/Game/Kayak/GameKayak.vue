@@ -1,8 +1,12 @@
 <template>
   <div>
     <QteBalance v-if="store.state.gamestatestep === 1" />
-    <QteFocus
+    <QteChoose
       v-if="store.state.gamestatestep === 3"
+      @on-keyup="chooseLine"
+    />
+    <QteFocus
+      v-if="store.state.gamestatestep === 5"
       :delay-reduced-speed="0"
     />
   </div>
@@ -17,6 +21,7 @@ import RAFManager from '~~/webgl/Utils/RAFManager'
 const store = useStore()
 const webgl = new WebGL()
 
+let currentScene = null
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('kayak', .35, initStates)
@@ -26,16 +31,22 @@ onMounted(()=> {
 // event change state
 //
 function initStates (scene) {
+  currentScene = scene
 
   // event QTE Balance
-  scene.setEventTimeline(0.13, () => {
+  scene.setEventTimeline(0.05, () => {
     store.state.gamestatestep = 1
+  })
+
+  scene.setEventTimeline(0.3, () => {
+    store.state.gamestatestep = 2
+  })
+  scene.setEventTimeline(0.35, () => {
+    store.state.gamestatestep = 3
   })
 
   // event QTE Balance END & switch camera 3P
   scene.setEventTimeline(0.48, () => {
-    store.state.gamestatestep = 2
-
     nextTick(() => {
       scene.setCamera3P_1()
     })
@@ -48,12 +59,12 @@ function initStates (scene) {
   // event QTE Focus
   scene.setEventTimeline(0.62, () => {
     webgl.fxComposer.isUpdatable = true
-    store.state.gamestatestep = 3
+    store.state.gamestatestep = 5
   })
 
   // set camera position 3P
   scene.setEventTimeline(0.94, () => {
-    store.state.gamestatestep = 4
+    store.state.gamestatestep = 6
     scene.setCamera3P_finish()
     RAFManager.setSpeed(0.2)
   })
@@ -63,5 +74,15 @@ function initStates (scene) {
     store.state.gamestate = 'end'
     navigateTo('/stickers-rewards')
   })
+}
+
+function chooseLine (d) {
+  if (d === 'right') {
+    currentScene.switchCurve()
+  }
+
+  setTimeout(() => {
+    store.state.gamestatestep = 4
+  }, 1000);
 }
 </script>

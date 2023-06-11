@@ -41,7 +41,7 @@ function initStates (scene) {
   scene.setEventTimeline(0.3, () => {
     store.state.gamestatestep = 2
   })
-  scene.setEventTimeline(0.35, () => {
+  scene.setEventTimeline(0.3485, () => {
     store.state.gamestatestep = 3
   })
 

@@ -47,6 +47,7 @@
         </button>
         <!-- TODO : supprimer ça avant la prez c'est juste du debug dev -->
         <p
+          v-if="!store.state.ressourcesLoaded"
           class="load-text"
           :class="{'is-visible': !store.state.ressourcesLoaded}"
           style="font-style: italic;"

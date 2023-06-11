@@ -1,60 +1,67 @@
 <template>
-  <section
-    class="page page-selection"
+  <Transition
+    name="selection"
+    :duration="{ enter: 1200, leave: 1000 }"
   >
-    <div
-      class="packages"
+    <section
+      v-if="store.state.gamestate === 'selection'"
+      class="page page-selection"
     >
       <div
-        v-for="i in 3"
-        :key="i"
-        ref="packages"
-        class="package"
-        :class="[
-          'package-'+ i
-        ]"
-        @mouseover="handleHover(i, true)"
-        @mouseleave="handleHover(null, false)"
-        @click="selectPackage"
+        class="packages"
       >
         <div
-          class="package-container"
+          v-for="i in 3"
+          :key="i"
+          ref="packages"
+          class="package"
           :class="[
-            { 'is-hidden': hoverIndex !== i && isHovered},
+            'package-'+ i
           ]"
+          @mouseover="handleHover(i, true)"
+          @mouseleave="handleHover(null, false)"
+          @click="selectPackage"
         >
-          <div class="package-content">
-            <div class="background">
-              <div
-                v-for="j in 3"
-                :key="j"
-                class="texts"
-                :class="[items[i - 1].indicator]"
-              >
-                <p class="word1">
-                  {{ items[i -1].word1 }}
-                </p>
-                <p class="word2">
-                  {{ items[i -1].word2 }}
-                </p>
+          <div
+            class="package-container"
+            :class="[
+              { 'is-hidden': hoverIndex !== i && isHovered},
+            ]"
+          >
+            <div class="package-content">
+              <div class="background">
+                <div
+                  v-for="j in 3"
+                  :key="j"
+                  class="texts"
+                  :class="[items[i - 1].indicator]"
+                >
+                  <p class="word1">
+                    {{ items[i -1].word1 }}
+                  </p>
+                  <p class="word2">
+                    {{ items[i -1].word2 }}
+                  </p>
+                </div>
+                <div class="background-perso" />
               </div>
-            </div>
-            <div
-              class="title"
-              v-text="items[i - 1].title"
-            />
-            <div class="pictos">
               <div
-                v-for="j in 3"
-                :key="j"
-                class="picto"
+                class="title"
+                v-text="items[i - 1].title"
               />
+              <div class="pictos">
+                <div
+                  v-for="j in 3"
+                  :key="j"
+                  class="picto"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </Transition>
 </template>
 
 <script setup>
@@ -98,6 +105,11 @@ function selectPackage() {
 </script>
 
 <style lang="scss" scoped>
+.page-selection {
+	z-index: 2;
+
+}
+
 .packages {
 	display: flex;
 	align-items: center;
@@ -106,14 +118,8 @@ function selectPackage() {
 }
 
 .package {
-	// event hover
-	pointer-events: none !important;
 	cursor: pointer;
 	max-width: 30%;
-
-	.is-visible & {
-		pointer-events: all !important;
-	}
 }
 
 .package-container {
@@ -137,25 +143,21 @@ function selectPackage() {
 	height: 37rem;
 	overflow: hidden;
 	position: relative;
+}
 
-	.is-visible & {
-
-		@for $i from 1 through 10 {
-			:nth-child(#{$i}) {
-				transform: none;
-				opacity: 1;
-				transition-delay: calc(900ms + (#{$i} * 85ms));
-			}
-		}
-	}
+.background-perso {
+	width: 80%;
+	height: 80%;
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .texts {
 	font-family: const(font-tusker);
 	text-transform: uppercase;
-	transform: scale(1.2);
-	opacity: 0;
-	transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
 
 }
 
@@ -213,10 +215,6 @@ function selectPackage() {
 	font-style: italic;
 	font-family: const(font-gotham);
 	margin-top: 2rem;
-	transform: translateY(4rem) scale(1.2);
-	opacity: 0;
-	transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
-	transition-delay: 1200ms;
 
 	&::after {
 		position: absolute;
@@ -226,18 +224,7 @@ function selectPackage() {
 		height: .2rem;
 		bottom: -.7rem;
 		left: 50%;
-		transform: translateX(-50%) scaleX(0);
-		transition: transform .5s ease(out-swift);
-		transition-delay: 1300ms;
-	}
-
-	.is-visible & {
-		opacity: 1;
-		transform: none;
-
-		&::after {
-			transform: translateX(-50%) scaleX(1);
-		}
+		transform: translateX(-50%);
 	}
 }
 
@@ -271,17 +258,6 @@ function selectPackage() {
 	justify-content: space-between;
 	width: 100%;
 	margin-top: 3rem;
-
-	.is-visible & {
-		@for $i from 1 through 10 {
-			:nth-child(#{$i}) {
-				transform: none;
-				opacity: 1;
-				transition-delay: calc(1300ms + (#{$i} * 50ms));
-			}
-		}
-	}
-
 }
 
 .picto {
@@ -289,8 +265,100 @@ function selectPackage() {
 	aspect-ratio: 1 / 1;
 	background-color: grey;
 	border-radius: 50%;
-	transform: translateY(4rem) scale(1.2);
-	opacity: 0;
-	transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+}
+
+.selection-enter-active {
+	.page-selection {
+		pointer-events: all;
+	}
+
+	@for $i from 1 through 3 {
+		.package-#{$i} {
+
+			.texts {
+				transform: none;
+				opacity: 1;
+				transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+				transition-delay: calc(100ms + (#{$i} * 75ms));
+			}
+
+			.background-perso {
+				transform: translate(-50%, -50%);
+				opacity: 1;
+				transition: transform .8s ease(out-bounce), opacity .8s ease(out-swift);
+				transition-delay: calc(250ms + (#{$i} * 75ms));
+			}
+
+			.title {
+				transform: none;
+				opacity: 1;
+				transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+				transition-delay: calc(450ms + (#{$i} * 75ms));
+
+				&::after {
+					transform: translateX(-50%) scaleX(1);
+					transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+					transition-delay: calc(550ms + (#{$i} * 75ms));
+				}
+			}
+
+			.picto {
+				transform: scale(1);
+				opacity: 1;
+				transition: transform .8s ease(out-bounce), opacity .4s ease(out-swift);
+				transition-delay: calc(650ms + (#{$i} * 100ms));
+			}
+		}
+	}
+}
+
+.selection-leave-active {
+	@for $i from 1 through 3 {
+		.package-#{$i} {
+			transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+			transition-delay: calc(100ms + (#{$i} * 75ms));
+		}
+	}
+}
+
+.selection-enter-from {
+	@for $i from 1 through 3 {
+		.package-#{$i} {
+
+			.texts {
+				transform: translateY(4rem);
+				opacity: 0;
+			}
+
+			.background-perso {
+				transform: translate(-50%, 50%);
+				opacity: 0;
+			}
+
+			.title {
+				transform: translateY(4rem);
+				opacity: 0;
+
+				&::after {
+					transform: translateX(-50%) scaleX(0);
+				}
+			}
+
+			.picto {
+				transform: scale(0);
+				opacity: 0;
+			}
+		}
+	}
+}
+
+.selection-leave-to {
+	@for $i from 1 through 3 {
+		.package-#{$i} {
+			transform: translateY(4rem);
+			opacity: 0;
+		}
+	}
+
 }
 </style>

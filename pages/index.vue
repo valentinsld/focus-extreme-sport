@@ -1,19 +1,12 @@
 <template>
   <div
     class="gameContainer"
+    :class="[
+      { 'is-clickable': store.state.gamestate === 'home' || store.state.gamestate === 'selection'},
+    ]"
   >
     <Home />
-    <!-- <Transition
-      name="selection"
-      :duration="{enter: 1000, leave: 1000}"
-      appear
-      v-if="store.state.gamestate === 'selection'"
-    > -->
-    <Selection
-      v-if="store.state.gamestate === 'selection'"
-      :class="{'is-visible': store.state.gamestate === 'selection'}"
-    />
-    <!-- </Transition> -->
+    <Selection />
 
     <Transition
       name="intro"
@@ -114,6 +107,11 @@ const initDebugGameState = () => {
 
   pointer-events: none;
 
+  &.is-clickable {
+    pointer-events: all;
+
+  }
+
   button,
   a {
     pointer-events: initial !important;
@@ -121,7 +119,9 @@ const initDebugGameState = () => {
 }
 
 .page {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -152,6 +152,26 @@ const initDebugGameState = () => {
 // }
 
 // .selection-leave-to {}
+
+.intro-enter-active,
+.intro-leave-active {
+  @for $i from 1 through 20 {
+    :deep(.word-#{$i}) {
+      opacity: 1;
+      transition: opacity 2s ease(out-swift);
+      transition-delay: calc(50ms + (#{$i} * 75ms));
+    }
+  }
+}
+
+.intro-enter-from,
+.intro-leave-to {
+  @for $i from 1 through 20 {
+    :deep(.word-#{$i}) {
+      opacity: 0;
+    }
+  }
+}
 
 .figure-enter-active,
 .figure-leave-active {

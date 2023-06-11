@@ -1,75 +1,111 @@
 <template>
   <section
     class="page page-intro"
-    :class="{'is-hide': isHide}"
   >
-    <Transition name="stepIntro">
-      <p v-if="!isBreating">
-        Le sport est régi par la concentration.<br>
-        Délicate et capricieuse, elle est le fruit d’une préparation intense.
+    <div
+      ref="sport"
+      class="sport"
+    >
+      <p
+        class="intro-phrase"
+      >
+        <span
+          v-for="word in text1"
+          :key="word"
+          class="word"
+          v-html="word.innerText"
+        />
       </p>
-      <div v-else>
-        <div class="breathe-container">
-          <div
-            v-for="i in 6"
-            :key="i"
-            ref="circles"
-            class="breathe-circle"
-            :class="[
-              'circle-'+i,
-              {'is-inhaling': isInhaling},
-              {'is-exhaling': !isInhaling},
-            ]"
-          />
-          <div class="breathe-point" />
-        </div>
-        <transition
-          name="text"
-          appear
-        >
-          <div
-            v-if="isInhaling"
-            class="text"
-          >
-            <p
-              class="t1"
-              v-html="inhaleText"
-            />
-          </div>
-          <div
-            v-else
-            class="text"
-          >
-            <p
-              class="t2"
-              v-html="exhaleText"
-            />
-          </div>
-        </transition>
+      <p
+        class="intro-phrase"
+      >
+        <span
+          v-for="word in text2"
+          :key="word"
+          class="word"
+          v-html="word.innerText"
+        />
+      </p>
+    </div>
+    <div
+      class="breathe"
+      :class="{'is-visible': isBreating}"
+    >
+      <div class="breathe-container">
+        <div
+          v-for="i in 6"
+          :key="i"
+          ref="circles"
+          class="breathe-circle"
+          :class="[
+            'circle-'+i,
+            {'is-inhaling': isInhaling},
+            {'is-exhaling': !isInhaling},
+          ]"
+        />
+        <div class="breathe-point" />
       </div>
-    </Transition>
+      <transition
+        name="text"
+        appear
+      >
+        <div
+          v-if="isInhaling"
+          class="text"
+        >
+          <p
+            class="t1"
+            v-html="inhaleText"
+          />
+        </div>
+        <div
+          v-else
+          class="text"
+        >
+          <p
+            class="t2"
+            v-html="exhaleText"
+          />
+        </div>
+      </transition>
+    </div>
   </section>
 </template>
 
 <script setup>
 import useStore from '@/stores/index.js'
 import SceneHome from '~~/webgl/Scenes/SceneHome';
-import { splitText } from '~~/webgl/Utils/splitText';
+import { splitText, splitByWord } from '~~/webgl/Utils/splitText';
+import { MathUtils } from 'three';
+
 
 const store = useStore()
 
-const isBreating = ref(false)
+const isBreating = ref(null)
 const isInhaling = ref(false)
 const circles = ref()
+const sport = ref()
 
 const isHide = ref(false)
 const DURATION_BEFORE_FADE = 1500
+
+const text1 = splitByWord('Le sport est régi par la concentration.')
+const text2 = splitByWord('Délicate et capricieuse, elle est le fruit d\'une préparation intense.')
 
 const inhaleText = splitText('Inspire...')
 const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
   const sceneHome = new SceneHome()
+
+  const words = sport.value.querySelectorAll('.word')
+  for (let i = 0; i < words.length; i++) {
+    const element = words[i];
+
+    const randomIndex = Math.round(MathUtils.randFloat(1, 17));
+
+    element.classList.add(`word-`+ randomIndex)
+  }
 
   sceneHome.playDark()
 
@@ -79,7 +115,7 @@ onMounted(()=> {
     setTimeout(()=> {
       breathe(3)
     }, 300)
-  }, 10000)
+  }, 3000)
 })
 
 function breathe(count) {
@@ -138,7 +174,9 @@ function breathe(count) {
 
 .stepIntro-enter-from,
 .stepIntro-leave-to {
+
   opacity: 0;
+
 }
 
 .breathe-container {
@@ -182,6 +220,18 @@ function breathe(count) {
   }
 }
 
+.breathe {
+  opacity: 0;
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
+.is-hide {
+  opacity: 0;
+}
+
 .breathe-point {
   position: absolute;
   width: 10%;
@@ -209,7 +259,6 @@ function breathe(count) {
 }
 
 
-
 @for $i from 1 through 10 {
   :deep(.char-#{$i}) {
     display: inline-block;
@@ -217,4 +266,26 @@ function breathe(count) {
     animation-delay: calc(150ms + (#{$i} * 75ms));
   }
 }
+
+.intro-phrase {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.word {
+  margin: 0 .15rem;
+
+  // .is-visible & {
+  //   opacity: 1;
+  // }
+}
+
+// @for $i from 1 through 20 {
+//   .word-#{$i} {
+//     opacity: 0;
+//     transition: opacity 2s ease(out-swift);
+//     transition-delay: calc(50ms + (#{$i} * 75ms));
+//   }
+// }
 </style>

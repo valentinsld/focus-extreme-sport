@@ -47,7 +47,7 @@ export default class AudioManager {
 	//
 	// Action
 	//
-	play(name, loop = false, volume = 1, duration = 0) {
+	play(name, loop = false, volume = 1, duration = 0, effect = true) {
 		if (!name) return console.error('No sound name provided')
 		if (!this.listSounds[name]) return console.error(`Sound ${name} not found`)
 
@@ -59,19 +59,22 @@ export default class AudioManager {
 						getRawSourceNode: () => {
 						  var node = Pz.context.createBufferSource();
 						  node.buffer = this.listSounds[name];
+						  node.loop = loop;
 						  return node;
-						}
+						},
 					},
 				}
 			})
-			this.sounds[name].addEffect(new Pz.Effects.LowPassFilter({
-				frequency: END_LOWPASS,
-				peak: 0.1
-			}))
+
+			if (effect) {
+				this.sounds[name].addEffect(new Pz.Effects.LowPassFilter({
+					frequency: END_LOWPASS,
+					peak: 0.1
+				}))
+			}
 		}
 
 		this.sounds[name].stop()
-		this.sounds[name].loop = loop
 		this.sounds[name].volume = volume
 		this.sounds[name].attack = duration / 1000
 		this.sounds[name].play()

@@ -1,0 +1,577 @@
+{
+	"hero": {
+		"list": [
+			{
+				"letter": "F",
+				"quote": "“C’est très compliqué d’obtenir facilement un espèce d’état de grâce en ski [...] mais quand ça arrive c’est incroyable [...] on arrive en bas on se dit ”ça y est j’ai refait ma saison”.”",
+				"role": "NICOLAS FALQUET",
+				"author": "Skieur professionnel et réalisateur",
+				"image": "/flow-state/hero/f.png"
+			},
+			{
+				"letter": "L",
+				"quote": "“TODO : Lorem ipsum dolor set“",
+				"role": "TODO",
+				"author": "todo",
+				"image": "/flow-state/hero/f.png"
+			},
+			{
+				"letter": "O",
+				"quote": "“TODO : Lorem ipsum dolor set“",
+				"role": "TODO",
+				"author": "todo",
+				"image": "/flow-state/hero/f.png"
+			},
+			{
+				"letter": "W",
+				"quote": "“TODO : Lorem ipsum dolor set“",
+				"role": "TODO",
+				"author": "todo",
+				"image": "/flow-state/hero/f.png"
+			}
+		]
+	},
+	"definition": {
+		"title": "Tu viens de découvrir l’état de flow  des sportifs de haut niveau",
+		"content": "L'état de flow est un état de concentration extrême dans lequel  les sportifs extrêmes peuvent atteindre leur plein potentiel. Cet état est caractérisé par une intensité émotionnelle élevée, une concentration intense, une clarté mentale et une sensation de maitrise absolue.",
+		"words": [
+			{
+				"word": "Adrénaline",
+				"image": "/flow-state/definition/adrenaline.jpg"
+			},
+			{
+				"word": "Excitation",
+				"image": "/flow-state/definition/excitation.jpg"
+			},
+			{
+				"word": "Maîtrise",
+				"image": "/flow-state/definition/maitrise.jpg"
+			}
+		]
+	},
+	"map": {
+		"background": "/flow-state/map/background.png",
+		"list": [
+			{
+				"title": "Wingsuit",
+				"quote": "“Une forme de liberté  aussi d'être capable d'aller au bout de ses rêves.”",
+				"role": "Wingsuiteur professionnel",
+				"author": "Fred Fugen",
+				"image": "/flow-state/map/wingsuit.png",
+				"datas": [
+					{
+						"value": "3000m",
+						"info": "de dénivelé"
+					},
+					{
+						"value": "200km/h",
+						"info": "Vitesse de pointe"
+					},
+					{
+						"value": "1-2min",
+						"info": "temps réel"
+					}
+				]
+			},
+			{
+				"title": "Freeride",
+				"quote": "“C’est la plus belle des disciplines. Elle riche en terme d’apprentissage et d’émotions”",
+				"role": "Skieur freeride professionnel",
+				"author": "Jérémy prévost",
+				"image": "/flow-state/map/freeride.png",
+				"datas": [
+					{
+						"value": "1 600m",
+						"info": "de dénivelé"
+					},
+					{
+						"value": "100-150 km/h",
+						"info": "Vitesse de pointe"
+					},
+					{
+						"value": "4min",
+						"info": "temps réel"
+					}
+				]
+			},
+			{
+				"title": "Kayak",
+				"quote": "“Aller sur de belles sections de rivières et découvrir de nouveaux endroits”",
+				"role": "Kayakiste professionnelle",
+				"author": "Nouria Newman",
+				"image": "/flow-state/map/kayak.png",
+				"datas": [
+					{
+						"value": "80 km/h",
+						"info": "Vitesse de pointe"
+					},
+					{
+						"value": "Plusieurs heures",
+						"info": "temps réel de descente"
+					}
+				]
+			}
+		]
+	},
+	"athletes": {
+		"title": "suivez leurs exploits...",
+		"list": [
+			{
+				"name": "Fred Fugen",
+				"aptitude": "Wingsuit",
+				"type": "Air",
+				"color": "green",
+				"country": "FR",
+				"achieved": "1000m de chute libre",
+				"image": "/flow-state/athletes/fred-fugen.png",
+				"capacities": [
+					"vitesse",
+					"souplesse",
+					"adresse",
+					"coordination",
+					"contrôle de la peur",
+					"réaction au stress"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Erik Boomer",
+				"aptitude": "Kayak",
+				"type": "Eau",
+				"color": "purple",
+				"country": "US",
+				"achieved": "Expédition kayak au groenland",
+				"image": "/flow-state/athletes/erik-boomer.png",
+				"capacities": [
+					"vitesse",
+					"souplesse",
+					"adresse",
+					"coordination",
+					"contrôle de la peur",
+					"réaction au stress"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Tiphaine Perrotin",
+				"aptitude": "Freeride",
+				"type": "Neige",
+				"color": "green",
+				"country": "FR",
+				"achieved": "Championne du monde - snowboard freeride",
+				"image": "/flow-state/athletes/tiphaine-perrotin.png",
+				"capacities": [
+					"vitesse",
+					"souplesse",
+					"adresse",
+					"coordination",
+					"contrôle de la peur",
+					"réaction au stress"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			}
+		]
+	},
+	"sports": {
+		"title": "Éveillez votre flow avec...",
+		"types": [
+			{
+				"name": "Air",
+				"list": [
+					{
+						"name": "Basejump",
+						"url": "todo"
+					},
+					{
+						"name": "Highlinne",
+						"url": "todo"
+					},
+					{
+						"name": "Parachute",
+						"url": "todo"
+					},
+					{
+						"name": "Parapente",
+						"url": "todo"
+					},
+					{
+						"name": "Plongeon",
+						"url": "todo"
+					},
+					{
+						"name": "Snowkite",
+						"url": "todo"
+					},
+					{
+						"name": "Speed riding",
+						"url": "todo"
+					},
+					{
+						"name": "Wingsuit",
+						"url": "todo"
+					}
+				]
+			},
+			{
+				"name": "Eau",
+				"list": [
+					{
+						"name": "Bodyboard",
+						"url": "todo"
+					},
+					{
+						"name": "Kayak",
+						"url": "todo"
+					},
+					{
+						"name": "Kite surf",
+						"url": "todo"
+					},
+					{
+						"name": "Planche à voile",
+						"url": "todo"
+					},
+					{
+						"name": "Plongée",
+						"url": "todo"
+					},
+					{
+						"name": "Skimboard",
+						"url": "todo"
+					},
+					{
+						"name": "Surf",
+						"url": "todo"
+					}
+				]
+			},
+			{
+				"name": "Terre",
+				"list": [
+					{
+						"name": "BMX",
+						"url": "todo"
+					},
+					{
+						"name": "Gymkhana",
+						"url": "todo"
+					},
+					{
+						"name": "Fomule 1",
+						"url": "todo"
+					},
+					{
+						"name": "Escale - aplinisme",
+						"url": "todo"
+					},
+					{
+						"name": "Motocross",
+						"url": "todo"
+					},
+					{
+						"name": "Parcours",
+						"url": "todo"
+					},
+					{
+						"name": "Skateboard",
+						"url": "todo"
+					},
+					{
+						"name": "Skyrunning",
+						"url": "todo"
+					},
+					{
+						"name": "VTT - freeride",
+						"url": "todo"
+					}
+				]
+			},
+			{
+				"name": "Neige",
+				"list": [
+					{
+						"name": "Ski - freeride",
+						"url": "todo"
+					},
+					{
+						"name": "Ski - freestyle",
+						"url": "todo"
+					},
+					{
+						"name": "Snowboard",
+						"url": "todo"
+					},
+					{
+						"name": "Snowkite",
+						"url": "todo"
+					},
+					{
+						"name": "Speed riding",
+						"url": "todo"
+					}
+				]
+			}
+		]
+	},
+	"films": {
+		"title": "Quelques références audiovisuelles...",
+		"list": [
+			{
+				"image": "/flow-state/films/1.png",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/films/2.png",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/films/3.png",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/films/4.png",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/films/5.png",
+				"url": "todo"
+			}
+		]
+	},
+	"events": {
+		"title": "Les évènements à suivre...",
+		"list": [
+			{
+				"image": "/flow-state/events/1.png",
+				"date": "16 au 23 juil.",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/events/2.png",
+				"date": "todo",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/events/3.png",
+				"date": "todo",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/events/4.png",
+				"date": "todo",
+				"url": "todo"
+			},
+			{
+				"image": "/flow-state/events/5.png",
+				"date": "todo",
+				"url": "todo"
+			}
+		]
+	},
+	"thanks": {
+		"title": "Eemerciements",
+		"list": [
+			{
+				"name": "Guido Perrini",
+				"image": "/flow-state/thanks/1.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Nouria Newman",
+				"image": "/flow-state/thanks/2.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Maxime Moulin",
+				"image": "/flow-state/thanks/3.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Theo Penchet",
+				"image": "/flow-state/thanks/4.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Nicolas Falquet",
+				"image": "/flow-state/thanks/5.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Jérémy Prevost",
+				"image": "/flow-state/thanks/6.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Gregory Magal",
+				"image": "/flow-state/thanks/7.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Florian Bruchez",
+				"image": "/flow-state/thanks/8.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			},
+			{
+				"name": "Thierry Donard",
+				"image": "/flow-state/thanks/9.png",
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "todo"
+					},
+					{
+						"type": "twitter",
+						"link": "todo"
+					},
+					{
+						"type": "instagram",
+						"link": "todo"
+					}
+				]
+			}
+		]
+	}
+}

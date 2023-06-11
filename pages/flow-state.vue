@@ -1,8 +1,22 @@
 <template>
   <div class="page-flow">
-    <img src="/end.png">
+    <!-- <img src="/end.png"> -->
+
+    <EndHero :data="content.hero" />
+    <EndDefinition :data="content.definition" />
+    <EndMap :data="content.map" />
+    <EndAthletes :data="content.athletes" />
+    <EndSports :data="content.sports" />
+    <EndFilms :data="content.films" />
+    <EndEvents :data="content.events" />
+    <EndThansk :data="content.thanks" />
+    <EndFooter />
   </div>
 </template>
+
+<script setup>
+import content from '~~/content/flow-state.json'
+</script>
 
 <style lang="scss">
 .page-flow {
@@ -12,10 +26,16 @@
 	height: 100vh;
 	overflow-y: scroll;
 
-	display: grid;
+	display: flex;
+	flex-direction: column;
+
+	font-size: 2rem;
 
 	img {
-		width: 100%;
+		// TODO remove these line
+		max-height: 100px;
 	}
+
+	* {}
 }
 </style>

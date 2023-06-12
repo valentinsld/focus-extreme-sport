@@ -5,7 +5,7 @@
       'is-hide': isHide
     }"
   >
-    <h1>Découvre les stickers que tu as gagné !!</h1>
+    <h1>Découvre les stickers que tu as gagnés !!</h1>
 
     <div class="page-sticker__list">
       <div class="list__item">

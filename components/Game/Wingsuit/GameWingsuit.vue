@@ -61,9 +61,10 @@ onMounted(()=> {
   store.state.gamestatestep = 0
 
   const sceneManager = new SceneManager()
-  sceneManager.setScene('wingsuit', 10000, initStates)
+  // Duration transition au noir intro
+  sceneManager.setScene('wingsuit', 14000, initStates)
 
-  // start sound
+  // start sound FADE delay
   Audio.play('cinematique', false, 1, 4000)
   setTimeout(() => {
     Audio.play('wingsuit-montagne', true, 1, 6000)

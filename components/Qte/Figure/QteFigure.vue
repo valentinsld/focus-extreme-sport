@@ -113,11 +113,11 @@ function checkKey() {
 		figures.value[currentFigure.value].$el.classList.remove('is-visible')
 		objectStates[currentFigure.value].isRight = true
 
-		AUDIO.play('qte-sucess')
+		AUDIO.play('qte-sucess', false, 0.5)
 	} else {
 		currentObject.isWrong = true
 
-		AUDIO.play('qte-wrong')
+		AUDIO.play('qte-wrong', false, 0.5)
 	}
 	currentFigure.value++
 	checkFinish()

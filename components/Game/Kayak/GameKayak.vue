@@ -57,9 +57,10 @@ function initStates (scene) {
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.62, () => {
+  scene.setEventTimeline(0.68, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
+    RAFManager.setSpeed(1.1)
   })
 
   // set camera position 3P

@@ -76,7 +76,7 @@
         </svg>
       </div>
       <p class="bottom__question">
-        Droite ou gauche ?
+        Gauche ou droite ?
       </p>
       <div class="bottom__button is-right">
         <svg
@@ -159,58 +159,58 @@ onUnmounted(() => {
 
 <style lang="scss">
 .qte-choose {
-	position: absolute;
-	bottom: 50px;
-	left: 0;
-	right: 0;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-	&__arrows {
-		margin-bottom: 20px;
+  &__arrows {
+    margin-bottom: 20px;
 
-		svg {
+    svg {
 
-			&:nth-child(1) {
-				transform: translate3d(10%, 0, 0);
-			}
+      &:nth-child(1) {
+        transform: translate3d(10%, 0, 0);
+      }
 
-			&:nth-child(2) {
-				transform: translate3d(-10%, 0, 0);
-			}
+      &:nth-child(2) {
+        transform: translate3d(-10%, 0, 0);
+      }
 
-			* {
-				transition: all 0.3s ease;
-			}
-		}
-	}
+      * {
+        transition: all 0.3s ease;
+      }
+    }
+  }
 
-	&__bottom {
-		display: flex;
-		align-items: center;
-		gap: 2.5rem;
+  &__bottom {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
 
-		.bottom {
-			&__button {
-				width: 3rem;
+    .bottom {
+      &__button {
+        width: 3rem;
 
-				&.is-left {
-					transform: rotate(180deg);
-				}
+        &.is-left {
+          transform: rotate(180deg);
+        }
 
-				* {
-					transition: all 0.3s ease;
-				}
-			}
+        * {
+          transition: all 0.3s ease;
+        }
+      }
 
-			&__question {
-				font-size: 2rem;
-				font-weight: 400;
-			}
-		}
-	}
+      &__question {
+        font-size: 2rem;
+        font-weight: 400;
+      }
+    }
+  }
 }
 </style>

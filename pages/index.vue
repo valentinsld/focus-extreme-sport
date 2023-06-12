@@ -42,7 +42,12 @@
     </Transition>
 
     <!-- <QteInfoNoEvent :hidden="store.state.noEventPlayer" /> -->
-    <Altimetre v-if="isIntroFinished" />
+    <Transition
+      name="altimetre"
+      appear
+    >
+      <Altimetre v-if="isIntroFinished && !store.state.isTransitioning" />
+    </Transition>
   </div>
 </template>
 
@@ -184,6 +189,16 @@ const initDebugGameState = () => {
 
 .intro-enter-from,
 .intro-leave-to {
+  opacity: 0;
+}
+
+.altimetre-enter-active,
+.altimetre-leave-active {
+  transition: opacity .3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.altimetre-enter-from,
+.altimetre-leave-to {
   opacity: 0;
 }
 

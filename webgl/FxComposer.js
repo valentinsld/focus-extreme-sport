@@ -13,6 +13,10 @@ import WebGL from '.'
 import postProF from '~~/webgl/Shaders/PostPro/postProF.frag'
 import postProV from '~~/webgl/Shaders/PostPro/postProV.vert'
 
+import useStore from '@/stores/index.js'
+
+const store = useStore()
+
 export default class FXComposer {
 	constructor() {
 		this.webgl = new WebGL()
@@ -99,6 +103,9 @@ export default class FXComposer {
 			duration: this.duration,
 			easing: 'cubicBezier(0.22, 1, 0.36, 1)',
 		})
+		setTimeout(()=> {
+			store.state.isTransitioning = false
+		}, this.duration * .75)
 	}
 
 	resetEffect() {

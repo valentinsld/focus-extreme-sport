@@ -32,7 +32,9 @@
         </p>
       </div>
     </div>
-    <div class="scores-array">
+    <div
+      class="scores-array"
+    >
       <div class="score">
         <svg
           viewBox="0 0 61 60"
@@ -47,6 +49,9 @@
         <div
           ref="wingsuit"
           class="bar-container wingsuit-bar"
+          :style="{
+            '--wing-translate': store.state.altimetre.translate.wingsuit + '%',
+          }"
         />
       </div>
       <div class="score">
@@ -63,6 +68,9 @@
         <div
           ref="ski"
           class="bar-container ski-bar"
+          :style="{
+            '--ski-translate': store.state.altimetre.translate.ski + '%',
+          }"
         />
       </div>
       <div class="score">
@@ -81,6 +89,9 @@
         <div
           ref="kayak"
           class="bar-container kayak-bar"
+          :style="{
+            '--kayak-translate': store.state.altimetre.translate.kayak + '%',
+          }"
         />
       </div>
     </div>
@@ -102,16 +113,19 @@ const ski = ref()
 const kayak = ref()
 
 watch(() => store.state.altimetre.scores.wingsuit, (value) => {
+  store.state.altimetre.translate.wingsuit = value
   wingsuit.value.style.setProperty('--wing-translate', value + '%')
 	}, { immediate: false });
 
 watch(() => store.state.altimetre.scores.ski, (value) => {
+  store.state.altimetre.translate.ski = value
   ski.value.style.setProperty('--ski-translate', value + '%')
 	}, { immediate: false });
 
-  watch(() => store.state.altimetre.scores.kayak, (value) => {
+watch(() => store.state.altimetre.scores.kayak, (value) => {
+  store.state.altimetre.translate.kayak = value
   kayak.value.style.setProperty('--kayak-translate', value + '%')
-	}, { immediate: false });
+}, { immediate: false });
 let translate = 0
 
 const translateCursor = ref(0)

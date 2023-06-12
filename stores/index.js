@@ -8,6 +8,7 @@ const useStore = defineStore('store', () => {
 			gamestatestep: 0,
 			noEventPlayer: false,
 			isTransitioning: false,
+			isAudioMuted: false,
 			altimetre: {
 				scores: {
 					wingsuit: 0,

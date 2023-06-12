@@ -25,10 +25,12 @@
 
 <script setup>
 import useStore from '~~/stores';
+import AudioManager from '~~/webgl/Managers/AudioManager';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 const SCORE_MAX = 25
 
 const store = useStore()
+const AUDIO = new AudioManager()
 
 const figures = ref()
 const currentFigure = ref(0)
@@ -110,8 +112,12 @@ function checkKey() {
 	if (keyPressed.value === props.dataChildren[currentFigure.value].validKey) {
 		figures.value[currentFigure.value].$el.classList.remove('is-visible')
 		objectStates[currentFigure.value].isRight = true
+
+		AUDIO.play('qte-sucess')
 	} else {
 		currentObject.isWrong = true
+
+		AUDIO.play('qte-wrong')
 	}
 	currentFigure.value++
 	checkFinish()

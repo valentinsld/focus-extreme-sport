@@ -53,8 +53,9 @@
                 <div
                   v-for="j in 3"
                   :key="j"
-                  class="picto"
-                />
+                >
+                  <component :is=" items[i - 1].pictos[j - 1]" />
+                </div>
               </div>
             </div>
           </div>
@@ -67,6 +68,16 @@
 <script setup>
 import useStore from '@/stores/index.js'
 
+import Surf from '../Common/Icons/SurfIco.vue';
+import SpeedRiding from '../Common/Icons/SpeedRidingIco.vue';
+import Wingsuit from '../Common/Icons/WingsuitIco.vue';
+import HighlineIco from '../Common/Icons/HighlineIco.vue';
+import SkiIco from '../Common/Icons/SkiIco.vue';
+import KayakIco from '../Common/Icons/KayakIco.vue';
+import EscaladeIco from '../Common/Icons/EscaladeIco.vue';
+import ParachuteIco from '../Common/Icons/ParachuteIco.vue';
+import GymkhanaIco from '../Common/Icons/GymkhanaIco.vue';
+
 const store = useStore()
 
 const items = [
@@ -74,19 +85,34 @@ const items = [
 		title:"fluidité - équilibre",
 		word1: "fluidite",
 		word2: "equilibre",
-		indicator: "w1"
+		indicator: "w1",
+		pictos : [
+			HighlineIco,
+			Surf,
+			SpeedRiding,
+		]
 	},
 	{
 		title:"vitesse - précision",
 		word1: "vitesse",
 		word2: "precision",
-		indicator: " w2"
+		indicator: " w2",
+		pictos : [
+			Wingsuit,
+			SkiIco,
+			KayakIco,
+		]
 	},
 	{
 		title: "controle - coordination",
 		word1: "controle",
 		word2: "coordination",
-		indicator: "w3"
+		indicator: "w3",
+		pictos : [
+			EscaladeIco,
+			ParachuteIco,
+			GymkhanaIco,
+		]
 	},
 ]
 
@@ -131,6 +157,11 @@ function selectPackage() {
 
 	@include hover() {
 		transform: scale(1.2);
+
+		:deep(.sport-text) {
+			opacity: 1;
+		}
+
 	}
 
 	&.is-hidden {
@@ -229,6 +260,18 @@ function selectPackage() {
 }
 
 .package-1 {
+
+	.package-container {
+		&:hover {
+			:deep(.picto) {
+				path {
+					fill: colors(f_pink);
+					stroke: colors(f_pink);
+				}
+			}
+		}
+	}
+
 	.title {
 		&::after {
 			background-color: colors(f_pink);
@@ -237,6 +280,17 @@ function selectPackage() {
 }
 
 .package-2 {
+	.package-container {
+		&:hover {
+			:deep(.picto) {
+				path {
+					fill: colors(f_green);
+					stroke: colors(f_green);
+				}
+			}
+		}
+	}
+
 	.title {
 		&::after {
 			background-color: colors(f_green);
@@ -245,6 +299,17 @@ function selectPackage() {
 }
 
 .package-3 {
+	.package-container {
+		&:hover {
+			:deep(.picto) {
+				path {
+					fill: colors(f_purple);
+					stroke: colors(f_purple);
+				}
+			}
+		}
+	}
+
 	.title {
 		&::after {
 			background-color: colors(f_purple);
@@ -258,13 +323,6 @@ function selectPackage() {
 	justify-content: space-between;
 	width: 100%;
 	margin-top: 3rem;
-}
-
-.picto {
-	width: 25%;
-	aspect-ratio: 1 / 1;
-	background-color: grey;
-	border-radius: 50%;
 }
 
 .selection-enter-active {
@@ -302,7 +360,7 @@ function selectPackage() {
 				}
 			}
 
-			.picto {
+			:deep(.icon) {
 				transform: scale(1);
 				opacity: 1;
 				transition: transform .8s ease(out-bounce), opacity .4s ease(out-swift);
@@ -344,7 +402,7 @@ function selectPackage() {
 				}
 			}
 
-			.picto {
+			:deep(.icon) {
 				transform: scale(0);
 				opacity: 0;
 			}

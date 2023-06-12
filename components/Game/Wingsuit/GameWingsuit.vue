@@ -96,7 +96,7 @@ onMounted(()=> {
   // start sound FADE delay
   Audio.play('cinematique', false, 1, 4000)
   setTimeout(() => {
-    Audio.play('wingsuit-montagne', true, 1, 6000)
+    Audio.play('wingsuit-montagne', true, 1, 3000)
   }, 6600)
 })
 

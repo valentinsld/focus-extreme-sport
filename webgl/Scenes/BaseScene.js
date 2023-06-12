@@ -32,6 +32,8 @@ export default class BaseScene {
     this.curveSpeed = new CurvePath()
     this.tracking = 0
 
+    this.objectTarget = new Vector3()
+
     this.instance = new Group()
   }
 
@@ -267,10 +269,11 @@ export default class BaseScene {
     this.curveTrack.getPointAt(this.tracking, this.WebGL.camera.target)
 
     // set rotation for camera on curve
-    object.lookAt(this.curveCam.getPointAt(Math.min(this.tracking + 0.01, 1)))
+    this.curveCam.getTangentAt(this.tracking, this.objectTarget)
+    this.objectTarget.add(object.position)
+
+    object.lookAt(this.objectTarget)
     this.rotationCam = this.curveRotation.getPointAt(this.tracking).y
-    // this.rotationCam = 0
-    // console.log(this.rotationCam)
     this.WebGL.camera.rotationCam = this.rotationCam
     object.rotation.z += this.rotationCam
 

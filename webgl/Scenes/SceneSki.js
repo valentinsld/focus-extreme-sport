@@ -11,7 +11,7 @@ import datas from "~~/webgl/data/data.json"
 const CLEAR_COLOR = 0x93CBE5
 
 const CAM_F = new Vector3(19.8, 1.85, 4.1)
-const QUOTE_POS = new Vector3(17.90, 1.60, 3.68)
+const QUOTE_POS = new Vector3(18.60, 1.70, 3.90)
 const CAM_F_TARGET = new Vector3(QUOTE_POS.x, QUOTE_POS.y, 3.98)
 
 export default class SceneSki extends BaseScene {
@@ -70,6 +70,8 @@ export default class SceneSki extends BaseScene {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)
       this.scene.add(axesHelper)
+
+      this.WebGL.debug.addInput(this.quote.container, 'position')
     }
   }
 

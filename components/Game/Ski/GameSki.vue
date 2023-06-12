@@ -41,6 +41,7 @@ import SceneManager from '~~/webgl/Managers/SceneManager';
 const store = useStore()
 
 let currentScene = null
+let doBackFlip = null
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('ski', 0.35, initStates)
@@ -80,8 +81,16 @@ function initStates(scene) {
   })
 
   // event QTE Figure
-  scene.setEventTimeline(0.85, () => {
+  scene.setEventTimeline(0.845, () => {
     store.state.gamestatestep = 5
+  })
+
+  scene.setEventTimeline(0.89, () => {
+    if (doBackFlip) {
+      currentScene.animationSucessQTE()
+    } else {
+      currentScene.animationFailsQTE()
+    }
   })
 
   // set new Cam
@@ -105,12 +114,6 @@ const endQteFigure = (isSucess) => {
 
   currentScene.setCameraQteFigure()
 
-  nextTick(() => {
-    if (isSucess) {
-      currentScene.animationSucessQTE()
-    } else {
-      currentScene.animationSucessQTE()
-    }
-  })
+  doBackFlip = isSucess
 }
 </script>

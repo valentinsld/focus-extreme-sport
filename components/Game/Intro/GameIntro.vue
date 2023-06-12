@@ -48,6 +48,7 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
+import AudioManager from '~~/webgl/Managers/AudioManager';
 import { splitText } from '~~/webgl/Utils/splitText';
 
 const store = useStore()
@@ -93,6 +94,10 @@ function breathe(count) {
 
   breatheLoop();
 }
+
+onUnmounted(() => {
+  new AudioManager().stop('intro', 6000)
+})
 </script>
 
 <style lang="scss" scoped>

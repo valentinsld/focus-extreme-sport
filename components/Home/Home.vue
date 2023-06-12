@@ -45,16 +45,6 @@
         >
           <span class="btn-text">commencer</span>
         </button>
-        <!-- TODO : supprimer ça avant la prez c'est juste du debug dev -->
-        <p
-          v-if="!store.state.ressourcesLoaded"
-          class="load-text"
-          :class="{'is-visible': !store.state.ressourcesLoaded}"
-          style="font-style: italic;"
-        >
-          Données en cours de chargement, veuillez patienter...
-        </p>
-        <!-- ça -->
       </div>
     </section>
   </Transition>
@@ -108,7 +98,7 @@ function startProject() {
 }
 
 .catch-line {
-  font-size: 1.5em;
+  font-size: 1.8em;
   text-transform: uppercase;
   font-family: const(font-gotham);
   letter-spacing: .3rem;
@@ -133,9 +123,9 @@ function startProject() {
     font-family: const(font-gotham);
     font-weight: 400;
     opacity: .3;
-    letter-spacing: .1rem;
+    // letter-spacing: .1rem;
     margin-bottom: 1rem;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
   }
 }
 

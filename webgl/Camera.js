@@ -3,6 +3,7 @@ import Pz from 'pizzicato'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 import InstanciedSpeed from './Components/Particles/Speed/InstanciedSpeed.js'
+import AudioManager from './Managers/AudioManager.js'
 
 export default class Camera {
   constructor() {
@@ -12,6 +13,7 @@ export default class Camera {
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
     this.assets = this.WebGL.assets
+    this.audio = new AudioManager()
 
     this.container = new Object3D()
     this.container.name = "CameraContainer"
@@ -96,6 +98,7 @@ export default class Camera {
       this.speedLine.showLines()
       Pz.volume = 1;
     } else {
+      this.audio.play('switch-3p')
       this.speedLine.hideLines()
       Pz.volume = 0.15;
       this.WebGL.fxComposer.resetEffect()

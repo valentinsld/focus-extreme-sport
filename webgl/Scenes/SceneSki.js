@@ -71,7 +71,7 @@ export default class SceneSki extends BaseScene {
       const axesHelper = new AxesHelper(5)
       this.scene.add(axesHelper)
 
-      this.WebGL.debug.addInput(this.quote.container, 'position')
+      // this.WebGL.debug.addInput(this.quote.container, 'position')
     }
   }
 
@@ -149,55 +149,42 @@ export default class SceneSki extends BaseScene {
   // End QTE
   //
   animationSucessQTE () {
-    RAFManager.setSpeed(0.3)
+    RAFManager.setSpeed(0.1)
 
-    const delay = 2000
-    const duration = 6000
+    const delay = 700
+    const duration = 5000
     anime.timeline({
       easing: 'linear'
     })
     .add({
       targets: this.character.rotation,
-      duration: delay,
-      x: `+=${Math.PI * -0.2}}`,
-      easing: 'easeInSine'
-    }, 0)
-    .add({
-      targets: this.character.rotation,
-      duration: duration * 0.35,
-      x: `+=${Math.PI * -1.5}}`,
-      easing: 'easeInOutSine'
-    }, delay)
-    .add({
-      targets: this.character.rotation,
-      duration: duration * 0.4,
-      x: `+=${Math.PI * -0.3}}`,
-      easing: 'easeInSine',
+      duration: duration + delay * 0.5,
+      x: `+=${Math.PI * -2}}`,
+      easing: 'cubicBezier(0.35, 0, 0.65, 1)', // 'easeInOutQuad',
       complete: () => {
         RAFManager.setSpeed(0.45)
       }
-    }, delay + duration * 0.35)
+    }, delay * 0.3)
     .add({
       targets: this.character.position,
-      duration: duration * 0.25,
-      y: 0.35,
-      easing: 'easeInOutSine',
-    }, delay)
+      duration: duration * 0.5 + delay * 0.25,
+      y: 0.3,
+      easing: 'linear',
+    }, 0)
     .add({
       targets: this.character.position,
-      duration: duration * 0.45,
+      duration: duration * 0.5,
       y: 0,
-      easing: 'easeInSine',
-    }, delay + duration * 0.25)
+      easing: 'linear',
+    }, delay + duration * 0.5)
   }
 
   animationFailsQTE () {
     RAFManager.setSpeed(0.3)
-    console.log('animationFailsQTE')
 
     setTimeout(() => {
       RAFManager.setSpeed(1)
-    }, 6500);
+    }, 5000);
   }
 
   //

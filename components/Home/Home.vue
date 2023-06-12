@@ -62,6 +62,7 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
+import AudioManager from '~~/webgl/Managers/AudioManager';
 import SceneManager from '~~/webgl/Managers/SceneManager';
 
 const store = useStore()
@@ -73,6 +74,7 @@ onMounted(()=> {
 
 function startProject() {
   store.state.gamestate = 'selection'
+ new AudioManager().play('intro', true, 0.5, 2000)
 }
 </script>
 

@@ -231,7 +231,10 @@ export default class SceneWingsuit extends BaseScene {
       x: '+=1.5',
       delay: 500,
       duration: 2000,
-      easing: 'easeOutSine'
+      easing: 'easeOutSine',
+      complete: () => {
+        this.WebGL.camera.setCamera()
+      }
     })
   }
   setCamera3P() {

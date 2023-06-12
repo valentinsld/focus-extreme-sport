@@ -9,6 +9,14 @@
     <Selection />
 
     <Transition
+      name="phrase"
+      :duration="{ enter: 6000, leave: 6000 }"
+      appear
+    >
+      <GamePhrase v-if="store.state.gamestate === 'phrase'" />
+    </Transition>
+
+    <Transition
       name="intro"
       appear
     >
@@ -136,41 +144,47 @@ const initDebugGameState = () => {
   }
 }
 
-// .selection-enter-active {
-//   transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
-
-// }
-
-// .selection-leave-active {}
-
-// .selection-enter-from {
-
-//   transform: translateY(4rem) scale(1.2);
-//   opacity: 0;
-
-
-// }
-
-// .selection-leave-to {}
-
-.intro-enter-active,
-.intro-leave-active {
+.phrase-enter-active {
   @for $i from 1 through 20 {
-    :deep(.word-#{$i}) {
+    .word-#{$i} {
       opacity: 1;
-      transition: opacity 2s ease(out-swift);
-      transition-delay: calc(50ms + (#{$i} * 75ms));
+      transition: opacity 1.5s ease(out-swift);
+      transition-delay: calc(250ms + (#{$i} * 50ms));
     }
   }
 }
 
-.intro-enter-from,
-.intro-leave-to {
+
+.phrase-leave-active {
   @for $i from 1 through 20 {
-    :deep(.word-#{$i}) {
-      opacity: 0;
+    .word-#{$i} {
+      opacity: 1;
+      transition: opacity 1s ease(out-swift);
+      transition-delay: calc((#{$i} * 50ms));
     }
   }
+}
+
+.phrase-enter-from,
+.phrase-leave-to {
+  .word {
+    opacity: 0;
+  }
+
+}
+
+.intro-enter-active {
+  transition: opacity .5s ease(out-swift);
+  transition-delay: 2s;
+}
+
+.intro-leave-active {
+  transition: opacity .5s ease(out-swift);
+}
+
+.intro-enter-from,
+.intro-leave-to {
+  opacity: 0;
 }
 
 .figure-enter-active,

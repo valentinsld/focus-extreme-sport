@@ -213,9 +213,13 @@ function startProject() {
   .btn-start,
   .start-text,
   .catch-line,
-  .sticker-container,
   .logo {
     transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+    opacity: 1;
+  }
+
+  .sticker-container {
+    transition: transform .5s ease(out-bounce), opacity .4s ease(out-swift);
     opacity: 1;
   }
 
@@ -247,7 +251,11 @@ function startProject() {
   }
 }
 
-.sticker-container,
+.sticker-container {
+  transform: scale(.1);
+  opacity: 0;
+}
+
 .logo {
   transform: translateY(4rem) scale(.9);
   opacity: 0;

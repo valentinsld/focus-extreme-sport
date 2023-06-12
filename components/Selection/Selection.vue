@@ -1,7 +1,7 @@
 <template>
   <Transition
     name="selection"
-    :duration="{ enter: 1200, leave: 1000 }"
+    :duration="{ enter: 1600, leave: 1000 }"
   >
     <section
       v-if="store.state.gamestate === 'selection'"
@@ -100,7 +100,7 @@ function handleHover(index, state) {
 }
 
 function selectPackage() {
-  store.state.gamestate = 'intro'
+  store.state.gamestate = 'phrase'
 }
 </script>
 

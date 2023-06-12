@@ -3,33 +3,7 @@
     class="page page-intro"
   >
     <div
-      ref="sport"
-      class="sport"
-    >
-      <p
-        class="intro-phrase"
-      >
-        <span
-          v-for="word in text1"
-          :key="word"
-          class="word"
-          v-html="word.innerText"
-        />
-      </p>
-      <p
-        class="intro-phrase"
-      >
-        <span
-          v-for="word in text2"
-          :key="word"
-          class="word"
-          v-html="word.innerText"
-        />
-      </p>
-    </div>
-    <div
       class="breathe"
-      :class="{'is-visible': isBreating}"
     >
       <div class="breathe-container">
         <div
@@ -74,48 +48,22 @@
 
 <script setup>
 import useStore from '@/stores/index.js'
-import SceneHome from '~~/webgl/Scenes/SceneHome';
-import { splitText, splitByWord } from '~~/webgl/Utils/splitText';
-import { MathUtils } from 'three';
-
+import { splitText } from '~~/webgl/Utils/splitText';
 
 const store = useStore()
 
-const isBreating = ref(null)
 const isInhaling = ref(false)
 const circles = ref()
-const sport = ref()
 
 const isHide = ref(false)
 const DURATION_BEFORE_FADE = 1500
-
-const text1 = splitByWord('Le sport est régi par la concentration.')
-const text2 = splitByWord('Délicate et capricieuse, elle est le fruit d\'une préparation intense.')
-
 const inhaleText = splitText('Inspire...')
 const exhaleText = splitText('...Expire')
 
 onMounted(()=> {
-  const sceneHome = new SceneHome()
-
-  const words = sport.value.querySelectorAll('.word')
-  for (let i = 0; i < words.length; i++) {
-    const element = words[i];
-
-    const randomIndex = Math.round(MathUtils.randFloat(1, 17));
-
-    element.classList.add(`word-`+ randomIndex)
-  }
-
-  sceneHome.playDark()
-
-  setTimeout(() => {
-    isBreating.value = true
-
-    setTimeout(()=> {
-      breathe(3)
-    }, 300)
-  }, 3000)
+  setTimeout(()=> {
+    breathe(3)
+  }, 1200)
 })
 
 function breathe(count) {
@@ -220,14 +168,6 @@ function breathe(count) {
   }
 }
 
-.breathe {
-  opacity: 0;
-
-  &.is-visible {
-    opacity: 1;
-  }
-}
-
 .is-hide {
   opacity: 0;
 }
@@ -245,6 +185,7 @@ function breathe(count) {
 .text {
   position: absolute;
   bottom: 2%;
+  font-size: 1.8rem;
 }
 
 
@@ -266,26 +207,4 @@ function breathe(count) {
     animation-delay: calc(150ms + (#{$i} * 75ms));
   }
 }
-
-.intro-phrase {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
-.word {
-  margin: 0 .15rem;
-
-  // .is-visible & {
-  //   opacity: 1;
-  // }
-}
-
-// @for $i from 1 through 20 {
-//   .word-#{$i} {
-//     opacity: 0;
-//     transition: opacity 2s ease(out-swift);
-//     transition-delay: calc(50ms + (#{$i} * 75ms));
-//   }
-// }
 </style>

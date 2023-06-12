@@ -48,7 +48,6 @@ export default class AudioManager {
 	// Action
 	//
 	play(name, loop = false, volume = 1, duration = 0, effect = true) {
-		console.log(name, !this.listSounds[name])
 		if (!name) return console.error('No sound name provided')
 		if (!this.listSounds[name]) return console.error(`Sound ${name} not found`)
 

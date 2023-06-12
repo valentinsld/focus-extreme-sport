@@ -64,7 +64,7 @@ onMounted(()=> {
 
 function startProject() {
   store.state.gamestate = 'selection'
- new AudioManager().play('intro', true, 0.5, 2000)
+ new AudioManager().play('intro', true, 0.1, 2000) //Volume BO
 }
 </script>
 

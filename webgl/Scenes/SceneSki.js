@@ -160,23 +160,23 @@ export default class SceneSki extends BaseScene {
       targets: this.character.rotation,
       duration: duration + delay * 0.5,
       x: `+=${Math.PI * -2}}`,
-      easing: 'cubicBezier(0.35, 0, 0.65, 1)', // 'easeInOutQuad',
+      easing: 'cubicBezier(0.4, 0, 0.65, 1)', // 'easeInOutQuad',
       complete: () => {
         RAFManager.setSpeed(0.45)
       }
     }, delay * 0.3)
     .add({
       targets: this.character.position,
-      duration: duration * 0.5 + delay * 0.25,
+      duration: duration * 0.5 + delay * 0.5,
       y: 0.3,
-      easing: 'linear',
+      easing: 'easeOutSine',
     }, 0)
     .add({
       targets: this.character.position,
       duration: duration * 0.5,
       y: 0,
-      easing: 'linear',
-    }, delay + duration * 0.5)
+      easing: 'easeInSine',
+    }, duration * 0.5 + delay * 0.5)
   }
 
   animationFailsQTE () {

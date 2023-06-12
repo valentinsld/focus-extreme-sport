@@ -111,7 +111,7 @@ const keyPress = (e) => {
 
 function checkKey() {
 	const currentObject = objectStates[currentFigure.value]
-	if (!currentObject.isClickable) return
+	if (!currentObject || !currentObject.isClickable) return
 	if (keyPressed.value === props.dataChildren[currentFigure.value].validKey) {
 		figures.value[currentFigure.value].$el.classList.remove('is-visible')
 		objectStates[currentFigure.value].isRight = true

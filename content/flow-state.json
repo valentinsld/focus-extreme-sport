@@ -3,31 +3,31 @@
 		"list": [
 			{
 				"letter": "F",
-				"quote": "“C’est très compliqué d’obtenir facilement un espèce d’état de grâce en ski [...] mais quand ça arrive c’est incroyable [...] on arrive en bas on se dit ”ça y est j’ai refait ma saison”.”",
+				"quote": "“C’est très compliqué d’obtenir facilement un espèce d’état de grâce en ski [...] mais quand ça arrive c’est incroyable [...] on arrive en bas on se dit ”ça y est j’ai refait ma saison”",
 				"role": "NICOLAS FALQUET",
 				"author": "Skieur professionnel et réalisateur",
 				"image": "/flow-state/hero/f.png"
 			},
 			{
 				"letter": "L",
-				"quote": "“TODO : Lorem ipsum dolor set“",
-				"role": "TODO",
-				"author": "todo",
-				"image": "/flow-state/hero/f.png"
+				"quote": "“Le flow c'est un peu comme si tu sortais de la matrice.“",
+				"role": "Parachutiste professionnel (escalade, highline, skate)",
+				"author": "GREGORY MAGAL",
+				"image": "/flow-state/hero/l.png"
 			},
 			{
 				"letter": "O",
-				"quote": "“TODO : Lorem ipsum dolor set“",
-				"role": "TODO",
-				"author": "todo",
-				"image": "/flow-state/hero/f.png"
+				"quote": "C’est la plus belle des disciplines. Elle est riche en terme d’apprentissage et d’émotions. Chaque jour c’est une nouvelle journée et le cadre où l’on évolue est tout simplement incroyable. La montagne est une vraie carte postale.“",
+				"role": "JÉRÉMY PREVOST",
+				"author": "Skieur professionnel",
+				"image": "/flow-state/hero/o.png"
 			},
 			{
 				"letter": "W",
-				"quote": "“TODO : Lorem ipsum dolor set“",
-				"role": "TODO",
-				"author": "todo",
-				"image": "/flow-state/hero/f.png"
+				"quote": "“J'aime la sensation de toucher le rocher, la sensation de mon corps qui monte le rocher.“",
+				"role": "ALEX HONNOLD",
+				"author": "Grimpeur professionnel",
+				"image": "/flow-state/hero/w.png"
 			}
 		]
 	},
@@ -219,35 +219,35 @@
 				"list": [
 					{
 						"name": "Basejump",
-						"url": "todo"
+						"url": "https://www.rock-drop.com/aptitudes-requises/"
 					},
 					{
-						"name": "Highlinne",
-						"url": "todo"
+						"name": "Highline",
+						"url": "https://slack.fr/comment-debuter-en-highline/"
 					},
 					{
 						"name": "Parachute",
-						"url": "todo"
+						"url": "https://www.ffp.asso.fr/comment-decouvrir/"
 					},
 					{
 						"name": "Parapente",
-						"url": "todo"
+						"url": "https://action-parapente.fr/stages/"
 					},
 					{
 						"name": "Plongeon",
-						"url": "todo"
+						"url": "https://www.sports-et-loisirs.fr/dis-plongeon-114/clubs-cours/"
 					},
 					{
 						"name": "Snowkite",
-						"url": "todo"
+						"url": "https://www.travelski.com/guide/sports-hiver/glisse/snowkite#e=1&c[]=&capacity=2&rc_size=20"
 					},
 					{
 						"name": "Speed riding",
-						"url": "todo"
+						"url": "https://abovethepines.eu/informations/comment-debuter-le-speed-riding/"
 					},
 					{
 						"name": "Wingsuit",
-						"url": "todo"
+						"url": "https://www.verticalwind.fr/debuter-wingsuit-paca/"
 					}
 				]
 			},
@@ -256,31 +256,31 @@
 				"list": [
 					{
 						"name": "Bodyboard",
-						"url": "todo"
+						"url": "https://www.youtube.com/watch?v=XtUK0M4tOaE"
 					},
 					{
 						"name": "Kayak",
-						"url": "todo"
+						"url": "https://conseilsport.decathlon.fr/ou-pratiquer-le-kayak-selon-mon-niveau"
 					},
 					{
 						"name": "Kite surf",
-						"url": "todo"
+						"url": "https://www.redbull.com/fr-fr/kitesurf-guide-debutant"
 					},
 					{
 						"name": "Planche à voile",
-						"url": "todo"
+						"url": "https://conseilsport.decathlon.fr/les-bases-de-la-planche-a-voile"
 					},
 					{
 						"name": "Plongée",
-						"url": "todo"
+						"url": "https://recifetplongee.com/conseils-debuter-et-apprendre-la-plongee-sous-marine/"
 					},
 					{
 						"name": "Skimboard",
-						"url": "todo"
+						"url": "https://conseilsport.decathlon.fr/le-skimboard-nos-conseils-pour-decouvrir-ce-sport-deau-unique"
 					},
 					{
 						"name": "Surf",
-						"url": "todo"
+						"url": "https://www.ecolefrancaisedesurf.fr/decouvrir-le-surf/regles-pratique-surf"
 					}
 				]
 			},
@@ -289,39 +289,39 @@
 				"list": [
 					{
 						"name": "BMX",
-						"url": "todo"
+						"url": "https://www.normandiecyclisme.fr/bmx/presenation-du-bmx/"
 					},
 					{
 						"name": "Gymkhana",
-						"url": "todo"
+						"url": "https://moto-station.com/moto-revue/tuto-pilotage-conduite/debuter-gymkhana-moto-decouvrir-pratiquer-discipline/418816"
 					},
 					{
-						"name": "Fomule 1",
-						"url": "todo"
+						"name": "Formule 1",
+						"url": "https://www.ouest-france.fr/sport/formule-1/formule-1-la-f1-comment-ca-marche-tout-savoir-sur-la-discipline-reine-du-sport-auto-6508653"
 					},
 					{
-						"name": "Escale - aplinisme",
-						"url": "todo"
+						"name": "Escalade - alpinisme",
+						"url": "https://www.altibag.fr/publications/alpinisme-escalade/"
 					},
 					{
 						"name": "Motocross",
-						"url": "todo"
+						"url": "https://passion.axa.fr/deux-roues/actualites/pratique-mx-france"
 					},
 					{
 						"name": "Parcours",
-						"url": "todo"
+						"url": "https://protrainer.fr/blog/parkour/"
 					},
 					{
 						"name": "Skateboard",
-						"url": "todo"
+						"url": "https://skateboard-academy.com/"
 					},
 					{
 						"name": "Skyrunning",
-						"url": "todo"
+						"url": "https://chaussurerunning.fr/skyrunning-trail-aerien/"
 					},
 					{
 						"name": "VTT - freeride",
-						"url": "todo"
+						"url": "http://www.randozone.com/article/differents-types-pratiques-vtt/"
 					}
 				]
 			},
@@ -330,23 +330,23 @@
 				"list": [
 					{
 						"name": "Ski - freeride",
-						"url": "todo"
+						"url": "https://conseilsport.decathlon.fr/decouvrir-le-ski-freeride"
 					},
 					{
 						"name": "Ski - freestyle",
-						"url": "todo"
+						"url": "https://www.travelski.com/guide/sports-hiver/glisse/freestyle#e=1&c[]=&capacity=2&rc_size=20"
 					},
 					{
 						"name": "Snowboard",
-						"url": "todo"
+						"url": "https://conseilsport.decathlon.fr/bien-debuter-en-snowboard-1"
 					},
 					{
 						"name": "Snowkite",
-						"url": "todo"
+						"url": "https://www.travelski.com/guide/sports-hiver/glisse/snowkite#e=1&c[]=&capacity=2&rc_size=20"
 					},
 					{
 						"name": "Speed riding",
-						"url": "todo"
+						"url": "https://abovethepines.eu/informations/comment-debuter-le-speed-riding/"
 					}
 				]
 			}

@@ -75,6 +75,9 @@ export default class SceneSki extends BaseScene {
 
   startScene() {
     // 1 - set curves for tracking camera
+    TRAC_CAM.CURVE_PERSO.forEach(curve => {
+      curve.ro *= 0.25
+    })
     this.setCurvesTracking(TRAC_CAM.CURVE_PERSO, TRAC_CAM.CURVE_TARGET, datas.altitude['ski'].max, datas.altitude['ski'].min)
 
     // 2 - add camera to wingsuit + set position

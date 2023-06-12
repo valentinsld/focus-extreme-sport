@@ -5,7 +5,7 @@
   >
     <span class="bar-wrapper">
       <span
-        v-for="bar in 8"
+        v-for="bar in 5"
         :key="bar"
         ref="soundBars"
         :class="['sound-bar', `bar-${bar}`]"
@@ -95,5 +95,6 @@
 	transform: scaleY(0.5);
 	border-radius: 1px;
 	transform-origin: center center;
+	will-change: transform, opacity;
 }
 </style>

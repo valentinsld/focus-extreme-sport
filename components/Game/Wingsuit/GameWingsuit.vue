@@ -106,15 +106,27 @@ const initStates = (scene) => {
   currentScene = scene
 
   //Show lottie rollover
-  scene.setEventTimeline(0.022, () => {
+  scene.setEventTimeline(0.01, () => {
+    RAFManager.setSpeed(0.02)
+    store.state.isOverlayVisible = true
+    store.state.isTutoVisible = true
+  })
+  scene.setEventTimeline(0.02, () => {
+    RAFManager.setSpeed(1)
+    store.state.isOverlayVisible = false
+    store.state.isTutoVisible = false
+  })
+
+  //Show lottie rollover
+  scene.setEventTimeline(0.032, () => {
     isBackflipVisible.value = true
   })
-  scene.setEventTimeline(0.025, () => {
+  scene.setEventTimeline(0.035, () => {
     backflipAnime.play()
   })
 
   //event QTE FIGURE
-  scene.setEventTimeline(0.07, () => {
+  scene.setEventTimeline(0.08, () => {
     store.state.gamestatestep = 1
   })
 

@@ -11,6 +11,13 @@
     <div id="absolute-fade" />
     <slot />
 
+    <div
+      class="overlay"
+      :class="{'is-visible': store.state.isOverlayVisible}"
+    />
+
+    <Tutorial v-if="store.state.gamestate === 'wingsuit'" />
+
     <Transition
       name="sound"
       appear
@@ -25,6 +32,8 @@
 import WebGL from '~~/webgl';
 import useStore from '~/stores'
 import SoundBar from '~~/components/Common/SoundBar.vue';
+import Tutorial from '~~/components/Common/Tutorial.vue';
+
 const store = useStore()
 
 const route = useRoute()
@@ -81,6 +90,25 @@ const noCursor = computed(() => ['intro', 'wingsuit', 'ski', 'kayak'].includes(s
   width: 100%;
   height: 100%;
   /* z-index: -1; */
+}
+
+.overlay {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #323846 -15.49%, rgba(50, 56, 70, 0.3) 72.11%, rgba(50, 56, 70, 0.15) 99.71%, rgba(50, 56, 70, 0.3) 127.3%, #323846 214.9%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease(out-swift);
+
+  &.is-visible {
+    opacity: 1;
+  }
 }
 
 .sound-enter-active,

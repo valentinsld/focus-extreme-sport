@@ -35,9 +35,11 @@ export default class SceneSki extends BaseScene {
 
     // character
     this.characterContainer = new Group()
+    this.character = new Group()
     const box = new BoxGeometry(0.1, 0.2, 0.1)
-    box.translate(0, 0.1, 0)
-    this.character = new Mesh(box, new MeshBasicMaterial({ color: 0xff0000 }))
+    this.characterAnimation = new Mesh(box, new MeshBasicMaterial({ color: 0xff0000 }))
+    this.character.position.set(0, 0.1, 0)
+    this.character.add(this.characterAnimation)
     this.characterContainer.add(this.character)
 
     // light
@@ -149,34 +151,38 @@ export default class SceneSki extends BaseScene {
   // End QTE
   //
   animationSucessQTE () {
-    RAFManager.setSpeed(0.1)
+    requestAnimationFrame(() => {
+      RAFManager.setSpeed(0.1)
+    })
 
     const delay = 700
-    const duration = 5000
+    const duration = 4900
     anime.timeline({
       easing: 'linear'
     })
     .add({
-      targets: this.character.rotation,
+      targets: this.characterAnimation.rotation,
       duration: duration + delay * 0.5,
       x: `+=${Math.PI * -2}}`,
-      easing: 'cubicBezier(0.4, 0, 0.65, 1)', // 'easeInOutQuad',
+      easing: 'cubicBezier(0.2, 0.1, 0.85, 1)', // 'easeInOutQuad',
       complete: () => {
-        RAFManager.setSpeed(0.45)
+        setTimeout(() => {
+          RAFManager.setSpeed(0.45)
+        }, 500);
       }
     }, delay * 0.3)
     .add({
-      targets: this.character.position,
-      duration: duration * 0.5 + delay * 0.5,
-      y: 0.3,
-      easing: 'easeOutSine',
+      targets: this.characterAnimation.position,
+      duration: duration,
+      y: 0.05,
+      easing: 'linear',
     }, 0)
     .add({
-      targets: this.character.position,
-      duration: duration * 0.5,
+      targets: this.characterAnimation.position,
+      duration: duration * 0.4,
       y: 0,
       easing: 'easeInSine',
-    }, duration * 0.5 + delay * 0.5)
+    }, duration)
   }
 
   animationFailsQTE () {

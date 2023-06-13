@@ -79,8 +79,6 @@ export default class FXComposer {
     	this.composer.addPass(this.renderPass);
     	this.composer.addPass(this.postProcessingPass);
 
-		console.log();
-
 		this.assets.on('ressourcesReady', ()=> {
 			this.postProcessingPass.uniforms.uNoise.value = this.assets.textures.transition1
 		})

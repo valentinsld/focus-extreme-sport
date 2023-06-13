@@ -41,11 +41,13 @@ function initStates (scene) {
   scene.setEventTimeline(0.3, () => {
     store.state.gamestatestep = 2
   })
-  scene.setEventTimeline(0.3485, () => {
+
+  // QTE choose
+  scene.setEventTimeline(0.372, () => {
     store.state.gamestatestep = 3
   })
 
-  // event QTE Balance END & switch camera 3P
+  // event QTE Focus END & switch camera 3P
   scene.setEventTimeline(0.48, () => {
     nextTick(() => {
       scene.setCamera3P_1()

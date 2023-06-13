@@ -13,22 +13,22 @@
             {
               validKey: 'ArrowRight',
               delay: 500,
-              duration: 2000
+              duration: 1500
             },
             {
               validKey: 'ArrowUp',
-              delay: 2500,
-              duration: 2000
+              delay: 1500,
+              duration: 1500
             },
             {
               validKey: 'ArrowLeft',
-              delay: 4500,
-              duration: 2000
+              delay: 2500,
+              duration: 1500
             },
             {
               validKey: 'ArrowDown',
-              delay: 6500,
-              duration: 2000
+              delay: 3500,
+              duration: 1500
             }
           ]"
           @is-finished="endQteFigure"

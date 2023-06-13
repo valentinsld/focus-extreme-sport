@@ -153,8 +153,8 @@ const initDebugGameState = () => {
   @for $i from 1 through 20 {
     .word-#{$i} {
       opacity: 1;
-      transition: opacity 1.5s ease(out-swift);
-      transition-delay: calc(250ms + (#{$i} * 50ms));
+      transition: opacity 2.5s ease(out-swift);
+      transition-delay: calc(600ms + (#{$i} * 50ms));
     }
   }
 }

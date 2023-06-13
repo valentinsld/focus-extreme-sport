@@ -5,44 +5,25 @@
       class="key"
       :class="[props.validKey]"
     >
-      <!-- <div
-        ref="border"
-        class="border"
-      /> -->
-      <svg
-        ref="border"
-        viewBox="0 0 244 244"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="border"
-      >
-        <path
-          d="M234.302 121.835A195.58 195.58 0 0 0 121.84 234.297 195.58 195.58 0 0 0 9.378 121.835 195.58 195.58 0 0 0 121.84 9.373a195.58 195.58 0 0 0 112.462 112.462Z"
-          stroke="#fff"
-          stroke-width="3"
-        />
-      </svg>
-      <svg
-        viewBox="0 0 243 243"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="background"
-      >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M.862 121.835a192.017 192.017 0 0 1 120.976 120.976 192.018 192.018 0 0 1 120.976-120.976A192.017 192.017 0 0 1 121.838.859 192.018 192.018 0 0 1 .862 121.835Zm86.676 24.33V116.94l31.876-25.3 31.875 25.3v29.225l-31.875-25.3-31.876 25.3Z"
-          fill="#fff"
-        />
-      </svg>
-      <div class="ripples">
+      <div class="key-container">
         <svg
-          v-for="i in 2"
-          :key="i"
+          ref="border"
+          viewBox="0 0 244 244"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="border"
+        >
+          <path
+            d="M234.302 121.835A195.58 195.58 0 0 0 121.84 234.297 195.58 195.58 0 0 0 9.378 121.835 195.58 195.58 0 0 0 121.84 9.373a195.58 195.58 0 0 0 112.462 112.462Z"
+            stroke="#fff"
+            stroke-width="3"
+          />
+        </svg>
+        <svg
           viewBox="0 0 243 243"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          :class="['ripple-' + i]"
+          class="background"
         >
           <path
             fill-rule="evenodd"
@@ -51,6 +32,23 @@
             fill="#fff"
           />
         </svg>
+        <div class="ripples">
+          <svg
+            v-for="i in 2"
+            :key="i"
+            viewBox="0 0 243 243"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            :class="['ripple-' + i]"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M.862 121.835a192.017 192.017 0 0 1 120.976 120.976 192.018 192.018 0 0 1 120.976-120.976A192.017 192.017 0 0 1 121.838.859 192.018 192.018 0 0 1 .862 121.835Zm86.676 24.33V116.94l31.876-25.3 31.875 25.3v29.225l-31.875-25.3-31.876 25.3Z"
+              fill="#fff"
+            />
+          </svg>
+        </div>
       </div>
     </div>
   </Transition>
@@ -106,27 +104,12 @@ const emit = defineEmits(['isClickable'])
 .key {
 	// background-color: #fff;
 	color: colors(black);
-	width: 60px;
-	height: 60px;
 	z-index: 1;
-	display: block;
 	margin: 20px;
 	position: relative;
 	opacity: 0;
 	transition: opacity .3s ease-in-out;
 	filter: drop-shadow(0px 0px 5px rgba(colors(black), .2));
-
-	&.ArrowRight {
-		transform: rotate(90deg);
-	}
-
-	&.ArrowLeft {
-		transform: rotate(-90deg);
-	}
-
-	&.ArrowDown {
-		transform: rotate(180deg);
-	}
 
 	&.is-animated {
 		opacity: .5;
@@ -145,6 +128,10 @@ const emit = defineEmits(['isClickable'])
 		.background {
 			path {
 				fill: colors(f_green);
+
+				.game-ski & {
+					fill: colors(f_pink);
+				}
 			}
 		}
 
@@ -154,6 +141,10 @@ const emit = defineEmits(['isClickable'])
 
 				path {
 					fill: rgba(colors(f_green), calc(100% / #{$i}));
+
+					.game-ski & {
+						fill: rgba(colors(f_pink), calc(100% / #{$i}));
+					}
 				}
 			}
 		}
@@ -178,6 +169,25 @@ const emit = defineEmits(['isClickable'])
 	}
 }
 
+.key-container {
+	width: 60px;
+	height: 60px;
+	display: block;
+	position: relative;
+
+	.ArrowRight & {
+		transform: rotate(90deg);
+	}
+
+	.ArrowLeft & {
+		transform: rotate(-90deg);
+	}
+
+	.ArrowDown & {
+		transform: rotate(180deg);
+	}
+}
+
 .border {
 	position: absolute;
 	display: block;
@@ -191,6 +201,10 @@ const emit = defineEmits(['isClickable'])
 
 	path {
 		stroke: colors(f_green);
+
+		.game-ski & {
+			stroke: colors(f_pink);
+		}
 	}
 }
 

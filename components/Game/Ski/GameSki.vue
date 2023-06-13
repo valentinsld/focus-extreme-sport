@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game-ski">
     <QteBalance v-if="store.state.gamestatestep === 1" />
     <QteFocus
       v-if="store.state.gamestatestep === 3"
@@ -11,22 +11,22 @@
         {
           validKey: 'ArrowUp',
           delay: 500,
-          duration: 2000
+          duration: 1500
         },
         {
           validKey: 'ArrowLeft',
-          delay: 2500,
-          duration: 2000
+          delay: 1500,
+          duration: 1500
         },
         {
           validKey: 'ArrowRight',
-          delay: 4500,
-          duration: 2000
+          delay: 2500,
+          duration: 1500
         },
         {
           validKey: 'ArrowDown',
-          delay: 6500,
-          duration: 2000
+          delay: 3500,
+          duration: 1500
         }
       ]"
       @is-finished="endQteFigure"

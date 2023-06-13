@@ -8,12 +8,15 @@
       ref="figures"
       :keyboard-key="keyPressed"
       :valid-key="props.dataChildren[i - 1].validKey"
-      :class="{
-        'is-animated': objectStates[i - 1].isAnimated,
-        'is-clickable': objectStates[i - 1].isClickable,
-        'is-right': objectStates[i - 1].isRight,
-        'is-wrong': objectStates[i - 1].isWrong,
-      }"
+      :class="[
+        'key-' + i,
+        {
+          'is-animated': objectStates[i - 1].isAnimated,
+          'is-clickable': objectStates[i - 1].isClickable,
+          'is-right': objectStates[i - 1].isRight,
+          'is-wrong': objectStates[i - 1].isWrong,
+        }
+      ]"
       :duration="props.dataChildren[i - 1].duration"
       :delay="props.dataChildren[i - 1].delay"
       @is-clickable="enableClick(i - 1)"
@@ -169,5 +172,58 @@ const emit = defineEmits(['isFinished'])
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	.game-ski & {
+		flex-direction: column;
+
+	}
+}
+
+.key-1 {
+	.game-wingsuit & {
+		transform: translate(-150%, 300%);
+
+	}
+
+	.game-ski & {
+		transform: translate(-100%, 0%);
+
+	}
+}
+
+.key-2 {
+	.game-wingsuit & {
+		transform: translate(-100%, 400%);
+
+	}
+
+	.game-ski & {
+		transform: translate(100%, 0%);
+
+	}
+}
+
+.key-3 {
+	.game-wingsuit & {
+		transform: translate(-50%, 450%);
+
+	}
+
+	.game-ski & {
+		transform: translate(-100%, 0%);
+
+	}
+}
+
+.key-4 {
+	.game-wingsuit & {
+		transform: translate(00%, 400%);
+
+	}
+
+	.game-ski & {
+		transform: translate(100%, 0%);
+
+	}
 }
 </style>

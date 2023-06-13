@@ -34,7 +34,7 @@
 			randomOffset.push(Math.random() + 1 * 10);
 		}
 
-		RAFManager.add('SoundBar', (currentTime, dt) => {
+		RAFManager.add('SoundBar', (currentTime) => {
 			update(currentTime)
 		})
 	});

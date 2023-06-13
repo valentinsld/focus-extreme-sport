@@ -1,7 +1,23 @@
 <template>
   <div class="qte-focus">
     <p class="qte-focus__title">
-      Maintiens la touche espace
+      Maintiens la touche
+      <span class="space-container">
+        <span class="space-wrapper">
+          <svg
+            viewBox="0 0 916 127"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M.727.82h914.438s-21.28 38.207-21.28 62.688 21.28 62.688 21.28 62.688H.727S17.98 86.552 17.98 62.07C17.98 37.59.727.82.727.82Z"
+              stroke="#fff"
+              stroke-width="5"
+            />
+          </svg>
+          <span>espace</span>
+        </span>
+      </span>
     </p>
 
     <div
@@ -165,6 +181,41 @@ $indicator: 10px;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+
+	&__title {
+		font-size: 1.8rem;
+		font-family: const(font-gotham);
+		// text-transform: uppercase;
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.space-container {
+			position: relative;
+			margin-left: 1rem;
+		}
+
+		.space-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			width: 15rem;
+
+			svg {
+				width: 100%;
+			}
+
+			span {
+				position: absolute;
+				color: colors(white);
+				font-size: 1.2rem;
+				font-family: const(font-akira);
+				font-weight: 900;
+			}
+		}
+	}
 
 	&__indicator {
 		width: 100%;

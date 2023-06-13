@@ -154,7 +154,7 @@ const destroyedEvents = () => {
 	gradientMove.value = 0
 	RAFManager.remove('QteFocus')
 	webgl.camera.speedLine.setSpeed()
-	webgl.fxComposer.resetEffect()
+	// webgl.fxComposer.resetEffect()
 	document.removeEventListener('keydown', onKeyDown)
 	document.removeEventListener('keyup', onKeyUp)
 	noEvent.destroy()

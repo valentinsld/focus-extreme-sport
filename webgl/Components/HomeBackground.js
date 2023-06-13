@@ -36,7 +36,6 @@ export default class HomeBackground {
 	}
 
 	init() {
-		console.log('init HomeBackground')
 		this.instance = new Group()
 
 		//

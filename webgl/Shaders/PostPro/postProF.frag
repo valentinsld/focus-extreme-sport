@@ -76,6 +76,5 @@ void main() {
 
 	vec4 render = mix(whitePanel, diffuse, mixf);
 
-
 	gl_FragColor = LinearTosRGB(render);
 }

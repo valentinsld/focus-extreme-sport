@@ -62,12 +62,12 @@ export default class SceneWingsuit extends BaseScene {
       this.map.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = 2
+          element.material.envMapIntensity = .5
           element.castShadow = true
           element.receiveShadow = true
         }
         if(element.name.includes("SKY")) {
-          element.material.envMapIntensity = 2
+          element.material.envMapIntensity = .8
         }
       })
       this.character.traverse((element) => {

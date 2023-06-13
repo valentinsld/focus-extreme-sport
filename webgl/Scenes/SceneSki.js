@@ -142,7 +142,6 @@ export default class SceneSki extends BaseScene {
   }
 
   setCamera3P() {
-    RAFManager.setSpeed(0.25)
     this.WebGL.camera.setCamera('3p', CAM_F, CAM_F_TARGET)
     this.quote.showQuote()
   }

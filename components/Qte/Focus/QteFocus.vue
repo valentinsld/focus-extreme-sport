@@ -232,8 +232,9 @@ $indicator: 10px;
 
 			&.isMax {
 				// background-color: colors(f_green);
-				background: linear-gradient(270deg, #C4FE1F var(--green-percent), #1FF1FE var(--blue-percent), #A7A6F0 var(--purple-percent));
-				animation: gradient .5s linear backwards infinite;
+				background: linear-gradient(-45deg, #C4FE1F, #1FF1FE, #A7A6F0, #C4FE1F);
+				background-size: 400% 400%;
+				animation: gradient 5s linear backwards infinite;
 			}
 
 			&.isFlashing {}

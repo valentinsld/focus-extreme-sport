@@ -51,9 +51,12 @@ export default class SceneWingsuit extends BaseScene {
     // character
     this.characterContainer = new Group()
     this.character = this.assets.models["wingsuit_character"].scene
-    this.character.scale.set(0.001, 0.001, 0.001)
-    this.character.position.set(-0.01, -0.03, 0)
+    this.character.scale.set(0.01, 0.01, 0.01)
+    this.character.position.set(0, -0.02, 0)
+    this.character.children[0].rotation.set(0, -Math.PI * 0.5, 0)
+
     this.mixerCharacter = new AnimationMixer(this.character);
+    console.log(this.assets.models["wingsuit_character"].animations[0])
     this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
     this.characterContainer.add(this.character)
 

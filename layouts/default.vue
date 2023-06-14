@@ -37,7 +37,6 @@ import Tutorial from '~~/components/Common/Tutorial.vue';
 const store = useStore()
 
 const route = useRoute()
-console.log(route.name);
 
 const IS_DEV = process.dev
 

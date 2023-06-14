@@ -16,7 +16,7 @@
           <path
             d="M234.302 121.835A195.58 195.58 0 0 0 121.84 234.297 195.58 195.58 0 0 0 9.378 121.835 195.58 195.58 0 0 0 121.84 9.373a195.58 195.58 0 0 0 112.462 112.462Z"
             stroke="#fff"
-            stroke-width="3"
+            stroke-width="6"
           />
         </svg>
         <svg
@@ -109,7 +109,7 @@ const emit = defineEmits(['isClickable'])
 	position: relative;
 	opacity: 0;
 	transition: opacity .3s ease-in-out;
-	filter: drop-shadow(0px 0px 5px rgba(colors(black), .2));
+	filter: drop-shadow(0px 0px 25px rgba(colors(black), 0.6)) drop-shadow(0px 0px 5px rgba(colors(black), 0.1));
 
 	&.is-animated {
 		opacity: .5;

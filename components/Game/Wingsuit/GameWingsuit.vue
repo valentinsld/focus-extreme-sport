@@ -91,7 +91,7 @@ onMounted(()=> {
 
   const sceneManager = new SceneManager()
   // Duration transition au noir intro
-  sceneManager.setScene('wingsuit', 14000, initStates)
+  sceneManager.setScene('wingsuit', 13000, initStates)
 
   // start sound FADE delay
   Audio.play('cinematique', false, 1, 4000)
@@ -106,28 +106,30 @@ onMounted(()=> {
 const initStates = (scene) => {
   currentScene = scene
 
+  RAFManager.speed = 0.18
+
   //Show lottie rollover
   scene.setEventTimeline(0.01, () => {
-    RAFManager.setSpeed(0.02)
+    RAFManager.setSpeed(0.18)
     store.state.isOverlayVisible = true
     store.state.isTutoVisible = true
   })
-  scene.setEventTimeline(0.02, () => {
+  scene.setEventTimeline(0.03, () => {
     RAFManager.setSpeed(1)
     store.state.isOverlayVisible = false
     store.state.isTutoVisible = false
   })
 
   //Show lottie rollover
-  scene.setEventTimeline(0.032, () => {
+  scene.setEventTimeline(0.045, () => {
     isBackflipVisible.value = true
   })
-  scene.setEventTimeline(0.035, () => {
+  scene.setEventTimeline(0.05, () => {
     backflipAnime.play()
   })
 
   //event QTE FIGURE
-  scene.setEventTimeline(0.08, () => {
+  scene.setEventTimeline(0.1, () => {
     store.state.gamestatestep = 1
   })
 
@@ -142,26 +144,31 @@ const initStates = (scene) => {
     store.state.gamestatestep = 4
   })
 
-  scene.setEventTimeline(0.526, () => {
+  scene.setEventTimeline(0.51, () => {
     scene.setCamera3P_2()
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.62, () => {
+  scene.setEventTimeline(0.625, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
     RAFManager.setSpeed(0.6)
   })
 
-  // set camera position 3P
-  scene.setEventTimeline(0.865, () => {
+  scene.setEventTimeline(0.82, () => {
     store.state.gamestatestep = 6
+
+    requestAnimationFrame(() => {
+      RAFManager.setSpeed(0.038)
+    })
+  })
+  // set camera position 3P
+  scene.setEventTimeline(0.86, () => {
     scene.setCamera3P()
-    RAFManager.setSpeed(0.04)
   })
 
   // event end next scene
-  scene.setEventTimeline(0.9, () => {
+  scene.setEventTimeline(0.91, () => {
     store.state.gamestate = 'ski'
   })
 }

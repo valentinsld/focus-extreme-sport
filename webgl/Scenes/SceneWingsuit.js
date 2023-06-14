@@ -63,8 +63,8 @@ export default class SceneWingsuit extends BaseScene {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
           element.material.envMapIntensity = .5
-          element.castShadow = true
-          element.receiveShadow = true
+          // element.castShadow = true
+          // element.receiveShadow = true
         }
         if(element.name.includes("SKY")) {
           element.material.envMapIntensity = .8
@@ -74,8 +74,8 @@ export default class SceneWingsuit extends BaseScene {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
           element.material.envMapIntensity = .2
-          element.castShadow = true
-          element.receiveShadow = true
+          // element.castShadow = true
+          // element.receiveShadow = true
         }
       })
     })
@@ -88,9 +88,9 @@ export default class SceneWingsuit extends BaseScene {
       // 0xAECDE5
       intensity: 1,
       positions: new Vector3(-70, 60, -20),
-      castShadow: true,
-      shadowMapSize: 2048,
-      shadowBias: -0.004
+      // castShadow: true,
+      // shadowMapSize: 2048,
+      // shadowBias: -0.004
     })
 
     // position camera 3p

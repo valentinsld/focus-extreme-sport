@@ -6,6 +6,7 @@ uniform vec3 uColorA;
 uniform vec3 uColorB;
 
 // uniform anim
+uniform float uAnimWhite;
 uniform float uAnimDark;
 uniform vec3 uColorDarkA;
 uniform vec3 uColorDarkB;
@@ -103,6 +104,7 @@ void main()
 		mix(uColorB, uColorDarkB, uAnimDark),
 		noise
 	);
+	color += vec3(uAnimWhite);
 
 	// moove layer bkg
 	vec2 coord2 = coord * 3.;

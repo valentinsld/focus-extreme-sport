@@ -142,7 +142,6 @@ export default class SceneSki extends BaseScene {
   }
 
   setCamera3P() {
-    RAFManager.setSpeed(0.25)
     this.WebGL.camera.setCamera('3p', CAM_F, CAM_F_TARGET)
     this.quote.showQuote()
   }
@@ -156,7 +155,7 @@ export default class SceneSki extends BaseScene {
     })
 
     const delay = 700
-    const duration = 4900
+    const duration = 5400
     anime.timeline({
       easing: 'linear'
     })
@@ -164,7 +163,7 @@ export default class SceneSki extends BaseScene {
       targets: this.characterAnimation.rotation,
       duration: duration + delay * 0.5,
       x: `+=${Math.PI * -2}}`,
-      easing: 'cubicBezier(0.2, 0.1, 0.85, 1)', // 'easeInOutQuad',
+      easing: 'cubicBezier(0.2,0.4,0.7,1.13)', // 'easeInOutQuad',
       complete: () => {
         setTimeout(() => {
           RAFManager.setSpeed(0.45)

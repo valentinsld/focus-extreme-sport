@@ -54,6 +54,7 @@
 import useStore from '@/stores/index.js'
 import AudioManager from '~~/webgl/Managers/AudioManager';
 import SceneManager from '~~/webgl/Managers/SceneManager';
+import SceneHome from '~~/webgl/Scenes/SceneHome';
 
 const store = useStore()
 
@@ -63,8 +64,10 @@ onMounted(()=> {
 })
 
 function startProject() {
+  const scene = new SceneHome()
+  scene.playDisableWhite()
   store.state.gamestate = 'selection'
- new AudioManager().play('intro', true, 0.1, 2000) //Volume BO
+  new AudioManager().play('intro', true, 0.1, 2000) //Volume BO
 }
 </script>
 

@@ -135,7 +135,10 @@ const height = 70
 
 onMounted(()=> {
   RAFManager.add('Altimeter', () => {
-    translate = normalizeValue(store.state.altimetre.altitude, datas.altitude[store.state.gamestate].max, datas.altitude[store.state.gamestate].min) // (Altitude, Top alti, Min Alti)
+    translate = clamp(
+      normalizeValue(store.state.altimetre.altitude, datas.altitude[store.state.gamestate].max, datas.altitude[store.state.gamestate].min),
+      0, 1
+    ) // (Altitude, Top alti, Min Alti)
     translateCursor.value = clamp(translate * (height / 3), 0, (height / 3));
   })
 })

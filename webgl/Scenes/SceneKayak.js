@@ -86,7 +86,7 @@ export default class SceneKayak extends BaseScene {
     this.initWater()
 
     this.kayak = new Group()
-    const kayak = this.assets.models["kayak"].scene
+    const kayak = this.assets.models["kayak_character"].scene
     kayak.scale.set(0.015, 0.015, 0.015)
     this.kayak.add(kayak)
 

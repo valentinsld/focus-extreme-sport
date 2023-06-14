@@ -6,6 +6,18 @@ import RAFManager from '../Utils/RAFManager'
 const START_LOWPASS = 100
 const END_LOWPASS = 3500
 
+const RANDOM_QTE_SUCESS = [
+	'qte-success',
+]
+const RANDOM_QTE_WRONG = [
+	'qte-wrong',
+]
+const RANDOM_SWITCH = [
+	'switch-3p1',
+	'switch-3p2',
+	'switch-3p3',
+]
+
 export default class AudioManager {
 	static singleton
 
@@ -30,7 +42,7 @@ export default class AudioManager {
 	setFrequencyLowPass(value) {
 		const v = value * (END_LOWPASS - START_LOWPASS) + START_LOWPASS
 		for (const name in this.sounds) {
-			this.sounds[name].effects[0].frequency = v
+			if (this.sounds[name].effects[0]) this.sounds[name].effects[0].frequency = v
 		}
 	}
 
@@ -92,6 +104,22 @@ export default class AudioManager {
 				if (onTransitionEnd) onTransitionEnd()
 			}, duration)
 		}
+	}
+
+	//
+	// Random
+	//
+	playRandomSwitch(volume = 1) {
+		const name = RANDOM_SWITCH[Math.floor(Math.random() * RANDOM_SWITCH.length)]
+		this.play(name, false, volume, 0, false)
+	}
+	playRandomQteSuccess(volume = 0.5) {
+		const name = RANDOM_QTE_SUCESS[Math.floor(Math.random() * RANDOM_QTE_SUCESS.length)]
+		this.play(name, false, volume, 0, false)
+	}
+	playRandomQteWrong(volume = 0.5) {
+		const name = RANDOM_QTE_WRONG[Math.floor(Math.random() * RANDOM_QTE_WRONG.length)]
+		this.play(name, false, volume, 0, false)
 	}
 }
 

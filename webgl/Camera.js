@@ -98,7 +98,7 @@ export default class Camera {
       this.speedLine.showLines()
       Pz.volume = 1;
     } else {
-      this.audio.play('switch-3p')
+      this.audio.playRandomSwitch()
       this.speedLine.hideLines()
       Pz.volume = 0.15;
       this.WebGL.fxComposer.resetEffect()

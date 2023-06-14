@@ -88,6 +88,8 @@ export default class SceneKayak extends BaseScene {
     this.kayak = new Group()
     const kayak = this.assets.models["kayak_character"].scene
     kayak.scale.set(0.015, 0.015, 0.015)
+    kayak.rotation.y = -Math.PI *0.5
+
     this.kayak.add(kayak)
 
     new RGBELoader().load(kayakHdr, (map) => {
@@ -276,7 +278,7 @@ export default class SceneKayak extends BaseScene {
     this.setCurve(this.curveTrack_R, TRAC_CAM.CURVE_TARGET_R)
 
     // 2 - add camera to kayak + set position
-    this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.06, 0)))
+    this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.07, 0)))
 
     // 3- init animation with percent
     this.timelineValue = 0

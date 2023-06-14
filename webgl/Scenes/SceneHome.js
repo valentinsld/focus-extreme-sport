@@ -37,6 +37,9 @@ export default class SceneHome extends BaseScene {
     this.WebGL.camera.speedLine.hideLines()
   }
 
+  playDisableWhite() {
+    this.bkg.playDisableWhite()
+  }
   playDark() {
     this.bkg.playDark()
   }

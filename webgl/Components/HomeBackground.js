@@ -16,8 +16,6 @@ import clearThree from '../Utils/ClearScene.js'
 const count = 2000
 
 export default class HomeBackground {
-	static singleton
-
 	constructor() {
 		this.inView = false
 		this.WebGL = new WebGL()
@@ -29,6 +27,7 @@ export default class HomeBackground {
 			colorB: '#537799', // #89ADCE
 			colorDarkA: '#000c1f', // #0c2349
 			colorDarkB: '#03132f', // #18305c
+			animWhite: 0.35,
 			animDark: 0,
 		}
 
@@ -50,6 +49,7 @@ export default class HomeBackground {
 				uColorB: { value: new Color(this.params.colorB) },
 				uColorDarkA: { value: new Color(this.params.colorDarkA) },
 				uColorDarkB: { value: new Color(this.params.colorDarkB) },
+				uAnimWhite: { value: this.params.animWhite },
 				uAnimDark: { value: this.params.animDark },
 			},
 			vertexShader,
@@ -81,6 +81,9 @@ export default class HomeBackground {
 			})
 
 			// anim
+			this.debugFolder.addInput(this.params, 'animWhite', { min: 0, max: 1, step: 0.01 }).on('change', () => {
+				material.uniforms.uAnimWhite.value = this.params.animWhite
+			})
 			this.debugFolder.addInput(this.params, 'animDark', { min: 0, max: 1, step: 0.01 }).on('change', () => {
 				material.uniforms.uAnimDark.value = this.params.animDark
 			})
@@ -155,6 +158,15 @@ export default class HomeBackground {
 
 		// update particules
 		this.particles.material.uniforms.uTime.value = t * 0.035
+	}
+
+	playDisableWhite() {
+		anime({
+			targets: this.plane.material.uniforms.uAnimWhite,
+			value: 0,
+			duration: 1000,
+			easing: 'easeInOutQuad'
+		})
 	}
 
 	playDark() {

@@ -122,90 +122,111 @@
 				"type": "Air",
 				"color": "green",
 				"country": "FR",
-				"achieved": "1000m de chute libre",
+				"achieved": "a survolé le Taj Mahal",
 				"image": "/flow-state/athletes/fred-fugen.png",
 				"capacities": [
 					"vitesse",
-					"souplesse",
 					"adresse",
 					"coordination",
-					"contrôle de la peur",
 					"réaction au stress"
 				],
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "twitter",
-						"link": "todo"
+						"link": "https://www.facebook.com/fredfugen.athlete"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/fredfugen/?hl=fr"
+					},
+					{
+						"type": "youtube",
+						"link": "https://www.youtube.com/@SoulFlyers"
 					}
 				]
 			},
 			{
-				"name": "Erik Boomer",
+				"name": "Nouria Newman",
 				"aptitude": "Kayak",
 				"type": "Eau",
 				"color": "purple",
-				"country": "US",
-				"achieved": "Expédition kayak au groenland",
-				"image": "/flow-state/athletes/erik-boomer.png",
+				"country": "FR",
+				"achieved": "Saut de 24m au Chili",
+				"image": "/flow-state/athletes/nouria-newman.png",
 				"capacities": [
 					"vitesse",
 					"souplesse",
-					"adresse",
 					"coordination",
-					"contrôle de la peur",
-					"réaction au stress"
+					"contrôle de la peur"
 				],
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
+						"link": "https://www.facebook.com/nourianewmankayak"
 					},
 					{
-						"type": "twitter",
-						"link": "todo"
+						"type": "youtube",
+						"link": "https://www.youtube.com/@NouriaNewmanKayak"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/nourianewman/?hl=fr"
 					}
 				]
 			},
 			{
-				"name": "Tiphaine Perrotin",
+				"name": "Jérémie Heitz",
 				"aptitude": "Freeride",
 				"type": "Neige",
 				"color": "green",
-				"country": "FR",
-				"achieved": "Championne du monde - snowboard freeride",
-				"image": "/flow-state/athletes/tiphaine-perrotin.png",
+				"country": "CH",
+				"achieved": "Freerider le plus rapide du monde",
+				"image": "/flow-state/athletes/jeremie-heitz.png",
 				"capacities": [
 					"vitesse",
-					"souplesse",
+					"équilibre",
 					"adresse",
 					"coordination",
-					"contrôle de la peur",
-					"réaction au stress"
+					"concentration"
 				],
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
+						"link": "https://www.facebook.com/heitzjeremie"
 					},
 					{
-						"type": "twitter",
-						"link": "todo"
+						"type": "youtube",
+						"link": "https://www.youtube.com/@jeremieheitz1430"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/jeremieheitz/?hl=fr"
+					}
+				]
+			},
+			{
+				"name": "Travis Pastrana",
+				"aptitude": "Pilote",
+				"type": "Terre",
+				"color": "brown",
+				"country": "CH",
+				"achieved": "600m de chute libre",
+				"image": "/flow-state/athletes/travis-pastrana.png",
+				"capacities": [
+					"vitesse",
+					"équilibre",
+					"adresse",
+					"coordination",
+					"concentration"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "https://www.facebook.com/TravisPastrana"
+					},
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/travispastrana/?hl=fr"
 					}
 				]
 			}
@@ -419,7 +440,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -437,7 +458,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -455,7 +476,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -473,7 +494,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -491,7 +512,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -509,7 +530,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -527,7 +548,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -545,7 +566,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{
@@ -563,7 +584,7 @@
 						"link": "todo"
 					},
 					{
-						"type": "twitter",
+						"type": "youtube",
 						"link": "todo"
 					},
 					{

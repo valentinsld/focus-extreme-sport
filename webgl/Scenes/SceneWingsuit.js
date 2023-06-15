@@ -17,7 +17,7 @@ import Clouds from '../Components/Environment/Clouds.js';
 import datas from "~~/webgl/data/data.json"
 
 const CLEAR_COLOR = 0xd6eeff
-const CAM2_POS = new Vector3(7.45, .75, -1.75)
+const CAM2_POS = new Vector3(6.25, 0.86, -1.85)
 
 export default class SceneWingsuit extends BaseScene {
   static singleton
@@ -224,14 +224,16 @@ export default class SceneWingsuit extends BaseScene {
 
   setCamera3P_2() {
     // this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
-    this.WebGL.camera.setCamera('3p', CAM2_POS, this.map.getObjectByName('CAM_2_TARGET').position)
+    const CAM2_POS_TARGET = this.map.getObjectByName('CAM_2_TARGET').position
+    this.WebGL.camera.setCamera('3p', CAM2_POS, CAM2_POS_TARGET)
 
     anime({
-      targets: this.map.getObjectByName('CAM_2_TARGET').position,
-      x: '+=1.5',
+      targets: CAM2_POS_TARGET,
+      x: '+=2',
+      y: '-=0.5',
       delay: 500,
       duration: 2000,
-      easing: 'easeOutSine',
+      easing: 'easeInOutQuart',
       complete: () => {
         this.WebGL.camera.setCamera()
       }

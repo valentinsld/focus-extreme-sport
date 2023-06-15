@@ -1,4 +1,5 @@
-import { Group, PointLight, AxesHelper, Vector3, CurvePath } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, Vector2, DoubleSide, Color, MathUtils } from 'three'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/kayak.json'
@@ -6,13 +7,23 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import { DegToRad } from '../Utils/Math.js'
 
+import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
+import SkyCustom from '../Components/Environment/Sky.js';
+import RiverF from '@/webgl/Shaders/River/riverF.frag'
+import RiverV from '@/webgl/Shaders/River/riverV.vert'
+import InstanciedKayakSplash from '../components/Particles/Water/InstanciedKayakSplash.js'
+
 import datas from "~~/webgl/data/data.json"
+import kayakHdr from '~~/assets/hdr/kayak.hdr'
+import InstancedAssets from '../Components/InstancedAssets.js'
 
 const CAM_3P_1 = {
   x: 2.48,
   y: 0.5,
   z: -2.01,
 }
+
+const CLEAR_COLOR = 0xCFBF48
 
 export default class SceneKayak extends BaseScene {
   static singleton
@@ -24,23 +35,107 @@ export default class SceneKayak extends BaseScene {
     super() // must be before this
     SceneKayak.singleton = this
 
+    this.debug = this.WebGL.debug
+
+    this.assets = this.WebGL.assets
+    this.generator = this.WebGL.renderer.generator
     this.scene = this.WebGL.sceneKayak
+    this.scene.fog = new Fog(0x9bc8fa, 0, 10)
+    this.sizes = this.WebGL.sizes
+
+    this.params = {
+      colorB: '#418B84', // #668aac
+      colorA: '#316863', // #89ADCE
+      lineColor: '#347F7A', // #0c2349
+    }
+    this.time = 0
 
     this.curveCam_R = new CurvePath()
     this.curveTrack_R = new CurvePath()
 
+    this.pine = []
+    this.bush = []
+    this.rock = []
+
     this.init()
+
+    if(this.debug) {
+      this.initDebug()
+    }
   }
 
   init() {
     this.map = this.assets.models["kayak_map"].scene
+
+    this.map.traverse((element) => {
+			if(element.name.includes('PINTREE')) {
+				this.pine.push(element)
+			}
+
+      if(element.name.includes('BUSH')) {
+				this.bush.push(element)
+			}
+
+      if(element.name.includes('ROCK')) {
+				this.rock.push(element)
+			}
+		})
+
+    this.initInstancedAssets()
+
+    this.initWater()
+
     this.kayak = new Group()
     const kayak = this.assets.models["kayak"].scene
-    kayak.scale.set(0.022, 0.022, 0.022)
+    kayak.scale.set(0.015, 0.015, 0.015)
     this.kayak.add(kayak)
 
-    this.light = new PointLight(0xffffff, 14, 12, 1)
-    this.light.position.copy(this.WebGL.camera.initPosition)
+    new RGBELoader().load(kayakHdr, (map) => {
+		  this.envmap = this.generator.fromEquirectangular(map)
+      this.map.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = .25
+          // element.castShadow = true
+          // element.receiveShadow = true
+        }
+      })
+      this.kayak.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = .25
+          // element.castShadow = true
+          // element.receiveShadow = true
+        }
+      })
+    })
+
+     // light
+     this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.5)
+
+     this.dirLight = new DirectionalLightSource({
+       color: 0xCFA071,
+       // 0xAECDE5
+       intensity: 1,
+       positions: new Vector3(-70, 60, -20),
+       castShadow: true,
+       shadowMapSize: 2048,
+       shadowBias: -0.004,
+       target: new Vector3(0, 0, -10)
+     })
+
+    // this.initSky();
+    this.sky = new SkyCustom({
+      debug: this.debug,
+      sphereTopColor: 0x0096ff,
+      sphereBottomColor: 0xa2dcfc,
+      offset: 20,
+      exponent: 2,
+    })
+
+    this.sky.container.position.set(0, -50, 0)
+
+    this.initKayakSplash()
 
     this.quote = new QuoteBlock({
       contentWidth: 1000,
@@ -59,7 +154,14 @@ export default class SceneKayak extends BaseScene {
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
 
-    this.instance.add(...[this.light, this.map, this.kayak, this.quote.container])
+    this.instance.add(...[
+      this.ambientLight,
+      this.map,
+      this.kayak,
+      this.quote.container,
+      this.dirLight.container,
+      this.sky.container
+    ])
     this.scene.add(this.instance)
 
     if(this.WebGL.debug) {
@@ -69,6 +171,100 @@ export default class SceneKayak extends BaseScene {
 
       // this.debugQuotePosition = this.WebGL.debug.addInput(this.quote.container, 'position', { step: 0.01 })
     }
+  }
+  initWater() {
+
+    this.map.traverse((child) => {
+      if(child.name.includes("EAU")) {
+        this.water = child
+      }
+    })
+
+    this.foam = this.water.material.map;
+
+    this.water.material = new ShaderMaterial({
+      vertexShader: RiverV,
+      fragmentShader: RiverF,
+      transparent: true,
+      depthTest: true,
+      side: DoubleSide,
+
+      uniforms: {
+        uTime: { value: this.time},
+        uBigWavesElevation: { value: 0.0025 },
+        uBigWavesFrequency: { value: new Vector2(1, -10) },
+        uBigWavesSpeed: { value: 0.5 },
+
+        uSmallWavesElevation: { value: 0.05 },
+        uSmallWavesFrequency: { value: 5 },
+        uSmallWavesSpeed: { value: 0.2 },
+        uSmallIterations: { value: 5 },
+
+				uResolution: { value: [this.sizes.width, this.sizes.height] },
+				uColorA: { value: new Color(this.params.colorA) },
+				uColorB: { value: new Color(this.params.colorB) },
+				uLineColor: { value: new Color(this.params.lineColor) },
+
+        fogColor: { value: new Color(0x9bc8fa)},
+        fogNear: { value: 0},
+        fogFar: { value: 10},
+
+      },
+      defines: {
+        USE_FOG: true
+      },
+    })
+
+    this.water.position.y += .004
+  }
+
+  initKayakSplash() {
+    this.splashLeft = new InstanciedKayakSplash({
+      direction: 'left'
+    })
+    this.splashLeft.container.position.set(0.025, -0.02,.08)
+
+    this.splashRight = new InstanciedKayakSplash({
+      direction: 'right'
+    })
+    this.splashRight.container.position.set(-0.025, -0.02,.08)
+
+    this.splashBack = new InstanciedKayakSplash({
+      direction: 'back',
+      spreadMultiplier: new Vector3(.85, .7, .85)
+    })
+    this.splashBack.container.position.set(-0.0125, -0.01,-.07)
+    // this.splashRight.container.rotation.y = Math.PI
+    this.kayak.add(this.splashRight.container, this.splashLeft.container, this.splashBack.container)
+  }
+
+  initInstancedAssets() {
+    this.pineInstanced = new InstancedAssets({
+      name: 'pine',
+      model: 'instance_pine',
+      instances: this.pine,
+      scaleMultiplier: .075,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.bushInstanced = new InstancedAssets({
+      name: 'bush',
+      model: 'instance_bush',
+      instances: this.bush,
+      hdr: kayakHdr
+    })
+
+    this.rockInstanced = new InstancedAssets({
+      name: 'rock',
+      model: 'instance_rock',
+      instances: this.rock,
+      scaleMultiplier: .0005,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.instance.add(...[this.pineInstanced.container, this.bushInstanced.container, this.rockInstanced.container])
   }
 
   startScene() {
@@ -85,6 +281,10 @@ export default class SceneKayak extends BaseScene {
     RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.timelineValue = (this.timelineValue + dt * 0.022)
       this.setTracking(this.timelineValue, this.kayak)
+      this.splashLeft.updateParticles(currentTime, dt)
+      this.splashRight.updateParticles(currentTime, dt)
+      this.splashBack.updateParticles(currentTime, dt)
+      this.water.material.uniforms.uTime.value += dt
     })
 
     // play audio
@@ -149,4 +349,25 @@ export default class SceneKayak extends BaseScene {
 
     RAFManager.remove('SceneKayak')
   }
+
+  initDebug() {
+		// console.log(this.debug);
+		this.debugFolder = this.WebGL.debug.addFolder({ title: 'river', expanded: false })
+
+			// colors
+			this.debugFolder.addInput(this.params, 'colorA').on('change', () => {
+				this.water.material.uniforms.uColorA.value = new Color(this.params.colorA)
+			})
+			this.debugFolder.addInput(this.params, 'colorB').on('change', () => {
+				this.water.material.uniforms.uColorB.value = new Color(this.params.colorB)
+			})
+
+			this.debugFolder.addSeparator()
+
+			// colors DARK
+			this.debugFolder.addInput(this.params, 'lineColor').on('change', () => {
+				this.water.material.uniforms.uLineColor.value = new Color(this.params.lineColor)
+			})
+
+	}
 }

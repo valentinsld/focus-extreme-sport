@@ -1,4 +1,4 @@
-import { Object3D, SphereGeometry, AdditiveBlending, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, MeshBasicMaterial, Matrix4, InstancedBufferAttribute, Vector3, Color } from 'three';
+import { Object3D, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, InstancedBufferAttribute, Vector3, Color } from 'three';
 
 import splashV from '../../../Shaders/Particles/SplashKayak/splashV.vert'
 import splashF from '../../../Shaders/Particles/SplashKayak/splashF.frag'

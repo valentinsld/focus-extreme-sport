@@ -1,4 +1,4 @@
-import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, Vector2, DoubleSide, Color, MathUtils } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, Vector2, DoubleSide, Color } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 
@@ -11,7 +11,7 @@ import DirectionalLightSource from '../Components/Environment/DirectionalLight.j
 import SkyCustom from '../Components/Environment/Sky.js';
 import RiverF from '@/webgl/Shaders/River/riverF.frag'
 import RiverV from '@/webgl/Shaders/River/riverV.vert'
-import InstanciedKayakSplash from '../components/Particles/Water/InstanciedKayakSplash.js'
+import InstanciedKayakSplash from '../Components/Particles/Water/InstanciedKayakSplash.js'
 
 import datas from "~~/webgl/data/data.json"
 import kayakHdr from '~~/assets/hdr/kayak.hdr'

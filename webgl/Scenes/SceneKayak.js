@@ -205,6 +205,8 @@ export default class SceneKayak extends BaseScene {
 				uColorB: { value: new Color(this.params.colorB) },
 				uLineColor: { value: new Color(this.params.lineColor) },
 
+        uFoamTex: { value: this.foam },
+
         fogColor: { value: new Color(0x9bc8fa)},
         fogNear: { value: 0},
         fogFar: { value: 10},
@@ -215,7 +217,7 @@ export default class SceneKayak extends BaseScene {
       },
     })
 
-    this.water.position.y += .004
+    this.water.position.y += .01
   }
 
   initKayakSplash() {

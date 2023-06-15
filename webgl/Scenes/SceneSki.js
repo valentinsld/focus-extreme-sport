@@ -1,4 +1,5 @@
-import { Group, AmbientLight, AxesHelper, Vector3, Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, Mesh, BoxGeometry, MeshBasicMaterial, FogExp2 } from 'three'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 import anime from "animejs"
 
@@ -7,6 +8,9 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 
 import datas from "~~/webgl/data/data.json"
+import skiHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
+import SkyCustom from '../Components/Environment/Sky.js'
+import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -25,6 +29,9 @@ export default class SceneSki extends BaseScene {
     SceneSki.singleton = this
 
     this.scene = this.WebGL.sceneSki
+    this.generator = this.WebGL.renderer.generator
+
+    this.scene.fog = new FogExp2(0x9bc8fa, 0.025)
 
     this.init()
   }
@@ -32,6 +39,25 @@ export default class SceneSki extends BaseScene {
   init() {
     // MAP
     this.map = this.assets.models["ski_map"].scene
+
+    new RGBELoader().load(skiHdr, (map) => {
+		  this.envmap = this.generator.fromEquirectangular(map)
+      this.map.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = .5
+        }
+        if(element.name.includes("SKY")) {
+          element.material.envMapIntensity = .8
+        }
+      })
+      this.character.traverse((element) => {
+        if (element.isMesh) {
+          element.material.envMap = this.envmap.texture
+          element.material.envMapIntensity = .2
+        }
+      })
+    })
 
     // character
     this.characterContainer = new Group()
@@ -43,8 +69,23 @@ export default class SceneSki extends BaseScene {
     this.characterContainer.add(this.character)
 
     // light
-    this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.7)
+    this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.5)
 
+    this.dirLight = new DirectionalLightSource({
+      color: 0xffffff,
+      intensity: 1,
+      positions: new Vector3(-70, 60, -20),
+    })
+
+    this.sky = new SkyCustom({
+      debug: this.debug,
+      sphereTopColor: 0x0096ff,
+      sphereBottomColor: 0xa2dcfc,
+      offset: 20,
+      exponent: 2,
+    })
+
+    this.sky.container.position.set(0, -50, 0)
 
     // add quote
     this.quote = new QuoteBlock({
@@ -66,7 +107,14 @@ export default class SceneSki extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(this.map, this.characterContainer, this.ambientLight, this.quote.container)
+    this.scene.add(
+      this.map,
+      this.dirLight.container,
+      this.sky.container,
+      this.characterContainer,
+      this.ambientLight,
+      this.quote.container
+    )
 
     if(this.WebGL.debug) {
       // three js add helper lines

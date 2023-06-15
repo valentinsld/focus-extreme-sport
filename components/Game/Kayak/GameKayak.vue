@@ -38,7 +38,7 @@ function initStates (scene) {
     store.state.gamestatestep = 1
   })
 
-  scene.setEventTimeline(0.3, () => {
+  scene.setEventTimeline(0.20, () => {
     store.state.gamestatestep = 2
   })
 
@@ -48,13 +48,13 @@ function initStates (scene) {
   })
 
   // event QTE Focus END & switch camera 3P
-  scene.setEventTimeline(0.48, () => {
+  scene.setEventTimeline(0.425, () => {
     nextTick(() => {
       scene.setCamera3P_1()
     })
   })
 
-  scene.setEventTimeline(0.575, () => {
+  scene.setEventTimeline(0.52, () => {
     scene.WebGL.camera.setCamera()
   })
 
@@ -66,11 +66,11 @@ function initStates (scene) {
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.93, () => {
+  scene.setEventTimeline(0.88, () => {
     store.state.gamestatestep = 6
   })
   // set camera position 3P
-  scene.setEventTimeline(0.94, () => {
+  scene.setEventTimeline(0.925, () => {
     scene.splashBack.hideSplash()
     scene.splashRight.hideSplash()
     scene.splashLeft.hideSplash()

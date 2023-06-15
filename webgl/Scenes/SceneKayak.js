@@ -18,9 +18,9 @@ import kayakHdr from '~~/assets/hdr/kayak.hdr'
 import InstancedAssets from '../Components/InstancedAssets.js'
 
 const CAM_3P_1 = {
-  x: 2.48,
+  x: -0.15,
   y: 0.5,
-  z: -2.01,
+  z: -4.5,
 }
 
 const CLEAR_COLOR = 0xCFBF48
@@ -245,7 +245,7 @@ export default class SceneKayak extends BaseScene {
       name: 'pine',
       model: 'instance_pine',
       instances: this.pine,
-      scaleMultiplier: .075,
+      scaleMultiplier: .025,
       hdr: kayakHdr,
       hasHdr: true,
     })

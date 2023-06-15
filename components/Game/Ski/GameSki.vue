@@ -51,17 +51,17 @@ function initStates(scene) {
   currentScene = scene
 
   // event QTE Balance
-  scene.setEventTimeline(0.07, () => {
+  scene.setEventTimeline(0.1, () => {
     store.state.gamestatestep = 1
   })
 
   // event QTE End Balance
-  scene.setEventTimeline(0.5, () => {
+  scene.setEventTimeline(0.4, () => {
     store.state.gamestatestep = 2
   })
 
   // start travelling 3P
-  scene.setEventTimeline(0.56, () => {
+  scene.setEventTimeline(0.555, () => {
     scene.setCameraTravelling()
   })
 

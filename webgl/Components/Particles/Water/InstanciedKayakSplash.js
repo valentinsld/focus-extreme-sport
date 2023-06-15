@@ -216,4 +216,8 @@ export default class InstanciedKayakSplash {
 		element.velocity.z *= MathUtils.randFloat(2,5);
 	}
 
+	hideSplash() {
+		this.mesh.visible = false
+	}
+
 }

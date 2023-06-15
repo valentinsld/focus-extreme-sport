@@ -335,6 +335,7 @@ export default class SceneKayak extends BaseScene {
   setCamera3P_finish() {
     this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_F').position, this.map.getObjectByName('CAM_F_TARGET').position)
     this.cam3p?.refresh()
+    this.WebGL.fxComposer.resetEffect()
     this.quote.showQuote()
   }
 

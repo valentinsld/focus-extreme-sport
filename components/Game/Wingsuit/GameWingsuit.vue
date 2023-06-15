@@ -108,7 +108,7 @@ const initStates = (scene) => {
 
   RAFManager.speed = 0.18
 
-  //Show lottie rollover
+  // Show lottie rollover
   scene.setEventTimeline(0.01, () => {
     RAFManager.setSpeed(0.18)
     store.state.isOverlayVisible = true
@@ -120,7 +120,7 @@ const initStates = (scene) => {
     store.state.isTutoVisible = false
   })
 
-  //Show lottie rollover
+  // Show lottie rollover
   scene.setEventTimeline(0.045, () => {
     isBackflipVisible.value = true
   })
@@ -128,12 +128,12 @@ const initStates = (scene) => {
     backflipAnime.play()
   })
 
-  //event QTE FIGURE
+  // event QTE FIGURE
   scene.setEventTimeline(0.1, () => {
     store.state.gamestatestep = 1
   })
 
-  //event QTE Balance
+  // event QTE Balance
   scene.setEventTimeline(0.17, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
@@ -155,15 +155,13 @@ const initStates = (scene) => {
     RAFManager.setSpeed(0.6)
   })
 
-  scene.setEventTimeline(0.82, () => {
+  scene.setEventTimeline(0.83, () => {
     store.state.gamestatestep = 6
-
-    requestAnimationFrame(() => {
-      RAFManager.setSpeed(0.038)
-    })
   })
   // set camera position 3P
   scene.setEventTimeline(0.86, () => {
+    RAFManager.setSpeed(0.08)
+
     scene.setCamera3P()
   })
 

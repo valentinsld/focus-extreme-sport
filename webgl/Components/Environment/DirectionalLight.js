@@ -1,20 +1,21 @@
 import {
 	Object3D,
-	DirectionalLight
+	DirectionalLight,
+	DirectionalLightHelper,
+	Vector3
 } from 'three'
 
 export default class DirectionalLightSource {
 	constructor(options) {
 		// Set options
-		if (options) {
-			this.debug = options.debug
-			this.color = options.color
-			this.intensity = options.intensity
-			this.positions = options.positions
-			this.castShadow = options.castShadow
-			this.shadowMapSize = options.shadowMapSize
-			this.shadowBias = options.shadowBias
-		}
+		this.debug = options.debug
+		this.color = options.color
+		this.intensity = options.intensity
+		this.positions = options.positions
+		this.castShadow = options.castShadow
+		this.shadowMapSize = options.shadowMapSize
+		this.shadowBias = options.shadowBias
+		this.target = options.target || new Vector3(0, 0, 0)
 
 		// Set up
 		this.container = new Object3D()
@@ -59,15 +60,15 @@ export default class DirectionalLightSource {
 
 		this.container.add(this.light)
 
-		this.light.target.position.set(0, 0, 0)
+		this.light.target.position.set(this.target.x, this.target.y, this.target.z)
 
 		// Positions
 		this.light.position.x = this.params.positions.x
 		this.light.position.y = this.params.positions.y
 		this.light.position.z = this.params.positions.z
 
-		// const helper = new DirectionalLightHelper(this.light, 5)
-		// this.container.add(helper)
+		const helper = new DirectionalLightHelper(this.light, 5)
+		this.container.add(helper)
 	}
 
 	setDebug() {

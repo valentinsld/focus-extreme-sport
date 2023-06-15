@@ -1,7 +1,6 @@
 import {
   WebGLRenderer,
   ACESFilmicToneMapping,
-  PCFSoftShadowMap,
   PMREMGenerator
 } from 'three'
 import WebGL from './index.js'
@@ -48,9 +47,9 @@ export default class Renderer {
     this.instance.useLegacyLights = false
     // this.instance.gammaOutPut = true
     // this.instance.outputEncoding = sRGBEncoding
-    this.instance.shadowMap.type = PCFSoftShadowMap
-    this.instance.shadowMap.enabled = true
-    this.instance.shadowMapSoft = true
+    // this.instance.shadowMap.type = PCFSoftShadowMap
+    // this.instance.shadowMap.enabled = true
+    // this.instance.shadowMapSoft = true
     this.instance.toneMapping = ACESFilmicToneMapping
     this.instance.toneMappingExposure = 1
 

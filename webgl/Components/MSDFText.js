@@ -52,6 +52,7 @@ export default class MSDFText {
 			material.uniforms.uColor.value = new Color(this.color);
 			material.side = DoubleSide
 			material.defines.IS_SMALL = this.isSmall
+			material.depthTest = false
 
 			this.mesh = new Mesh(geometry, material);
 			this.container.add(this.mesh);

@@ -173,7 +173,7 @@ export default class SceneSki extends BaseScene {
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.2, 0)))
   }
   setCameraTravelling () {
-    const addVector = new Vector3(-0.3, -0.05, -2)
+    const addVector = new Vector3(-0.3, -0.05, -1.8)
     this.WebGL.camera.setCamera('3p', addVector, this.characterContainer.position)
 
     RAFManager.add('ski-travelling', () => {

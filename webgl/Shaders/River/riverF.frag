@@ -6,6 +6,7 @@ uniform float uTime;
 uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
+uniform sampler2D uFoamTex;
 
 // uniform anim
 uniform vec3 uLineColor;
@@ -163,6 +164,7 @@ void main()
 {
 	vec2 st = rotate(vUv, radians(-45.));
 	vec2 voroUv = vUv;
+	vec2 foamUv = vUv;
 
 	// layer bkg
 	vec2 coord = st.xy * 20.;
@@ -185,22 +187,11 @@ void main()
 	 // borders
     voroColor = mix( uLineColor, color, smoothstep( 0., .01, c.x ));
 
+	vec4 foam = texture2D(uFoamTex, foamUv);
+	vec4 finalColor = mix(vec4(voroColor, 1.), foam, sin(uTime * 2.) * .07 + .25);
 
-	// FOAM WATER
-	// float fragmentLinearEyeDepth = getViewZ( gl_FragCoord.z );
-	// float linearEyeDepth = getViewZ( getDepth( vUv ) );
-
-	// float diff = saturate( fragmentLinearEyeDepth - linearEyeDepth );
-
-	// vec2 displacement = texture2D( tDudv, ( vUv * 2.0 ) - uTime * 0.05 ).rg;
-	// displacement = ( ( displacement * 2.0 ) - 1.0 ) * strength;
-	// diff += displacement.x;
-
-	// vec3 foamColor = mix( vec3(1.), voroColor, step( threshold, diff ) );
-
-	gl_FragColor = vec4(voroColor, 1.0);
+	gl_FragColor = finalColor;
 
 	#include <tonemapping_fragment>
-	// #include <encodings_fragment>
 	#include <fog_fragment>
 }

@@ -428,7 +428,7 @@
 		]
 	},
 	"thanks": {
-		"title": "Eemerciements",
+		"title": "Remerciements",
 		"list": [
 			{
 				"name": "Guido Perrini",
@@ -436,15 +436,11 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
+						"link": "https://www.facebook.com/guido.perrini.5"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/guidoperrini/?hl=fr"
 					}
 				]
 			},
@@ -454,15 +450,15 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
+						"link": "https://www.facebook.com/nourianewmankayak"
 					},
 					{
 						"type": "youtube",
-						"link": "todo"
+						"link": "https://www.youtube.com/@NouriaNewmanKayak"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/nourianewman/?hl=fr"
 					}
 				]
 			},
@@ -471,16 +467,12 @@
 				"image": "/flow-state/thanks/3.png",
 				"socials": [
 					{
-						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
+						"type": "vimeo",
+						"link": "https://vimeo.com/maximemoulin"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/maximemoulin/"
 					}
 				]
 			},
@@ -490,15 +482,7 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
-					},
-					{
-						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.facebook.com/theo.penchet"
 					}
 				]
 			},
@@ -507,16 +491,8 @@
 				"image": "/flow-state/thanks/5.png",
 				"socials": [
 					{
-						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
-					},
-					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/nico_falquet/?hl=fr"
 					}
 				]
 			},
@@ -526,15 +502,15 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
+						"link": "https://www.facebook.com/heitzjeremie"
 					},
 					{
 						"type": "youtube",
-						"link": "todo"
+						"link": "https://www.youtube.com/@jeremieheitz1430"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/jeremieheitz/?hl=fr"
 					}
 				]
 			},
@@ -543,16 +519,12 @@
 				"image": "/flow-state/thanks/7.png",
 				"socials": [
 					{
-						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
+						"type": "TikTok",
+						"link": "https://www.tiktok.com/@gregorymagal"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/gregory_magal/"
 					}
 				]
 			},
@@ -562,15 +534,11 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
+						"link": "https://www.facebook.com/florian.bruchez/?locale=fr_FR"
 					},
 					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/bruchezflorian/?hl=fr"
 					}
 				]
 			},
@@ -579,16 +547,8 @@
 				"image": "/flow-state/thanks/9.png",
 				"socials": [
 					{
-						"type": "facebook",
-						"link": "todo"
-					},
-					{
-						"type": "youtube",
-						"link": "todo"
-					},
-					{
 						"type": "instagram",
-						"link": "todo"
+						"link": "https://www.instagram.com/thierry_donard/?hl=fr"
 					}
 				]
 			}

@@ -221,7 +221,8 @@ export default class Loader extends EventEmitter {
 			loaded
 		)
 
-		this.trigger('ressourceLoad', [ressource, loaded])
+		const percent = Math.floor((this.done / this.total) * 100)
+		this.trigger('ressourceLoad', [percent, ressource, loaded])
 
 		if (this.total === this.done) {
 			setTimeout(() => {

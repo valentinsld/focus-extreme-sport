@@ -72,6 +72,7 @@ export default class SceneKayak extends BaseScene {
   }
 
   init() {
+    // map
     this.map = this.assets.models["kayak_map"].scene
 
     this.map.traverse((element) => {
@@ -92,6 +93,7 @@ export default class SceneKayak extends BaseScene {
 
     this.initWater()
 
+    // kayak
     this.kayak = new Group()
     const kayak = this.assets.models["kayak_character"].scene
     kayak.scale.set(0.015, 0.015, 0.015)

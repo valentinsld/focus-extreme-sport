@@ -65,12 +65,11 @@ function initStates (scene) {
     RAFManager.setSpeed(1.1)
   })
 
+  // set camera position 3P
   scene.setEventTimeline(0.90, () => {
     RAFManager.setSpeed(0.2)
     store.state.gamestatestep = 6
-  })
-  // set camera position 3P
-  scene.setEventTimeline(0.925, () => {
+
     scene.splashBack.hideSplash()
     scene.splashRight.hideSplash()
     scene.splashLeft.hideSplash()

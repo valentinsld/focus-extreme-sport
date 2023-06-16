@@ -191,6 +191,8 @@ onUnmounted(() => {
   position: absolute;
   bottom: 2%;
   font-size: 1.8rem;
+  font-family: const(font-gotham);
+  font-weight: 400;
 }
 
 

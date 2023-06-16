@@ -66,22 +66,23 @@
 
 <style lang="scss" scoped>
 .intro-phrase {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 
 .sport {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .word {
-	margin: 0 .2rem;
-	font-size: 1.8rem;
-	line-height: 110%;
-	font-family: const(font-gotham);
+  margin: 0 .2rem;
+  font-size: 1.8rem;
+  line-height: 110%;
+  font-family: const(font-gotham);
+  font-weight: 400;
 }
 </style>

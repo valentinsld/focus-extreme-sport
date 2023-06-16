@@ -144,7 +144,6 @@ function initStates(scene) {
     store.state.gamestatestep = 2
   })
 
-
   // start travelling 3P
   scene.setEventTimeline(0.555, () => {
     scene.setCameraTravelling()

@@ -85,9 +85,10 @@ export default class SceneSki extends BaseScene {
     // character
     this.characterContainer = new Group()
     this.character = new Group()
-    const box = new BoxGeometry(0.1, 0.2, 0.1)
-    this.characterAnimation = new Mesh(box, new MeshBasicMaterial({ color: 0xff0000 }))
-    this.character.position.set(0, 0.1, 0)
+    this.characterAnimation = this.assets.models["ski_character"].scene
+    this.characterAnimation.scale.set(0.02, 0.02, 0.02)
+    this.characterAnimation.children[0].rotation.set(0, -Math.PI * 0.5, 0)
+
     this.character.add(this.characterAnimation)
     this.characterContainer.add(this.character)
 
@@ -280,7 +281,7 @@ export default class SceneSki extends BaseScene {
   //
 
   setCameraFPV () {
-    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.2, 0)))
+    this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.17, 0.035)))
   }
   setCameraTravelling () {
     const addVector = new Vector3(-0.3, -0.05, -1.8)

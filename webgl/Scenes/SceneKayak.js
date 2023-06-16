@@ -94,12 +94,21 @@ export default class SceneKayak extends BaseScene {
     this.initWater()
 
     // kayak
-    this.kayak = new Group()
-    const kayak = this.assets.models["kayak_character"].scene
-    kayak.scale.set(0.015, 0.015, 0.015)
-    kayak.rotation.y = -Math.PI *0.5
+    this.characterContainer = new Group()
+    this.character = this.assets.models["kayak_character"].scene
+    this.character.scale.set(0.008, 0.008, 0.008)
+    this.character.rotation.y = -Math.PI *0.5
+    this.characterCam = this.character.getObjectByName('FPV_CAM')
+    this.characterCam.visible = false
+    this.characterContainer.add(this.character)
 
-    this.kayak.add(kayak)
+    this.setAnimation(
+      this.character,
+      this.assets.models["kayak_character"].animations[1],
+      this.assets.models["kayak_character"].animations[0],
+      new Vector3(0, 0.035, 0),
+      new Vector3(-0.02, 0, -0.01)
+    )
 
     new RGBELoader().load(kayakHdr, (map) => {
 		  this.envmap = this.generator.fromEquirectangular(map)
@@ -111,7 +120,7 @@ export default class SceneKayak extends BaseScene {
           // element.receiveShadow = true
         }
       })
-      this.kayak.traverse((element) => {
+      this.characterContainer.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
           element.material.envMapIntensity = .25
@@ -168,7 +177,7 @@ export default class SceneKayak extends BaseScene {
     this.instance.add(...[
       this.ambientLight,
       this.map,
-      this.kayak,
+      this.characterContainer,
       this.quote.container,
       this.dirLight.container,
       this.sky.container
@@ -252,7 +261,7 @@ export default class SceneKayak extends BaseScene {
     })
     this.splashBack.container.position.set(-0.0125, -0.01,-.07)
     // this.splashRight.container.rotation.y = Math.PI
-    this.kayak.add(this.splashRight.container, this.splashLeft.container, this.splashBack.container)
+    this.characterContainer.add(this.splashRight.container, this.splashLeft.container, this.splashBack.container)
   }
 
   initInstancedAssets() {
@@ -291,17 +300,22 @@ export default class SceneKayak extends BaseScene {
     this.setCurve(this.curveTrack_R, TRAC_CAM.CURVE_TARGET_R)
 
     // 2 - add camera to kayak + set position
-    this.kayak.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.07, 0)))
+    this.characterContainer.add(this.WebGL.camera.setCamera('fpv'))
+
+    // 2.1 - play animation
+    this.startAnimation()
 
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.timelineValue = (this.timelineValue + dt * 0.022)
-      this.setTracking(this.timelineValue, this.kayak)
+      this.setTracking(this.timelineValue, this.characterContainer)
       this.splashLeft.updateParticles(currentTime, dt)
       this.splashRight.updateParticles(currentTime, dt)
       this.splashBack.updateParticles(currentTime, dt)
       this.water.material.uniforms.uTime.value += dt
+
+      this.updateAnimation(currentTime, dt)
     })
 
     // play audio
@@ -344,7 +358,7 @@ export default class SceneKayak extends BaseScene {
   // Cams
   //
   setCamera3P_1() {
-    this.WebGL.camera.setCamera('3p', CAM_3P_1, this.kayak.position)
+    this.WebGL.camera.setCamera('3p', CAM_3P_1, this.characterContainer.position)
     this.cam3p?.refresh()
   }
   setCamera3P_finish() {

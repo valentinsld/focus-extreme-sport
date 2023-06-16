@@ -65,8 +65,8 @@ function initStates (scene) {
     RAFManager.setSpeed(1.1)
   })
 
-  // set camera position 3P
-  scene.setEventTimeline(0.88, () => {
+  scene.setEventTimeline(0.90, () => {
+    RAFManager.setSpeed(0.2)
     store.state.gamestatestep = 6
   })
   // set camera position 3P
@@ -75,12 +75,18 @@ function initStates (scene) {
     scene.splashRight.hideSplash()
     scene.splashLeft.hideSplash()
     scene.setCamera3P_finish()
-    RAFManager.setSpeed(0.2)
+
+    scene.currentAnim.stop()
+  })
+
+  // set camera position 3P
+  scene.setEventTimeline(0.92, () => {
+    scene.setAnimationEnd(0, 1.3)
   })
 
   // event end next scene
   scene.setEventTimeline(0.99, () => {
-    store.state.gamestate = 'end'
+    store.state.gamestate = 'ski'
     navigateTo('/stickers-rewards')
   })
 }

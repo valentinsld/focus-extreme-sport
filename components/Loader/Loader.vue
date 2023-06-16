@@ -23,7 +23,7 @@
 
     <div
       class="loader__percent"
-      :style="`--percent: ${percent}`"
+      :style="`--percent: ${percent}%`"
     />
   </div>
 </template>

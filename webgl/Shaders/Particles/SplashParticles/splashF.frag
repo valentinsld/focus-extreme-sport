@@ -7,6 +7,6 @@ varying vec3 vInstanceColor;
 
 void main() {
 
-	gl_FragColor = vec4(vInstanceColor, vAlpha * vMaxAlpha);
+	gl_FragColor = vec4(vInstanceColor, vAlpha);
 
 }

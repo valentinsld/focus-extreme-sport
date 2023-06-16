@@ -198,10 +198,12 @@ function initStates(scene) {
   // set new Cam
   scene.setEventTimeline(0.93, () => {
     scene.setCamera3P()
+    // scene.initFinalCloudSnow()
   })
 
-  scene.setEventTimeline(0.988, () => {
-    console.log('TODO : animation de ski avec neige')
+  scene.setEventTimeline(0.95, () => {
+    // scene.finalCloud.showSplash()
+    scene.initFinalCloudSnow()
   })
 
 

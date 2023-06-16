@@ -15,9 +15,7 @@ const RANDOM_QTE_WRONG = [
 const RANDOM_SWITCH = [
 	'switch-3p1',
 	'switch-3p2',
-	'switch-3p3',
-	'switch-3p4',
-	'switch-3p5'
+	'switch-3p3'
 ]
 
 export default class AudioManager {

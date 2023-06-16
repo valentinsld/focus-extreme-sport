@@ -16,6 +16,8 @@ export default class InstancedSplash {
 		this.velocityMultiplier = options.velocityMultiplier || 1
 		this.maxAlphas = options.maxAlphas || new Vector2(0.1, 0.8)
 		this.veloRandArr = options.veloRandArr || [{x: 2, y: 2, z: 2}, {x: 5, y: 5, z: 5}]
+		this.lifeTime = options.lifeTime || 5
+		this.type = options.type || 'default'
 
 		this.params = {
 			count: options.count || 100,
@@ -157,7 +159,7 @@ export default class InstancedSplash {
 				)
 				})
 
-			alphas.push(0)
+			alphas.push(1)
 			maxAlphas.push(MathUtils.randFloat(this.maxAlphas.x, this.maxAlphas.y))
 
 			this.mesh.setColorAt(i, this.colorsArr[randIndex])
@@ -203,9 +205,14 @@ export default class InstancedSplash {
 
 		   this.mesh.setMatrixAt(i, this.dummy.matrix)
 
-		   this.mesh.geometry.attributes.aAlpha.setX(i, MathUtils.smoothstep(MathUtils.clamp(this.ages[i], 1, 5), 0, 1))
+		   if (this.type === 'cloud') {
+			   this.mesh.geometry.attributes.aAlpha.setX(i, 1 - ((this.ages[i] * .5) / this.lifeTime))
+			} else {
+			   this.mesh.geometry.attributes.aAlpha.setX(i, 1 - ((this.ages[i] * 2) / this.lifeTime))
+		   }
 
-		   if ( this.ages[ i ] >= 5 ) {
+
+		   if ( this.ages[ i ] >= this.lifeTime ) {
 			   this.ages[ i ] = 0;
 
 			   if(this.canEmit) this.propulseParticle(this.properties[i])
@@ -236,6 +243,10 @@ export default class InstancedSplash {
 
 	hideSplash() {
 		this.mesh.visible = false
+	}
+
+	showSplash() {
+		this.mesh.visible = true
 	}
 
 	startEmit() {

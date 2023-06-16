@@ -1,4 +1,4 @@
-import { Group, AmbientLight, AxesHelper, Vector3, FogExp2, Color, Vector2 } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, DoubleSide } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 import anime from "animejs"
@@ -12,6 +12,9 @@ import skiHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
+
+import RiverF from '@/webgl/Shaders/River/riverF.frag'
+import RiverV from '@/webgl/Shaders/River/riverV.vert'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -36,10 +39,19 @@ export default class SceneSki extends BaseScene {
     super() // must be before this
     SceneSki.singleton = this
 
+    this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.sceneSki
     this.generator = this.WebGL.renderer.generator
 
-    this.scene.fog = new FogExp2(0x9bc8fa, 0.025)
+    this.time = 0
+
+    this.params = {
+      colorB: '#418B84', // #668aac
+      colorA: '#316863', // #89ADCE
+      lineColor: '#347F7A', // #0c2349
+    }
+
+    this.scene.fog = new Fog(0x9bc8fa, 0, 20)
 
     this.init()
   }
@@ -48,6 +60,9 @@ export default class SceneSki extends BaseScene {
     // MAP
     this.map = this.assets.models["ski_map"].scene
 
+    this.initWater()
+    // this.initFinalCloudSnow()
+
     new RGBELoader().load(skiHdr, (map) => {
 		  this.envmap = this.generator.fromEquirectangular(map)
       this.map.traverse((element) => {
@@ -55,7 +70,7 @@ export default class SceneSki extends BaseScene {
           element.material.envMap = this.envmap.texture
           element.material.envMapIntensity = .5
         }
-        if(element.name.includes("SKY")) {
+        if(element.name.includes("SKY") || element.name.includes("Cloud")) {
           element.material.envMapIntensity = .8
         }
       })
@@ -149,6 +164,73 @@ export default class SceneSki extends BaseScene {
     this.character.add(...[this.splashLeft.container])
   }
 
+  initFinalCloudSnow() {
+    this.finalCloud = new InstancedSplash({
+      direction: 'back',
+      type: 'cloud',
+      colors: splashColors,
+      spreadMultiplier: new Vector3(1, 1, 1), // sur une base de .99 * value
+      count: 500,
+      scales: new Vector2(0.01, 0.3),
+      maxAlphas: new Vector2(0.9, 1),
+      veloRandArr: [{x: 10, y: 10, z: 10}, {x: 15, y: 15, z: 15}],
+      lifeTime: 15,
+    })
+
+    this.finalCloud.container.position.set(18.75, 1.5, 4)
+
+    this.scene.add(this.finalCloud.container)
+  }
+
+  initWater() {
+
+    this.map.traverse((child) => {
+      if(child.name.includes("Plane")) {
+        this.water = child
+      }
+    })
+
+    this.foam = this.water.material.map;
+
+    this.water.material = new ShaderMaterial({
+      vertexShader: RiverV,
+      fragmentShader: RiverF,
+      transparent: false,
+      depthTest: true,
+      side: DoubleSide,
+
+      uniforms: {
+        uTime: { value: this.time},
+        uBigWavesElevation: { value: 0.0025 },
+        uBigWavesFrequency: { value: new Vector2(1, -10) },
+        uBigWavesSpeed: { value: 0.5 },
+
+        uSmallWavesElevation: { value: 0.05 },
+        uSmallWavesFrequency: { value: 5 },
+        uSmallWavesSpeed: { value: 0.2 },
+        uSmallIterations: { value: 5 },
+
+				uResolution: { value: [this.sizes.width, this.sizes.height] },
+				uColorA: { value: new Color(this.params.colorA) },
+				uColorB: { value: new Color(this.params.colorB) },
+				uLineColor: { value: new Color(this.params.lineColor) },
+
+        uFoamTex: { value: this.foam },
+        uRotation: { value: -125.0},
+
+        fogColor: { value: new Color(0x9bc8fa)},
+        fogNear: { value: 0},
+        fogFar: { value: 20},
+
+      },
+      defines: {
+        USE_FOG: true
+      },
+    })
+
+    // this.water.position.y += .1
+  }
+
   startScene() {
     // 1 - set curves for tracking camera
     TRAC_CAM.CURVE_PERSO.forEach(curve => {
@@ -164,7 +246,9 @@ export default class SceneSki extends BaseScene {
     RAFManager.add('SceneSki', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
+      this.water.material.uniforms.uTime.value += dt
       this.splashLeft.updateParticles(currentTime, dt)
+      if(this.finalCloud) this.finalCloud.updateParticles(currentTime, dt)
     })
 
     // play audio

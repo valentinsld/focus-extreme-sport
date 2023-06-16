@@ -401,14 +401,19 @@
 		"title": "Les évènements à suivre...",
 		"list": [
 			{
+				"image": "/flow-state/events/2.png",
+				"date": "21 au 23 juil. 2023",
+				"url": "https://www.xgames.com/"
+			},
+			{
 				"image": "/flow-state/events/1.png",
 				"date": "18 au 20 aug. 2023",
 				"url": "https://www.thenines.cc/"
 			},
 			{
-				"image": "/flow-state/events/2.png",
-				"date": "21 au 23 juil. 2023",
-				"url": "https://www.xgames.com/"
+				"image": "/flow-state/events/5.png",
+				"date": "28 aout au 3 sept. 2023",
+				"url": "https://montblanc.utmb.world/fr"
 			},
 			{
 				"image": "/flow-state/events/3.png",
@@ -417,13 +422,8 @@
 			},
 			{
 				"image": "/flow-state/events/4.png",
-				"date": "11 au 11 fev. 2024",
+				"date": "11 au 13 fev. 2024",
 				"url": "https://www.latransju.com/evenements/la-transju/"
-			},
-			{
-				"image": "/flow-state/events/5.png",
-				"date": "28 aout au 3 sept. 2023",
-				"url": "https://montblanc.utmb.world/fr"
 			}
 		]
 	},

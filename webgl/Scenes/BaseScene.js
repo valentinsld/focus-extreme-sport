@@ -1,4 +1,4 @@
-import { Group, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve, AxesHelper } from 'three'
+import { Group, CurvePath, CubicBezierCurve3, Vector3, LineBasicMaterial, BufferGeometry, Line, Vector2, CubicBezierCurve, AxesHelper, AnimationMixer, LoopOnce } from 'three'
 import RAFManager from '../Utils/RAFManager.js'
 import { MathUtils } from 'three'
 import WebGL from '../index.js'
@@ -280,6 +280,49 @@ export default class BaseScene {
     // altimeter
     this.altimeter = Math.round(normliaze(this.curveCam.getPointAt(this.tracking).y, this.altimeterMax, this.altimeterMin) * (this.altimeterTop - this.altimeterBottom) + this.altimeterBottom)
     this.store.state.altimetre.altitude = this.altimeter
+  }
+
+  //
+  // Animation
+  //
+  setAnimation(character, idle, end, camPos = null, camPosTransate = null) {
+    this.mixer = new AnimationMixer(character);
+
+    this.animationIdle = idle
+    this.animationEnd = end
+    this.animationCamPos = camPos
+    this.animationCamPosTranslate = camPosTransate
+
+  }
+
+  startAnimation() {
+    this.startAnimationV = RAFManager.currentTime
+    this.currentAnim = this.mixer.clipAction(this.animationIdle).play()
+  }
+
+  setAnimationEnd(fade = 1, duration = null) {
+    this.currentAnim.fadeOut(fade)
+    setTimeout(() => {
+      this.currentAnim = this.mixer.clipAction(this.animationEnd).play()
+      if (duration) this.currentAnim.setDuration(duration)
+      this.currentAnim.setLoop(LoopOnce, 1);
+      this.currentAnim.clampWhenFinished = true;
+    }, fade * 2000);
+
+  }
+
+  updateAnimation (time, dt) {
+    this.WebGL.camera.listCamera.fpv.position.copy(this.animationCamPos)
+
+    // anim left
+    const percent = Math.sin(
+      ((time - this.startAnimationV) * Math.PI * 2) / this.animationIdle.duration
+    )
+    this.WebGL.camera.listCamera.fpv.position.x += this.animationCamPosTranslate.x * percent
+    this.WebGL.camera.listCamera.fpv.position.y += this.animationCamPosTranslate.y * percent
+    this.WebGL.camera.listCamera.fpv.position.z += Math.abs(this.animationCamPosTranslate.z * percent)
+
+    this.mixer.update(dt)
   }
 
   //

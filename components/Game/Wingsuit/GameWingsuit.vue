@@ -37,9 +37,19 @@
     </Transition>
 
     <div
-      ref="backflipLottie"
+      ref="rolloverLottie"
       class="lottie"
-      :class="{'is-visible': isBackflipVisible}"
+      :class="{'is-visible': isRolloverVisible}"
+    />
+    <div
+      ref="balanceLottie"
+      class="lottie"
+      :class="{'is-visible': isBalanceVisible}"
+    />
+    <div
+      ref="focusLottie"
+      class="lottie"
+      :class="{'is-visible': isFocusVisible}"
     />
     <QteBalance v-if="store.state.gamestatestep === 3" />
     <QteFocus
@@ -58,7 +68,9 @@ import RAFManager from '~~/webgl/Utils/RAFManager';
 
 import lottie  from 'lottie-web'
 
-import backflip from '~~/assets/lottieJson/backflip.json'
+import rollover from '~~/assets/lottieJson/ROLLOVER.json'
+import balance from '~~/assets/lottieJson/BALANCE_GREEN.json'
+import focus from '~~/assets/lottieJson/STAY_FOCUS_GREEN.json'
 
 
 const store = useStore()
@@ -68,24 +80,20 @@ const webgl = new WebGL()
 
 const Audio = new AudioManager()
 
-const backflipLottie = ref()
-const isBackflipVisible = ref(false)
+const rolloverLottie = ref()
+const isRolloverVisible = ref(false)
 
-let backflipAnime;
+const balanceLottie = ref()
+const isBalanceVisible = ref(false)
+
+const focusLottie = ref()
+const isFocusVisible = ref(false)
+
+let rolloverAnime, balanceAnime, focusAnime;
 
 onMounted(()=> {
 
-  backflipAnime = lottie.loadAnimation({
-    container: backflipLottie.value, // the dom element that will contain the animation
-    renderer: 'svg',
-    loop: false,
-    autoplay: false,
-    animationData: backflip,
-  });
-
-  backflipAnime.onComplete = function(){
-    isBackflipVisible.value = false
-  }
+  initLottie();
 
   store.state.gamestatestep = 0
 
@@ -99,6 +107,44 @@ onMounted(()=> {
     Audio.play('wingsuit-montagne', true, 1, 6000)
   }, 6600)
 })
+
+function initLottie() {
+  rolloverAnime = lottie.loadAnimation({
+    container: rolloverLottie.value, // the dom element that will contain the animation
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    animationData: rollover,
+  });
+
+  rolloverAnime.onComplete = function(){
+    isRolloverVisible.value = false
+  }
+
+  balanceAnime = lottie.loadAnimation({
+    container: balanceLottie.value, // the dom element that will contain the animation
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    animationData: balance,
+  });
+
+  balanceAnime.onComplete = function(){
+    isBalanceVisible.value = false
+  }
+
+  focusAnime = lottie.loadAnimation({
+    container: focusLottie.value, // the dom element that will contain the animation
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    animationData: focus,
+  });
+
+  focusAnime.onComplete = function(){
+    isFocusVisible.value = false
+  }
+}
 
 //
 // event change state
@@ -122,10 +168,10 @@ const initStates = (scene) => {
 
   // Show lottie rollover
   scene.setEventTimeline(0.045, () => {
-    isBackflipVisible.value = true
+    isRolloverVisible.value = true
   })
   scene.setEventTimeline(0.05, () => {
-    backflipAnime.play()
+    rolloverAnime.play()
   })
 
   // event QTE FIGURE
@@ -133,8 +179,17 @@ const initStates = (scene) => {
     store.state.gamestatestep = 1
   })
 
+
+  // Show lottie balance
+  scene.setEventTimeline(0.195, () => {
+    isBalanceVisible.value = true
+  })
+  scene.setEventTimeline(0.2, () => {
+    balanceAnime.play()
+  })
+
   // event QTE Balance
-  scene.setEventTimeline(0.17, () => {
+  scene.setEventTimeline(0.28, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 3
   })
@@ -148,14 +203,21 @@ const initStates = (scene) => {
     scene.setCamera3P_2()
   })
 
+   // Show lottie focus
+   scene.setEventTimeline(0.595, () => {
+    isFocusVisible.value = true
+  })
+  scene.setEventTimeline(0.6, () => {
+    focusAnime.play()
+  })
   // event QTE Focus
-  scene.setEventTimeline(0.625, () => {
+  scene.setEventTimeline(0.68, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
     RAFManager.setSpeed(0.6)
   })
 
-  scene.setEventTimeline(0.83, () => {
+  scene.setEventTimeline(0.84, () => {
     store.state.gamestatestep = 6
   })
   // set camera position 3P

@@ -103,10 +103,12 @@ export default class SceneSki extends BaseScene {
 
     this.sky = new SkyCustom({
       debug: this.debug,
-      sphereTopColor: 0x0096ff,
-      sphereBottomColor: 0xa2dcfc,
-      offset: 20,
-      exponent: 2,
+      turbidity: 2.1,
+		  rayleigh: 2,
+		  mieCoefficient: 0.165,
+		  mieDirectionalG: 1,
+		  elevation: 70,
+		  azimuth: 225,
     })
 
     this.sky.container.position.set(0, -50, 0)

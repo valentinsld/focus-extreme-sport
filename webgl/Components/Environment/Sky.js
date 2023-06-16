@@ -1,18 +1,11 @@
 import {
 	Object3D,
-	Color,
-	SphereBufferGeometry,
-	ShaderMaterial,
-	BackSide,
-	Mesh,
 	Vector3
   } from 'three'
 
 import { Sky } from 'three/addons/objects/Sky.js';
 
 import { DegToRad } from '~~/webgl/Utils/Math.js';
-import SkyF from '~~/webgl/Shaders/Sky/SkyF.frag'
-import SkyV from '~~/webgl/Shaders/Sky/SkyV.vert'
 
 import WebGL from '~~/webgl';
 
@@ -22,11 +15,12 @@ export default class SkyCustom {
 		this.WebGL = new WebGL
 		this.debug = _options.debug
 
-		 //Set options for sphere color
-		 this.sphereTopColor = _options.sphereTopColor
-		 this.sphereBottomColor = _options.sphereBottomColor
-		 this.offset = _options.offset
-		 this.exponent = _options.exponent
+		this.turbidity = _options.turbidity || 2.1
+		this.rayleigh = _options.rayleigh || 2
+		this.mieCoefficient = _options.mieCoefficient || 0.165
+		this.mieDirectionalG = _options.mieDirectionalG || 1
+		this.elevation = _options.elevation || 40
+		this.azimuth = _options.azimuth || 254.5
 
 
 		this.container = new Object3D()
@@ -34,12 +28,10 @@ export default class SkyCustom {
 
 		this.init()
 
-		// if (this.debug) {
-		// 	this.debugFolder = this.debug.addFolder({ title: 'sky', expanded: false })
-		// 	this.initDebug()
-		// }
-
-		// this.initCustom()
+		if (this.debug) {
+			this.debugFolder = this.debug.addFolder({ title: 'sky', expanded: false })
+			this.initDebug()
+		}
 	}
 
 	init() {
@@ -49,13 +41,13 @@ export default class SkyCustom {
 		this.sun = new Vector3()
 
 		this.skyController = {
-		  turbidity: 2.1,
-		  rayleigh: 2,
-		  mieCoefficient: 0.165,
-		  mieDirectionalG: 1,
-		  elevation: 40,
-		  azimuth: 254.5,
-		  exposure: this.WebGL.renderer.instance.toneMappingExposure
+			turbidity: this.turbidity,
+			rayleigh: this.rayleigh,
+			mieCoefficient: this.mieCoefficient,
+			mieDirectionalG: this.mieDirectionalG,
+			elevation: this.elevation,
+			azimuth: this.azimuth,
+			exposure: this.WebGL.renderer.instance.toneMappingExposure
 		};
 
 		const uniforms = this.sky.material.uniforms;
@@ -71,26 +63,6 @@ export default class SkyCustom {
 		this.sun.setFromSphericalCoords( 1, phi, theta );
 
 		uniforms[ 'sunPosition' ].value.copy( this.sun );
-
-		this.container.add(this.sky)
-	}
-
-	initCustom() {
-		this.uniforms = {
-			topColor: { value: new Color(this.sphereTopColor) },
-			bottomColor: { value: new Color(this.sphereBottomColor) },
-			offset: { value: this.offset },
-			exponent: { value: this.exponent },
-		}
-
-		this.skyGeo = new SphereBufferGeometry(100, 5, 5)
-		this.skyMat = new ShaderMaterial({
-			uniforms: this.uniforms,
-			vertexShader: SkyV,
-			fragmentShader: SkyF,
-			side: BackSide,
-		})
-		this.sky = new Mesh(this.skyGeo, this.skyMat)
 
 		this.container.add(this.sky)
 	}

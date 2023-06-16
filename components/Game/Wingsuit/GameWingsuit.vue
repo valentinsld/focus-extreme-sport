@@ -99,7 +99,7 @@ onMounted(()=> {
 
   const sceneManager = new SceneManager()
   // Duration transition au noir intro
-  sceneManager.setScene('wingsuit', 13000, initStates)
+  sceneManager.setScene('wingsuit', 12000, initStates)
 
   // start sound FADE delay
   Audio.play('cinematique', false, 1, 4000)

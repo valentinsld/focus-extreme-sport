@@ -1,27 +1,23 @@
-import { Object3D, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, InstancedBufferAttribute, Vector3, Color } from 'three';
+import { Vector3, Object3D, Color, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4 } from 'three';
 
-import splashV from '../../../Shaders/Particles/SplashKayak/splashV.vert'
-import splashF from '../../../Shaders/Particles/SplashKayak/splashF.frag'
+import splashV from '../../../Shaders/Particles/SplashParticles/splashV.vert'
+import splashF from '../../../Shaders/Particles/SplashParticles/splashF.frag'
 
-export default class InstanciedKayakSplash {
+export default class InstancedSnowSplash {
 	constructor(options) {
-
-		// Call all options
-		// this.debug = options.debug
 
 		this.direction = options.direction
 		this.spreadMultiplier = options.spreadMultiplier || new Vector3(0.7, 0.7, 0.9)
 
 		this.params = {
 			count: 100,
-		  }
+		}
 
 		// Set up
 		this.container = new Object3D();
-		this.container.name = 'KayakSplashParticle';
+		this.container.name = 'SplashSkiParticle';
 
 		this.dummy = new Object3D()
-		this.count = 0;
 		this.properties = []
 		this.ages = new Float32Array(this.params.count)
 
@@ -33,7 +29,7 @@ export default class InstanciedKayakSplash {
 		]
 
 		this.init()
-		// if(this.debug) this.initDebug()
+
 	}
 
 	init() {
@@ -44,7 +40,6 @@ export default class InstanciedKayakSplash {
 			fragmentShader: splashF,
 			transparent: true,
 			depthTest: true,
-			// blending: AdditiveBlending,
 		})
 
 		this.instancedThem(this.geo, this.mat, this.params.count)
@@ -159,65 +154,4 @@ export default class InstanciedKayakSplash {
 		this.mesh.instanceColor.needsUpdate = true
 
 	}
-
-	updateParticles(time, dt) {
-
-		for (let i = 0; i < this.params.count; i++) {
-		   this.ages[ i ] += ((dt) * this.properties[i].speed);
-
-		   this.dummy.matrix.copy(this.properties[i].mat)
-
-		   this.mesh.setMatrixAt(i, this.dummy.matrix)
-
-			this.properties[i].maxiDummy.position.y += this.properties[i].velocity.y * .00125;
-			this.properties[i].velocity.y *= .99 * this.spreadMultiplier.y; // between 0 and 0.99 => spread Y
-			this.properties[i].velocity.y = Math.max(this.properties[i].velocity.y - (this.properties[i].gravity) , -1);
-
-
-			this.properties[i].maxiDummy.position.x += this.properties[i].velocity.x * .01;
-			this.properties[i].velocity.x *= .99 * this.spreadMultiplier.x; // between 0 and 0.99 => spread X
-
-			// Z displacement for falling effect
-			this.properties[i].maxiDummy.position.z += this.properties[i].velocity.z * .01;
-			this.properties[i].velocity.z *= .99 * this.spreadMultiplier.z;
-
-			this.dummy.matrix.setPosition( this.properties[i].maxiDummy.position.x, this.properties[i].maxiDummy.position.y, this.properties[i].maxiDummy.position.z)
-
-		   this.mesh.setMatrixAt(i, this.dummy.matrix)
-
-		   this.mesh.geometry.attributes.aAlpha.setX(i, MathUtils.smoothstep(MathUtils.clamp(this.ages[i], 1, 5), 0, 1))
-
-		   if ( this.ages[ i ] >= 5 ) {
-			   this.ages[ i ] = 0;
-
-				this.propulseParticle(this.properties[i])
-		   }
-	   }
-	   this.mesh.geometry.attributes.aAlpha.needsUpdate = true
-
-	//    this.container.rotation.set(-this.camera.rotation.x , 0, -this.camera.rotation.z)
-
-	   this.mesh.instanceMatrix.needsUpdate = true;
-   }
-
-   propulseParticle(element) {
-		element.delay = 0;
-
-		// Starting position of lunching particle
-		element.maxiDummy.position.y = 0;
-		element.maxiDummy.position.x = element.pos.x;
-		element.maxiDummy.position.z = element.pos.z;
-
-		element.velocity.copy(element.dirVect);
-
-		// Multiplier for vector (strength of projection)
-		element.velocity.y *= MathUtils.randFloat(2,5);
-		element.velocity.x *= MathUtils.randFloat(2,5);
-		element.velocity.z *= MathUtils.randFloat(2,5);
-	}
-
-	hideSplash() {
-		this.mesh.visible = false
-	}
-
 }

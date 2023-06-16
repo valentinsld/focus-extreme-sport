@@ -11,7 +11,7 @@ import DirectionalLightSource from '../Components/Environment/DirectionalLight.j
 import SkyCustom from '../Components/Environment/Sky.js';
 import RiverF from '@/webgl/Shaders/River/riverF.frag'
 import RiverV from '@/webgl/Shaders/River/riverV.vert'
-import InstanciedKayakSplash from '../Components/Particles/Water/InstanciedKayakSplash.js'
+import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 
 import datas from "~~/webgl/data/data.json"
 import kayakHdr from '~~/assets/hdr/kayak.hdr'
@@ -22,6 +22,13 @@ const CAM_3P_1 = {
   y: 0.5,
   z: -4.5,
 }
+
+const splashColors = [
+  new Color(0x418B84),
+	new Color(0x316863),
+	new Color(0x347F7A),
+  new Color(0x5CBDB6),
+]
 
 const CLEAR_COLOR = 0xCFBF48
 
@@ -221,19 +228,22 @@ export default class SceneKayak extends BaseScene {
   }
 
   initKayakSplash() {
-    this.splashLeft = new InstanciedKayakSplash({
-      direction: 'left'
+    this.splashLeft = new InstancedSplash({
+      direction: 'left',
+      colors: splashColors
     })
     this.splashLeft.container.position.set(0.025, -0.02,.08)
 
-    this.splashRight = new InstanciedKayakSplash({
-      direction: 'right'
+    this.splashRight = new InstancedSplash({
+      direction: 'right',
+      colors: splashColors
     })
     this.splashRight.container.position.set(-0.025, -0.02,.08)
 
-    this.splashBack = new InstanciedKayakSplash({
+    this.splashBack = new InstancedSplash({
       direction: 'back',
-      spreadMultiplier: new Vector3(.85, .7, .85)
+      spreadMultiplier: new Vector3(.85, .7, .85),
+      colors: splashColors
     })
     this.splashBack.container.position.set(-0.0125, -0.01,-.07)
     // this.splashRight.container.rotation.y = Math.PI

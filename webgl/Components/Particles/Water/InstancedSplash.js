@@ -16,11 +16,8 @@ export default class InstancedSplash {
 		this.velocityMultiplier = options.velocityMultiplier || 1
 		this.maxAlphas = options.maxAlphas || new Vector2(0.1, 0.8)
 		this.veloRandArr = options.veloRandArr || [{x: 2, y: 2, z: 2}, {x: 5, y: 5, z: 5}]
-<<<<<<< HEAD
 		this.lifeTime = options.lifeTime || 5
 		this.type = options.type || 'default'
-=======
->>>>>>> 1e4a1fb (Fix merge)
 
 		this.params = {
 			count: options.count || 100,
@@ -162,11 +159,7 @@ export default class InstancedSplash {
 				)
 				})
 
-<<<<<<< HEAD
 			alphas.push(1)
-=======
-			alphas.push(0)
->>>>>>> 1e4a1fb (Fix merge)
 			maxAlphas.push(MathUtils.randFloat(this.maxAlphas.x, this.maxAlphas.y))
 
 			this.mesh.setColorAt(i, this.colorsArr[randIndex])
@@ -252,13 +245,10 @@ export default class InstancedSplash {
 		this.mesh.visible = false
 	}
 
-<<<<<<< HEAD
 	showSplash() {
 		this.mesh.visible = true
 	}
 
-=======
->>>>>>> 1e4a1fb (Fix merge)
 	startEmit() {
 		this.canEmit = true;
 		this.isFalling = false;

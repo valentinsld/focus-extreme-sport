@@ -139,10 +139,11 @@ function initStates(scene) {
     store.state.gamestatestep = 1
   })
 
-  // event QTE End Balance
+  // // event QTE End Balance
   scene.setEventTimeline(0.4, () => {
     store.state.gamestatestep = 2
   })
+
 
   // start travelling 3P
   scene.setEventTimeline(0.555, () => {

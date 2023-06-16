@@ -1,4 +1,4 @@
-import { Group, AmbientLight, AxesHelper, Vector3, FogExp2 } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, FogExp2, Color, Vector2 } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 import anime from "animejs"
@@ -11,12 +11,20 @@ import datas from "~~/webgl/data/data.json"
 import skiHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
+import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
 const CAM_F = new Vector3(19.8, 1.85, 4.1)
 const QUOTE_POS = new Vector3(18.60, 1.70, 3.90)
 const CAM_F_TARGET = new Vector3(QUOTE_POS.x, QUOTE_POS.y, 3.98)
+
+const splashColors = [
+  new Color(0xD4DBE4),
+	new Color(0xCFD7E2),
+	new Color(0xA9BCD0),
+  new Color(0x97B0C7),
+]
 
 export default class SceneSki extends BaseScene {
   static singleton
@@ -88,11 +96,13 @@ export default class SceneSki extends BaseScene {
 
     this.sky.container.position.set(0, -50, 0)
 
+    this.initSkiSplash()
+
     // add quote
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: 'Tu joues avec la montagne, la montagne n’est jamais pareil, tu t’adaptes au terrain : c’est un sport d’improvisation',
+      quoteContent: 'Tu joues avec la montagne, la montagne n\'est jamais pareil, tu t\'adaptes au terrain : c\'est un sport d\'improvisation',
 
       authorWidth: 1000,
       quoteAuthor: 'Richard Permin',
@@ -126,6 +136,19 @@ export default class SceneSki extends BaseScene {
     }
   }
 
+  initSkiSplash() {
+    this.splashLeft = new InstancedSplash({
+      direction: 'back',
+      colors: splashColors,
+      spreadMultiplier: new Vector3(0.2, 1, .95), // sur une base de .99 * value
+      scales: new Vector2(0.01, 0.025),
+      veloRandArr: [{x: 2, y: 4, z: 10}, {x: 5, y: 6, z: 15}]
+    })
+    this.splashLeft.container.position.set(0, -0.1, -0.075)
+
+    this.character.add(...[this.splashLeft.container])
+  }
+
   startScene() {
     // 1 - set curves for tracking camera
     TRAC_CAM.CURVE_PERSO.forEach(curve => {
@@ -141,6 +164,7 @@ export default class SceneSki extends BaseScene {
     RAFManager.add('SceneSki', (currentTime, dt) => {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
+      this.splashLeft.updateParticles(currentTime, dt)
     })
 
     // play audio
@@ -202,7 +226,7 @@ export default class SceneSki extends BaseScene {
     requestAnimationFrame(() => {
       RAFManager.setSpeed(0.1)
     })
-
+    this.splashLeft.endEmit()
     const delay = 700
     const duration = 5400
     anime.timeline({
@@ -216,7 +240,8 @@ export default class SceneSki extends BaseScene {
       complete: () => {
         setTimeout(() => {
           RAFManager.setSpeed(0.45)
-        }, 500);
+          this.splashLeft.startEmit()
+        }, 800);
       }
     }, delay * 0.3)
     .add({

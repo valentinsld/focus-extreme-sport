@@ -46,6 +46,10 @@ const route = useRoute()
 
 const IS_DEV = process.dev
 
+watch(() => route.name, (name) => {
+  store.lastRoute = name
+})
+
 onMounted(() => {
   new WebGL();
 });

@@ -1,24 +1,29 @@
 <template>
-  <div
-    :class="{
-      'page-sticker': true,
-      'is-hide': isHide
-    }"
-  >
-    <h1>Découvre les stickers que tu as gagnés !!</h1>
-
-    <div class="page-sticker__list">
-      <div class="list__item">
-        <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-wingsuit.png' : '/stickers/3-wingsuit.png'">
-      </div>
-      <div class="list__item">
-        <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-kayak.png' : '/stickers/3-kayak.png'">
-      </div>
+  <div>
+    <div>
+      Zone de photo
     </div>
+    <div
+      :class="{
+        'page-sticker': true,
+        'is-hide': isHide
+      }"
+    >
+      <h1>Découvre les stickers que tu as gagnés !!</h1>
 
-    <NuxtLink to="/flow-state">
-      En apprendre plus sur le sport extreme
-    </NuxtLink>
+      <div class="page-sticker__list">
+        <div class="list__item">
+          <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-wingsuit.png' : '/stickers/3-wingsuit.png'">
+        </div>
+        <div class="list__item">
+          <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-kayak.png' : '/stickers/3-kayak.png'">
+        </div>
+      </div>
+
+      <NuxtLink to="/flow-state">
+        En apprendre plus sur le sport extreme
+      </NuxtLink>
+    </div>
   </div>
 </template>
 

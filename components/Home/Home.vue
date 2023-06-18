@@ -45,6 +45,10 @@
         >
           <span class="btn-text">commencer</span>
         </button>
+
+        <button @click="() => navigateTo('/stickers-rewards')">
+          Go to stickers
+        </button>
       </div>
     </section>
   </Transition>
@@ -61,6 +65,8 @@ const store = useStore()
 onMounted(()=> {
   const sceneManager = new SceneManager()
   sceneManager.setScene('home')
+
+  resetScores()
 })
 
 function startProject() {
@@ -68,6 +74,12 @@ function startProject() {
   scene.playDisableWhite()
   store.state.gamestate = 'selection'
   new AudioManager().play('intro', true, 0.1, 2000) //Volume BO
+}
+
+function resetScores() {
+  store.state.altimetre.scores.wingsuit = 0
+  store.state.altimetre.scores.ski = 0
+  store.state.altimetre.scores.kayak = 0
 }
 </script>
 

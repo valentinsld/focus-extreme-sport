@@ -1,100 +1,92 @@
 <template>
-  <div>
-    <div>
-      Zone de photo
-    </div>
-    <div
-      :class="{
-        'page-sticker': true,
-        'is-hide': isHide
-      }"
-    >
-      <h1>Découvre les stickers que tu as gagnés !!</h1>
-
-      <div class="page-sticker__list">
-        <div class="list__item">
-          <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-wingsuit.png' : '/stickers/3-wingsuit.png'">
-        </div>
-        <div class="list__item">
-          <img :src="store.state.altimetre.scores.wingsuit > 50 ? '/stickers/1-kayak.png' : '/stickers/3-kayak.png'">
-        </div>
-      </div>
-
-      <NuxtLink to="/flow-state">
-        En apprendre plus sur le sport extreme
-      </NuxtLink>
-    </div>
-  </div>
+  <Transition
+    v-if="!isHide"
+    name="stickers"
+  >
+    <StickersIntro
+      v-if="isIntro"
+      class="page page-stickers"
+      @close="seeRewards"
+    />
+    <StickersRewards
+      v-else
+      class="page page-stickers"
+      :rewards="currentRewards"
+    />
+  </Transition>
 </template>
 
 <script setup>
 import useStore from '@/stores/index.js'
+import useStickers from '@/stores/stickers.js'
 import SceneManager from '~~/webgl/Managers/SceneManager'
 
 const store = useStore()
+const stickers = useStickers()
 const isHide = ref(true)
 
+const isIntro = ref(true)
+const currentRewards = reactive({
+  wingsuit: 3,
+  ski: 3,
+  kayak: 3,
+  like_a_boss: false,
+})
+
 onMounted(()=> {
+  if (store.state.lastRoute !== 'index') {
+    return navigateTo('/flow-state');
+  }
+
   const sceneManager = new SceneManager()
   sceneManager.setScene('empty', .35, () => {
     isHide.value = false
   })
+
+  calculateStickers()
 })
+
+function calculateStickers() {
+  currentRewards.value = stickers.calculateNewStickers(
+    store.state.altimetre.scores.wingsuit,
+    store.state.altimetre.scores.ski,
+    store.state.altimetre.scores.kayak,
+  )
+
+  console.log(stickers.calculateNewStickers(
+    store.state.altimetre.scores.wingsuit,
+    store.state.altimetre.scores.ski,
+    store.state.altimetre.scores.kayak,
+  ))
+
+  console.log(currentRewards.value)
+}
+
+function seeRewards() {
+  isIntro.value = false
+}
 </script>
 
-<style lang="scss">
-.page-sticker {
-  position: relative;
+<style lang="scss" scoped>
+.page-stickers {
+  color: colors(black);
   z-index: 1;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  --duration-transition: 500ms
+}
 
-  height: 100vh;
+.stickers-leave-active,
+.stickers-enter-active {
+  transition: opacity var(--duration-transition) cubic-bezier(0.55, 0, 0.1, 1);
+}
 
-  color: colors(black);
+.stickers-leave-to,
+.stickers-enter-from {
+  opacity: 0;
+}
 
-  transition: opacity 1s ease-in-out;
 
-  &.is-hide {
-    opacity: 0;
-  }
-
-  &__list {
-    display: flex;
-    justify-content: space-between;
-
-    width: 70%;
-    min-height: 50%;
-
-    .list {
-      &__item {
-        width: 30%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        background: rgba(217, 217, 217, 0.49);
-        border: 2px solid #FFFFFF;
-        border-radius: 30px;
-
-        img {
-          position: relative;
-          width: 130%;
-          max-height: 40%;
-          object-fit: contain;
-        }
-      }
-    }
-  }
-
-  a {
-    border: 1px solid colors(black);
-    padding: 8px 24px;
-  }
+.stickers-enter-active {
+  transition-delay: var(--duration-transition);
 }
 </style>

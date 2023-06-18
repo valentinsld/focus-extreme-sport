@@ -1,5 +1,5 @@
 import { Group } from 'three'
-import HomeBackground from '../Components/HomeBackground.js'
+import HomeBackground from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
 
 export default class SceneHome extends BaseScene {

@@ -15,7 +15,7 @@ import clearThree from '../Utils/ClearScene.js'
 
 const count = 2000
 
-export default class HomeBackground {
+export default class Background {
 	constructor() {
 		this.inView = false
 		this.WebGL = new WebGL()

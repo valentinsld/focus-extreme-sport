@@ -47,11 +47,13 @@ const route = useRoute()
 const IS_DEV = process.dev
 
 watch(() => route.name, (name) => {
-  store.lastRoute = name
+  store.state.lastRoute = name
 })
 
 onMounted(() => {
   new WebGL();
+
+  store.state.lastRoute = route.name
 });
 
 const noCursor = computed(() => ['intro', 'wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))

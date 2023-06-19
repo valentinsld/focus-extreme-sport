@@ -1,8 +1,7 @@
 <template>
   <div
     :class="{
-      'rewards': true,
-      'is-hide': isHide
+      'rewards': true
     }"
   >
     <div

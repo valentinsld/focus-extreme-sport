@@ -1,6 +1,11 @@
 import { Group, AmbientLight } from 'three'
 import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
+
+import MSDFText from '../Components/MSDFText.js'
+import TuskerAtlas from '~~/assets/MSDFfonts/TuskerGrotesk-2500Medium.png'
+import TuskerFNT from '~~/assets/MSDFfonts/TuskerGrotesk-2500Medium-msdf.json'
+
 import anime from 'animejs'
 
 export default class SceneStickers extends BaseScene {
@@ -69,6 +74,23 @@ export default class SceneStickers extends BaseScene {
       }
     }
 
+    // text
+    this.text = new MSDFText({
+      font: TuskerFNT,
+      atlas: TuskerAtlas,
+      text: 'REWARDS',
+      lineHeight: 0,
+      width: 100,
+      align: 'center',
+      color: '#000000',
+      hasStroke: true,
+    }, (that) => {
+      const box = that.mesh.geometry.computeBoundingBox()
+      that.mesh.position.x -= (box.min.x + box.max.x) / 2
+      that.mesh.position.y -= (box.min.y + box.max.y) / 2
+    });
+    this.text.container.scale.set(0.3, 0.3, 0.3)
+    this.text.container.position.set(0, 0, -8)
 
     // lights
     this.ambientLight = new AmbientLight(0xffffff, 1)
@@ -85,6 +107,8 @@ export default class SceneStickers extends BaseScene {
     this.WebGL.camera.enableOrbitControls()
 
     this.bkg.initOnScene()
+
+    this.WebGL.camera.current.add(this.text.container)
 
     // disable lines
     this.WebGL.camera.speedLine.hideLines()

@@ -11,6 +11,7 @@ const useStore = defineStore('store', () => {
 			isAudioMuted: false,
 			isOverlayVisible: false,
 			isTutoVisible: false,
+			isCountdownPlaying: false,
 			altimetre: {
 				scores: {
 					wingsuit: 0,

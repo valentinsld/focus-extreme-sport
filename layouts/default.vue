@@ -16,7 +16,12 @@
       :class="{'is-visible': store.state.isOverlayVisible}"
     />
 
-    <Tutorial v-if="store.state.gamestate === 'wingsuit'" />
+    <Tutorial
+      v-if="store.state.gamestate === 'wingsuit'"
+      id="tutorial"
+    />
+
+    <Countdown />
 
     <Transition
       name="sound"
@@ -33,6 +38,7 @@ import WebGL from '~~/webgl';
 import useStore from '~/stores'
 import SoundBar from '~~/components/Common/SoundBar.vue';
 import Tutorial from '~~/components/Common/Tutorial.vue';
+import Countdown from '~~/components/Common/Countdown.vue';
 
 const store = useStore()
 

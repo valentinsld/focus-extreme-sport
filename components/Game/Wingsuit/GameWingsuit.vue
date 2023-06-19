@@ -156,20 +156,6 @@ function initLottie() {
 const initStates = (scene) => {
   currentScene = scene
 
-  RAFManager.speed = 0.18
-
-  // Show lottie rollover
-  // scene.setEventTimeline(0.01, () => {
-  //   RAFManager.setSpeed(0.18)
-  //   store.state.isOverlayVisible = true
-  //   store.state.isTutoVisible = true
-  // })
-  // scene.setEventTimeline(0.03, () => {
-  //   RAFManager.setSpeed(1)
-  //   store.state.isOverlayVisible = false
-  //   store.state.isTutoVisible = false
-  // })
-
   // Show lottie rollover
   scene.setEventTimeline(0.045, () => {
     isRolloverVisible.value = true
@@ -185,10 +171,10 @@ const initStates = (scene) => {
 
 
   // Show lottie balance
-  scene.setEventTimeline(0.195, () => {
+  scene.setEventTimeline(0.23, () => {
     isBalanceVisible.value = true
   })
-  scene.setEventTimeline(0.2, () => {
+  scene.setEventTimeline(0.24, () => {
     balanceAnime.play()
   })
 
@@ -208,10 +194,10 @@ const initStates = (scene) => {
   })
 
    // Show lottie focus
-   scene.setEventTimeline(0.595, () => {
+   scene.setEventTimeline(0.63, () => {
     isFocusVisible.value = true
   })
-  scene.setEventTimeline(0.6, () => {
+  scene.setEventTimeline(0.64, () => {
     focusAnime.play()
   })
   // event QTE Focus

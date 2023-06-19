@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import SceneStickers from '@/webgl/Scenes/sceneStickers.js'
+import WebGL from '@/webgl/index.js'
 import useStickers from '@/stores/stickers.js'
 
 defineProps({
@@ -74,7 +74,7 @@ function nextSticker() {
 // on end see stickers
 watch(currentSticker, (value) => {
   if (value === 3) {
-    const scene = new SceneStickers()
+    const scene = (new WebGL()).sceneStickers.scene
 
     scene.seeStickers(toRaw(stickers.state))
   }

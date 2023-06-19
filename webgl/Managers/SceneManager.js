@@ -41,8 +41,10 @@ export default class SceneManager {
 				FadeDiv.style.transitionDuration = this.webgl.fxComposer.duration + 'ms'
 				FadeDiv.classList.add('is-active')
 				this.store.state.isTransitioning = true
-				this.store.state.isTutoVisible = true
-				// this.store.state.isCountdownPlaying = true
+
+				setTimeout(()=> {
+					this.store.state.isTutoVisible = true
+				}, 500)
 
 				setTimeout(() => {
 					this.webgl.currentScene = newScene

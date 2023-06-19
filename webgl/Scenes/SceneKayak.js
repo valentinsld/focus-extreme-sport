@@ -47,7 +47,7 @@ export default class SceneKayak extends BaseScene {
     this.assets = this.WebGL.assets
     this.generator = this.WebGL.renderer.generator
     this.scene = this.WebGL.sceneKayak
-    this.scene.fog = new Fog(0x9bc8fa, 0, 10)
+    this.scene.fog = new Fog(0x9bc8fa, 0, 15)
     this.sizes = this.WebGL.sizes
 
     this.params = {
@@ -63,6 +63,10 @@ export default class SceneKayak extends BaseScene {
     this.pine = []
     this.bush = []
     this.rock = []
+    this.deadWood = []
+    this.firWood = []
+    this.littleTree = []
+    this.rockV2 = []
 
     this.init()
 
@@ -76,16 +80,32 @@ export default class SceneKayak extends BaseScene {
     this.map = this.assets.models["kayak_map"].scene
 
     this.map.traverse((element) => {
-			if(element.name.includes('PINTREE')) {
+			if(element.name.includes('High_Sapin')) {
 				this.pine.push(element)
 			}
 
-      if(element.name.includes('BUSH')) {
+      if(element.name.includes('Bush')) {
 				this.bush.push(element)
 			}
 
-      if(element.name.includes('ROCK')) {
+      if(element.name.includes('Rock_V1')) {
 				this.rock.push(element)
+			}
+
+      if(element.name.includes('Rock_V2')) {
+				this.rockV2.push(element)
+			}
+
+      if(element.name.includes('Dead_Wood')) {
+				this.deadWood.push(element)
+			}
+
+      if(element.name.includes('Fir_Wood')) {
+				this.firWood.push(element)
+			}
+
+      if(element.name.includes('Little_Tree')) {
+				this.littleTree.push(element)
 			}
 		})
 
@@ -195,10 +215,13 @@ export default class SceneKayak extends BaseScene {
   initWater() {
 
     this.map.traverse((child) => {
-      if(child.name.includes("EAU")) {
-        this.water = child
-      }
-    })
+      if(child.name.includes("LEVELDESIGN")) {
+        child.traverse((element) => {
+          if(element.name.includes("EAU")) {
+            this.water = element.children[1];
+          }
+        })
+    }})
 
     this.foam = this.water.material.map;
 
@@ -230,7 +253,7 @@ export default class SceneKayak extends BaseScene {
 
         fogColor: { value: new Color(0x9bc8fa)},
         fogNear: { value: 0},
-        fogFar: { value: 10},
+        fogFar: { value: 15},
 
       },
       defines: {
@@ -238,7 +261,7 @@ export default class SceneKayak extends BaseScene {
       },
     })
 
-    this.water.position.y += .01
+    this.water.position.y += .005
   }
 
   initKayakSplash() {
@@ -269,7 +292,7 @@ export default class SceneKayak extends BaseScene {
       name: 'pine',
       model: 'instance_pine',
       instances: this.pine,
-      scaleMultiplier: .025,
+      scaleMultiplier: .0475,
       hdr: kayakHdr,
       hasHdr: true,
     })
@@ -285,12 +308,56 @@ export default class SceneKayak extends BaseScene {
       name: 'rock',
       model: 'instance_rock',
       instances: this.rock,
-      scaleMultiplier: .0005,
+      scaleMultiplier: .0009,
       hdr: kayakHdr,
       hasHdr: true,
     })
 
-    this.instance.add(...[this.pineInstanced.container, this.bushInstanced.container, this.rockInstanced.container])
+    this.rockV2Instanced = new InstancedAssets({
+      name: 'rockV2',
+      model: 'instance_rock_v2',
+      instances: this.rockV2,
+      scaleMultiplier: .11,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.deadWoodInstanced = new InstancedAssets({
+      name: 'deadWood',
+      model: 'instance_dead_wood',
+      instances: this.deadWood,
+      scaleMultiplier: .138,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.firWoodInstanced = new InstancedAssets({
+      name: 'firWood',
+      model: 'instance_fir_wood',
+      instances: this.firWood,
+      scaleMultiplier: .05,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.littleTreeInstanced = new InstancedAssets({
+      name: 'littleTree',
+      model: 'instance_little_tree',
+      instances: this.littleTree,
+      scaleMultiplier: .15,
+      hdr: kayakHdr,
+      hasHdr: true,
+    })
+
+    this.instance.add(...[
+      this.pineInstanced.container,
+      this.bushInstanced.container,
+      this.rockInstanced.container,
+      this.deadWoodInstanced.container,
+      this.firWoodInstanced.container,
+      this.littleTreeInstanced.container,
+      this.rockV2Instanced.container,
+    ])
   }
 
   startScene() {

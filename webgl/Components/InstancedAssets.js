@@ -78,6 +78,8 @@ export default class InstancedAssets {
 			this.dummy.rotation.y = this.instances[i].rotation.y;
 			this.dummy.rotation.z = this.instances[i].rotation.z;
 
+			// this.dummy.rotation.reorder('XZY')
+
 			this.dummy.quaternion.setFromEuler( this.dummy.rotation );
 
 			this.dummy.scale.x = this.instances[i].scale.x * this.scaleMultiplier;

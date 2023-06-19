@@ -52,7 +52,13 @@ defineProps({
 })
 
 const stickers = useStickers()
-const currentSticker = ref(0)
+const currentSticker = ref(-1)
+
+onMounted(() => {
+  setTimeout(() => {
+    currentSticker.value = 0
+  }, 1000)
+})
 
 function nextSticker() {
   currentSticker.value++

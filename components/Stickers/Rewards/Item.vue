@@ -15,10 +15,12 @@
     </p>
 
     <button
-      class="reward-item__btn"
+      class="reward-item__btn  btn-underline"
       @click="next"
     >
-      Suivant ->
+      <span>
+        Suivant
+      </span>
     </button>
   </div>
 </template>
@@ -50,8 +52,8 @@ function next() {
 }
 </script>
 
-<style lang="scss" scoped>
-$bottom: 80px;
+<style lang="scss">
+$bottom: 40px;
 $right: 70px;
 
 .reward-item {
@@ -61,44 +63,70 @@ $right: 70px;
 	width: 100%;
 	height: 100%;
 
-	opacity: 0;
 	pointer-events: none;
-	transition: opacity 1s ease-in-out;
 
 	&.is-visible {
-		transition-delay: 1s;
-
+		z-index: 1;
 		pointer-events: initial;
-		opacity: 1;
+
+		.reward-item__sticker {
+			transition-delay: 0.5s;
+			transition-duration: 2s;
+			transition-timing-function: ease(out-bounce);
+			transform: translate(-50%, -50%) rotate3d(0.5, 1, 0, 360deg) scale(1);
+		}
+
+		.reward-item__text,
+		.reward-item__btn {
+			transition-delay: 1.5s;
+			transition-duration: 0.5s;
+			opacity: 1 !important;
+		}
 	}
 
 	&__sticker {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(0);
 
 		width: 50%;
 		height: 50%;
 		object-fit: contain;
 		max-width: 500px;
 		max-height: 300px;
+
+		perspective: 10px;
+		perspective-origin: center center;
+
+		transition: transform 0.75s ease(ease_out-cubic);
+	}
+
+	&__text,
+	&__btn {
+		opacity: 0;
+		transition: opacity 0.5s ease(ease_out-cubic);
 	}
 
 	&__text {
 		position: absolute;
 		bottom: $bottom;
 		left: 50%;
-
 		transform: translateX(-50%);
+		max-width: 400px;
 
+		text-align: center;
+		font-size: 2rem;
+		font-weight: 400;
 		color: colors(white);
 	}
 
 	&__btn {
-		position: absolute;
+		position: absolute !important;
 		bottom: $bottom;
 		right: $right;
+
+		color: colors(white);
 	}
 }
 </style>

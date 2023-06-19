@@ -157,28 +157,6 @@ function resetScores() {
   }
 }
 
-.btn-text {
-  display: block;
-  position: relative;
-  font-family: const(font-akira);
-  font-weight: 900;
-  font-size: 2.5rem;
-
-  &::after {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: colors(black);
-    bottom: -5%;
-    transform-origin: center center;
-    transform: scaleX(0);
-    transition: transform .35s ease(out-swift);
-
-  }
-}
-
 .home-enter-active {
   transition: opacity 500ms cubic-bezier(0.55, 0, 0.1, 1);
 }

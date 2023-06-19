@@ -34,8 +34,16 @@
       />
     </div>
 
-    <NuxtLink to="/flow-state">
-      En apprendre plus sur le sport extreme
+    <NuxtLink
+      :class="{
+        'btn-underline': true,
+        'is-visible': currentSticker >= 3
+      }"
+      to="/flow-state"
+    >
+      <span>
+        En savoir +
+      </span>
     </NuxtLink>
   </div>
 </template>
@@ -111,8 +119,13 @@ watch(currentSticker, (value) => {
   }
 
   a {
-    border: 1px solid colors(black);
-    padding: 8px 24px;
+    position: absolute;
+    bottom: 40px;
+    right: 70px;
+
+    &.is-visible {
+      opacity: 1 !important
+    }
   }
 }
 </style>

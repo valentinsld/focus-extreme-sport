@@ -21,7 +21,7 @@ import useStickers from '@/stores/stickers.js'
 
 import WebGL from '~/webgl/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager'
-import SceneStickers from '@/webgl/Scenes/sceneStickers.js'
+import SceneStickers from '@/webgl/Scenes/SceneStickers.js'
 
 const store = useStore()
 const stickers = useStickers()

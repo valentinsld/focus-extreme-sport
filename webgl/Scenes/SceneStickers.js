@@ -1,5 +1,5 @@
-import { Group } from 'three'
-import HomeBackground from '../Components/Background.js'
+import { Group, AmbientLight } from 'three'
+import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
 
 export default class SceneHome extends BaseScene {
@@ -12,26 +12,41 @@ export default class SceneHome extends BaseScene {
     super() // must be before this
     SceneHome.singleton = this
 
-    this.scene = this.WebGL.sceneHome
+    this.scene = this.WebGL.sceneStickers
     this.assets = this.WebGL.assets
     this.camPos = this.WebGL.camera.container.position
+
+    this.instance = new Group()
+    this.scene.add(this.instance)
 
     this.init()
   }
 
   init() {
-    this.destroyScene()
-    this.instance = new Group()
+    // bkg
+    this.bkg = new Background({
+      hasParticles: false
+    })
 
-    this.bkg = new HomeBackground({})
+    this.bkg.instance.position.set(0, 0, -10)
+    this.bkg.instance.scale.set(1.5, 1.5, 1.5)
 
-    this.scene.add(this.instance)
+    // helmet
+    this.helmet = this.assets.models.helmet.scene
+
+    // lights
+    this.ambientLight = new AmbientLight(0xffffff, 1)
+
+    this.instance.add(this.helmet,this.ambientLight)
   }
 
   startScene() {
+    this.WebGL.renderer.instance.setClearColor(0xffffff, 1)
+
     this.WebGL.camera.target.set(0, 0, 0)
-    this.WebGL.camera.current.position.copy(this.WebGL.camera.initPosition)
+    this.WebGL.camera.current.position.set(0, 3, 3)
     this.instance.add(this.WebGL.camera.current)
+    this.WebGL.camera.enableOrbitControls()
 
     this.bkg.initOnScene()
 

@@ -14,9 +14,12 @@ import RAFManager from '../Utils/RAFManager.js'
 import clearThree from '../Utils/ClearScene.js'
 
 const count = 2000
+const OPTIONS_DEFAULT = {
+	hasParticles: true,
+}
 
 export default class Background {
-	constructor() {
+	constructor(options = {}) {
 		this.inView = false
 		this.WebGL = new WebGL()
 		this.sizes = new Sizes()
@@ -30,6 +33,8 @@ export default class Background {
 			animWhite: 0.35,
 			animDark: 0,
 		}
+
+		this.options = { ...OPTIONS_DEFAULT, ...options }
 
 		this.init()
 	}
@@ -94,64 +99,78 @@ export default class Background {
 		//
 		// ADD particules
 		//
-		this.particlesGeometry = new BufferGeometry()
+		if (this.options.hasParticles) {
+			this.particlesGeometry = new BufferGeometry()
 
-		const positions = new Float32Array(count * 3)
-		const colors = new Float32Array(count * 3)
-		const sizes = new Float32Array(count)
-		const randoms = new Float32Array(count)
+			const positions = new Float32Array(count * 3)
+			const colors = new Float32Array(count * 3)
+			const sizes = new Float32Array(count)
+			const randoms = new Float32Array(count)
 
-		for(let i = 0; i < count; i++)
-		{
-			const i3 = i * 3
+			for(let i = 0; i < count; i++)
+			{
+				const i3 = i * 3
 
-			positions[i3] = (Math.random() - 0.5)
-			positions[i3 + 1] = (Math.random() - 0.5)
-			positions[i3 + 2] = 0
+				positions[i3] = (Math.random() - 0.5)
+				positions[i3 + 1] = (Math.random() - 0.5)
+				positions[i3 + 2] = 0
 
-			colors[i3] = 1
-			colors[i3 + 1] = 1
-			colors[i3 + 2] = 1
+				colors[i3] = 1
+				colors[i3 + 1] = 1
+				colors[i3 + 2] = 1
 
-			sizes[i] = (Math.random() + 0.5)
-			randoms[i] = Math.random()
+				sizes[i] = (Math.random() + 0.5)
+				randoms[i] = Math.random()
+			}
+
+			this.particlesGeometry.setAttribute('position', new BufferAttribute(positions, 3))
+			this.particlesGeometry.setAttribute('color', new BufferAttribute(colors, 3))
+			this.particlesGeometry.setAttribute('aSize', new BufferAttribute(sizes, 1))
+			this.particlesGeometry.setAttribute('aRandom', new BufferAttribute(randoms, 1))
+
+			const particlesMaterial = new ShaderMaterial({
+				vertexShader: particlesVertexShader,
+				fragmentShader: particlesFragmentShader,
+				blending: AdditiveBlending,
+				depthTest: false,
+				transparent: true,
+
+				uniforms: {
+					uTime: { value: 0 },
+					uSize: { value: 25 },
+				},
+			})
+
+			// Points
+			this.particles = new Points(this.particlesGeometry, particlesMaterial)
+			this.particles.position.set(-0.25, -0.25, 0)
+			this.instance.add(this.particles)
 		}
-
-		this.particlesGeometry.setAttribute('position', new BufferAttribute(positions, 3))
-		this.particlesGeometry.setAttribute('color', new BufferAttribute(colors, 3))
-		this.particlesGeometry.setAttribute('aSize', new BufferAttribute(sizes, 1))
-		this.particlesGeometry.setAttribute('aRandom', new BufferAttribute(randoms, 1))
-
-		const particlesMaterial = new ShaderMaterial({
-			vertexShader: particlesVertexShader,
-			fragmentShader: particlesFragmentShader,
-			blending: AdditiveBlending,
-			depthTest: false,
-			transparent: true,
-
-			uniforms: {
-				uTime: { value: 0 },
-				uSize: { value: 25 },
-			},
-		})
-
-		// Points
-		this.particles = new Points(this.particlesGeometry, particlesMaterial)
-		this.particles.position.set(-0.25, -0.25, 0)
-		this.instance.add(this.particles)
-
-		// add instance
-		this.camera.add(this.instance)
 
 		// Resize
 		this.sizes.on('resize', () => {
 			material.uniforms.uResolution.value = [this.sizes.width, this.sizes.height]
 		})
-
-		// update
-		RAFManager.add('HomeBackground', this.update.bind(this))
 	}
 
+	initOnScene() {
+		this.camera = this.WebGL.camera.current
+
+		// add instance
+		this.camera.add(this.instance)
+
+		// update
+		if (this.options.hasParticles) {
+			RAFManager.add('HomeBackground', this.update.bind(this))
+		} else {
+			RAFManager.add('HomeBackground', this.updateOnlyPlane.bind(this))
+		}
+	}
+
+	updateOnlyPlane(t) {
+		// update time background
+		this.plane.material.uniforms.uTime.value = t * 0.1
+	}
 	update(t) {
 		// update time background
 		this.plane.material.uniforms.uTime.value = t * 0.1

@@ -19,7 +19,7 @@ import SceneWingsuit from './Scenes/SceneWingsuit.js';
 import SceneKayak from './Scenes/SceneKayak.js';
 import FXComposer from './FxComposer.js';
 import SceneSki from './Scenes/SceneSki.js';
-import SceneEmpty from './Scenes/SceneEmpty.js';
+import SceneStickers from './Scenes/SceneStickers.js';
 
 export default class WebGL extends EventEmitter {
   static instance;
@@ -51,7 +51,6 @@ export default class WebGL extends EventEmitter {
     });
 
     this.initSceneHome()
-    this.initSceneEmpty()
 
     this.assets.on('ressourcesReady', () => {
       this.ressourcesReady = true
@@ -62,6 +61,7 @@ export default class WebGL extends EventEmitter {
       this.initSceneWingsuit()
       this.initSceneSki()
       this.initSceneKayak()
+      this.initSceneStickers()
 
       this.sceneManager.startCurrentScene()
     })
@@ -122,12 +122,12 @@ export default class WebGL extends EventEmitter {
     this.sceneTransi = new Scene();
     this.sceneTransi.name = 'Transition'
 
-    this.sceneEmpty = new Scene();
-    this.sceneEmpty.name = 'empty'
+    this.sceneStickers = new Scene();
+    this.sceneStickers.name = 'stickers'
 
     this.currentScene = this.sceneHome
 
-    this.sceneArray = [this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak, this.sceneEmpty]
+    this.sceneArray = [this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak, this.sceneStickers]
   }
 
   setSceneManager() {
@@ -149,8 +149,8 @@ export default class WebGL extends EventEmitter {
   initSceneHome() {
     this.sceneHome.scene = new SceneHome()
   }
-  initSceneEmpty() {
-    this.sceneEmpty.scene = new SceneEmpty()
+  initSceneStickers() {
+    this.sceneStickers.scene = new SceneStickers()
   }
 
   initSceneWingsuit() {

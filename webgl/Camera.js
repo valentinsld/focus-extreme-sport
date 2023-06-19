@@ -107,6 +107,10 @@ export default class Camera {
     return this.current
   }
 
+  enableOrbitControls() {
+    this.orbitControls.enabled = true
+  }
+
   setOrbitControls() {
     this.orbitControls = new OrbitControls(this.current, this.WebGL.canvas)
     this.orbitControls.enabled = false

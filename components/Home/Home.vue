@@ -39,7 +39,7 @@
           Pour une expérience optimale, munis-toi d’un casque
         </p>
         <button
-          class="btn-start"
+          class="btn-underline"
           :class="{'is-visible': store.state.ressourcesLoaded}"
           @click="startProject"
         >
@@ -144,33 +144,6 @@ function resetScores() {
     margin-bottom: 1rem;
     font-size: 1.5rem;
   }
-}
-
-.btn-start {
-  position: relative;
-  border: none;
-  background-color: transparent;
-  pointer-events: all;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  opacity: 0;
-  transition: opacity .3s ease(out-swift);
-
-  &.is-visible {
-    opacity: 1;
-  }
-
-  &:hover {
-    .btn-text {
-      &::after {
-        transform: scaleX(1);
-      }
-    }
-  }
-
 }
 
 .load-text {

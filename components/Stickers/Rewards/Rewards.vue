@@ -63,7 +63,9 @@ watch(currentSticker, (value) => {
   if (value === 3) {
     const scene = new SceneStickers()
 
-    scene.seeStickers(stickers.value)
+    setTimeout(() => {
+      scene.seeStickers(toRaw(stickers.state))
+    }, 300);
   }
 })
 </script>

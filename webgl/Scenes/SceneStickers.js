@@ -3,19 +3,6 @@ import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
 import anime from 'animejs'
 
-const LIST_STICKERS = [
-  '1_WINGSUIT',
-  '2_WINGSUIT',
-  '3_WINGSUIT',
-  '1_SKI',
-  '2_SKI',
-  '3_SKI',
-  '1_KAYAK',
-  '2_KAYAK',
-  '3_KAYAK',
-  '0_LIKE_A_BOSS'
-]
-
 export default class SceneStickers extends BaseScene {
   static singleton
 
@@ -50,14 +37,38 @@ export default class SceneStickers extends BaseScene {
     this.helmet.scale.set(0.0, 0.0, 0.0)
     this.helmet.visible = false
 
-    this.stickers = {}
-    for (const s of LIST_STICKERS) {
-      this.stickers[s] = this.helmet.getObjectByName(s)
-
-      this.stickers[s].material.transparent = true
-      this.stickers[s].material.opacity = 0
-      console.log(this.stickers[s].material)
+    this.stickers = {
+      wingsuit: [
+        this.helmet.getObjectByName('1_WINGSUIT'),
+        this.helmet.getObjectByName('2_WINGSUIT'),
+        this.helmet.getObjectByName('3_WINGSUIT')
+      ],
+      ski: [
+        this.helmet.getObjectByName('1_SKI'),
+        this.helmet.getObjectByName('2_SKI'),
+        this.helmet.getObjectByName('3_SKI')
+      ],
+      kayak: [
+        this.helmet.getObjectByName('1_KAYAK'),
+        this.helmet.getObjectByName('2_KAYAK'),
+        this.helmet.getObjectByName('3_KAYAK')
+      ],
+      like_a_boss: this.helmet.getObjectByName('0_LIKE_A_BOSS')
     }
+    for (const key in this.stickers) {
+      const element = this.stickers[key];
+
+      if (element.isMesh) {
+        element.material.transparent = true
+        element.material.opacity = 0
+      } else {
+        for (let i = 0; i < element.length; i++) {
+          element[i].material.transparent = true
+          element[i].material.opacity = 0
+        }
+      }
+    }
+
 
     // lights
     this.ambientLight = new AmbientLight(0xffffff, 1)
@@ -102,12 +113,21 @@ export default class SceneStickers extends BaseScene {
   }
 
   seeStickers(stickers) {
-    console.log('seeStickers', stickers)
-
-    const arrayMaterial = []
+    const arrayMaterialEdited = []
     for (const key in this.stickers) {
       const element = this.stickers[key];
-      arrayMaterial.push(element.material)
+
+      if (element.isMesh) {
+        if (stickers.like_a_boss) {
+          arrayMaterialEdited.push(element.material)
+        }
+      } else {
+        for (let i = 0; i < stickers[key].length; i++) {
+          const index = Number(stickers[key][i]) - 1;
+
+          arrayMaterialEdited.push(element[index].material)
+        }
+      }
     }
 
     anime({
@@ -117,7 +137,7 @@ export default class SceneStickers extends BaseScene {
       ease: 'easeOutElastic',
     })
     anime({
-      targets: arrayMaterial,
+      targets: arrayMaterialEdited,
       opacity: 1,
       duration: 1000,
       ease: 'easeOutElastic',

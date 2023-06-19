@@ -52,4 +52,30 @@
 	&.is-hide {
 	  opacity: 0;
 	}
-  }
+}
+
+.btn-underline {
+	position: relative;
+	border: none;
+	background-color: transparent;
+	pointer-events: all;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	opacity: 0;
+	transition: opacity .3s ease(out-swift);
+
+	&.is-visible {
+	  opacity: 1;
+	}
+
+	&:hover {
+		.btn-text {
+			&::after {
+			transform: scaleX(1);
+			}
+		}
+	}
+}

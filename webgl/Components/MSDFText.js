@@ -5,10 +5,15 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 import FontAtlas from '~~/assets/MSDFfonts/roboto-regular.png'
 import FontFNT from '~~/assets/MSDFfonts/roboto-regular.json'
+import WebGL from '../index.js';
+
+import StrokeFrag from '~~/webgl/Shaders/MSDFText/Stroke.frag'
 
 export default class MSDFText {
 
-	constructor(_options = {}) {
+	constructor(_options = {}, onPrimiseEnded = null) {
+
+		this.WebGL = new WebGL()
 
 	  this.inView = false
 	  this.container = new Object3D
@@ -26,6 +31,9 @@ export default class MSDFText {
 	  this.isUppercase = _options.isUppercase || false
 	  this.isSmall = _options.isSmall || false
 	  this.color = _options.color || '#ffffff'
+	  this.hasStroke = _options.hasStroke || false
+
+	  this.onPrimiseEnded = onPrimiseEnded
 
 	  this.init()
 	}
@@ -48,8 +56,15 @@ export default class MSDFText {
 			const material = new MSDFTextMaterial();
 			const uniforms = JSON.parse(JSON.stringify(material.uniforms))
 			material.uniforms = uniforms
-			material.uniforms.uMap.value = atlas;
-			material.uniforms.uColor.value = new Color(this.color);
+			material.uniforms.uMap.value = atlas
+			material.uniforms.uColor.value = new Color(this.color)
+			if (this.hasStroke) {
+				material.fragmentShader = StrokeFrag
+				material.uniforms.uStrokeColor.value = new Color(this.color)
+				material.uniforms.uStrokeOutsetWidth.value = 0.0
+				material.uniforms.uStrokeInsetWidth.value = 0.1
+				material.uniforms.uOpacity.value = 0
+			}
 			material.side = DoubleSide
 			material.defines.IS_SMALL = this.isSmall
 			material.depthTest = false
@@ -57,6 +72,8 @@ export default class MSDFText {
 			this.mesh = new Mesh(geometry, material);
 			this.container.add(this.mesh);
 			this.container.rotation.x = Math.PI
+
+			if (this.onPrimiseEnded) this.onPrimiseEnded(this)
 		});
 
 	}

@@ -103,6 +103,10 @@ onMounted(()=> {
 
   // start sound FADE delay
   Audio.play('cinematique', false, 1, 4000)
+  setTimeout(()=> {
+    store.state.isCountdownPlaying = true
+    store.state.isTutoVisible = false
+  }, 8000)
   setTimeout(() => {
     Audio.play('wingsuit-montagne', true, 1, 6000)
   }, 6600)
@@ -155,16 +159,16 @@ const initStates = (scene) => {
   RAFManager.speed = 0.18
 
   // Show lottie rollover
-  scene.setEventTimeline(0.01, () => {
-    RAFManager.setSpeed(0.18)
-    store.state.isOverlayVisible = true
-    store.state.isTutoVisible = true
-  })
-  scene.setEventTimeline(0.03, () => {
-    RAFManager.setSpeed(1)
-    store.state.isOverlayVisible = false
-    store.state.isTutoVisible = false
-  })
+  // scene.setEventTimeline(0.01, () => {
+  //   RAFManager.setSpeed(0.18)
+  //   store.state.isOverlayVisible = true
+  //   store.state.isTutoVisible = true
+  // })
+  // scene.setEventTimeline(0.03, () => {
+  //   RAFManager.setSpeed(1)
+  //   store.state.isOverlayVisible = false
+  //   store.state.isTutoVisible = false
+  // })
 
   // Show lottie rollover
   scene.setEventTimeline(0.045, () => {

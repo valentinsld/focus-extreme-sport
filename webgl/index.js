@@ -54,7 +54,6 @@ export default class WebGL extends EventEmitter {
     this.initSceneEmpty()
 
     this.assets.on('ressourcesReady', () => {
-      console.log('ressourcesReady', this.assets)
       this.ressourcesReady = true
       this.trigger("endLoading")
 

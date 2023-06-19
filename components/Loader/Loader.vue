@@ -42,7 +42,6 @@ function getLoaderData() {
 
 	WEBGL.assets.on('ressourceLoad', (p) => {
 		if (!p) return;
-		console.log(p);
 		percent.value = p;
 	})
 }

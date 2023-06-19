@@ -112,7 +112,7 @@ function initStates (scene) {
    scene.setEventTimeline(0.095, () => {
     isBalanceVisible.value = true
   })
-  scene.setEventTimeline(0.1, () => {
+  scene.setEventTimeline(0.12, () => {
     balanceAnime.play()
   })
 
@@ -153,7 +153,7 @@ function initStates (scene) {
   scene.setEventTimeline(0.625, () => {
     isFocusVisible.value = true
   })
-  scene.setEventTimeline(0.63, () => {
+  scene.setEventTimeline(0.65, () => {
     focusAnime.play()
   })
 
@@ -161,12 +161,12 @@ function initStates (scene) {
   scene.setEventTimeline(0.68, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
-    RAFManager.setSpeed(1.1)
+    RAFManager.setSpeed(1.15)
   })
 
   // set camera position 3P
   scene.setEventTimeline(0.90, () => {
-    RAFManager.setSpeed(0.2)
+
     store.state.gamestatestep = 6
   })
 
@@ -181,7 +181,8 @@ function initStates (scene) {
   })
 
   // set camera position 3P
-  scene.setEventTimeline(0.925, () => {
+  scene.setEventTimeline(0.92, () => {
+    RAFManager.setSpeed(0.15)
     scene.setAnimationEnd(0, 1.3)
   })
 

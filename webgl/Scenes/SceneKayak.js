@@ -160,7 +160,7 @@ export default class SceneKayak extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: 'En état de flow, c\'est comme si les secondes se rallongent. C’est fou d’arriver à changer le temps',
+      quoteContent: 'En état de flow, c\'est comme si les secondes se rallongent. C\'est fou d\'arriver à changer le temps',
 
       authorWidth: 1000,
       quoteAuthor: 'NOURIA NEWMAN',

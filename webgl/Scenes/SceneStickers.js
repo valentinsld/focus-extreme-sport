@@ -112,7 +112,7 @@ export default class SceneStickers extends BaseScene {
     })
   }
 
-  seeStickers(stickers) {
+  seeStickers(stickers, duration = 4000, delay = 300) {
     const arrayMaterialEdited = []
     for (const key in this.stickers) {
       const element = this.stickers[key];
@@ -133,13 +133,15 @@ export default class SceneStickers extends BaseScene {
     anime({
       targets: this.helmet.rotation,
       y: Math.PI * 6,
-      duration: 4000,
+      duration,
+      delay,
       ease: 'easeOutElastic',
     })
     anime({
       targets: arrayMaterialEdited,
       opacity: 1,
-      duration: 1000,
+      duration: duration * 0.2,
+      delay,
       ease: 'easeOutElastic',
     })
   }

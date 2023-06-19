@@ -78,7 +78,8 @@
   position: absolute;
   font-family: const(font-gotham);
   text-transform: uppercase;
-  font-size: .8rem;
+  font-size: 9px;
+  white-space: nowrap;
   bottom: -2rem;
   opacity: 0;
   transition: opacity .3s ease(out-swift);

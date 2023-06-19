@@ -103,10 +103,10 @@ function startProject() {
 }
 
 .catch-line {
-  font-size: 1.8em;
+  font-size: 1.5em;
   text-transform: uppercase;
   font-family: const(font-gotham);
-  letter-spacing: .3rem;
+  letter-spacing: .45rem;
 }
 
 .home-separator {
@@ -130,7 +130,7 @@ function startProject() {
     opacity: .3;
     // letter-spacing: .1rem;
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 }
 

@@ -87,7 +87,8 @@ function getLoaderData() {
 		margin-bottom: 6rem;
 		margin-top: -6rem;
 
-		font-size: 2rem;
+		font-size: 1.8rem;
+		font-family: const(font-gotham);
 		line-height: 1.5;
 		font-weight: 400;
 
@@ -109,7 +110,7 @@ function getLoaderData() {
 			height: 100%;
 			width: 100%;
 
-			background-color: colors(black);
+			background-color: colors(f_green);
 
 			transition: transform 500ms ease-in-out;
 

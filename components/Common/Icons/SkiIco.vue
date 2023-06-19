@@ -23,7 +23,7 @@
       />
     </svg>
     <p class="sport-text">
-      Free ride
+      Freeride
     </p>
   </div>
 </template>

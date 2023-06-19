@@ -40,6 +40,7 @@
 <script setup>
 	import anime from 'animejs';
 	import { splitByWord } from '~~/webgl/Utils/splitText';
+	import destroyTimeline from '~~/webgl/Utils/destroyTimeline';
 	import useStore from '@/stores/index.js'
 
 	const store = useStore()
@@ -50,6 +51,8 @@
 	const one = ref()
 	const go = ref()
 	const letgo = ref()
+
+	const easing =  'cubicBezier(0.25, 1, 0.5, 1);'
 
 	let tl, words;
 
@@ -73,6 +76,7 @@
 
 	function show() {
 		if(base.value) base.value.style.display = '';
+		if (tl) destroyTimeline(tl);
 
 		tl = anime.timeline({ autoplay: true });
 		tl.add({
@@ -80,17 +84,17 @@
 			scale: {
 				value: [ 2, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			rotate: {
 				value: [ '20deg', '0deg' ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		})
 		tl.add({
@@ -98,7 +102,7 @@
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		}, '-=200')
 		tl.add({
@@ -106,17 +110,17 @@
 			scale: {
 				value: [ 2, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			rotate: {
 				value: [ '-20deg', '0deg' ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		})
 		tl.add({
@@ -124,7 +128,7 @@
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		}, '-=200')
 		tl.add({
@@ -132,17 +136,17 @@
 			scale: {
 				value: [ 2, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			rotate: {
 				value: [ '20deg', '0deg' ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		})
 		tl.add({
@@ -150,7 +154,7 @@
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 500,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		}, '-=200')
 
@@ -158,18 +162,18 @@
 			targets: words[0],
 			scale: {
 				value: [ 2, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			rotate: {
 				value: [ '-20deg', '0deg' ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			}
 		}, '+=500')
 		tl.add({
@@ -177,61 +181,71 @@
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 50,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		}, '-=50')
 		tl.add({
 			targets: words[1],
 			scale: {
 				value: [ 2, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			rotate: {
 				value: [ '20deg', '0deg' ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			}
-		})
+		}, '-= 50')
 		tl.add({
 			targets: words[1],
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 50,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
 		}, '-=50')
 		tl.add({
 			targets: words[2],
 			scale: {
 				value: [ 2, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			rotate: {
 				value: [ '-20deg', '0deg' ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			},
 			opacity: {
 				value: [ 0, 1 ],
-				duration: 175,
-				easing: 'easeInOutQuad',
+				duration: 200,
+				easing: easing,
 			}
-		})
+		}, '-= 50')
 		tl.add({
 			targets: words[2],
 			opacity: {
 				value: [ 1, 0 ],
 				duration: 1000,
-				easing: 'easeInOutQuad',
+				easing: easing,
 			}
-		}, '-=50')
+		}, '-=50');
+
+		tl.finished
+			.then(() => {
+				if (base.value) base.value.style.display = 'none';
+				clear();
+			});
+	}
+
+	function clear() {
+		if (tl) destroyTimeline(tl);
 	}
 </script>
 

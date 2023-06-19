@@ -1,19 +1,18 @@
 <template>
-  <Transition
-    v-if="!isHide"
-    name="stickers"
-  >
-    <StickersIntro
-      v-if="isIntro"
-      class="page page-stickers"
-      @close="seeRewards"
-    />
-    <StickersRewards
-      v-else
-      class="page page-stickers"
-      :rewards="currentRewards"
-    />
-  </Transition>
+  <div v-if="!isHide">
+    <Transition name="stickers">
+      <StickersIntro
+        v-if="isIntro"
+        class="page page-stickers"
+        @close="seeRewards"
+      />
+      <StickersRewards
+        v-else
+        class="page page-stickers"
+        :rewards="currentRewards"
+      />
+    </Transition>
+  </div>
 </template>
 
 <script setup>
@@ -34,12 +33,15 @@ const currentRewards = reactive({
 })
 
 onMounted(()=> {
-  if (store.state.lastRoute !== 'index') {
+  if (store.state.lastRoute !== 'index' && !process.dev) {
     return navigateTo('/flow-state');
+  }
+  if (process.dev) {
+    isHide.value = false
   }
 
   const sceneManager = new SceneManager()
-  sceneManager.setScene('empty', .35, () => {
+  sceneManager.setScene('stickers', .35, () => {
     isHide.value = false
   })
 
@@ -52,14 +54,6 @@ function calculateStickers() {
     store.state.altimetre.scores.ski,
     store.state.altimetre.scores.kayak,
   )
-
-  console.log(stickers.calculateNewStickers(
-    store.state.altimetre.scores.wingsuit,
-    store.state.altimetre.scores.ski,
-    store.state.altimetre.scores.kayak,
-  ))
-
-  console.log(currentRewards.value)
 }
 
 function seeRewards() {
@@ -72,7 +66,13 @@ function seeRewards() {
   color: colors(black);
   z-index: 1;
 
-  --duration-transition: 500ms
+  --duration-transition: 500ms;
+  pointer-events: none;
+
+  :deep(button),
+  :deep(a) {
+    pointer-events: initial;
+  }
 }
 
 .stickers-leave-active,
@@ -84,7 +84,6 @@ function seeRewards() {
 .stickers-enter-from {
   opacity: 0;
 }
-
 
 .stickers-enter-active {
   transition-delay: var(--duration-transition);

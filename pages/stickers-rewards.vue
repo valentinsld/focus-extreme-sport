@@ -108,6 +108,6 @@ function seeRewards() {
 }
 
 .stickers-enter-active {
-  transition-delay: var(--duration-transition);
+  transition-delay: calc(var(--duration-transition) * 0.5);
 }
 </style>

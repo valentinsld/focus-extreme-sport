@@ -18,7 +18,10 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import useStickers from '@/stores/stickers.js'
+
+import WebGL from '~/webgl/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager'
+import SceneStickers from '@/webgl/Scenes/sceneStickers.js'
 
 const store = useStore()
 const stickers = useStickers()
@@ -36,16 +39,18 @@ onMounted(()=> {
   if (store.state.lastRoute !== 'index' && !process.dev) {
     return navigateTo('/flow-state');
   }
-  if (process.dev) {
-    isHide.value = false
-  }
-
-  const sceneManager = new SceneManager()
-  sceneManager.setScene('stickers', .35, () => {
-    isHide.value = false
-  })
 
   calculateStickers()
+
+  if (process.dev) {
+    const webgl = new WebGL()
+    webgl.on('endLoading', () => {
+      requestAnimationFrame(setScene)
+    })
+    return
+  }
+
+  setScene()
 })
 
 function calculateStickers() {
@@ -56,8 +61,19 @@ function calculateStickers() {
   )
 }
 
+function setScene () {
+  const sceneManager = new SceneManager()
+
+  sceneManager.setScene('stickers', .35, () => {
+    isHide.value = false
+  })
+}
+
 function seeRewards() {
   isIntro.value = false
+
+  const scene = new SceneStickers()
+  scene.seeHelmet()
 }
 </script>
 

@@ -40,6 +40,8 @@ export default class WebGL extends EventEmitter {
     this.sceneManager = new SceneManager();
     this.ressourcesReady = false
 
+    this.sceneArray = []
+
     this.setScene();
     this.setDebug();
     this.setCamera();
@@ -52,18 +54,18 @@ export default class WebGL extends EventEmitter {
 
     this.initSceneHome()
 
-    this.assets.on('ressourcesReady', () => {
+    this.assets.on('ressourcesReady', async () => {
       this.ressourcesReady = true
-      this.trigger("endLoading")
 
-      this.initTransi()
+      await this.initTransi()
 
-      this.initSceneWingsuit()
-      this.initSceneSki()
-      this.initSceneKayak()
-      this.initSceneStickers()
+      await this.initSceneWingsuit()
+      await this.initSceneSki()
+      await this.initSceneKayak()
+      await this.initSceneStickers()
 
       this.sceneManager.startCurrentScene()
+      this.trigger("endLoading")
     })
 
     RAFManager.add("webgl",(currentTime, dt) => {
@@ -127,7 +129,7 @@ export default class WebGL extends EventEmitter {
 
     this.currentScene = this.sceneHome
 
-    this.sceneArray = [this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak, this.sceneStickers]
+    this.sceneArray.push(...[this.sceneHome, this.sceneIntro, this.sceneSki, this.sceneWingsuit, this.sceneKayak, this.sceneStickers])
   }
 
   setSceneManager() {

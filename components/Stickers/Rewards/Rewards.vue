@@ -41,6 +41,9 @@
 </template>
 
 <script setup>
+import SceneStickers from '@/webgl/Scenes/sceneStickers.js'
+import useStickers from '@/stores/stickers.js'
+
 defineProps({
   rewards: {
     type: Object,
@@ -48,11 +51,21 @@ defineProps({
   }
 })
 
+const stickers = useStickers()
 const currentSticker = ref(0)
 
 function nextSticker() {
   currentSticker.value++
 }
+
+// on end see stickers
+watch(currentSticker, (value) => {
+  if (value === 3) {
+    const scene = new SceneStickers()
+
+    scene.seeStickers(stickers.value)
+  }
+})
 </script>
 
 <style lang="scss" scoped>

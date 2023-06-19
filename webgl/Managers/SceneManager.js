@@ -20,6 +20,7 @@ export default class SceneManager {
 	}
 
 	startCurrentScene() {
+		this.scenes = this.webgl.sceneArray
 		this.setScene(this.currentSceneName)
 	}
 

@@ -1,16 +1,30 @@
 import { Group, AmbientLight } from 'three'
 import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
+import anime from 'animejs'
 
-export default class SceneHome extends BaseScene {
+const LIST_STICKERS = [
+  '1_WINGSUIT',
+  '2_WINGSUIT',
+  '3_WINGSUIT',
+  '1_SKI',
+  '2_SKI',
+  '3_SKI',
+  '1_KAYAK',
+  '2_KAYAK',
+  '3_KAYAK',
+  '0_LIKE_A_BOSS'
+]
+
+export default class SceneStickers extends BaseScene {
   static singleton
 
   constructor() {
-    if (SceneHome.singleton) {
-      return SceneHome.singleton
+    if (SceneStickers.singleton) {
+      return SceneStickers.singleton
     }
     super() // must be before this
-    SceneHome.singleton = this
+    SceneStickers.singleton = this
 
     this.scene = this.WebGL.sceneStickers
     this.assets = this.WebGL.assets
@@ -33,6 +47,17 @@ export default class SceneHome extends BaseScene {
 
     // helmet
     this.helmet = this.assets.models.helmet.scene
+    this.helmet.scale.set(0.0, 0.0, 0.0)
+    this.helmet.visible = false
+
+    this.stickers = {}
+    for (const s of LIST_STICKERS) {
+      this.stickers[s] = this.helmet.getObjectByName(s)
+
+      this.stickers[s].material.transparent = true
+      this.stickers[s].material.opacity = 0
+      console.log(this.stickers[s].material)
+    }
 
     // lights
     this.ambientLight = new AmbientLight(0xffffff, 1)
@@ -54,11 +79,49 @@ export default class SceneHome extends BaseScene {
     this.WebGL.camera.speedLine.hideLines()
   }
 
-  playDisableWhite() {
-    this.bkg.playDisableWhite()
+  //
+  // EVENTS
+  //
+  seeHelmet() {
+    this.helmet.visible = true
+
+    anime({
+      targets: this.helmet.scale,
+      x: 1,
+      y: 1,
+      z: 1,
+      duration: 4000,
+      ease: 'easeOutElastic',
+    })
+    anime({
+      targets: this.helmet.rotation,
+      y: Math.PI * 2,
+      duration: 4000,
+      ease: 'easeOutElastic',
+    })
   }
-  playDark() {
-    this.bkg.playDark()
+
+  seeStickers(stickers) {
+    console.log('seeStickers', stickers)
+
+    const arrayMaterial = []
+    for (const key in this.stickers) {
+      const element = this.stickers[key];
+      arrayMaterial.push(element.material)
+    }
+
+    anime({
+      targets: this.helmet.rotation,
+      y: Math.PI * 6,
+      duration: 4000,
+      ease: 'easeOutElastic',
+    })
+    anime({
+      targets: arrayMaterial,
+      opacity: 1,
+      duration: 1000,
+      ease: 'easeOutElastic',
+    })
   }
 
   destroyScene() {

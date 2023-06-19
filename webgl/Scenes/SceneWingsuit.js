@@ -148,7 +148,7 @@ export default class SceneWingsuit extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: 'Quand on est en vitesse moyenne, on est autour des 200 kilomètres heure, mais si on prend de la vitesse on peut passer les 250 donc ça va très vite',
+      quoteContent: 'On est autour des 200 kilomètres heure, mais si on prend de la vitesse on peut passer les 250, ça va très vite',
 
       authorWidth: 1000,
       quoteAuthor: 'Fred Fugen',

@@ -119,14 +119,14 @@ export default class SceneSki extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: 'Tu joues avec la montagne, la montagne n\'est jamais pareil, tu t\'adaptes au terrain : c\'est un sport d\'improvisation',
+      quoteContent: '[Le flow] se prononce toujours d\'une manière différente. Le freeride est un sport de sensations.',
 
       authorWidth: 1000,
-      quoteAuthor: 'Richard Permin',
+      quoteAuthor: 'Jeremy Prevost',
       authorColor: '#C4FE1F',
 
       jobWidth: 1000,
-      quoteJob: 'Spécialiste de la chute libre',
+      quoteJob: 'Skieur freeride professionnel',
     })
     this.quote.container.position.copy(QUOTE_POS)
 

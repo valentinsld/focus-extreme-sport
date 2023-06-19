@@ -160,7 +160,7 @@ export default class SceneKayak extends BaseScene {
     this.quote = new QuoteBlock({
       contentWidth: 1000,
       contentLineHeight: 50,
-      quoteContent: '\" [Tu sais jamais ce qu\'il y a comme rapide,] c\'est bien d\'avoir peur, c\'est un super voyant qui permet de rester concentré. Je reste contente d\'avoir peur, ça te sauve la vie. \"',
+      quoteContent: 'En état de flow, c\'est comme si les secondes se rallongent. C’est fou d’arriver à changer le temps',
 
       authorWidth: 1000,
       quoteAuthor: 'NOURIA NEWMAN',

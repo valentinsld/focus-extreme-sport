@@ -129,7 +129,7 @@ function initStates(scene) {
   scene.setEventTimeline(0.095, () => {
     isBalanceVisible.value = true
   })
-  scene.setEventTimeline(0.1, () => {
+  scene.setEventTimeline(0.14, () => {
     balanceAnime.play()
   })
 
@@ -150,7 +150,7 @@ function initStates(scene) {
   })
 
   // end travelling 3P
-  scene.setEventTimeline(0.6, () => {
+  scene.setEventTimeline(0.61, () => {
     scene.removeCameraTravelling()
   })
 

@@ -131,24 +131,6 @@ const initDebugGameState = () => {
   }
 }
 
-.page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-
-  transition: opacity 0.4s ease-out;
-
-  &.is-hide {
-    opacity: 0;
-  }
-}
-
 .phrase-enter-active {
   @for $i from 1 through 20 {
     .word-#{$i} {

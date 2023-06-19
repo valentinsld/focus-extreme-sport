@@ -40,16 +40,22 @@ onMounted(()=> {
     return navigateTo('/flow-state');
   }
 
-  calculateStickers()
-
   if (process.dev) {
     const webgl = new WebGL()
-    webgl.on('endLoading', () => {
-      requestAnimationFrame(setScene)
-    })
+    if (webgl.ressourcesReady) {
+      setScene()
+    } else {
+      webgl.on('endLoading', () => {
+        requestAnimationFrame(setScene)
+      })
+    }
+
+    calculateStickers()
+
     return
   }
 
+  calculateStickers()
   setScene()
 })
 

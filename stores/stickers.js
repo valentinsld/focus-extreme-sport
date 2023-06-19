@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 
 function getStickersValue(score) {
 	if (score > 90) {
@@ -13,12 +13,12 @@ function getStickersValue(score) {
 
 const useStickers = defineStore('stickers', () => {
 	const state = reactive(
-	  useLocalStorage('stickers', {
-		wingsuit: [],
-		ski: [],
-		kayak: [],
-		like_a_boss: false,
-	  })
+		useStorage('stickers', {
+			wingsuit: [],
+			ski: [],
+			kayak: [],
+			like_a_boss: false,
+		})
 	)
 
 	//

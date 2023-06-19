@@ -29,5 +29,7 @@ export default defineNuxtConfig({
 	],
 	eslint: {
 		/* module options */
-	}
+	},
+	// disable SSR for localStorage
+	ssr: false,
 });

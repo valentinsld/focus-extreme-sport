@@ -245,10 +245,13 @@ const [container, slider] = useKeenSlider({
 					background-position: center center;
 					background-repeat: no-repeat;
 					background-size: contain;
+
+					opacity: 0.8;
 				}
 
 				img {
 					filter: brightness(10%);
+					opacity: 0.8;
 				}
 			}
 		}

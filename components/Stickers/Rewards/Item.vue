@@ -55,7 +55,6 @@ function next() {
 
 onMounted(() => {
 	// add add event on click
-	console.log(container.value)
 	container.value.addEventListener('click', next)
 })
 </script>

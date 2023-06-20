@@ -1,14 +1,32 @@
 <template>
   <div class="game-kayak">
-    <QteBalance v-if="store.state.gamestatestep === 1" />
-    <QteChoose
-      v-if="store.state.gamestatestep === 3"
-      @on-keyup="chooseLine"
-    />
-    <QteFocus
-      v-if="store.state.gamestatestep === 5"
-      :delay-reduced-speed="0"
-    />
+    <Transition
+      name="balance"
+      :duration="{enter: 1000, leave: 1000}"
+      appear
+    >
+      <QteBalance v-if="store.state.gamestatestep === 1" />
+    </Transition>
+    <Transition
+      name="choose"
+      :duration="{enter: 1000, leave: 1000}"
+      appear
+    >
+      <QteChoose
+        v-if="store.state.gamestatestep === 3"
+        @on-keyup="chooseLine"
+      />
+    </Transition>
+    <Transition
+      name="focus"
+      :duration="{enter: 1000, leave: 1000}"
+      appear
+    >
+      <QteFocus
+        v-if="store.state.gamestatestep === 5"
+        :delay-reduced-speed="0"
+      />
+    </Transition>
 
     <div
       ref="choiceLottie"
@@ -222,5 +240,125 @@ function chooseLine (d) {
   &.is-visible {
     opacity: 1;
   }
+}
+
+.choose-enter-active {
+
+  :deep(.qte-choose__arrows),
+  :deep(.qte-choose__bottom) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  :deep(.qte-choose__bottom) {
+    transition-delay: .1s;
+  }
+}
+
+.choose-leave-active {
+  opacity: 1;
+  transition: opacity .3s ease(out-swift);
+}
+
+.choose-enter-from {
+
+  :deep(.qte-choose__arrows),
+  :deep(.qte-choose__bottom) {
+    transform: translateY(4rem);
+    opacity: 0;
+  }
+}
+
+.choose-leave-to {
+  opacity: 0;
+}
+
+.balance-enter-active,
+.balance-leave-active {
+
+  :deep(.left) {
+    transform: translateY(0) rotate(180deg);
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  :deep(.right),
+  :deep(.gauge) {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  :deep(.gauge) {
+    transition-delay: 35ms;
+  }
+
+  :deep(.right) {
+    transition-delay: 70ms;
+  }
+}
+
+.balance-enter-from,
+.balance-leave-to {
+  :deep(.left) {
+    transform: translateY(4rem) rotate(180deg);
+    opacity: 0;
+  }
+
+  :deep(.right) {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+  :deep(.gauge) {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+}
+
+.focus-enter-active {
+
+  :deep(.qte-focus__title),
+  :deep(.space-container) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-bounce), opacity .3s ease(out-swift);
+  }
+
+  :deep(.space-container) {
+    transition-delay: 75ms;
+  }
+
+  :deep(.qte-focus__indicator) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+}
+
+.focus-leave-active {
+  opacity: 1;
+  transition: opacity .3s ease(out-swift);
+}
+
+.focus-enter-from {
+
+  :deep(.qte-focus__title),
+  :deep(.space-container) {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  :deep(.qte-focus__indicator) {
+    transform: translateY(4rem);
+    opacity: 0;
+  }
+
+}
+
+.focus-leave-to {
+  opacity: 0;
 }
 </style>

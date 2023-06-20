@@ -22,11 +22,6 @@
 
     <div
       class="qte-focus__indicator"
-      :style="{
-        '--green-percent': 100 - gradientMove * 10 + '%',
-        '--blue-percent': 100 - gradientMove * 7 + '%',
-        '--purple-percent': 100 - gradientMove * 2 + '%',
-      }"
     >
       <div
         :style="{ width: valuePercent }"
@@ -122,13 +117,13 @@ onMounted(() => {
 
 		disto = (value.value / props.duration)
 
-		if(value.value === 3000 && keyPressed.value) {
-			gradientMove.value += deltaTime
-			gradientMove.value =clamp(gradientMove.value, 0, 100)
-		} else if(!keyPressed.value) {
-			gradientMove.value += deltaTime * keydown
-			gradientMove.value = clamp(gradientMove.value, 0, 100)
-		}
+		// if(value.value === 3000 && keyPressed.value) {
+		// 	gradientMove.value += deltaTime
+		// 	gradientMove.value =clamp(gradientMove.value, 0, 100)
+		// } else if(!keyPressed.value) {
+		// 	gradientMove.value += deltaTime * keydown
+		// 	gradientMove.value = clamp(gradientMove.value, 0, 100)
+		// }
 
 		if(webgl.fxComposer.isUpdatable) {
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3

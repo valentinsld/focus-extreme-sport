@@ -22,52 +22,102 @@
       ref="container"
       class="rewards-slider__slider keen-slider"
     >
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.like_a_boss,
+        }"
+      >
         <img
           src="/stickers/like_a_boss.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.wingsuit.includes(1)
+        }"
+      >
         <img
           src="/stickers/1-wingsuit.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.wingsuit.includes(2)
+        }"
+      >
         <img
           src="/stickers/2-wingsuit.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.wingsuit.includes(3)
+        }"
+      >
         <img
           src="/stickers/3-wingsuit.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.ski.includes(1)
+        }"
+      >
         <img
           src="/stickers/1-ski.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.ski.includes(2)
+        }"
+      >
         <img
           src="/stickers/2-ski.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.ski.includes(3)
+        }"
+      >
         <img
           src="/stickers/3-ski.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.kayak.includes(1)
+        }"
+      >
         <img
           src="/stickers/1-kayak.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.kayak.includes(2)
+        }"
+      >
         <img
           src="/stickers/2-kayak.png"
         >
       </div>
-      <div class="keen-slider__slide">
+      <div
+        :class="{
+          'keen-slider__slide': true,
+          'is-hide': !stickers.state.kayak.includes(3)
+        }"
+      >
         <img
           src="/stickers/3-kayak.png"
         >
@@ -97,7 +147,9 @@
 import { useKeenSlider } from 'keen-slider/vue.es'
 import 'keen-slider/keen-slider.min.css'
 import WheelControls from '~/js/slider-plugin/wheel.js'
+import useStickers from '~~/stores/stickers'
 
+const stickers = useStickers()
 
 const [container, slider] = useKeenSlider({
 	loop: true,
@@ -125,7 +177,6 @@ const [container, slider] = useKeenSlider({
 <style lang="scss">
 .rewards-slider {
 	position: absolute;
-	z-index: 10;
 	top: 50%;
 	left: 0px;
 	padding-left: 40px;
@@ -141,6 +192,20 @@ const [container, slider] = useKeenSlider({
 	gap: 20px;
 
 	background: linear-gradient(90deg, #ffffffdd, #ffffff00);
+
+	animation: appear 1s ease-out forwards;
+
+	@keyframes appear {
+
+		0%,
+		50% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
 
 	&,
 	* {
@@ -159,6 +224,33 @@ const [container, slider] = useKeenSlider({
 			width: 100%;
 			height: 100%;
 			object-fit: contain;
+		}
+
+		// hide
+		.keen-slider__slide {
+			position: relative;
+
+			&.is-hide {
+				&::before {
+					content: '';
+					position: absolute;
+					z-index: 1;
+					top: 50%;
+					left: 50%;
+					height: 36px;
+					width: 36px;
+					transform: translate3d(-50%, -50%, 0);
+
+					background-image: url('/stickers/lock.png');
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-size: contain;
+				}
+
+				img {
+					filter: brightness(10%);
+				}
+			}
 		}
 	}
 

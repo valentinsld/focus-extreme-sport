@@ -64,6 +64,9 @@ export default class MSDFText {
 				material.uniforms.uStrokeOutsetWidth.value = 0.0
 				material.uniforms.uStrokeInsetWidth.value = 0.1
 				material.uniforms.uOpacity.value = 0
+				material.uniforms.uStrokeOpacity = {
+					value: 1
+				}
 			}
 			material.side = DoubleSide
 			material.defines.IS_SMALL = this.isSmall

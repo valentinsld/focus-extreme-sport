@@ -88,7 +88,9 @@ export default class SceneStickers extends BaseScene {
       const box = that.mesh.geometry.computeBoundingBox()
       that.mesh.position.x -= (box.min.x + box.max.x) / 2
       that.mesh.position.y -= (box.min.y + box.max.y) / 2
+      this.text.mesh.material.uniforms.uStrokeOpacity.value = 0
     });
+    this.text.container.visible = false
     this.text.container.scale.set(0.3, 0.3, 0.3)
     this.text.container.position.set(0, 0, -8)
 
@@ -119,6 +121,7 @@ export default class SceneStickers extends BaseScene {
   //
   seeHelmet() {
     this.helmet.visible = true
+    this.text.container.visible = true
 
     anime({
       targets: this.helmet.scale,
@@ -133,6 +136,13 @@ export default class SceneStickers extends BaseScene {
       y: Math.PI * 2,
       duration: 4000,
       ease: 'easeOutElastic',
+    })
+    anime({
+      targets: this.text.mesh.material.uniforms.uStrokeOpacity,
+      value: 0.7,
+      duration: 4000,
+      delay: 500,
+      ease: 'easeOutSine',
     })
   }
 
@@ -167,6 +177,12 @@ export default class SceneStickers extends BaseScene {
       duration: duration * 0.2,
       delay,
       ease: 'easeOutElastic',
+    })
+    anime({
+      targets: this.text.mesh.material.uniforms.uStrokeOpacity,
+      value: 1,
+      duration: 1000,
+      ease: 'easeOutSine',
     })
   }
 

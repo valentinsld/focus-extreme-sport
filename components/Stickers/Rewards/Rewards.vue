@@ -4,7 +4,7 @@
       'rewards': true
     }"
   >
-    <StickersRewardsSlider />
+    <StickersRewardsSlider v-if="currentSticker >= 3" />
 
     <div
       :class="{

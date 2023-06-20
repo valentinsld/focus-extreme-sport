@@ -1,4 +1,4 @@
-import { Group, AmbientLight } from 'three'
+import { Group, AmbientLight, PointLight } from 'three'
 import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
 
@@ -95,22 +95,27 @@ export default class SceneStickers extends BaseScene {
     this.text.container.position.set(0, 0, -8)
 
     // lights
-    this.ambientLight = new AmbientLight(0xffffff, 1)
+    this.ambientLight = new AmbientLight(0xffffff, 0.5)
 
-    this.instance.add(this.helmet,this.ambientLight)
+    this.light = new PointLight(0xffffff, 5, 100)
+    this.light.position.set(0, 1, 0)
+    this.light.decay = 0.3
+
+    this.instance.add(this.helmet, this.ambientLight)
   }
 
   startScene() {
     this.WebGL.renderer.instance.setClearColor(0xffffff, 1)
 
     this.WebGL.camera.target.set(0, 0, 0)
-    this.WebGL.camera.current.position.set(0, 3, 3)
+    this.WebGL.camera.current.position.set(3, 0, 0)
     this.instance.add(this.WebGL.camera.current)
-    this.WebGL.camera.enableOrbitControls()
+    this.WebGL.camera.enableOrbitControlsForStickers()
 
     this.bkg.initOnScene()
 
     this.WebGL.camera.current.add(this.text.container)
+    this.WebGL.camera.current.add(this.light)
 
     // disable lines
     this.WebGL.camera.speedLine.hideLines()
@@ -125,9 +130,9 @@ export default class SceneStickers extends BaseScene {
 
     anime({
       targets: this.helmet.scale,
-      x: 1,
-      y: 1,
-      z: 1,
+      x: 0.12,
+      y: 0.12,
+      z: 0.12,
       duration: 4000,
       ease: 'easeOutElastic',
     })
@@ -186,6 +191,14 @@ export default class SceneStickers extends BaseScene {
     })
   }
 
+  setSceneForEnd() {
+    this.helmet.visible = false
+    this.text.container.visible = false
+
+    this.WebGL.camera.disableOrbitControl()
+  }
+
+  //
   destroyScene() {
     if (this.bkg) this.bkg.destroy()
     this.WebGL.camera.speedLine.showLines()

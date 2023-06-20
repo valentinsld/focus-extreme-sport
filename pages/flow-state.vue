@@ -16,6 +16,19 @@
 
 <script setup>
 import content from '~~/content/flow-state.json'
+import SceneManager from '~~/webgl/Managers/SceneManager'
+
+onMounted(() => {
+	setScene()
+})
+
+function setScene () {
+  const sceneManager = new SceneManager()
+
+  sceneManager.setScene('stickers', 0, () => {
+	console.log('setStickers')
+  })
+}
 </script>
 
 <style lang="scss">

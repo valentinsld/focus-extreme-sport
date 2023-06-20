@@ -206,7 +206,7 @@ function initStates (scene) {
 
   // event end next scene
   scene.setEventTimeline(0.99, () => {
-    store.state.gamestate = 'ski'
+    store.state.gamestate = 'stickers'
     navigateTo('/stickers-rewards')
   })
 }

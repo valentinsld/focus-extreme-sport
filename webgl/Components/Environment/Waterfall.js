@@ -7,10 +7,10 @@ import WaterfallV from '~~/webgl/Shaders/River/WaterfallV.vert'
 import splashF from '~~/webgl/Shaders/Particles/SplashParticles/splashF.frag'
 import splashV from '~~/webgl/Shaders/Particles/SplashParticles/splashV.vert'
 import { DegToRad } from '~~/webgl/Utils/Math'
-import Clouds from './Clouds'
+// import Clouds from './Clouds'
 
 export default class Waterfall {
-	constructor(options) {
+	constructor() {
 
 		this.webgl = new WebGL
 		this.assets = this.webgl.assets

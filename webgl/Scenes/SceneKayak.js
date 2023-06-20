@@ -437,6 +437,8 @@ export default class SceneKayak extends BaseScene {
     this.cam3p?.refresh()
     this.WebGL.fxComposer.resetEffect()
     this.quote.showQuote()
+
+    this.setAnimationEnd(0.23, 1)
   }
 
   destroyScene() {

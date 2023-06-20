@@ -46,9 +46,9 @@
           <span class="btn-text">commencer</span>
         </button>
 
-        <button @click="() => navigateTo('/stickers-rewards')">
+        <!-- <button @click="() => navigateTo('/stickers-rewards')">
           Go to stickers
-        </button>
+        </button> -->
       </div>
     </section>
   </Transition>

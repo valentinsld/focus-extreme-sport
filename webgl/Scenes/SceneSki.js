@@ -14,6 +14,7 @@ import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 
 import RiverF from '@/webgl/Shaders/River/riverF.frag'
 import RiverV from '@/webgl/Shaders/River/riverV.vert'
+import InstancedAssets from '../Components/InstancedAssets.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -52,6 +53,13 @@ export default class SceneSki extends BaseScene {
 
     this.scene.fog = new Fog(0x9bc8fa, 0, 20)
 
+    this.highTree = []
+    this.tree = []
+    this.rock = []
+    this.deadWood = []
+    this.deadWoodV2 = []
+    this.bush = []
+
     this.init()
   }
 
@@ -62,12 +70,37 @@ export default class SceneSki extends BaseScene {
     this.initWater()
     // this.initFinalCloudSnow()
 
+    this.map.traverse((element) => {
+			if(element.name.includes('Snow_High_Tree')) {
+				this.highTree.push(element)
+			}
+
+      if(element.name.includes('SNOW_BUSH')) {
+				this.bush.push(element)
+			}
+
+      if(element.name.includes('ROCK')) {
+				this.rock.push(element)
+			}
+      if(element.name.includes('SNOW_DEAD_WOOD')) {
+				this.deadWood.push(element)
+			}
+      if(element.name.includes('SNOW_DEAD_WOOD_V2')) {
+				this.deadWoodV2.push(element)
+			}
+
+      if(element.name.includes('SNOW_TREE')) {
+				this.tree.push(element)
+			}
+		})
+
+
     new RGBELoader().load(skiHdr, (map) => {
 		  this.envmap = this.generator.fromEquirectangular(map)
       this.map.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .5
+          element.material.envMapIntensity = .8
         }
         if(element.name.includes("SKY") || element.name.includes("Cloud")) {
           element.material.envMapIntensity = .8
@@ -76,7 +109,7 @@ export default class SceneSki extends BaseScene {
       this.character.traverse((element) => {
         if (element.isMesh) {
           element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .2
+          element.material.envMapIntensity = .5
         }
       })
     })
@@ -120,6 +153,8 @@ export default class SceneSki extends BaseScene {
 
     this.sky.container.position.set(0, -50, 0)
 
+    this.initInstancedAssets()
+
     this.initSkiSplash()
 
     // add quote
@@ -142,7 +177,7 @@ export default class SceneSki extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(
+    this.instance.add(
       this.map,
       this.dirLight.container,
       this.sky.container,
@@ -151,10 +186,12 @@ export default class SceneSki extends BaseScene {
       this.quote.container
     )
 
+    this.scene.add(this.instance)
+
     if(this.WebGL.debug) {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)
-      this.scene.add(axesHelper)
+      this.instance.add(axesHelper)
 
       // this.WebGL.debug.addInput(this.quote.container, 'position')
     }
@@ -188,7 +225,7 @@ export default class SceneSki extends BaseScene {
 
     this.finalCloud.container.position.set(18.75, 1.5, 4)
 
-    this.scene.add(this.finalCloud.container)
+    this.instance.add(this.finalCloud.container)
   }
 
   initWater() {
@@ -197,9 +234,13 @@ export default class SceneSki extends BaseScene {
       if(child.name.includes("Plane")) {
         this.water = child
       }
+      if(child.name.includes("WATER")) {
+        this.lac = child
+      }
     })
 
     this.foam = this.water.material.map;
+    this.foam2 = this.lac.material.map;
 
     this.water.material = new ShaderMaterial({
       vertexShader: RiverV,
@@ -237,8 +278,113 @@ export default class SceneSki extends BaseScene {
       },
     })
 
+    this.lac.material = new ShaderMaterial({
+      vertexShader: RiverV,
+      fragmentShader: RiverF,
+      transparent: false,
+      depthTest: true,
+      side: DoubleSide,
+
+      uniforms: {
+        uTime: { value: this.time},
+        uBigWavesElevation: { value: 0.0025 },
+        uBigWavesFrequency: { value: new Vector2(1, -10) },
+        uBigWavesSpeed: { value: 0.5 },
+
+        uSmallWavesElevation: { value: 0.05 },
+        uSmallWavesFrequency: { value: 5 },
+        uSmallWavesSpeed: { value: 0.2 },
+        uSmallIterations: { value: 5 },
+
+				uResolution: { value: [this.sizes.width, this.sizes.height] },
+				uColorA: { value: new Color(this.params.colorA) },
+				uColorB: { value: new Color(this.params.colorB) },
+				uLineColor: { value: new Color(this.params.lineColor) },
+
+        uFoamTex: { value: this.foam2 },
+        uRotation: { value: -125.0},
+
+        fogColor: { value: new Color(0x9bc8fa)},
+        fogNear: { value: 0},
+        fogFar: { value: 20},
+
+      },
+      defines: {
+        USE_FOG: true
+      },
+    })
+
     // this.water.position.y += .1
   }
+
+  initInstancedAssets() {
+    this.highTreeInstanced = new InstancedAssets({
+      name: 'highTree',
+      model: 'snow_high_tree',
+      instances: this.highTree,
+      scaleMultiplier: .0475,
+      hdr: skiHdr,
+      hasHdr: true,
+      intensity: .8,
+    })
+
+    this.bushInstanced = new InstancedAssets({
+      name: 'bush',
+      model: 'snow_bush',
+      instances: this.bush,
+      scaleMultiplier: .45,
+      hdr: skiHdr,
+    })
+
+    this.rockInstanced = new InstancedAssets({
+      name: 'rock',
+      model: 'instance_rock_v2',
+      instances: this.rock,
+      scaleMultiplier: .6,
+      hdr: skiHdr,
+      hasHdr: true,
+      intensity: .8,
+    })
+
+    // this.deadWoodInstanced = new InstancedAssets({
+    //   name: 'deadWood',
+    //   model: 'snow_dead_wood_1',
+    //   instances: this.deadWood,
+    //   scaleMultiplier: .5,
+    //   hdr: skiHdr,
+    //   hasHdr: false,
+    // })
+
+    // this.deadWoord2Instanced = new InstancedAssets({
+    //   name: 'deadWood2',
+    //   model: 'snow_dead_wood_2',
+    //   instances: this.deadWoodV2,
+    //   scaleMultiplier: .05,
+    //   hdr: skiHdr,
+    //   hasHdr: false,
+    // })
+
+    this.treeInstanced = new InstancedAssets({
+      name: 'tree',
+      model: 'snow_tree_v2',
+      instances: this.tree,
+      // scaleMultiplier: .15,
+      hdr: skiHdr,
+      hasHdr: true,
+      intensity: .8,
+    })
+
+    this.instance.add(...[
+      this.highTreeInstanced.container,
+      this.bushInstanced.container,
+      this.rockInstanced.container,
+      // this.deadWoodInstanced.container,
+      // this.deadWoord2Instanced.container,
+      this.treeInstanced.container,
+    ])
+  }
+
+
 
   startScene() {
     // 1 - set curves for tracking camera
@@ -259,6 +405,7 @@ export default class SceneSki extends BaseScene {
       this.timelineValue = Math.min((this.timelineValue + dt * 0.022 * this.getSpeed(this.timelineValue)), 1)
       this.setTracking(this.timelineValue, this.characterContainer)
       this.water.material.uniforms.uTime.value += dt
+      this.lac.material.uniforms.uTime.value += dt
       this.splashLeft.updateParticles(currentTime, dt)
       if(this.finalCloud) this.finalCloud.updateParticles(currentTime, dt)
 

@@ -7,7 +7,7 @@ const START_LOWPASS = 100
 const END_LOWPASS = 3500
 
 const RANDOM_QTE_SUCESS = [
-	'qte-success',
+	'qte-sucess',
 ]
 const RANDOM_QTE_WRONG = [
 	'qte-wrong',

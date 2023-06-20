@@ -174,6 +174,15 @@ onMounted(() => {
 
 			vignette = lerp(vignette,(disto * 0.35), 0.01)
 			webgl.fxComposer.postProcessingPass.uniforms.uDarkness.value = vignette
+
+			if(store.state.gamestate === 'ski') {
+				// webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
+				disX = lerp(disX,-(disto * .25), 0.01) // (disto * .1) * 3
+				webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = disX
+				// webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
+				disY = lerp(disY,-(disto * .25), 0.01) // (disto * .1) * 3
+				webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = disY
+			}
 		}
 
 		emit('updated', value.value)

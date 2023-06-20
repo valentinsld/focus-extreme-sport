@@ -17,12 +17,6 @@ import datas from "~~/webgl/data/data.json"
 import kayakHdr from '~~/assets/hdr/kayak.hdr'
 import InstancedAssets from '../Components/InstancedAssets.js'
 
-const CAM_3P_1 = {
-  x: -0.15,
-  y: 0.5,
-  z: -4.5,
-}
-
 const splashColors = [
   new Color(0x418B84),
 	new Color(0x316863),
@@ -49,6 +43,12 @@ export default class SceneKayak extends BaseScene {
     this.scene = this.WebGL.sceneKayak
     this.scene.fog = new Fog(0x9bc8fa, 0, 15)
     this.sizes = this.WebGL.sizes
+
+    this.CAM_3P_1 = {
+      x: -0.15,
+      y: 0.3,
+      z: -4.1,
+    }
 
     this.params = {
       colorB: '#418B84', // #668aac
@@ -419,13 +419,17 @@ export default class SceneKayak extends BaseScene {
   switchCurve () {
     this.curveCam = this.curveCam_R
     this.curveTrack = this.curveTrack_R
+
+    this.CAM_3P_1.x = 1.45
+    this.CAM_3P_1.y = .45
+    this.CAM_3P_1.z = -3.85
   }
 
   //
   // Cams
   //
   setCamera3P_1() {
-    this.WebGL.camera.setCamera('3p', CAM_3P_1, this.characterContainer.position)
+    this.WebGL.camera.setCamera('3p', this.CAM_3P_1, this.characterContainer.position)
     this.cam3p?.refresh()
   }
   setCamera3P_finish() {

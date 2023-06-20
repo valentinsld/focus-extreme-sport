@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{'no-cursor': noCursor}"
-  >
+  <div>
     <Transition
       name="loader"
       appear
@@ -55,10 +53,6 @@ onMounted(() => {
 
   store.state.lastRoute = route.name
 });
-
-const noCursor = computed(() => ['intro', 'wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))
-
-
 </script>
 
 <style lang="scss">
@@ -70,10 +64,6 @@ const noCursor = computed(() => ['intro', 'wingsuit', 'ski', 'kayak'].includes(s
 .loader-enter-from,
 .loader-leave-to {
   opacity: 0;
-}
-
-.no-cursor {
-  cursor: none;
 }
 
 #absolute-fade {

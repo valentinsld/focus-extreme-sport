@@ -1,7 +1,6 @@
 import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, DoubleSide } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
-import anime from "animejs"
 
 import TRAC_CAM from '@/assets/modelsCurves/ski.json'
 import RAFManager from '../Utils/RAFManager.js'

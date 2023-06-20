@@ -16,6 +16,7 @@ import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 import datas from "~~/webgl/data/data.json"
 import kayakHdr from '~~/assets/hdr/kayak.hdr'
 import InstancedAssets from '../Components/InstancedAssets.js'
+import Waterfall from '../Components/Environment/Waterfall.js'
 
 const splashColors = [
   new Color(0x418B84),
@@ -189,10 +190,17 @@ export default class SceneKayak extends BaseScene {
       jobWidth: 1000,
       quoteJob: 'Kayakiste professionnelle',
     })
-    this.quote.container.position.set(0.66, -1.05, -11.20)
+    this.quote.container.position.set(0.66, -1.05, -11.25)
     this.quote.container.rotation.y = DegToRad(145)
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
+
+    this.waterfall = new Waterfall({
+
+    })
+
+    this.waterfall.container.position.set(0.65,-.95, -11.55)
+    this.waterfall.hideWaterfall()
 
     this.instance.add(...[
       this.ambientLight,
@@ -200,7 +208,8 @@ export default class SceneKayak extends BaseScene {
       this.characterContainer,
       this.quote.container,
       this.dirLight.container,
-      this.sky.container
+      this.sky.container,
+      this.waterfall.container
     ])
     this.scene.add(this.instance)
 
@@ -376,11 +385,13 @@ export default class SceneKayak extends BaseScene {
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
       this.timelineValue = (this.timelineValue + dt * 0.022)
+      // this.timelineValue = (this.timelineValue + dt * 0)
       this.setTracking(this.timelineValue, this.characterContainer)
       this.splashLeft.updateParticles(currentTime, dt)
       this.splashRight.updateParticles(currentTime, dt)
       this.splashBack.updateParticles(currentTime, dt)
       this.water.material.uniforms.uTime.value += dt
+      this.waterfall.update(dt)
 
       this.updateAnimation(currentTime, dt)
     })
@@ -439,6 +450,8 @@ export default class SceneKayak extends BaseScene {
     this.quote.showQuote()
 
     this.setAnimationEnd(0.23, 1)
+    this.water.visible = false
+    this.waterfall.showWaterfall()
   }
 
   destroyScene() {

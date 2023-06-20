@@ -22,10 +22,30 @@
 </template>
 
 <script setup>
+import AudioManager from '~~/webgl/Managers/AudioManager'
+
 const emit = defineEmits(['close'])
 
 function close() {
 	emit('close')
+}
+
+onMounted(() => {
+  playSounds()
+})
+
+function playSounds() {
+  const AUDIO = new AudioManager()
+
+  setTimeout(() => {
+    AUDIO.play('camera-click-1')
+  }, 750);
+  setTimeout(() => {
+    AUDIO.play('camera-click-2')
+  }, 1250);
+  setTimeout(() => {
+    AUDIO.play('camera-click-3')
+  }, 1450);
 }
 </script>
 

@@ -81,6 +81,15 @@ function seeRewards() {
   const scene = new SceneStickers()
   scene.seeHelmet()
 }
+
+//
+// Unmounted
+//
+onUnmounted(() => {
+  const scene = new SceneStickers()
+
+  scene.setSceneForEnd()
+})
 </script>
 
 <style lang="scss" scoped>

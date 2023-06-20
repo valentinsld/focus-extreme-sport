@@ -107,8 +107,13 @@ export default class Camera {
     return this.current
   }
 
-  enableOrbitControls() {
+  enableOrbitControlsForStickers() {
     this.orbitControls.enabled = true
+    this.orbitControls.enableZoom = false
+    this.orbitControls.enablePan = false
+  }
+  disableOrbitControl() {
+    this.orbitControls.enabled = false
   }
 
   setOrbitControls() {

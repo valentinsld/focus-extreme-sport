@@ -135,6 +135,11 @@ onMounted(() => {
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .3) // (disto * .1) * 3
 			webgl.fxComposer.postProcessingPass.uniforms.uAmount.value = (disto * 0.0075)
 			webgl.fxComposer.postProcessingPass.uniforms.uDarkness.value = (disto * 0.35)
+
+			if(store.state.gamestate === 'ski') {
+				webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .25) // (disto * .1) * 3
+				webgl.fxComposer.postProcessingPass.uniforms.uK0.value.y = -(disto * .25) // (disto * .1) * 3
+			}
 		}
 
 		emit('updated', value.value)

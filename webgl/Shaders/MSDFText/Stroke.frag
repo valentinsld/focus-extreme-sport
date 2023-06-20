@@ -11,6 +11,7 @@ uniform sampler2D uMap;
 
 // Uniforms: Strokes
 uniform vec3 uStrokeColor;
+uniform float uStrokeOpacity;
 uniform float uStrokeOutsetWidth;
 uniform float uStrokeInsetWidth;
 
@@ -60,7 +61,7 @@ void main() {
     vec4 filledFragColor = vec4(uColor, uOpacity * alpha);
 
     // Output: Strokes
-    vec4 strokedFragColor = vec4(uStrokeColor, border);
+    vec4 strokedFragColor = vec4(uStrokeColor, border * uStrokeOpacity);
 
     gl_FragColor = mix(filledFragColor, strokedFragColor, border);
 }

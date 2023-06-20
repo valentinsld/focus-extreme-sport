@@ -86,11 +86,19 @@ export default class SceneSki extends BaseScene {
     this.characterContainer = new Group()
     this.character = new Group()
     this.characterAnimation = this.assets.models["ski_character"].scene
-    this.characterAnimation.scale.set(0.02, 0.02, 0.02)
-    this.characterAnimation.children[0].rotation.set(0, -Math.PI * 0.5, 0)
+    this.characterAnimation.scale.set(0.018, 0.018, 0.018)
+    this.characterAnimation.rotation.set(0, -Math.PI * 0.5, 0)
 
     this.character.add(this.characterAnimation)
     this.characterContainer.add(this.character)
+
+    this.setAnimation(
+      this.character,
+      this.assets.models["ski_character"].animations[0],
+      this.assets.models["ski_character"].animations[1],
+      new Vector3(0, 0.15, 0.03),
+      new Vector3(-0.015, 0, -0.03)
+    )
 
     // light
     this.ambientLight = new AmbientLight(CLEAR_COLOR, 0.5)
@@ -243,6 +251,9 @@ export default class SceneSki extends BaseScene {
     // 2 - add camera to wingsuit + set position
     this.setCameraFPV()
 
+    // 2.1 - play animation
+    this.startAnimation()
+
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneSki', (currentTime, dt) => {
@@ -251,6 +262,8 @@ export default class SceneSki extends BaseScene {
       this.water.material.uniforms.uTime.value += dt
       this.splashLeft.updateParticles(currentTime, dt)
       if(this.finalCloud) this.finalCloud.updateParticles(currentTime, dt)
+
+      this.updateAnimation(currentTime, dt)
     })
 
     // play audio
@@ -284,7 +297,7 @@ export default class SceneSki extends BaseScene {
     this.characterContainer.add(this.WebGL.camera.setCamera('fpv', new Vector3(0, 0.17, 0.035)))
   }
   setCameraTravelling () {
-    const addVector = new Vector3(-0.3, -0.05, -1.8)
+    const addVector = new Vector3(-0.3, 0.05, -1.3)
     this.WebGL.camera.setCamera('3p', addVector, this.characterContainer.position)
 
     RAFManager.add('ski-travelling', () => {
@@ -313,35 +326,8 @@ export default class SceneSki extends BaseScene {
       RAFManager.setSpeed(0.1)
     })
     this.splashLeft.endEmit()
-    const delay = 700
-    const duration = 5400
-    anime.timeline({
-      easing: 'linear'
-    })
-    .add({
-      targets: this.characterAnimation.rotation,
-      duration: duration + delay * 0.5,
-      x: `+=${Math.PI * -2}}`,
-      easing: 'cubicBezier(0.2,0.4,0.7,1.13)', // 'easeInOutQuad',
-      complete: () => {
-        setTimeout(() => {
-          RAFManager.setSpeed(0.45)
-          this.splashLeft.startEmit()
-        }, 800);
-      }
-    }, delay * 0.3)
-    .add({
-      targets: this.characterAnimation.position,
-      duration: duration,
-      y: 0.05,
-      easing: 'linear',
-    }, 0)
-    .add({
-      targets: this.characterAnimation.position,
-      duration: duration * 0.4,
-      y: 0,
-      easing: 'easeInSine',
-    }, duration)
+
+    this.setAnimationEnd(0.23, 1.67)
   }
 
   animationFailsQTE () {

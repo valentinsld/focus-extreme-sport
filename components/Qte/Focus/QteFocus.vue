@@ -52,7 +52,8 @@ import useStore from '~~/stores';
 import WebGL from '~~/webgl';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import NoEventKeyboard from '../NoEvent.js';
-import { clamp } from '~~/webgl/Utils/Math';
+// import { clamp } from '~~/webgl/Utils/Math';
+
 const SCORE_MAX = 25
 const START_SPEED = 3
 

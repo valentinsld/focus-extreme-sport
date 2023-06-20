@@ -6,7 +6,7 @@
       name="loader"
       appear
     >
-      <Loader v-if="!store.state.ressourcesLoaded" />
+      <Loader v-if="!store.state.ressourcesLoaded && !IS_DEV" />
     </Transition>
     <div id="absolute-fade" />
     <slot />

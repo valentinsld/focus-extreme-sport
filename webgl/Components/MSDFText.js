@@ -67,7 +67,7 @@ export default class MSDFText {
 			}
 			material.side = DoubleSide
 			material.defines.IS_SMALL = this.isSmall
-			material.depthTest = false
+			// material.depthTest = false
 
 			this.mesh = new Mesh(geometry, material);
 			this.container.add(this.mesh);

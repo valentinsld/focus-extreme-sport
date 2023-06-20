@@ -4,6 +4,8 @@
       'rewards': true
     }"
   >
+    <StickersRewardsSlider />
+
     <div
       :class="{
         'rewards__list': true,

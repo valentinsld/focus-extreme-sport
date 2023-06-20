@@ -51,11 +51,25 @@
       class="lottie"
       :class="{'is-visible': isFocusVisible}"
     />
-    <QteBalance v-if="store.state.gamestatestep === 3" />
-    <QteFocus
-      v-if="store.state.gamestatestep === 5"
-      :delay-reduced-speed="0"
-    />
+
+    <Transition
+      name="balance"
+      :duration="{enter: 1000, leave: 1000}"
+      appear
+    >
+      <QteBalance v-if="store.state.gamestatestep === 3" />
+    </Transition>
+
+    <Transition
+      name="focus"
+      :duration="{enter: 1000, leave: 1000}"
+      appear
+    >
+      <QteFocus
+        v-if="store.state.gamestatestep === 5"
+        :delay-reduced-speed="0"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -252,5 +266,93 @@ const endQteFigure = (isSucess) => {
   &.is-visible {
     opacity: 1;
   }
+}
+
+.balance-enter-active,
+.balance-leave-active {
+
+  :deep(.left) {
+    transform: translateY(0) rotate(180deg);
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  :deep(.right),
+  :deep(.gauge) {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  :deep(.gauge) {
+    transition-delay: 35ms;
+  }
+
+  :deep(.right) {
+    transition-delay: 70ms;
+  }
+}
+
+.balance-enter-from,
+.balance-leave-to {
+  :deep(.left) {
+    transform: translateY(4rem) rotate(180deg);
+    opacity: 0;
+  }
+
+  :deep(.right) {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+  :deep(.gauge) {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+}
+
+.focus-enter-active {
+
+  :deep(.qte-focus__title),
+  :deep(.space-container) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-bounce), opacity .3s ease(out-swift);
+  }
+
+  :deep(.space-container) {
+    transition-delay: 75ms;
+  }
+
+  :deep(.qte-focus__indicator) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+}
+
+.focus-leave-active {
+  opacity: 1;
+  transition: opacity .3s ease(out-swift);
+}
+
+.focus-enter-from {
+
+  :deep(.qte-focus__title),
+  :deep(.space-container) {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  :deep(.qte-focus__indicator) {
+    transform: translateY(4rem);
+    opacity: 0;
+  }
+
+}
+
+.focus-leave-to {
+  opacity: 0;
 }
 </style>

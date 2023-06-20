@@ -141,6 +141,7 @@ function enableClick(index) {
 	setTimeout(()=> {
 		if (objectStates[index].isRight || objectStates[index].isWrong) return
 		objectStates[index].isWrong = true
+		AUDIO.playRandomQteWrong()
 		currentFigure.value++
 		checkFinish()
 	}, props.delayWrong)

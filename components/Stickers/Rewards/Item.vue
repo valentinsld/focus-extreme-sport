@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="container"
     :class="{
       'reward-item': true,
       'is-visible': isVisible,
@@ -45,11 +46,18 @@ defineProps({
 	},
 })
 
+const container = ref(null)
 const emit = defineEmits(['next'])
 
 function next() {
 	emit('next')
 }
+
+onMounted(() => {
+	// add add event on click
+	console.log(container.value)
+	container.value.addEventListener('click', next)
+})
 </script>
 
 <style lang="scss">
@@ -70,16 +78,16 @@ $right: 70px;
 		pointer-events: initial;
 
 		.reward-item__sticker {
-			transition-delay: 0.5s;
-			transition-duration: 2s;
+			transition-delay: 0.52s;
+			transition-duration: 1s;
 			transition-timing-function: ease(out-bounce);
 			transform: translate(-50%, -50%) rotate3d(0.5, 1, 0, 360deg) scale(1);
 		}
 
 		.reward-item__text,
 		.reward-item__btn {
-			transition-delay: 1.5s;
-			transition-duration: 0.5s;
+			transition-delay: 1s;
+			transition-duration: 0.25s;
 			opacity: 1 !important;
 		}
 	}
@@ -99,13 +107,13 @@ $right: 70px;
 		perspective: 10px;
 		perspective-origin: center center;
 
-		transition: transform 0.75s ease(ease_out-cubic);
+		transition: transform 0.5s ease(ease_out-cubic);
 	}
 
 	&__text,
 	&__btn {
 		opacity: 0;
-		transition: opacity 0.5s ease(ease_out-cubic);
+		transition: opacity 0.3s ease(ease_out-cubic);
 	}
 
 	&__text {

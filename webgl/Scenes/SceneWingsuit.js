@@ -15,6 +15,7 @@ import SkyCustom from '../Components/Environment/Sky.js'
 import Clouds from '../Components/Environment/Clouds.js'
 
 import datas from "~~/webgl/data/data.json"
+import InstancedAssets from '../Components/InstancedAssets.js'
 
 const CLEAR_COLOR = 0xd6eeff
 const CAM2_POS = new Vector3(6.25, 0.86, -1.85)
@@ -35,6 +36,8 @@ export default class SceneWingsuit extends BaseScene {
 
     this.scene.fog = new FogExp2(0x9bc8fa, 0.025)
 
+    this.ices = []
+    this.deadWood = []
 
     this.init()
     // Debug
@@ -47,6 +50,18 @@ export default class SceneWingsuit extends BaseScene {
   init() {
     // MAP
     this.map = this.assets.models["wingsuit_map"].scene
+
+    this.map.traverse((element) => {
+      if(element.name.includes('SNOW_DEAD_WOOD')) {
+				this.deadWood.push(element)
+			}
+
+      if(element.name.includes('ICE')) {
+				this.ices.push(element)
+			}
+		})
+
+    this.initInstancedAssets()
 
     // character
     this.characterContainer = new Group()
@@ -166,7 +181,7 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.hideQuote()
 
     // add to scene
-    this.scene.add(...[
+    this.instance.add(...[
       this.map,
       this.characterContainer,
       this.ambientLight,
@@ -179,12 +194,50 @@ export default class SceneWingsuit extends BaseScene {
       this.cl4.container,
     ])
 
+    this.scene.add(this.instance)
+
     if(this.WebGL.debug) {
       // three js add helper lines
       const axesHelper = new AxesHelper(5)
       this.instance.add(axesHelper)
     }
   }
+
+  initInstancedAssets() {
+    this.icesInstanced = new InstancedAssets({
+      name: 'ices',
+      model: 'instance_ice',
+      instances: this.ices,
+      scaleMultiplier: .0009,
+      hdr: wingsuitHdr,
+      intensity: .8,
+      hasHdr: true,
+    })
+
+    // this.bushInstanced = new InstancedAssets({
+    //   name: 'bush',
+    //   model: 'instance_bush',
+    //   instances: this.bush,
+    //   hdr: kayakHdr
+    // })
+
+    this.deadWoodInstanced = new InstancedAssets({
+      name: 'deadWood',
+      model: 'snow_dead_wood_2',
+      instances: this.deadWood,
+      scaleMultiplier: .25,
+      hdr: wingsuitHdr,
+      intensity: .8,
+      hasHdr: true,
+    })
+
+
+    this.instance.add(...[
+      this.icesInstanced.container,
+      this.deadWoodInstanced.container,
+    ])
+  }
+
 
   startScene() {
     // 1 - set curves for tracking camera

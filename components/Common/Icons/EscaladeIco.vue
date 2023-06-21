@@ -50,7 +50,7 @@
   path {
     fill: colors(white);
     stroke: colors(white);
-    transition: fill .3s ease(out-swift), stroke .3s ease(out-swift);
+    transition: fill .5s ease(out-swift), stroke .5s ease(out-swift);
   }
 }
 

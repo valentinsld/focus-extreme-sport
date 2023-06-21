@@ -37,15 +37,15 @@ function setScene () {
   height: 100vh;
   overflow-y: scroll;
 
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
 
   font-size: 2rem;
 
-  img {
-    // TODO remove these line
-    max-height: 100px;
-  }
+  // img {
+  // 	// TODO remove these line
+  // 	max-height: 100px;
+  // }
 
   * {}
 }

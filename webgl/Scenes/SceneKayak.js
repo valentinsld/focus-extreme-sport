@@ -119,8 +119,6 @@ export default class SceneKayak extends BaseScene {
     this.character = this.assets.models["kayak_character"].scene
     this.character.scale.set(0.008, 0.008, 0.008)
     this.character.rotation.y = -Math.PI *0.5
-    this.characterCam = this.character.getObjectByName('FPV_CAM')
-    this.characterCam.visible = false
     this.characterContainer.add(this.character)
 
     this.setAnimation(

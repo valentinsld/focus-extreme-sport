@@ -176,106 +176,109 @@ const [container, slider] = useKeenSlider({
 
 <style lang="scss">
 .rewards-slider {
-	position: absolute;
-	top: 50%;
-	left: 0px;
-	padding-left: 40px;
-	transform: translate3d(0, -50%, 0);
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  padding-left: 40px;
+  transform: translate3d(0, -50%, 0);
 
-	height: 100vh;
-	width: 180px;
+  height: 100vh;
+  width: 180px;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 
-	background: linear-gradient(90deg, #ffffffdd, #ffffff00);
+  background: linear-gradient(90deg, #ffffffdd, #ffffff00);
 
-	animation: appear 1s ease-out forwards;
+  animation: appear 1s ease-out forwards;
 
-	@keyframes appear {
+  @keyframes appear {
 
-		0%,
-		50% {
-			opacity: 0;
-		}
+    0%,
+    50% {
+      opacity: 0;
+    }
 
-		100% {
-			opacity: 1;
-		}
-	}
+    100% {
+      opacity: 1;
+    }
+  }
 
-	&,
-	* {
-		pointer-events: initial;
-	}
+  &,
+  * {
+    pointer-events: initial;
+  }
 
-	&__slider {
-		display: flex;
-		width: 100%;
-		height: 75vh;
+  &__slider {
+    display: flex;
+    width: 100%;
+    height: 75vh;
 
-		margin-top: -12.5vh;
-		margin-bottom: -12.5vh;
+    margin-top: -12.5vh;
+    margin-bottom: -12.5vh;
 
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
-		}
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
 
-		// hide
-		.keen-slider__slide {
-			position: relative;
+      filter: drop-shadow(0px 0px 4px #00000042);
+    }
 
-			&.is-hide {
-				&::before {
-					content: '';
-					position: absolute;
-					z-index: 1;
-					top: 50%;
-					left: 50%;
-					height: 36px;
-					width: 36px;
-					transform: translate3d(-50%, -50%, 0);
+    // hide
+    .keen-slider__slide {
+      position: relative;
+      overflow: initial;
 
-					background-image: url('/stickers/lock.png');
-					background-position: center center;
-					background-repeat: no-repeat;
-					background-size: contain;
+      &.is-hide {
+        &::before {
+          content: '';
+          position: absolute;
+          z-index: 1;
+          top: 50%;
+          left: 50%;
+          height: 36px;
+          width: 36px;
+          transform: translate3d(-50%, -50%, 0);
 
-					opacity: 0.8;
-				}
+          background-image: url('/stickers/lock.png');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: contain;
 
-				img {
-					filter: brightness(10%);
-					opacity: 0.8;
-				}
-			}
-		}
-	}
+          opacity: 0.8;
+        }
 
-	&__button {
-		position: relative;
-		z-index: 1;
+        img {
+          filter: brightness(10%);
+          opacity: 0.8;
+        }
+      }
+    }
+  }
 
-		cursor: pointer;
+  &__button {
+    position: relative;
+    z-index: 1;
 
-		border: none;
-		background: transparent;
+    cursor: pointer;
 
-		transition: all 0.3s ease(ease_out-cubic);
+    border: none;
+    background: transparent;
 
-		&:hover {
-			opacity: 0.5;
-			transform: scale(0.97);
-		}
+    transition: all 0.3s ease(ease_out-cubic);
 
-		&:active {
-			transform: scale(0.75);
-		}
-	}
+    &:hover {
+      opacity: 0.5;
+      transform: scale(0.97);
+    }
+
+    &:active {
+      transform: scale(0.75);
+    }
+  }
 }
 </style>

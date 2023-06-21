@@ -15,50 +15,53 @@
 </template>
 
 <script setup>
-	import useStore from '@/stores/index.js'
-	import { lerp } from '~~/webgl/Utils/Lerp';
-	import RAFManager from '~~/webgl/Utils/RAFManager';
-	import { onBeforeUnmount, onMounted, ref} from 'vue';
+import useStore from '@/stores/index.js'
+import { lerp } from '~~/webgl/Utils/Lerp';
+import RAFManager from '~~/webgl/Utils/RAFManager';
+import { onBeforeUnmount, onMounted, ref} from 'vue';
+import AudioManager from '~~/webgl/Managers/AudioManager';
 
-	const soundBars = ref();
-	const randomOffset = [];
+const soundBars = ref();
+const randomOffset = [];
 
-	const store = useStore()
+const store = useStore()
 
-	const animeProgress = ref(0);
-	let offset;
+const animeProgress = ref(0);
+let offset;
 
-	onMounted(() => {
-		// Offset each bar randomly at start
-		for (let i = 0; i < soundBars.value.length; i++) {
-			randomOffset.push(Math.random() + 1 * 10);
-		}
-
-		RAFManager.add('SoundBar', (currentTime) => {
-			update(currentTime)
-		})
-	});
-
-	onBeforeUnmount(() => {
-		soundBars.value.length = 0;
-		RAFManager.remove('SoundBar');
-	});
-
-	function update(dt) {
-		// Animate each bar
-		for (let i = 0; i < soundBars.value.length; i++) {
-			const bar = soundBars.value[ i ];
-			const off = randomOffset[ i ];
-			animeProgress.value = lerp(animeProgress.value, store.state.isAudioMuted ? 0 : 1, 0.01);
-			offset = (Math.sin(dt * (0.7 + off * 0.6) + off * 30) + 1);
-			bar.style.transform = `scaleY(${ 0.7 + (offset * animeProgress.value) })`;
-		}
+onMounted(() => {
+	// Offset each bar randomly at start
+	for (let i = 0; i < soundBars.value.length; i++) {
+		randomOffset.push(Math.random() + 1 * 10);
 	}
 
-	function toggleSound() {
-		// TODO toggle off sound
-		store.state.isAudioMuted = !store.state.isAudioMuted
+	RAFManager.add('SoundBar', (currentTime) => {
+		update(currentTime)
+	})
+});
+
+onBeforeUnmount(() => {
+	soundBars.value.length = 0;
+	RAFManager.remove('SoundBar');
+});
+
+function update(dt) {
+	// Animate each bar
+	for (let i = 0; i < soundBars.value.length; i++) {
+		const bar = soundBars.value[ i ];
+		const off = randomOffset[ i ];
+		animeProgress.value = lerp(animeProgress.value, store.state.isAudioMuted ? 0 : 1, 0.01);
+		offset = (Math.sin(dt * (0.7 + off * 0.6) + off * 30) + 1);
+		bar.style.transform = `scaleY(${ 0.7 + (offset * animeProgress.value) })`;
 	}
+}
+
+function toggleSound() {
+	store.state.isAudioMuted = !store.state.isAudioMuted
+
+	const AUDIO = new AudioManager()
+	AUDIO.toggleSound(store.state.isAudioMuted)
+}
 </script>
 
 <style lang="scss" scoped>

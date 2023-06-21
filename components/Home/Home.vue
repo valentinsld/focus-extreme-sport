@@ -38,17 +38,15 @@
         <p class="start-text">
           Pour une expérience optimale, munis-toi d’un casque
         </p>
-        <button
-          class="btn-underline"
-          :class="{'is-visible': store.state.ressourcesLoaded}"
-          @click="startProject"
-        >
-          <span class="btn-text">commencer</span>
-        </button>
-
-        <!-- <button @click="() => navigateTo('/stickers-rewards')">
-          Go to stickers
-        </button> -->
+        <div class="btn-start">
+          <button
+            class="btn-underline"
+            :class="{'is-visible': store.state.ressourcesLoaded}"
+            @click="startProject"
+          >
+            <span class="btn-text">commencer</span>
+          </button>
+        </div>
       </div>
     </section>
   </Transition>

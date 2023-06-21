@@ -40,7 +40,7 @@
         </p>
         <div class="btn-start">
           <button
-            class="btn-underline"
+            class="btn-content"
             :class="{'is-visible': store.state.ressourcesLoaded}"
             @click="startProject"
           >
@@ -141,6 +141,48 @@ function resetScores() {
     // letter-spacing: .1rem;
     margin-bottom: 1rem;
     font-size: 1.5rem;
+  }
+}
+
+.btn-content {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  pointer-events: all;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+
+  &:hover {
+    span {
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  span {
+    display: block;
+    position: relative;
+    font-family: const(font-akira);
+    font-weight: 900;
+    font-size: 2.5rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+      bottom: -5%;
+      transform-origin: center center;
+      transform: scaleX(0);
+      transition: transform .35s ease(out-swift);
+    }
   }
 }
 

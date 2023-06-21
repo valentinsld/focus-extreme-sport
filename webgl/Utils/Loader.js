@@ -2,7 +2,6 @@ import EventEmitter from './EventEmitter'
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import { AudioLoader, LinearFilter, TextureLoader } from 'three'
@@ -36,8 +35,6 @@ export default class Loader extends EventEmitter {
 		const gltfLoader = new GLTFLoader()
 		gltfLoader.setDRACOLoader(dracoLoader)
 
-		const fbxLoader = new FBXLoader()
-
 		const textureLoader = new TextureLoader()
 		const fontLoader = new FontLoader()
 		const soundLoader = new AudioLoader()
@@ -47,20 +44,6 @@ export default class Loader extends EventEmitter {
 				filetype: ['gltf', 'glb'],
 				action: (model) => {
 					gltfLoader.load(
-						model.src,
-						(loaded) => {
-							this.loadComplete(model, loaded)
-						},
-						(xhr) => {
-							this.progress(xhr)
-						}
-					)
-				},
-			},
-			{
-				filetype: ['fbx'],
-				action: (model) => {
-					fbxLoader.load(
 						model.src,
 						(loaded) => {
 							this.loadComplete(model, loaded)

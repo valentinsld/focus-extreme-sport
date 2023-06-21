@@ -1,5 +1,4 @@
 import { PerspectiveCamera, Object3D, Vector3 } from 'three'
-import Pz from 'pizzicato'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import WebGL from './index.js'
 import InstanciedSpeed from './Components/Particles/Speed/InstanciedSpeed.js'
@@ -96,11 +95,11 @@ export default class Camera {
 
     if (name === 'fpv') {
       this.speedLine.showLines()
-      Pz.volume = 1;
+      this.audio.changeGlobalVolume(1)
     } else {
       this.audio.playRandomSwitch()
       this.speedLine.hideLines()
-      Pz.volume = 0.15;
+      this.audio.changeGlobalVolume(0.15)
       this.WebGL.fxComposer.resetEffect()
     }
 

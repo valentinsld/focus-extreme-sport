@@ -20,6 +20,7 @@ import { lerp } from '~~/webgl/Utils/Lerp';
 import RAFManager from '~~/webgl/Utils/RAFManager';
 import { onBeforeUnmount, onMounted, ref} from 'vue';
 import AudioManager from '~~/webgl/Managers/AudioManager';
+let AUDIO = null
 
 const soundBars = ref();
 const randomOffset = [];
@@ -30,6 +31,8 @@ const animeProgress = ref(0);
 let offset;
 
 onMounted(() => {
+	AUDIO = new AudioManager()
+
 	// Offset each bar randomly at start
 	for (let i = 0; i < soundBars.value.length; i++) {
 		randomOffset.push(Math.random() + 1 * 10);
@@ -59,7 +62,6 @@ function update(dt) {
 function toggleSound() {
 	store.state.isAudioMuted = !store.state.isAudioMuted
 
-	const AUDIO = new AudioManager()
 	AUDIO.toggleSound(store.state.isAudioMuted)
 }
 </script>

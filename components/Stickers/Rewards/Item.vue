@@ -12,7 +12,7 @@
     >
 
     <p class="reward-item__text">
-      {{ text }}
+      {{ CONTENT_STICKERS[sport][score - 1] }}
     </p>
 
     <button
@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+import CONTENT_STICKERS from '~~/content/stickers.json'
+
 defineProps({
 	score: {
 		type: Number,

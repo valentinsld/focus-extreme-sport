@@ -202,9 +202,9 @@ const emit = defineEmits(['isClickable'])
 	path {
 		stroke: colors(f_green);
 
-		.game-ski & {
-			stroke: colors(f_pink);
-		}
+		// .game-ski & {
+		// 	stroke: colors(f_pink);
+		// }
 	}
 }
 

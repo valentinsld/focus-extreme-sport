@@ -25,30 +25,28 @@ onMounted(() => {
 function setScene () {
   const sceneManager = new SceneManager()
 
-  sceneManager.setScene('stickers', 0, () => {
-	console.log('setStickers')
-  })
+  sceneManager.setScene('stickers', 0)
 }
 </script>
 
 <style lang="scss">
 .page-flow {
-	position: relative;
-	z-index: 1;
+  position: relative;
+  z-index: 1;
 
-	height: 100vh;
-	overflow-y: scroll;
+  height: 100vh;
+  overflow-y: scroll;
 
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	font-size: 2rem;
+  font-size: 2rem;
 
-	img {
-		// TODO remove these line
-		max-height: 100px;
-	}
+  img {
+    // TODO remove these line
+    max-height: 100px;
+  }
 
-	* {}
+  * {}
 }
 </style>

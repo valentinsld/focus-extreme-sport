@@ -176,6 +176,7 @@ const initStates = (scene) => {
   })
   scene.setEventTimeline(0.05, () => {
     rolloverAnime.play()
+    Audio.play('sound-rollover', false, 1, 0)
   })
 
   // event QTE FIGURE

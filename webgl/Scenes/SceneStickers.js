@@ -121,7 +121,7 @@ export default class SceneStickers extends BaseScene {
     this.WebGL.renderer.instance.setClearColor(0xffffff, 1)
 
     this.WebGL.camera.target.set(0, 0, 0)
-    this.WebGL.camera.current.position.set(3, 0, 0)
+    this.WebGL.camera.current.position.set(-3, 0, 0)
     this.instance.add(this.WebGL.camera.current)
     this.WebGL.camera.enableOrbitControlsForStickers()
 

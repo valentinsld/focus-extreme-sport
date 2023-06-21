@@ -28,7 +28,7 @@ const stickers = useStickers()
 const isHide = ref(true)
 
 const isIntro = ref(true)
-const currentRewards = reactive({
+const currentRewards = ref({
   wingsuit: 3,
   ski: 3,
   kayak: 3,

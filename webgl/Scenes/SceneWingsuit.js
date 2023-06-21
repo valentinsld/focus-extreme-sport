@@ -52,7 +52,7 @@ export default class SceneWingsuit extends BaseScene {
     this.characterContainer = new Group()
     this.character = this.assets.models["wingsuit_character"].scene
     this.character.scale.set(0.01, 0.01, 0.01)
-    this.character.position.set(0, -0.02, 0)
+    this.character.position.set(0, -0.02, -0.012)
     this.character.children[0].rotation.set(0, -Math.PI * 0.5, 0)
 
     this.mixerCharacter = new AnimationMixer(this.character);
@@ -264,7 +264,10 @@ export default class SceneWingsuit extends BaseScene {
     .add({
       targets: this.WebGL.camera.listCamera['fpv'].position,
       x: [0.1, 0],
-      y: [0.1, 0],
+      y: {
+        value: [0.1, 0],
+        duration: 2800
+      },
       z: [-0.3, 0],
       duration: 3300,
       easing: 'easeOutQuint',

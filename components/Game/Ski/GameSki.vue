@@ -71,6 +71,7 @@
 <script setup>
 import useStore from '@/stores/index.js'
 import SceneManager from '~~/webgl/Managers/SceneManager';
+import RAFManager from '~~/webgl/Utils/RAFManager';
 
 import lottie  from 'lottie-web'
 
@@ -205,6 +206,7 @@ function initStates(scene) {
   })
 
   scene.setEventTimeline(0.89, () => {
+    RAFManager.setSpeed(0.1)
     if (doBackFlip) {
       currentScene.animationSucessQTE()
     } else {
@@ -215,17 +217,18 @@ function initStates(scene) {
   // set new Cam
   scene.setEventTimeline(0.93, () => {
     scene.setCamera3P()
+    RAFManager.setSpeed(0.25)
     // scene.initFinalCloudSnow()
   })
 
-  scene.setEventTimeline(0.95, () => {
+  scene.setEventTimeline(0.94, () => {
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
   })
 
 
   // event end next scene
-  scene.setEventTimeline(0.995, () => {
+  scene.setEventTimeline(0.97, () => {
     store.state.gamestate = 'kayak'
   })
 }

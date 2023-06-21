@@ -16,6 +16,7 @@ import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 import RiverF from '@/webgl/Shaders/River/riverF.frag'
 import RiverV from '@/webgl/Shaders/River/riverV.vert'
 import InstancedAssets from '../Components/InstancedAssets.js'
+import { DegToRad } from '../Utils/Math.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
@@ -224,7 +225,9 @@ export default class SceneSki extends BaseScene {
       lifeTime: 15,
     })
 
-    this.finalCloud.container.position.set(18.75, 1.5, 4)
+    this.finalCloud.container.position.set(18.75, 1.45, 4.275)
+    this.finalCloud.container.rotation.x = DegToRad(15)
+    this.finalCloud.container.rotation.z = DegToRad(2)
 
     this.instance.add(this.finalCloud.container)
   }
@@ -484,9 +487,6 @@ export default class SceneSki extends BaseScene {
   // End QTE
   //
   animationSucessQTE () {
-    requestAnimationFrame(() => {
-      RAFManager.setSpeed(0.15)
-    })
     this.splashLeft.endEmit()
 
     this.setAnimationEnd(0.1, 1.45)

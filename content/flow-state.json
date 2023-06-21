@@ -4,8 +4,8 @@
 			{
 				"letter": "F",
 				"quote": "“C’est très compliqué d’obtenir facilement un espèce d’état de grâce en ski [...] mais quand ça arrive c’est incroyable [...] on arrive en bas on se dit ”ça y est j’ai refait ma saison”",
-				"role": "NICOLAS FALQUET",
-				"author": "Skieur professionnel et réalisateur",
+				"author": "NICOLAS FALQUET",
+				"role": "Skieur professionnel et réalisateur",
 				"image": "/flow-state/hero/f.png"
 			},
 			{
@@ -17,16 +17,16 @@
 			},
 			{
 				"letter": "O",
-				"quote": "C’est la plus belle des disciplines. Elle est riche en terme d’apprentissage et d’émotions. Chaque jour c’est une nouvelle journée et le cadre où l’on évolue est tout simplement incroyable. La montagne est une vraie carte postale.“",
-				"role": "JÉRÉMY PREVOST",
-				"author": "Skieur professionnel",
+				"quote": "“C’est la plus belle des disciplines. Elle est riche en terme d’apprentissage et d’émotions. Chaque jour c’est une nouvelle journée et le cadre où l’on évolue est tout simplement incroyable. La montagne est une vraie carte postale.“",
+				"role": "Skieur professionnel",
+				"author": "JÉRÉMY PREVOST",
 				"image": "/flow-state/hero/o.png"
 			},
 			{
 				"letter": "W",
 				"quote": "“J'aime la sensation de toucher le rocher, la sensation de mon corps qui monte le rocher.“",
-				"role": "ALEX HONNOLD",
-				"author": "Grimpeur professionnel",
+				"author": "ALEX HONNOLD",
+				"role": "Grimpeur professionnel",
 				"image": "/flow-state/hero/w.png"
 			}
 		]

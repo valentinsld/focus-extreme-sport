@@ -18,6 +18,7 @@
 
     <Transition
       name="intro"
+      :duration="{ enter: 6000, leave: 6000 }"
       appear
     >
       <GameIntro v-if="store.state.gamestate === 'intro'" />
@@ -158,20 +159,6 @@ const initDebugGameState = () => {
     opacity: 0;
   }
 
-}
-
-.intro-enter-active {
-  transition: opacity .5s ease(out-swift);
-  transition-delay: 2s;
-}
-
-.intro-leave-active {
-  transition: opacity .5s ease(out-swift);
-}
-
-.intro-enter-from,
-.intro-leave-to {
-  opacity: 0;
 }
 
 .altimetre-enter-active,

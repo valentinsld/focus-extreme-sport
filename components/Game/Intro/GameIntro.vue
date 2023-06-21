@@ -120,18 +120,6 @@ onUnmounted(() => {
   }
 }
 
-.stepIntro-enter-active,
-.stepIntro-leave-active {
-  transition: opacity 375ms cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.stepIntro-enter-from,
-.stepIntro-leave-to {
-
-  opacity: 0;
-
-}
-
 .breathe-container {
   --breathe-duration: 3s;
 
@@ -213,5 +201,19 @@ onUnmounted(() => {
     animation: PopLetter 1.5s ease-out infinite;
     animation-delay: calc(150ms + (#{$i} * 75ms));
   }
+}
+
+.intro-enter-active {
+  transition: opacity .5s ease(out-swift);
+  transition-delay: 2s;
+}
+
+.intro-leave-active {
+  transition: opacity .5s ease(out-swift);
+}
+
+.intro-enter-from,
+.intro-leave-to {
+  opacity: 0;
 }
 </style>

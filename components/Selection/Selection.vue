@@ -20,12 +20,13 @@
           ]"
           @mouseover="handleHover(i, true)"
           @mouseleave="handleHover(null, false)"
-          @click="selectPackage"
+          @click="selectPackage(items[i-1].isAvaialable)"
         >
           <div
             class="package-container"
             :class="[
               { 'is-hidden': hoverIndex !== i && isHovered},
+              (items[i-1].isAvaialable ? 'is-available' : 'not-available')
             ]"
           >
             <div class="package-content">
@@ -94,7 +95,8 @@ const items = [
 			Surf,
 			SpeedRiding,
 		],
-		image: '/selection/coming-soon.png'
+		image: '/selection/coming-soon.png',
+		isAvaialable: false,
 	},
 	{
 		title:"vitesse - précision",
@@ -106,7 +108,8 @@ const items = [
 			SkiIco,
 			KayakIco,
 		],
-		image: '/selection/perso.png'
+		image: '/selection/perso.png',
+		isAvaialable: true,
 	},
 	{
 		title: "controle - coordination",
@@ -118,7 +121,8 @@ const items = [
 			ParachuteIco,
 			GymkhanaIco,
 		],
-		image: '/selection/coming-soon.png'
+		image: '/selection/coming-soon.png',
+		isAvaialable: false,
 	},
 ]
 
@@ -131,8 +135,9 @@ function handleHover(index, state) {
 	isHovered.value = state
 }
 
-function selectPackage() {
-  store.state.gamestate = 'phrase'
+function selectPackage(value) {
+	if (!value) return
+	store.state.gamestate = 'phrase'
 }
 </script>
 
@@ -150,11 +155,12 @@ function selectPackage() {
 }
 
 .package {
-	cursor: pointer;
 	max-width: 30%;
 }
 
 .package-container {
+	cursor: pointer;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -168,6 +174,14 @@ function selectPackage() {
 			opacity: 1;
 		}
 
+	}
+
+	&.not-available {
+		cursor: not-allowed;
+
+		@include hover() {
+			transform: scale(1.1) !important;
+		}
 	}
 
 	&.is-hidden {

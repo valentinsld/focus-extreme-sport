@@ -129,9 +129,9 @@ const emit = defineEmits(['isClickable'])
 			path {
 				fill: colors(f_green);
 
-				.game-ski & {
-					fill: colors(f_pink);
-				}
+				// .game-ski & {
+				// 	fill: colors(f_pink);
+				// }
 			}
 		}
 
@@ -142,9 +142,9 @@ const emit = defineEmits(['isClickable'])
 				path {
 					fill: rgba(colors(f_green), calc(100% / #{$i}));
 
-					.game-ski & {
-						fill: rgba(colors(f_pink), calc(100% / #{$i}));
-					}
+					// .game-ski & {
+					// 	fill: rgba(colors(f_pink), calc(100% / #{$i}));
+					// }
 				}
 			}
 		}

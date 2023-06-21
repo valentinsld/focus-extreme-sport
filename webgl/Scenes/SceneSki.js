@@ -469,11 +469,11 @@ export default class SceneSki extends BaseScene {
   //
   animationSucessQTE () {
     requestAnimationFrame(() => {
-      RAFManager.setSpeed(0.1)
+      RAFManager.setSpeed(0.15)
     })
     this.splashLeft.endEmit()
 
-    this.setAnimationEnd(0.23, 1.67)
+    this.setAnimationEnd(0.1, 1.45)
   }
 
   animationFailsQTE () {

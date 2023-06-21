@@ -5,7 +5,7 @@
   >
     <div class="keyboard">
       <div class="top">
-        <div class="top-key key-arrow">
+        <div class="top-key key-arrow key-4">
           <svg
             viewBox="0 0 202 202"
             fill="none"
@@ -151,6 +151,13 @@ const store = useStore()
 	.is-visible & {
 		transform: none;
 		opacity: 1;
+	}
+}
+
+@for $i from 1 through 4 {
+	.key-#{$i} {
+		animation: tutoTouche 1.5s linear infinite;
+		animation-delay: calc(800ms + (#{$i} * 200ms));
 	}
 }
 </style>

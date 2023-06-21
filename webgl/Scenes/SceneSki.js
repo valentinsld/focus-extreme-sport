@@ -1,6 +1,7 @@
 import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, DoubleSide } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
+import anime from 'animejs'
 
 import TRAC_CAM from '@/assets/modelsCurves/ski.json'
 import RAFManager from '../Utils/RAFManager.js'
@@ -459,7 +460,19 @@ export default class SceneSki extends BaseScene {
   }
 
   setCameraQteFigure () {
-    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, this.map.getObjectByName('CAM_2_TARGET').position)
+    const TX = 0.3
+    const posTarget = this.map.getObjectByName('CAM_2_TARGET').position
+    posTarget.x -= TX
+
+    this.WebGL.camera.setCamera('3p', this.map.getObjectByName('CAM_2').position, posTarget)
+
+    anime({
+      targets: posTarget,
+      x: '+='+TX*2.4,
+      delay: 1500,
+      duration: 9000,
+      easing: 'easeOutQuad'
+    })
   }
 
   setCamera3P() {

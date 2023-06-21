@@ -127,7 +127,7 @@ export default class SceneSki extends BaseScene {
     this.setAnimation(
       this.character,
       this.assets.models["ski_character"].animations[0],
-      this.assets.models["ski_character"].animations[1],
+      this.assets.models["ski_character"].animations[4],
       new Vector3(0, 0.15, 0.03),
       new Vector3(-0.015, 0, -0.03)
     )

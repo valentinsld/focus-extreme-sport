@@ -43,7 +43,10 @@
                     {{ items[i -1].word2 }}
                   </p>
                 </div>
-                <div class="background-perso" />
+                <img
+                  class="background-perso"
+                  :src="items[i -1].image"
+                >
               </div>
               <div
                 class="title"
@@ -90,7 +93,8 @@ const items = [
 			HighlineIco,
 			Surf,
 			SpeedRiding,
-		]
+		],
+		image: '/selection/coming-soon.png'
 	},
 	{
 		title:"vitesse - précision",
@@ -101,7 +105,8 @@ const items = [
 			Wingsuit,
 			SkiIco,
 			KayakIco,
-		]
+		],
+		image: '/selection/perso.png'
 	},
 	{
 		title: "controle - coordination",
@@ -112,7 +117,8 @@ const items = [
 			EscaladeIco,
 			ParachuteIco,
 			GymkhanaIco,
-		]
+		],
+		image: '/selection/coming-soon.png'
 	},
 ]
 
@@ -177,13 +183,14 @@ function selectPackage() {
 }
 
 .background-perso {
-	width: 80%;
-	height: 80%;
-	background-color: red;
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	width: 80%;
+	height: 80%;
 	transform: translate(-50%, -50%);
+
+	object-fit: contain;
 }
 
 .texts {

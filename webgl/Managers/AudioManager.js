@@ -33,7 +33,7 @@ export default class AudioManager {
 
 		this.effetcs = {}
 
-		this.isMuted = false
+		this.isMuted = 1
 		this.volume = 1
 
 		this.initRAF()
@@ -113,7 +113,6 @@ export default class AudioManager {
 	//
 	//
 	toggleSound(mute) {
-		console.log('togglesound audio', mute)
 		this.isMuted = mute ? 0 : 1
 
 		this.changeGlobalVolume()

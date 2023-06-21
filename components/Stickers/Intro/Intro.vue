@@ -10,19 +10,17 @@
       <img src="/end-photos/kayak.png">
     </div>
 
-    <button
-      class="stickers-intro__button btn-underline"
+    <CtaUnderline
+      class="stickers-intro__button"
+      text="Suivant"
       @click="close"
-    >
-      <span>
-        Suivant
-      </span>
-    </button>
+    />
   </div>
 </template>
 
 <script setup>
 import AudioManager from '~~/webgl/Managers/AudioManager'
+import CtaUnderline from '~~/components/Common/CtaUnderline.vue';
 
 const emit = defineEmits(['close'])
 

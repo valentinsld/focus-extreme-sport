@@ -15,19 +15,17 @@
       {{ CONTENT_STICKERS[sport][score - 1] }}
     </p>
 
-    <button
-      class="reward-item__btn  btn-underline"
+    <CtaUnderline
+      class="reward-item__btn"
+      text="Suivant"
       @click="next"
-    >
-      <span>
-        Suivant
-      </span>
-    </button>
+    />
   </div>
 </template>
 
 <script setup>
 import CONTENT_STICKERS from '~~/content/stickers.json'
+import CtaUnderline from '~~/components/Common/CtaUnderline.vue';
 
 defineProps({
 	score: {

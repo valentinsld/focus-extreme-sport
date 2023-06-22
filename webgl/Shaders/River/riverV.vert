@@ -11,6 +11,11 @@ uniform float uSmallIterations;
 varying float vElevation;
 varying vec2 vUv;
 
+
+bool isPerspectiveMatrix( mat4 m ) {
+	return m[ 2 ][ 3 ] == - 1.0;
+}
+#include <logdepthbuf_pars_vertex>
 #include <fog_pars_vertex>
 
 // Classic Perlin 3D Noise
@@ -121,4 +126,5 @@ void main()
     vElevation = elevation;
 
     #include <fog_vertex>
+    #include <logdepthbuf_vertex>
 }

@@ -161,8 +161,12 @@ vec2 rotate(vec2 st, float a) {
 
 // const float strength = 1.0;
 
+#include <logdepthbuf_pars_fragment>
+
 void main()
 {
+	#include <logdepthbuf_fragment>
+
 	vec2 st = rotate(vUv, radians(uRotation));
 	vec2 voroUv = vUv;
 	vec2 foamUv = vUv;

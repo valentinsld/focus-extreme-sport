@@ -32,7 +32,7 @@ export default class Renderer {
       antialias: true,
       canvas: this.WebGL.canvas,
       // THIS IS IMPORTANT : delete flickering between planes with fxComposer
-      logarithmicDepthBuffer: false
+      logarithmicDepthBuffer: true
     })
     this.instance.domElement.style.position = 'absolute'
     this.instance.domElement.style.top = 0

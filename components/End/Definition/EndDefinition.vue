@@ -126,7 +126,7 @@ function handleHover(index, state) {
 <style lang="scss" scoped>
 .definition {
   width: 100%;
-  margin: 2rem 0;
+  margin: 2rem 0 13rem;
   display: flex;
   align-items: center;
   justify-content: center;

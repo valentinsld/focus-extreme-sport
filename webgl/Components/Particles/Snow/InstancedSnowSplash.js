@@ -36,7 +36,7 @@ export default class InstancedSnowSplash {
 		this.geo = new SphereGeometry(0.5, 32, 16)
 
 		this.mat = new MeshBasicMaterial({
-			transparent: true,
+			transparent: false,
 			opacity: 1,
 			side: FrontSide,
 		})

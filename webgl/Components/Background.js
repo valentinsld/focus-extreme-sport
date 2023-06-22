@@ -133,7 +133,7 @@ export default class Background {
 				fragmentShader: particlesFragmentShader,
 				blending: AdditiveBlending,
 				depthTest: false,
-				transparent: true,
+				transparent: false,
 
 				uniforms: {
 					uTime: { value: 0 },

@@ -14,7 +14,7 @@ export default class LayerMaterial extends RawShaderMaterial {
 
 		this.fragmentShader = layerFrag
 		this.vertexShader = bigTriangleVertexShader;
-		this.transparent = true;
+		this.transparent = false;
 		this.inProgressValue = this.outProgressValue = 0
 
 		// Time in seconds

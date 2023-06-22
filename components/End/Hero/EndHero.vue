@@ -106,6 +106,8 @@ import { lerp } from '~~/webgl/Utils/Lerp';
 </script>
 
 <style lang="scss" scoped>
+//TODO add responsiveness
+
 .hero {
   position: relative;
   width: 100%;
@@ -196,11 +198,14 @@ color: colors(f_purple);
 
 .picture {
   height: 70%;
-  transform: rotate(20deg) scale(0);
-  transition: transform 1s ease(out-bounce);
+  transform: rotate(20deg) scale(0.25);
+  opacity: 0;
+  transition: transform .3s ease(out-swift), opacity .25s ease(out-swift);
 
   .is-hovered & {
     transform: none;
+    opacity: 1;
+    transition: transform .8s ease(out-bounce), opacity .7s ease(out-swift);
   }
 }
 
@@ -211,7 +216,7 @@ color: colors(f_purple);
   font-size: 1.6rem;
   transform: translateY(2rem);
   opacity: 0;
-  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
 
   .is-hovered & {
     transform: none;
@@ -233,7 +238,7 @@ color: colors(f_purple);
   font-size: 1.3rem;
   transform: translateY(2rem);
   opacity: 0;
-  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
 
   .is-hovered & {
     transform: none;
@@ -248,7 +253,7 @@ color: colors(f_purple);
   font-size: 1.3rem;
   transform: translateY(2rem);
   opacity: 0;
-  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
 
   .is-hovered & {
     transform: none;

@@ -35,6 +35,7 @@ function setScene () {
   z-index: 1;
 
   height: 100vh;
+  overflow-x: hidden;
   overflow-y: scroll;
 
   // display: flex;

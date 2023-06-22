@@ -40,23 +40,23 @@ export default class DirectionalLightSource {
 		)
 
 		// Shadows
-		let d = 10
-		this.light.shadow.camera.near = d * 0.01
-		this.light.shadow.camera.far = 300
-		this.light.shadow.camera.right = d
-		this.light.shadow.camera.left = -d
-		this.light.shadow.camera.top = d
-		this.light.shadow.camera.bottom = -d
-		this.light.castShadow = true
+		// let d = 10
+		// this.light.shadow.camera.near = d * 0.01
+		// this.light.shadow.camera.far = 300
+		// this.light.shadow.camera.right = d
+		// this.light.shadow.camera.left = -d
+		// this.light.shadow.camera.top = d
+		// this.light.shadow.camera.bottom = -d
+		// this.light.castShadow = true
 
-		this.light.castShadow = this.params.castShadow || true
-		if (this.params.shadowMapSize !== undefined) {
-			this.light.shadow.mapSize.width = this.params.shadowMapSize
-			this.light.shadow.mapSize.height = this.params.shadowMapSize
-		}
-		if (this.params.shadowBias !== undefined) {
-			this.light.shadow.bias = this.params.shadowBias
-		}
+		// this.light.castShadow = this.params.castShadow || true
+		// if (this.params.shadowMapSize !== undefined) {
+		// 	this.light.shadow.mapSize.width = this.params.shadowMapSize
+		// 	this.light.shadow.mapSize.height = this.params.shadowMapSize
+		// }
+		// if (this.params.shadowBias !== undefined) {
+		// 	this.light.shadow.bias = this.params.shadowBias
+		// }
 
 		this.container.add(this.light)
 

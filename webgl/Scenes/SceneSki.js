@@ -1,4 +1,4 @@
-import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, DoubleSide } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, FrontSide } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 import anime from 'animejs'
@@ -251,7 +251,7 @@ export default class SceneSki extends BaseScene {
       fragmentShader: RiverF,
       transparent: false,
       depthTest: true,
-      side: DoubleSide,
+      side: FrontSide,
 
       uniforms: {
         uTime: { value: this.time},
@@ -287,7 +287,7 @@ export default class SceneSki extends BaseScene {
       fragmentShader: RiverF,
       transparent: false,
       depthTest: true,
-      side: DoubleSide,
+      side: FrontSide,
 
       uniforms: {
         uTime: { value: this.time},

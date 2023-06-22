@@ -1,6 +1,6 @@
-import { Vector3, Object3D, Color, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4 } from 'three';
+import { Vector3, Object3D, Color, SphereGeometry, MeshBasicMaterial, FrontSide, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4 } from 'three';
 
-import splashV from '../../../Shaders/Particles/SplashParticles/splashV.vert'
+// import splashV from '../../../Shaders/Particles/SplashParticles/splashV.vert'
 import splashF from '../../../Shaders/Particles/SplashParticles/splashF.frag'
 
 export default class InstancedSnowSplash {
@@ -35,12 +35,28 @@ export default class InstancedSnowSplash {
 	init() {
 		this.geo = new SphereGeometry(0.5, 32, 16)
 
-		this.mat = new RawShaderMaterial({
-			vertexShader: splashV,
-			fragmentShader: splashF,
+		this.mat = new MeshBasicMaterial({
 			transparent: true,
-			depthTest: true,
+			opacity: 1,
+			side: FrontSide,
 		})
+
+		this.mat.onBeforeCompile = (shader) => {
+			// add custom shader chunks
+			shader.vertexShader = shader.vertexShader.replace(
+				'#include <common>',
+				'#include <common>\nattribute float aAlpha;\nvarying float vAlpha;\nattribute float aMaxAlpha;\nvarying float vMaxAlpha;\nvarying vec3 vInstanceColor;'
+			)
+			shader.vertexShader = shader.vertexShader.replace(
+				'void main() {',
+				`void main() {
+					vAlpha = aAlpha;
+					vMaxAlpha = aMaxAlpha;
+					vInstanceColor = instanceColor;`
+			)
+
+			shader.fragmentShader = splashF
+		}
 
 		this.instancedThem(this.geo, this.mat, this.params.count)
 	}

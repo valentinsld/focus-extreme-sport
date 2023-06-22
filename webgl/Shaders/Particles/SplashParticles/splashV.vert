@@ -18,5 +18,8 @@ void main() {
     vMaxAlpha = aMaxAlpha;
     vInstanceColor = instanceColor;
 
+    //
+    // CE SHADER N'EST PAS UTILISE, DIRECTEMENT DANS LE FICHIER InstancesSplash.js
+    //
     gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4( position, 1.0 );
 }

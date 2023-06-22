@@ -235,7 +235,7 @@ export default class SceneKayak extends BaseScene {
     this.water.material = new ShaderMaterial({
       vertexShader: RiverV,
       fragmentShader: RiverF,
-      transparent: true,
+      transparent: false,
       depthTest: true,
       side: DoubleSide,
 

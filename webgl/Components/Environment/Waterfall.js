@@ -1,11 +1,11 @@
-import { Object3D, ShaderMaterial, DoubleSide, Color, Vector2, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
+import { Object3D, ShaderMaterial, FrontSide, Color, Vector2, SphereGeometry, MeshBasicMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
 import WebGL from '~~/webgl'
 
 import WaterfallF from '~~/webgl/Shaders/River/WaterfallF.frag'
 import WaterfallV from '~~/webgl/Shaders/River/WaterfallV.vert'
 
 import splashF from '~~/webgl/Shaders/Particles/SplashParticles/splashF.frag'
-import splashV from '~~/webgl/Shaders/Particles/SplashParticles/splashV.vert'
+// import splashV from '~~/webgl/Shaders/Particles/SplashParticles/splashV.vert'
 import { DegToRad } from '~~/webgl/Utils/Math'
 // import Clouds from './Clouds'
 
@@ -50,9 +50,9 @@ export default class Waterfall {
 		this.plane.material = new ShaderMaterial({
 			vertexShader: WaterfallV,
 			fragmentShader: WaterfallF,
-			transparent: true,
+			transparent: false,
 			depthTest: true,
-			side: DoubleSide,
+			side: FrontSide,
 
 			uniforms: {
 				uTime: { value: this.time},
@@ -88,12 +88,28 @@ export default class Waterfall {
 	initSplash() {
 		this.geo = new SphereGeometry(0.5, 32, 16)
 
-		this.mat = new RawShaderMaterial({
-			vertexShader: splashV,
-			fragmentShader: splashF,
-			transparent: false,
-			// depthTest: true,
+		this.mat = new MeshBasicMaterial({
+			transparent: true,
+			opacity: 1,
+			side: FrontSide,
 		})
+
+		this.mat.onBeforeCompile = (shader) => {
+			// add custom shader chunks
+			shader.vertexShader = shader.vertexShader.replace(
+				'#include <common>',
+				'#include <common>\nattribute float aAlpha;\nvarying float vAlpha;\nattribute float aMaxAlpha;\nvarying float vMaxAlpha;\nvarying vec3 vInstanceColor;'
+			)
+			shader.vertexShader = shader.vertexShader.replace(
+				'void main() {',
+				`void main() {
+					vAlpha = aAlpha;
+					vMaxAlpha = aMaxAlpha;
+					vInstanceColor = instanceColor;`
+			)
+
+			shader.fragmentShader = splashF
+		}
 
 		this.instancedThem(this.geo, this.mat, this.params.count)
 	}

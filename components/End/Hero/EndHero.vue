@@ -5,16 +5,16 @@
       :key="'hero'+i"
       ref="letters"
       class="hero-letter"
-      :class="['letter-' + i]"
+      :class="[
+        'letter-' + i,
+        { 'is-notHovered': hoverIndex !== i && isHovered},
+        { 'is-hovered': hoverIndex === i && isHovered},
+      ]"
       @mouseover="handleHover(i, true)"
       @mouseleave="handleHover(null, false)"
     >
       <h2
         class="letter-title"
-        :class="[
-          { 'is-notHovered': hoverIndex !== i && isHovered},
-          { 'is-hovered': hoverIndex === i && isHovered},
-        ]"
       >
         {{ el.letter }}
       </h2>
@@ -47,6 +47,7 @@
   import { useMouseInElement } from '@vueuse/core'
   import RAFManager from '~~/webgl/Utils/RAFManager';
   import { clampedMap } from '~~/webgl/Utils/Math';
+import { lerp } from '~~/webgl/Utils/Lerp';
 
 
   defineProps({
@@ -55,6 +56,11 @@
 		  required: true
 	  }
   })
+
+  let x = 0;
+  let y = 0;
+  let lerpX = 0
+  let lerpY = 0
 
   const hoverIndex = ref(null);
   const isHovered = ref(false)
@@ -86,13 +92,14 @@
   }
 
   function update(dt, elX, elY, elW, elH, element) {
-    let x = 0;
-    let y = 0;
 
     x = clampedMap(elX.value, 0, elW.value, -1, 1);
     y = clampedMap(elY.value, 0, elH.value, -1, 1);
 
-    element.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+    lerpX = lerp(lerpX, x * 40, .1)
+    lerpY = lerp(lerpY, y * 40, .1)
+
+    element.style.transform = `translate(${lerpX}px, ${lerpY}px)`;
 
   }
 
@@ -113,14 +120,11 @@
 }
 
 .letter-title {
-  @include fluidSize("letter-size",
-    (bpw(s): 80px,
-      bpw(lg): 250px,
-      bpw(xxl): 300px));
 
   font-family: const(font-akira);
   font-weight: 900;
-  font-size: var(--letter-size);
+  font-size: 22vw;
+  line-height: 80%;
   text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 2px colors(black);
@@ -128,7 +132,7 @@
   margin: 0 .2rem;
   transition: color .3s ease(out-swift), -webkit-text-stroke .8s ease(out-swift);
 
-  &.is-hovered {
+  .is-hovered & {
     color: rgba(colors(white), .7);
     -webkit-text-stroke: 0px;
   }
@@ -143,19 +147,23 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity .5s ease(out-swift);
-  top: -80%;
+  top: -120%;
   left: -50%;
 
-  .is-hovered~& {
+  .is-hovered & {
     opacity: 1;
   }
 
-  .letter-2 &,
-  .letter-3 &,
-  {
-  left: unset;
-  right: -50%;
-}
+  .letter-2 & {
+    left: unset;
+    right: -25%;
+  }
+
+  .letter-3 & {
+    left: unset;
+    right: -20%;
+  }
+
 }
 
 .letter-0,
@@ -175,7 +183,7 @@ color: colors(f_purple);
   position: absolute;
   z-index: 2;
   right: 0;
-  bottom: 0;
+  bottom: 5%;
   transform: translate(110%, 0%);
 
   .letter-2 &,
@@ -186,31 +194,66 @@ color: colors(f_purple);
   }
 }
 
+.picture {
+  height: 70%;
+  transform: rotate(20deg) scale(0);
+  transition: transform 1s ease(out-bounce);
+
+  .is-hovered & {
+    transform: none;
+  }
+}
+
 .quote {
   font-family: const(font-gotham);
   font-style: italic;
   font-weight: 400;
   font-size: 1.6rem;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+
+  .is-hovered & {
+    transform: none;
+    opacity: 1;
+    transition-delay: 200ms;
+  }
 }
 
-.picture {
-  height: 70%;
-}
 
 .author-infos {
   margin-top: 1rem;
 }
+
 
 .author {
   font-family: const(font-akira);
   text-transform: uppercase;
   font-weight: 900;
   font-size: 1.3rem;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+
+  .is-hovered & {
+    transform: none;
+    opacity: 1;
+    transition-delay: 275ms;
+  }
 }
 
 .role {
   font-family: const(font-gotham);
   font-weight: 400;
   font-size: 1.3rem;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+
+  .is-hovered & {
+    transform: none;
+    opacity: 1;
+    transition-delay: 350ms;
+  }
 }
 </style>

@@ -98,6 +98,11 @@ float cnoise(vec3 P)
     return 2.2 * n_xyz;
 }
 
+bool isPerspectiveMatrix( mat4 m ) {
+	return m[ 2 ][ 3 ] == - 1.0;
+}
+#include <logdepthbuf_pars_vertex>
+
 void main()
 {
     vUv = uv;
@@ -121,4 +126,5 @@ void main()
     vElevation = elevation;
 
     #include <fog_vertex>
+    #include <logdepthbuf_vertex>
 }

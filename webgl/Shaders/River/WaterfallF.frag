@@ -92,7 +92,11 @@ vec2 rotate(vec2 st, float a) {
 	return st + .5;
 }
 
+#include <logdepthbuf_pars_fragment>
+
 void main() {
+	#include <logdepthbuf_fragment>
+
 	vec2 st = rotate(vUv, radians(uRotation));
 
 	// layer bkg

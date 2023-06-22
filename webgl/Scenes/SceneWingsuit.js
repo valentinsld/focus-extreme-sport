@@ -59,6 +59,10 @@ export default class SceneWingsuit extends BaseScene {
       if(element.name.includes('ICE')) {
 				this.ices.push(element)
 			}
+
+      if (element.isMesh) {
+        element.matrixAutoUpdate = false
+      }
 		})
 
     this.initInstancedAssets()
@@ -255,6 +259,13 @@ export default class SceneWingsuit extends BaseScene {
       // this.cl2.container.rotation.copy(this.WebGL.camera.current.rotation)
       // animation mixer character
       this.mixerCharacter.update(dt);
+    })
+
+    // manually update of map
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.updateMatrix()
+      }
     })
 
     // set clearColor scene

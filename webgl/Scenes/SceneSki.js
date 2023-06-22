@@ -94,6 +94,10 @@ export default class SceneSki extends BaseScene {
       if(element.name.includes('SNOW_TREE')) {
 				this.tree.push(element)
 			}
+
+      if (element.isMesh) {
+        element.matrixAutoUpdate = false
+      }
 		})
 
 
@@ -415,6 +419,13 @@ export default class SceneSki extends BaseScene {
 
       this.updateAnimation(currentTime, dt)
     })
+
+    // manually update of map
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.updateMatrix()
+      }
+		})
 
     // play audio
     this.audioManager.play('ski-global', true, 1, 3500)

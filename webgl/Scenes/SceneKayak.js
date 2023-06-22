@@ -228,7 +228,12 @@ export default class SceneKayak extends BaseScene {
             this.water = element.children[1];
           }
         })
-    }})
+      }
+
+      if (child.isMesh) {
+        child.matrixAutoUpdate = false
+      }
+    })
 
     this.foam = this.water.material.map;
 
@@ -392,6 +397,13 @@ export default class SceneKayak extends BaseScene {
       this.waterfall.update(dt)
 
       this.updateAnimation(currentTime, dt)
+    })
+
+    // manually update of map
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.updateMatrix()
+      }
     })
 
     // play audio

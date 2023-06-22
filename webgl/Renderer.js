@@ -31,6 +31,7 @@ export default class Renderer {
       alpha: false,
       antialias: true,
       canvas: this.WebGL.canvas,
+      powerPreference: "high-performance",
       // THIS IS IMPORTANT : delete flickering between planes with fxComposer
       logarithmicDepthBuffer: true
     })

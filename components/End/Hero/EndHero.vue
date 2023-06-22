@@ -36,6 +36,7 @@
 
         <img
           :src="el.image"
+          draggable="false"
           class="picture"
         >
       </div>
@@ -47,7 +48,7 @@
   import { useMouseInElement } from '@vueuse/core'
   import RAFManager from '~~/webgl/Utils/RAFManager';
   import { clampedMap } from '~~/webgl/Utils/Math';
-import { lerp } from '~~/webgl/Utils/Lerp';
+  import { lerp } from '~~/webgl/Utils/Lerp';
 
 
   defineProps({
@@ -73,7 +74,9 @@ import { lerp } from '~~/webgl/Utils/Lerp';
 
     if (isHovered.value) {
       startHover()
-    }
+    } else {
+    removeHover()
+  }
   }
 
   function startHover() {
@@ -90,6 +93,10 @@ import { lerp } from '~~/webgl/Utils/Lerp';
       update(dt, elementX, elementY, elementWidth, elementHeight, element)
     })
   }
+
+  function removeHover() {
+		RAFManager.remove('hero')
+	}
 
   function update(dt, elX, elY, elW, elH, element) {
 

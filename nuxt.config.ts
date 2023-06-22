@@ -1,5 +1,6 @@
 import eslintPlugin from 'vite-plugin-eslint';
 import glsl from 'vite-plugin-glsl'
+import path from 'path'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -36,6 +37,13 @@ export default defineNuxtConfig({
 			'**/*.jpeg',
 			'**/*.png',
 		],
+		resolve: {
+			alias: {
+				'three/examples': path.resolve(__dirname, 'node_modules/three/examples/'),
+				'three/addons': path.resolve(__dirname, 'node_modules/three/examples/jsm/'),
+				three: path.resolve(__dirname, 'node_modules/three/build/three.module.js'),
+			},
+		},
 	},
 	modules: [
 		'@nuxtjs/eslint-module',

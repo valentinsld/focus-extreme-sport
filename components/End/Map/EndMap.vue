@@ -1,131 +1,149 @@
 <template>
-  <div class="end-map">
-    <img
-      class="map"
-      :src="data.background"
-    >
-
+  <div
+    ref="map"
+    class="end-map"
+    @mouseenter="hoverMap(true)"
+    @mouseleave="hoverMap(false)"
+  >
     <div
-      class="zoning wingsuit"
-      @mouseover="handleHover(0, true)"
-      @mouseleave="handleHover(null, false)"
+      class="map-wrapper"
     >
-      <svg
-        viewBox="0 0 77 138"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="wingsuit-place"
+      <img
+        class="map"
+        :src="data.background"
       >
-        <path
-          d="M41.013 95.852c16.8 21.995 25.812 40.293 33.667 41.607 8.6-5.187-13.359-33.115-13.359-33.115s-12.31-31.98-20.306-36.742C22.524 56.588 10.969 1.752 2.469.102c-6.8-1.318 3.22 25.016-.002 20.109C.884 40.957 20.012 68.359 41.013 95.852Z"
-        />
-      </svg>
-      <p class="text">
-        <span class="dot" />
-        <span class="content">
-          wingsuit
-        </span>
-      </p>
-    </div>
 
-    <div
-      class="zoning ski"
-      @mouseover="handleHover(1, true)"
-      @mouseleave="handleHover(null, false)"
-    >
-      <svg
-        viewBox="0 0 58 115"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="ski-place"
+      <div
+        class="zoning wingsuit"
+        @mouseover="handleHover(0, true)"
+        @mouseleave="handleHover(null, false)"
       >
-        <path
-          d="M24.982 74.493C38.273 95.607 42.86 113.4 52.58 114.347c13.234-5.558-4.46-32.339-4.46-32.339s-4.645-34.634-5.29-43.214c-1.136-15.121-3.218-29.9-13.65-31.15-8.344-1-22.57-1.914-24.849-6.65C-5.84 21.712 8.368 48.1 24.982 74.493Z"
-        />
-      </svg>
-      <p class="text">
-        <span class="dot" />
-        <span class="content">
-          freeride
-        </span>
-      </p>
-    </div>
-
-    <div
-      class="zoning kayak"
-      @mouseover="handleHover(2, true)"
-      @mouseleave="handleHover(null, false)"
-    >
-      <svg
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="kayak-place"
-      >
-        <path
-          d="M52.796 73.19c20.289 14.52 34.931 28.699 44.288 25.899 10.15-10.15-16.356-28.251-16.356-28.251s-24.09-25.284-27.932-32.983C46.026 24.287 32.043 5.073 21.914 7.86 13.81 10.091 3.984 3.605.084.083c-1.583 23.026 27.351 54.956 52.712 73.106Z"
-        />
-      </svg>
-      <p class="text">
-        <span class="dot" />
-        <span class="content">
-          Kayak
-        </span>
-      </p>
-    </div>
-
-    <div
-      v-for="(el, index) in data.list"
-      :key="'map'+index"
-      ref="sports"
-      class="sport-wrapper"
-      :class="['sport-'+index]"
-    >
-      <div class="sport-content">
-        <h2 class="sport-title">
-          <span class="title-text">{{ el.title }}</span>
-          <span class="title-bg" />
-        </h2>
-
-        <figure class="sport-infos">
-          <blockquote class="sport-quote">
-            {{ el.quote }}
-          </blockquote>
-          <figcaption class="author-infos">
-            <p class="author">
-              {{ el.author }}
-            </p>
-            <p class="role">
-              {{ el.role }}
-            </p>
-          </figcaption>
-        </figure>
-
-        <div class="stats">
-          <div
-            v-for="(d, i) in el.datas"
-            :key="index+'map'+i"
-            :class="['stat', 'stat-'+i]"
-          >
-            <h3 class="stat-title">
-              {{ d.value }}
-            </h3>
-            <p class="stat-info">
-              {{ d.info }}
-            </p>
-          </div>
-        </div>
+        <svg
+          viewBox="0 0 77 138"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="wingsuit-place"
+        >
+          <path
+            d="M41.013 95.852c16.8 21.995 25.812 40.293 33.667 41.607 8.6-5.187-13.359-33.115-13.359-33.115s-12.31-31.98-20.306-36.742C22.524 56.588 10.969 1.752 2.469.102c-6.8-1.318 3.22 25.016-.002 20.109C.884 40.957 20.012 68.359 41.013 95.852Z"
+          />
+        </svg>
+        <p class="text">
+          <span class="dot" />
+          <span class="content">
+            wingsuit
+          </span>
+        </p>
       </div>
 
-      <img
-        class="sport-picture"
-        :src="el.image"
+      <div
+        class="zoning ski"
+        @mouseover="handleHover(1, true)"
+        @mouseleave="handleHover(null, false)"
       >
+        <svg
+          viewBox="0 0 58 115"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="ski-place"
+        >
+          <path
+            d="M24.982 74.493C38.273 95.607 42.86 113.4 52.58 114.347c13.234-5.558-4.46-32.339-4.46-32.339s-4.645-34.634-5.29-43.214c-1.136-15.121-3.218-29.9-13.65-31.15-8.344-1-22.57-1.914-24.849-6.65C-5.84 21.712 8.368 48.1 24.982 74.493Z"
+          />
+        </svg>
+        <p class="text">
+          <span class="dot" />
+          <span class="content">
+            freeride
+          </span>
+        </p>
+      </div>
+
+      <div
+        class="zoning kayak"
+        @mouseover="handleHover(2, true)"
+        @mouseleave="handleHover(null, false)"
+      >
+        <svg
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="kayak-place"
+        >
+          <path
+            d="M52.796 73.19c20.289 14.52 34.931 28.699 44.288 25.899 10.15-10.15-16.356-28.251-16.356-28.251s-24.09-25.284-27.932-32.983C46.026 24.287 32.043 5.073 21.914 7.86 13.81 10.091 3.984 3.605.084.083c-1.583 23.026 27.351 54.956 52.712 73.106Z"
+          />
+        </svg>
+        <p class="text">
+          <span class="dot" />
+          <span class="content">
+            Kayak
+          </span>
+        </p>
+      </div>
+
+      <div
+        v-for="(el, index) in data.list"
+        :key="'map'+index"
+        ref="sports"
+        class="sport-wrapper"
+        :class="['sport-'+index]"
+      >
+        <div class="sport-content">
+          <h2 class="sport-title">
+            <span class="title-text">{{ el.title }}</span>
+            <span class="title-bg" />
+          </h2>
+
+          <figure class="sport-infos">
+            <blockquote class="sport-quote">
+              {{ el.quote }}
+            </blockquote>
+            <figcaption class="author-infos">
+              <p class="author">
+                {{ el.author }}
+              </p>
+              <p class="role">
+                {{ el.role }}
+              </p>
+            </figcaption>
+          </figure>
+
+          <div class="stats">
+            <div
+              v-for="(d, i) in el.datas"
+              :key="index+'map'+i"
+              :class="['stat', 'stat-'+i]"
+            >
+              <h3 class="stat-title">
+                {{ d.value }}
+              </h3>
+              <p class="stat-info">
+                {{ d.info }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <img
+          class="sport-picture"
+          :src="el.image"
+        >
+      </div>
     </div>
+    <MapAltimetre :style="`--graduation-translate: ${ translate }px;`" />
   </div>
 </template>
 
 <script setup>
+  import { useMouseInElement } from '@vueuse/core'
+  import RAFManager from '~~/webgl/Utils/RAFManager';
+  import { clampedMap } from '~~/webgl/Utils/Math';
+  import { lerp } from '~~/webgl/Utils/Lerp';
+
+
+import MapAltimetre from '~~/components/End/Map/MapAltimetre.vue';
+
   defineProps({
 	  data: {
 		  type: Object,
@@ -133,20 +151,26 @@
 	  }
   })
 
+  let y = 0;
+  let lerpY = 0
+
+
   const hoverIndex = ref(null);
   const isHovered = ref(false)
+  const map = ref()
+  const translate = ref(0)
 
   const sports = ref()
 
-  function handleHover(index, state) {
-    hoverIndex.value = index;
-    isHovered.value = state
+function handleHover(index, state) {
+  hoverIndex.value = index;
+  isHovered.value = state
 
-    if (isHovered.value) {
-      startHover(index)
-    } else {
-      removeHover()
-    }
+  if (isHovered.value) {
+    startHover(index)
+  } else {
+    removeHover()
+  }
 }
 
 function startHover(index) {
@@ -159,11 +183,45 @@ function removeHover() {
   })
 }
 
+function hoverMap(state) {
+  const {
+      elementX,
+      elementY,
+      elementWidth,
+      elementHeight
+	  } = useMouseInElement(map.value);
+
+    if(state) {
+      RAFManager.add('map', (dt) => {
+        update(dt, elementX, elementY, elementWidth, elementHeight, map.value)
+      })
+    }
+    // else {
+    //   RAFManager.remove('map')
+    // }
+}
+
+function update(dt, elX, elY, elW, elH, element) {
+
+  y = clampedMap(elY.value, 0, elH.value * .8, -10, elH.value * .78);
+
+  // y = elY.value - (elH.value * .8) / 2;
+
+  lerpY = lerp(lerpY, y, .1)
+
+  translate.value = lerpY
+
+}
+
 </script>
 
 <style lang="scss" scoped>
 .end-map {
   --delay: 25ms;
+  position: relative;
+}
+
+.map-wrapper {
 
   position: relative;
   width: 90vw;
@@ -172,6 +230,7 @@ function removeHover() {
 
 .map {
   width: 100%;
+  opacity: .75;
 }
 
 .sport-wrapper {

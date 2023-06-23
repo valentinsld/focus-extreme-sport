@@ -75,6 +75,10 @@ const eventWebGLStarted = () => {
   const webgl = new WebGL()
   webgl.on('endLoading', () => {
     store.state.ressourcesLoaded = true
+
+    setTimeout(() => {
+      webgl.testPerformance()
+    }, 1000);
   })
 }
 

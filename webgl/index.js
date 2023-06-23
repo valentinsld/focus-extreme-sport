@@ -1,5 +1,6 @@
 import { Scene } from "three";
 import { Pane } from "tweakpane";
+import { getGPUTier } from 'detect-gpu';
 
 import RAFManager from "./Utils/RAFManager.js";
 import Sizes from "./Utils/Sizes.js";
@@ -178,6 +179,12 @@ export default class WebGL extends EventEmitter {
   resize() {
     this.camera.resize();
     this.renderer.resize();
+  }
+
+  async testPerformance() {
+    const gpuTier = await getGPUTier();
+
+    this.sizes.testPixelRatioPerformance(gpuTier.fps)
   }
 
   destroy() {

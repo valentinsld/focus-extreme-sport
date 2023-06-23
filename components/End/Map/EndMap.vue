@@ -83,7 +83,8 @@
     >
       <div class="sport-content">
         <h2 class="sport-title">
-          {{ el.title }}
+          <span class="title-text">{{ el.title }}</span>
+          <span class="title-bg" />
         </h2>
 
         <figure class="sport-infos">
@@ -162,8 +163,11 @@ function removeHover() {
 
 <style lang="scss" scoped>
 .end-map {
+  --delay: 25ms;
+
   position: relative;
   width: 90vw;
+  margin: auto;
 }
 
 .map {
@@ -175,10 +179,12 @@ function removeHover() {
   position: absolute;
   display: flex;
   align-items: center;
+  z-index: 2;
 }
 
 .sport-wrapper {
   opacity: 0;
+  transition: opacity .2s ease(out-swift);
 
   &.is-hovered {
     opacity: 1;
@@ -186,21 +192,64 @@ function removeHover() {
 }
 
 .sport-content {
-  max-width: 300px;
+  @include fluidSize("content-size",
+    (bpw(s): 250px,
+      bpw(lg): 300px,
+      bpw(xxl): 400px));
+
+  max-width: var(--content-size);
+  position: relative;
+  padding: 5px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: colors(f_border);
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: .6;
+    filter: blur(20px);
+  }
+}
+
+.sport-0 {
+  top: 5%;
+  left: 0%;
+}
+
+.sport-1 {
+  top: 30%;
+  left: 0%;
+}
+
+.sport-2 {
+  top: 55%;
+  left: 0%;
 }
 
 .sport-title {
   position: relative;
-  font-family: const(font-akira);
-  font-weight: 900;
-  color: colors(black);
-  text-transform: uppercase;
-  font-size: 2.9rem;
+  overflow: hidden;
   padding: 0 .5rem;
   width: fit-content;
 
-  &::after {
-    content: "";
+  .title-text {
+    display: block;
+    font-family: const(font-akira);
+    font-weight: 900;
+    color: colors(black);
+    text-transform: uppercase;
+    font-size: 2.9rem;
+    transform: translateY(2rem);
+    opacity: 0;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+  .title-bg {
+    display: block;
     background-color: colors(f_green);
     width: 100%;
     height: 100%;
@@ -208,6 +257,23 @@ function removeHover() {
     position: absolute;
     top: 0;
     left: 0;
+    transform: scaleX(0);
+    transform-origin: center right;
+    transition: transform .3s ease(out-swift);
+  }
+
+  .is-hovered & {
+
+    .title-text {
+      opacity: 1;
+      transform: none;
+    }
+
+    .title-bg {
+      transform: scaleX(1);
+      transform-origin: center left;
+      transition-delay: var(--delay);
+    }
   }
 }
 
@@ -220,6 +286,15 @@ function removeHover() {
   margin-top: 1.5rem;
   line-height: 110%;
   letter-spacing: .35px;
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+
+  .is-hovered & {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--delay) * 2);
+  }
 }
 
 .author-infos {
@@ -233,6 +308,15 @@ function removeHover() {
   font-weight: 900;
   font-size: 1.3rem;
   color: colors(black);
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+
+  .is-hovered & {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--delay) * 2.5);
+  }
 }
 
 .role {
@@ -240,20 +324,65 @@ function removeHover() {
   font-weight: 400;
   font-size: 1.3rem;
   color: colors(black);
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+
+  .is-hovered & {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--delay) * 3);
+  }
 }
 
 .stats {
+  position: relative;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid colors(black);
   display: flex;
   align-items: center;
   width: 85%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: colors(black);
+    width: 100%;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: center right;
+    transition: transform .3s ease(out-swift);
+  }
+
+  .is-hovered & {
+    &::after {
+      transform: none;
+      transform-origin: center left;
+      transition-delay: calc(var(--delay) * 3.5);
+    }
+  }
 
 }
 
 .stat {
   margin-right: 1rem;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+
+}
+
+@for $i from 0 through 2 {
+  .stat-#{ $i } {
+    .is-hovered & {
+      transition-delay: calc((var(--delay) * 4) + (#{$i} * 50ms));
+      transform: none;
+      opacity: 1;
+    }
+  }
 }
 
 .stat-title {
@@ -346,6 +475,24 @@ function removeHover() {
 
   svg {
     transition: fill .3s ease(out-swift);
+  }
+}
+
+.sport-picture {
+  @include fluidSize("pic-size",
+    (bpw(s): 100px,
+      bpw(lg): 250px,
+      bpw(xxl): 300px));
+
+  width: var(--pic-size);
+  transform: rotate(15deg) scale(.25);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+
+  .is-hovered & {
+    transform: none;
+    opacity: 1;
+    transition-delay: calc(var(--delay) * 2);
   }
 }
 

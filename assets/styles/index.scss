@@ -32,6 +32,12 @@
 		bpw(xxl): 12px
 	));
 
+	@include fluidSize("title-size", (
+		bpw(s): 40px,
+		bpw(lg): 50px,
+		bpw(xxl): 65px
+	));
+
 	-webkit-font-smoothing: antialiased;
 	font-size: var(--base-text);
 }

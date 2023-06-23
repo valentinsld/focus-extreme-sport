@@ -5,10 +5,10 @@
     <EndHero :data="content.hero" />
     <EndDefinition :data="content.definition" />
     <EndMap :data="content.map" />
-    <EndAthletes :data="content.athletes" />
+    <!-- <EndAthletes :data="content.athletes" /> -->
     <EndSports :data="content.sports" />
-    <EndFilms :data="content.films" />
-    <EndEvents :data="content.events" />
+    <!-- <EndFilms :data="content.films" /> -->
+    <!-- <EndEvents :data="content.events" /> -->
     <EndThansk :data="content.thanks" />
     <EndFooter />
   </div>

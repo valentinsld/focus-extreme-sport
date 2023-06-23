@@ -171,10 +171,10 @@ const initStates = (scene) => {
   currentScene = scene
 
   // Show lottie rollover
-  scene.setEventTimeline(0.045, () => {
+  scene.setEventTimeline(0.025, () => {
     isRolloverVisible.value = true
   })
-  scene.setEventTimeline(0.05, () => {
+  scene.setEventTimeline(0.03, () => {
     rolloverAnime.play()
     Audio.play('sound-rollover', false, 1, 0)
   })

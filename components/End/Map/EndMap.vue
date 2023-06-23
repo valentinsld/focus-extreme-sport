@@ -85,18 +85,18 @@
       <div
         v-for="(el, index) in data.list"
         :key="'map'+index"
-        ref="sports"
-        class="sport-wrapper"
-        :class="['sport-'+index]"
+        ref="debriefs"
+        class="debrief-wrapper"
+        :class="['debrief-'+index]"
       >
-        <div class="sport-content">
-          <h2 class="sport-title">
+        <div class="debrief-content">
+          <h2 class="debrief-title">
             <span class="title-text">{{ el.title }}</span>
             <span class="title-bg" />
           </h2>
 
-          <figure class="sport-infos">
-            <blockquote class="sport-quote">
+          <figure class="debrief-infos">
+            <blockquote class="debrief-quote">
               {{ el.quote }}
             </blockquote>
             <figcaption class="author-infos">
@@ -126,7 +126,7 @@
         </div>
 
         <img
-          class="sport-picture"
+          class="debrief-picture"
           :src="el.image"
         >
       </div>
@@ -154,13 +154,12 @@ import MapAltimetre from '~~/components/End/Map/MapAltimetre.vue';
   let y = 0;
   let lerpY = 0
 
-
   const hoverIndex = ref(null);
   const isHovered = ref(false)
   const map = ref()
   const translate = ref(0)
 
-  const sports = ref()
+  const debriefs = ref()
 
 function handleHover(index, state) {
   hoverIndex.value = index;
@@ -174,38 +173,31 @@ function handleHover(index, state) {
 }
 
 function startHover(index) {
-  sports.value[index].classList.add('is-hovered')
+  debriefs.value[index].classList.add('is-hovered')
 }
 
 function removeHover() {
-  sports.value.forEach(el => {
+  debriefs.value.forEach(el => {
     el.classList.remove('is-hovered')
   })
 }
 
 function hoverMap(state) {
   const {
-      elementX,
       elementY,
-      elementWidth,
       elementHeight
 	  } = useMouseInElement(map.value);
 
     if(state) {
-      RAFManager.add('map', (dt) => {
-        update(dt, elementX, elementY, elementWidth, elementHeight, map.value)
+      RAFManager.add('map', () => {
+        update(elementY, elementHeight)
       })
     }
-    // else {
-    //   RAFManager.remove('map')
-    // }
 }
 
-function update(dt, elX, elY, elW, elH, element) {
+function update(elY, elH) {
 
   y = clampedMap(elY.value, 0, elH.value * .8, -10, elH.value * .78);
-
-  // y = elY.value - (elH.value * .8) / 2;
 
   lerpY = lerp(lerpY, y, .1)
 
@@ -233,7 +225,7 @@ function update(dt, elX, elY, elW, elH, element) {
   opacity: .75;
 }
 
-.sport-wrapper {
+.debrief-wrapper {
   top: 0;
   position: absolute;
   display: flex;
@@ -241,7 +233,7 @@ function update(dt, elX, elY, elW, elH, element) {
   z-index: 2;
 }
 
-.sport-wrapper {
+.debrief-wrapper {
   opacity: 0;
   transition: opacity .2s ease(out-swift);
 
@@ -250,7 +242,7 @@ function update(dt, elX, elY, elW, elH, element) {
   }
 }
 
-.sport-content {
+.debrief-content {
   @include fluidSize("content-size",
     (bpw(s): 250px,
       bpw(lg): 300px,
@@ -274,22 +266,22 @@ function update(dt, elX, elY, elW, elH, element) {
   }
 }
 
-.sport-0 {
+.debrief-0 {
   top: 5%;
   left: 0%;
 }
 
-.sport-1 {
+.debrief-1 {
   top: 30%;
   left: 0%;
 }
 
-.sport-2 {
+.debrief-2 {
   top: 55%;
   left: 0%;
 }
 
-.sport-title {
+.debrief-title {
   position: relative;
   overflow: hidden;
   padding: 0 .5rem;
@@ -336,7 +328,7 @@ function update(dt, elX, elY, elW, elH, element) {
   }
 }
 
-.sport-quote {
+.debrief-quote {
   font-family: const(font-gotham);
   font-size: 1.7rem;
   font-weight: 400;
@@ -537,7 +529,7 @@ function update(dt, elX, elY, elW, elH, element) {
   }
 }
 
-.sport-picture {
+.debrief-picture {
   @include fluidSize("pic-size",
     (bpw(s): 100px,
       bpw(lg): 250px,

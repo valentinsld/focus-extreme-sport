@@ -1,10 +1,14 @@
 <template>
-  <div class="hero">
+  <div
+    ref="hero"
+    class="hero"
+  >
     <div
       v-for="(el, i) in data.list"
       :key="'hero'+i"
       ref="letters"
       class="hero-letter"
+      data-in-view
       :class="[
         'letter-' + i,
         { 'is-notHovered': hoverIndex !== i && isHovered},
@@ -16,7 +20,9 @@
       <h2
         class="letter-title"
       >
-        {{ el.letter }}
+        <span class="letter-container">
+          {{ el.letter }}
+        </span>
       </h2>
 
       <div class="epigraph">
@@ -50,7 +56,6 @@
   import { clampedMap } from '~~/webgl/Utils/Math';
   import { lerp } from '~~/webgl/Utils/Lerp';
 
-
   defineProps({
 	  data: {
 		  type: Object,
@@ -67,6 +72,13 @@
   const isHovered = ref(false)
 
   const letters = ref()
+  const hero = ref()
+
+  onMounted(() => {
+    setTimeout(() => {
+      hero.value.classList.add('is-observed')
+    }, 100)
+  })
 
   function handleHover(index, state) {
     hoverIndex.value = index;
@@ -122,6 +134,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.is-observed {
+    @for $i from 0 through 4 {
+      .letter-#{$i} {
+        .letter-title {
+          transition-delay: calc(100ms + (#{$i} * 50ms));
+          transform: none;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
 }
 
 .hero-letter {
@@ -130,20 +155,29 @@
 
 .letter-title {
 
-  font-family: const(font-akira);
-  font-weight: 900;
-  font-size: 22vw;
-  line-height: 80%;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 2px colors(black);
-  mix-blend-mode: overlay;
-  margin: 0 .2rem;
-  transition: color .3s ease(out-swift), -webkit-text-stroke .8s ease(out-swift);
+  transform: rotate(20deg) scale(0.25);
+  opacity: 0;
+  transition: transform .8s ease(out-bounce), opacity .7s ease(out-swift);
+
+  .letter-container {
+
+    font-family: const(font-akira);
+    font-weight: 900;
+    font-size: 22vw;
+    line-height: 80%;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 2px colors(black);
+    mix-blend-mode: overlay;
+    margin: 0 .2rem;
+    transition: color .3s ease(out-swift), -webkit-text-stroke .8s ease(out-swift);
+  }
 
   .is-hovered & {
-    color: rgba(colors(white), .7);
-    -webkit-text-stroke: 0px;
+    .letter-container {
+      color: rgba(colors(white), .7);
+      -webkit-text-stroke: 0px;
+    }
   }
 }
 

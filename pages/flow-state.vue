@@ -1,6 +1,7 @@
 <template>
   <div class="page-flow">
     <!-- <img src="/end.png"> -->
+    <EndHeader />
 
     <EndHero
       ref="hero"
@@ -73,6 +74,7 @@ function setScene () {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 
   // display: flex;
   // flex-direction: column;

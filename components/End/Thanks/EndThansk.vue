@@ -110,7 +110,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem;
 }
 
 .thanks-picture {

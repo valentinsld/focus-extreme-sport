@@ -1,7 +1,18 @@
 <template>
   <section class="sport flow-section">
-    <h2 class="sport-title">
-      {{ data.title }}
+    <h2
+      class="sport-title"
+      data-in-view
+    >
+      <span
+        v-for="(word, index) in title"
+        :key="word"
+        class="title-word"
+        :class="[
+          'title-word-' + index,
+        ]"
+        v-html="word.innerText"
+      />
     </h2>
 
     <div class="sport-wrapper">
@@ -9,6 +20,7 @@
         v-for="(el, index) in data.types"
         :key="'sports'+index"
         class="sport-list"
+        data-in-view
         :class="[
           'sport-' + index
         ]"
@@ -64,13 +76,18 @@
 </template>
 
 <script setup>
-  defineProps({
+  import { splitByWord } from '~~/webgl/Utils/splitText';
+
+  const props = defineProps({
 	  data: {
 		  type: Object,
 		  required: true
 	  }
   })
-  </script>
+
+  const title = splitByWord(props.data.title)
+
+</script>
 
 <style lang="scss" scoped>
 // .sport {
@@ -87,14 +104,32 @@
   text-transform: uppercase;
   font-size: 5rem;
   margin-bottom: 3rem;
+
+  &.is-observed {
+    @for $i from 0 through 20 {
+      .title-word-#{$i} {
+        transition-delay: calc(100ms + (#{$i} * 25ms));
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.title-word {
+  margin: 0 .6rem;
+  display: inline-block;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
 }
 
 .sport-wrapper {
   position: relative;
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  // align-items: stretch;
+  // align-items: flex-start;
+  align-items: stretch;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -108,11 +143,49 @@
   border: 1px solid colors(black);
   border-top-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
+  transform: translateY(2rem) rotate(10deg);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+  will-change: transform;
+
+  &.is-observed {
+
+    transform: none;
+    opacity: 1;
+
+    .stars {
+      opacity: 1;
+    }
+
+    .sport-category {
+
+      span {
+        transform: none;
+        transition-delay: 200ms;
+      }
+
+      &::after {
+        transform: none;
+        transition-delay: 100ms;
+      }
+    }
+
+    @for $i from 0 through 20 {
+      .link-#{$i} {
+        transition-delay: calc(300ms + (#{$i} * 25ms));
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .stars {
   position: absolute;
   width: 1.5rem;
+  opacity: 0;
+  transition: opacity .3s ease(out-swift);
+  transition-delay: 150ms;
 
   svg {
     width: 100%;
@@ -136,6 +209,7 @@
   position: relative;
   width: fit-content;
   margin-bottom: 2rem;
+  overflow: hidden;
 
   span {
     font-family: const(font-akira);
@@ -143,6 +217,9 @@
     color: colors(black);
     text-transform: uppercase;
     font-size: 3rem;
+    display: block;
+    transform: translateY(4rem);
+    transition: transform .5s ease(out-swift);
   }
 
   &.Eau {
@@ -173,8 +250,9 @@
     left: 0;
     z-index: -1;
     background-color: colors(f_green);
-
-
+    transform-origin: center left;
+    transform: scaleX(0);
+    transition: transform .5s ease(out-swift);
   }
 }
 
@@ -192,6 +270,9 @@
   border: 1px solid colors(black);
   margin: .5rem 1rem .2rem 0;
   border-radius: 2rem;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
 
   span {
     font-family: const(font-gotham);

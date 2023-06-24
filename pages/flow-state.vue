@@ -3,13 +3,25 @@
     <!-- <img src="/end.png"> -->
 
     <EndHero :data="content.hero" />
-    <EndDefinition :data="content.definition" />
-    <EndMap :data="content.map" />
+    <EndDefinition
+      ref="definition"
+      :data="content.definition"
+    />
+    <EndMap
+      ref="map"
+      :data="content.map"
+    />
     <!-- <EndAthletes :data="content.athletes" /> -->
-    <EndSports :data="content.sports" />
+    <EndSports
+      ref="sport"
+      :data="content.sports"
+    />
     <!-- <EndFilms :data="content.films" /> -->
     <!-- <EndEvents :data="content.events" /> -->
-    <EndThansk :data="content.thanks" />
+    <EndThansk
+      ref="thanks"
+      :data="content.thanks"
+    />
     <EndFooter />
   </div>
 </template>
@@ -17,6 +29,24 @@
 <script setup>
 import content from '~~/content/flow-state.json'
 import SceneManager from '~~/webgl/Managers/SceneManager'
+import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
+
+const definition = ref()
+const map = ref()
+const sport = ref()
+const thanks = ref()
+
+const observerList = [
+  definition,
+  sport,
+  thanks
+]
+
+useIntersectObserver({
+		ref: observerList,
+		margin: '0px',
+		threshold: 0.2,
+	});
 
 onMounted(() => {
 	setScene()

@@ -1,15 +1,32 @@
 <template>
   <div class="definition">
     <div class="definition-title">
-      <h2 class="title">
-        {{ data.title }}
+      <h2
+        class="title"
+        data-in-view
+      >
+        <span
+          v-for="(word, index) in title"
+          :key="word"
+          class="title-word"
+          :class="[
+            'title-word-' + index,
+          ]"
+          v-html="word.innerText"
+        />
       </h2>
-      <p class="text">
+      <p
+        class="text"
+        data-in-view
+      >
         {{ data.content }}
       </p>
     </div>
 
-    <div class="skills">
+    <div
+      class="skills"
+      data-in-view
+    >
       <div
         v-for="(el, i) in data.words"
         :key="'word'+i"
@@ -47,8 +64,9 @@
   import RAFManager from '~~/webgl/Utils/RAFManager';
   import { clampedMap } from '~~/webgl/Utils/Math';
   import { lerp } from '~~/webgl/Utils/Lerp';
+  import { splitByWord } from '~~/webgl/Utils/splitText';
 
-defineProps({
+const props = defineProps({
 	data: {
 		type: Object,
 		required: true
@@ -65,6 +83,8 @@ const isHovered = ref(false)
 
 const words = ref()
 const wordsArr = []
+
+const title = splitByWord(props.data.title)
 
 onMounted(()=> {
   for (let i = 0; i < words.value.length; i++) {
@@ -150,7 +170,26 @@ function handleHover(index, state) {
   margin: auto;
   letter-spacing: 1.25px;
   line-height: 120%;
+
+  &.is-observed {
+    @for $i from 0 through 20 {
+      .title-word-#{$i} {
+        transition-delay: calc(100ms + (#{$i} * 25ms));
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
 }
+
+.title-word {
+  margin: 0 .6rem;
+  display: inline-block;
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+}
+
 
 .text {
   margin: 5rem auto;
@@ -162,6 +201,13 @@ function handleHover(index, state) {
   text-align: center;
   letter-spacing: .45px;
   max-width: 700px;
+  opacity: 0;
+  transition: opacity .3s ease(out-swift);
+  transition-delay: 250ms;
+
+  &.is-observed {
+    opacity: 1;
+  }
 }
 
 .skills {
@@ -174,6 +220,20 @@ function handleHover(index, state) {
 .words {
   position: relative;
   margin-bottom: -4rem;
+  opacity: 0;
+  transform: translateY(4rem);
+  transition: transform .5s ease(out-swift), opacity .5s ease(out-swift);
+
+  .is-observed & {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@for $i from 0 through 2 {
+  .word-#{$i} {
+    transition-delay: calc(200ms + (#{$i} * 75ms));
+  }
 }
 
 .word-text {
@@ -182,6 +242,12 @@ function handleHover(index, state) {
   text-transform: uppercase;
   color: colors(white);
   transition: color .5s ease(out-swift);
+
+
+
+  &.is-observed {
+    opacity: 1;
+  }
 
   .is-hovered & {
     color: rgba(colors(black), .2);

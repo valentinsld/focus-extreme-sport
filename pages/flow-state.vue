@@ -2,7 +2,10 @@
   <div class="page-flow">
     <!-- <img src="/end.png"> -->
 
-    <EndHero :data="content.hero" />
+    <EndHero
+      ref="hero"
+      :data="content.hero"
+    />
     <EndDefinition
       ref="definition"
       :data="content.definition"
@@ -31,12 +34,14 @@ import content from '~~/content/flow-state.json'
 import SceneManager from '~~/webgl/Managers/SceneManager'
 import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
 
+const hero = ref()
 const definition = ref()
 const map = ref()
 const sport = ref()
 const thanks = ref()
 
 const observerList = [
+  hero,
   definition,
   sport,
   thanks
@@ -57,6 +62,7 @@ function setScene () {
 
   sceneManager.setScene('stickers', 0)
 }
+
 </script>
 
 <style lang="scss">

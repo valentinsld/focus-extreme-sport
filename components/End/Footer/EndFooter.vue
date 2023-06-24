@@ -11,29 +11,29 @@
       <p class="links">
         par
         <a
+          href="http://www.leoblondin.com/"
+          target="_blank"
+        ><span>Léo BLONDIN</span></a>,
+        <a
+          href="https://www.behance.net/margauxclm6c96"
+          target="_blank"
+        ><span>Margaux CLEMENT</span></a>,
+        <a
+          href="https://www.behance.net/axelcrb"
+          target="_blank"
+        ><span>Axel CROUILBOIS</span></a>,
+        <a
           href="http://vaninaidiart.fr/"
           target="_blank"
         ><span>Vanina IDIART</span></a>,
         <a
           href="https://www.behance.net/tanguypuech"
           target="_blank"
-        ><span>Tanguy PUECH</span></a>,
-        <a
-          href="http://www.leoblondin.com/"
-          target="_blank"
-        ><span>Léo BLONDIN</span></a>,
+        ><span>Tanguy PUECH</span></a> et
         <a
           href="https://www.valentinsld.fr/"
           target="_blank"
         ><span>Valentin SALAUD</span></a>,
-        <a
-          href="https://www.behance.net/axelcrb"
-          target="_blank"
-        ><span>Axel CROUILBOIS</span></a> et
-        <a
-          href="https://www.behance.net/margauxclm6c96"
-          target="_blank"
-        ><span>Margaux CLEMENT</span></a>
       </p>
     </div>
 

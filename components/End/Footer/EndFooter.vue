@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer flow-section">
     <img
       class="gobelins"
       src="/flow-state/footer/gobelins.png"
@@ -61,6 +61,10 @@
 
   border-top: 1px solid colors(black);
 
+  @include above(bpw(xl)) {
+    max-width: 80vw;
+  }
+
   .gobelins {
     width: 8.5rem;
   }
@@ -114,13 +118,13 @@
         }
 
         &:hover {
-          color: colors(f_purple);
+          color: colors(f_pink);
 
           span {
             &::after {
               transform: scaleX(1);
               transform-origin: center left;
-              background-color: colors(f_purple);
+              background-color: colors(f_pink);
             }
           }
         }

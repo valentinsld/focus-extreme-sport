@@ -133,10 +133,6 @@ function handleHover(index, state) {
   flex-direction: column;
 }
 
-.definition-title {
-  max-width: 700px;
-}
-
 .title {
   @include fluidSize("title-size",
     (bpw(s): 35px,
@@ -156,7 +152,7 @@ function handleHover(index, state) {
 }
 
 .text {
-  margin: 5rem 0;
+  margin: 5rem auto;
   font-family: const(font-gotham);
   font-weight: 400;
   font-size: 1.9rem;
@@ -164,6 +160,7 @@ function handleHover(index, state) {
   color: colors(black);
   text-align: center;
   letter-spacing: .45px;
+  max-width: 700px;
 }
 
 .skills {

@@ -1,5 +1,5 @@
 <template>
-  <div class="thanks">
+  <section class="thanks flow-section">
     <h2 class="thanks-title">
       {{ data.title }}
     </h2>
@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -88,12 +88,6 @@
   </script>
 
 <style lang="scss" scoped>
-.thanks {
-  width: 100%;
-  max-width: 980px;
-  margin: 6.5rem auto;
-}
-
 .thanks-title {
   font-family: const(font-tusker);
   font-weight: 400;
@@ -107,7 +101,7 @@
 .thanks-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-flow: row wrap;
 }
 

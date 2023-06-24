@@ -59,3 +59,13 @@
 	  opacity: 0;
 	}
 }
+
+.flow-section {
+	width: 100%;
+	max-width: 980px;
+	margin: 6.5rem auto;
+
+	@include above(bpw(xl)) {
+		max-width: 1200px;
+	}
+}

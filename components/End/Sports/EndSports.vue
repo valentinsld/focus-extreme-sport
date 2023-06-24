@@ -1,5 +1,5 @@
 <template>
-  <div class="sport">
+  <section class="sport flow-section">
     <h2 class="sport-title">
       {{ data.title }}
     </h2>
@@ -13,6 +13,28 @@
           'sport-' + index
         ]"
       >
+        <div class="top-star stars">
+          <svg
+            viewBox="0 0 184 184"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M183.142 91.57a145.346 145.346 0 0 0-91.57 91.572A145.347 145.347 0 0 0 0 91.57 145.347 145.347 0 0 0 91.571 0a145.347 145.347 0 0 0 91.571 91.57Z"
+            />
+          </svg>
+        </div>
+        <div class="bottom-star stars">
+          <svg
+            viewBox="0 0 184 184"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M183.142 91.57a145.346 145.346 0 0 0-91.57 91.572A145.347 145.347 0 0 0 0 91.57 145.347 145.347 0 0 0 91.571 0a145.347 145.347 0 0 0 91.571 91.57Z"
+            />
+          </svg>
+        </div>
         <h3
           class="sport-category"
           :class="[el.name]"
@@ -38,7 +60,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -51,11 +73,11 @@
   </script>
 
 <style lang="scss" scoped>
-.sport {
-  width: 100%;
-  max-width: 980px;
-  margin: 6.5rem auto;
-}
+// .sport {
+//   width: 100%;
+//   max-width: 980px;
+//   margin: 6.5rem auto;
+// }
 
 .sport-title {
   font-family: const(font-tusker);
@@ -82,11 +104,29 @@
   // max-width: 48%;
   padding: 3rem;
   margin: 1.5rem 0;
-  border-left: 1px solid colors(black);
-  border-right: 1px solid colors(black);
-  border-top: 1px solid colors(black);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border: 1px solid colors(black);
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.stars {
+  position: absolute;
+  width: 1.5rem;
+
+  svg {
+    width: 100%;
+    fill: colors(black);
+  }
+}
+
+.top-star {
+  top: 0;
+  right: 5px;
+}
+
+.bottom-star {
+  bottom: 0;
+  left: 5px;
 }
 
 .sport-category {

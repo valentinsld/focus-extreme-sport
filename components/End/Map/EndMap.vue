@@ -233,15 +233,6 @@ function update(elY, elH) {
   z-index: 2;
 }
 
-.debrief-wrapper {
-  opacity: 0;
-  transition: opacity .2s ease(out-swift);
-
-  &.is-hovered {
-    opacity: 1;
-  }
-}
-
 .debrief-content {
   @include fluidSize("content-size",
     (bpw(s): 250px,
@@ -261,8 +252,15 @@ function update(elY, elH) {
     width: 100%;
     height: 100%;
     z-index: -2;
-    opacity: .6;
+    opacity: 0;
     filter: blur(20px);
+    transition: opacity .3s ease(out-swift);
+  }
+
+  .is-hovered & {
+    &::after {
+      opacity: .6;
+    }
   }
 }
 

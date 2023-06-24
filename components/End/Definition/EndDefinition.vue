@@ -29,11 +29,13 @@
           </span>
         </h3>
         <div class="picture-wrapper">
-          <img
-            :src="el.image"
-            class="word-picture"
-            draggable="false"
-          >
+          <div class="picture-container">
+            <img
+              :src="el.image"
+              class="word-picture"
+              draggable="false"
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -98,7 +100,7 @@ function handleHover(index, state) {
       elementHeight
 	  } = useMouseInElement(words.value[hoverIndex.value]);
 
-    const element = words.value[hoverIndex.value].querySelector('.word-picture');
+    const element = words.value[hoverIndex.value].querySelector('.picture-container');
 
     RAFManager.add('definition', (dt) => {
       update(dt, elementX, elementY, elementWidth, elementHeight, element)
@@ -111,14 +113,13 @@ function handleHover(index, state) {
 
   function update(dt, elX, elY, elW, elH, element) {
 
-    x = clampedMap(elX.value, 0, elW.value, -1, 1);
-    y = clampedMap(elY.value, 0, elH.value, -1, 1);
+    x = clampedMap(elX.value, 0, elW.value, 0, elW.value);
+    y = clampedMap(elY.value, 0, elH.value, 0, elH.value);
 
-    lerpX = lerp(lerpX, elX.value, .1)
-    lerpY = lerp(lerpY, elY.value, .1)
+    lerpX = lerp(lerpX, x, .1)
+    lerpY = lerp(lerpY, y, .1)
 
-    element.style.left = `${lerpX}px`;
-    element.style.top = `${lerpY}px`;
+    element.style.transform = `translate(${lerpX}px, ${lerpY}px)`;
 
   }
 </script>

@@ -12,6 +12,7 @@
     <NuxtPage />
 
     <div
+      v-if="route.name === 'index'"
       class="overlay"
       :class="{'is-visible': store.state.isOverlayVisible}"
     />
@@ -87,7 +88,7 @@ onMounted(() => {
 }
 
 #canvasWebgl {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;

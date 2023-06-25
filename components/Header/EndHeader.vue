@@ -20,30 +20,48 @@
 
     <div class="background" />
     <nav class="nav">
-      <a
-        href="#flow"
+      <button
         class="link"
-      ><span>Le flow</span></a>
+        @click="emitAnchor('flow')"
+      >
+        <span>Le flow</span>
+      </button>
+
       <div class="separator" />
-      <a
-        href="#map"
+
+      <button
         class="link"
-      ><span>Parcours</span></a>
+        @click="emitAnchor('map')"
+      >
+        <span>Parcours</span>
+      </button>
+
       <div class="separator" />
-      <a
-        href="#athletes"
+
+      <button
         class="link"
-      ><span>Athlètes</span></a>
+        @click="emitAnchor('athletes')"
+      >
+        <span>Athlètes</span>
+      </button>
+
       <div class="separator" />
-      <a
-        href="#sports"
+
+      <button
         class="link"
-      ><span>Sports</span></a>
+        @click="emitAnchor('sport')"
+      >
+        <span>Sports</span>
+      </button>
+
       <div class="separator" />
-      <a
-        href="#event"
+
+      <button
         class="link"
-      ><span>Évènement</span></a>
+        @click="emitAnchor('event')"
+      >
+        <span>Évènement</span>
+      </button>
     </nav>
 
 
@@ -68,6 +86,12 @@
 </template>
 
 <script setup>
+
+function emitAnchor(anchor) {
+  emit('anchor', anchor)
+}
+
+const emit = defineEmits(['anchor'])
 
 </script>
 
@@ -118,6 +142,8 @@
   font-family: const(font-akira);
   font-weight: 700;
   font-size: 1.2rem;
+  background-color: transparent;
+  border: none;
 
   span {
     position: relative;

@@ -250,14 +250,14 @@ export default class SceneSki extends BaseScene {
 
       uniforms: {
         uTime: { value: this.time},
-        uBigWavesElevation: { value: 0.0025 },
-        uBigWavesFrequency: { value: new Vector2(1, -10) },
-        uBigWavesSpeed: { value: 0.5 },
+        // uBigWavesElevation: { value: 0.0025 },
+        // uBigWavesFrequency: { value: new Vector2(1, -10) },
+        // uBigWavesSpeed: { value: 0.5 },
 
-        uSmallWavesElevation: { value: 0.05 },
-        uSmallWavesFrequency: { value: 5 },
-        uSmallWavesSpeed: { value: 0.2 },
-        uSmallIterations: { value: 5 },
+        // uSmallWavesElevation: { value: 0.05 },
+        // uSmallWavesFrequency: { value: 5 },
+        // uSmallWavesSpeed: { value: 0.2 },
+        // uSmallIterations: { value: 5 },
 
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
@@ -265,7 +265,7 @@ export default class SceneSki extends BaseScene {
 				uLineColor: { value: new Color(this.params.lineColor) },
 
         uFoamTex: { value: this.foam },
-        uRotation: { value: -125.0},
+        // uRotation: { value: -125.0},
 
         fogColor: { value: new Color(0x9bc8fa)},
         fogNear: { value: 0},
@@ -273,7 +273,16 @@ export default class SceneSki extends BaseScene {
 
       },
       defines: {
-        USE_FOG: true
+        USE_FOG: true,
+        uBigWavesElevation: 0.0025,
+        uBigWavesFrequencyX: '1.0',
+        uBigWavesFrequencyY: '-10.0',
+        uBigWavesSpeed: 0.5,
+        uSmallWavesElevation: 0.05,
+        uSmallWavesFrequency: '5.0',
+        uSmallWavesSpeed: 0.2,
+        uSmallIterations: '5.0',
+        uRotation: '-125.0',
       },
     })
 
@@ -286,14 +295,14 @@ export default class SceneSki extends BaseScene {
 
       uniforms: {
         uTime: { value: this.time},
-        uBigWavesElevation: { value: 0.0025 },
-        uBigWavesFrequency: { value: new Vector2(1, -10) },
-        uBigWavesSpeed: { value: 0.5 },
+        // uBigWavesElevation: { value: 0.0025 },
+        // uBigWavesFrequency: { value: new Vector2(1, -10) },
+        // uBigWavesSpeed: { value: 0.5 },
 
-        uSmallWavesElevation: { value: 0.05 },
-        uSmallWavesFrequency: { value: 5 },
-        uSmallWavesSpeed: { value: 0.2 },
-        uSmallIterations: { value: 5 },
+        // uSmallWavesElevation: { value: 0.05 },
+        // uSmallWavesFrequency: { value: 5 },
+        // uSmallWavesSpeed: { value: 0.2 },
+        // uSmallIterations: { value: 5 },
 
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
@@ -301,7 +310,7 @@ export default class SceneSki extends BaseScene {
 				uLineColor: { value: new Color(this.params.lineColor) },
 
         uFoamTex: { value: this.foam2 },
-        uRotation: { value: -125.0},
+        // uRotation: { value: -125.0},
 
         fogColor: { value: new Color(0x9bc8fa)},
         fogNear: { value: 0},
@@ -309,7 +318,16 @@ export default class SceneSki extends BaseScene {
 
       },
       defines: {
-        USE_FOG: true
+        USE_FOG: true,
+        uBigWavesElevation: 0.0025,
+        uBigWavesFrequencyX: '1.0',
+        uBigWavesFrequencyY: '-10.0',
+        uBigWavesSpeed: 0.5,
+        uSmallWavesElevation: 0.05,
+        uSmallWavesFrequency: '5.0',
+        uSmallWavesSpeed: 0.2,
+        uSmallIterations: '5.0',
+        uRotation: '-125.0',
       },
     })
 

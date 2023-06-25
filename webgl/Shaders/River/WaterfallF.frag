@@ -7,7 +7,7 @@ uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform vec3 uColorC;
 uniform vec3 uColorD;
-uniform float uRotation;
+// uniform float uRotation;
 
 varying vec2 vUv;
 

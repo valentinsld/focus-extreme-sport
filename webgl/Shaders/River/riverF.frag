@@ -7,7 +7,7 @@ uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform sampler2D uFoamTex;
-uniform float uRotation;
+// uniform float uRotation;
 
 // uniform anim
 uniform vec3 uLineColor;

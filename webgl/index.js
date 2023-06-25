@@ -69,23 +69,26 @@ export default class WebGL extends EventEmitter {
       this.trigger("endLoading")
     })
 
-    RAFManager.add("webgl",(currentTime, dt) => {
-      this.update.bind(this)
+    RAFManager.add("webgl", (currentTime, dt) => {
       this.camera.update(dt);
       this.fxComposer.update()
-
-      // this.renderer.update();
     });
 
     this.started = true;
-
   }
 
   setDebug() {
     this.isDebug = window.location.hash === "#debug";
     if (this.isDebug) {
       this.debug = new Pane();
-      this.stats = new Stats(true);
+
+      this.debug.addButton({ title: "Get info loaded" }).on("click", () => {
+        console.log("Scene polycount:", this.renderer.instance.info.render.triangles)
+        console.log("Active Drawcalls:", this.renderer.instance.info.render.calls)
+        console.log("Textures in Memory", this.renderer.instance.info.memory.textures)
+        console.log("Geometries in Memory", this.renderer.instance.info.memory.geometries)
+        console.log(this.renderer.instance.info)
+      });
 
       // add speed
       // this.debug.addInput(RAFManager, 'targetSpeed', { min: -4, max: 4 })
@@ -102,6 +105,12 @@ export default class WebGL extends EventEmitter {
         Store.targetSpeed = 1;
         RAFManager.setSpeed(Store.targetSpeed);
       });
+    }
+    if (process.dev) {
+      this.stats = new Stats(true);
+      RAFManager.add('stats', () => {
+        this.stats.update()
+      })
     }
   }
 
@@ -172,9 +181,8 @@ export default class WebGL extends EventEmitter {
     this.sceneTransi.scene = new SceneTransi()
   }
 
-  update() {
-    if (this.stats) this.stats.update();
-  }
+  // update() {
+  // }
 
   resize() {
     this.camera.resize();

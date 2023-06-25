@@ -4,6 +4,7 @@ import { MathUtils } from 'three'
 import WebGL from '../index.js'
 import useStore from '~~/stores/index.js'
 import AudioManager from '~~/webgl/Managers/AudioManager';
+import clearThree from '../Utils/ClearScene.js'
 
 const CURVE_BEZIER_PERCENT = 0.75
 const normliaze = (value, min, max) => ((value - min) / (max - min))
@@ -342,5 +343,7 @@ export default class BaseScene {
     this.WebGL.camera.setCamera() // reset FPV camera
 
     if (this.destroyScene) this.destroyScene()
+
+    if (!process.dev) clearThree(this.scene)
   }
 }

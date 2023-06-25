@@ -37,7 +37,6 @@ export default class WebGL extends EventEmitter {
     this.started = false;
 
     this.sizes = new Sizes();
-    this.assets = new Assets();
     this.sceneManager = new SceneManager();
     this.ressourcesReady = false
 
@@ -47,6 +46,7 @@ export default class WebGL extends EventEmitter {
     this.setDebug();
     this.setCamera();
     this.setRenderer();
+    this.assets = new Assets(this);
     this.setFxComposer();
 
     this.sizes.on("resize", () => {

@@ -1,5 +1,4 @@
 import { Group, AmbientLight, AxesHelper, Vector3, Fog, Color, Vector2, ShaderMaterial, FrontSide } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 import anime from 'animejs'
 
@@ -8,7 +7,6 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 
 import datas from "~~/webgl/data/data.json"
-import skiHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
@@ -43,7 +41,7 @@ export default class SceneSki extends BaseScene {
 
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.sceneSki
-    this.generator = this.WebGL.renderer.generator
+    this.envmap = this.assets.hdrs.snowy_park_01_1k.texture
 
     this.time = 0
 
@@ -100,26 +98,6 @@ export default class SceneSki extends BaseScene {
       }
 		})
 
-
-    new RGBELoader().load(skiHdr, (map) => {
-		  this.envmap = this.generator.fromEquirectangular(map)
-      this.map.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .8
-        }
-        if(element.name.includes("SKY") || element.name.includes("Cloud")) {
-          element.material.envMapIntensity = .8
-        }
-      })
-      this.character.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .5
-        }
-      })
-    })
-
     // character
     this.characterContainer = new Group()
     this.character = new Group()
@@ -129,6 +107,19 @@ export default class SceneSki extends BaseScene {
 
     this.character.add(this.characterAnimation)
     this.characterContainer.add(this.character)
+
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .8
+      }
+    })
+    this.character.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .5
+      }
+    })
 
     this.setAnimation(
       this.character,
@@ -331,7 +322,7 @@ export default class SceneSki extends BaseScene {
       model: 'snow_high_tree',
       instances: this.highTree,
       scaleMultiplier: .0475,
-      hdr: skiHdr,
+      hdr: this.envmap,
       hasHdr: true,
       intensity: .8,
     })
@@ -341,7 +332,7 @@ export default class SceneSki extends BaseScene {
       model: 'snow_bush',
       instances: this.bush,
       scaleMultiplier: .45,
-      hdr: skiHdr,
+      hdr: this.envmap,
     })
 
     this.rockInstanced = new InstancedAssets({
@@ -349,7 +340,7 @@ export default class SceneSki extends BaseScene {
       model: 'instance_rock_v2',
       instances: this.rock,
       scaleMultiplier: .6,
-      hdr: skiHdr,
+      hdr: this.envmap,
       hasHdr: true,
       intensity: .8,
     })
@@ -359,7 +350,7 @@ export default class SceneSki extends BaseScene {
     //   model: 'snow_dead_wood_1',
     //   instances: this.deadWood,
     //   scaleMultiplier: .5,
-    //   hdr: skiHdr,
+    //   hdr: this.envmap,
     //   hasHdr: false,
     // })
 
@@ -368,7 +359,7 @@ export default class SceneSki extends BaseScene {
     //   model: 'snow_dead_wood_2',
     //   instances: this.deadWoodV2,
     //   scaleMultiplier: .05,
-    //   hdr: skiHdr,
+    //   hdr: this.envmap,
     //   hasHdr: false,
     // })
 
@@ -377,7 +368,7 @@ export default class SceneSki extends BaseScene {
       model: 'snow_tree_v2',
       instances: this.tree,
       // scaleMultiplier: .15,
-      hdr: skiHdr,
+      hdr: this.envmap,
       hasHdr: true,
       intensity: .8,
     })

@@ -1,5 +1,4 @@
 import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, Vector2, DoubleSide, Color } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/kayak.json'
@@ -14,7 +13,6 @@ import RiverV from '@/webgl/Shaders/River/riverV.vert'
 import InstancedSplash from '../Components/Particles/Water/InstancedSplash.js'
 
 import datas from "~~/webgl/data/data.json"
-import kayakHdr from '~~/assets/hdr/kayak.hdr'
 import InstancedAssets from '../Components/InstancedAssets.js'
 import Waterfall from '../Components/Environment/Waterfall.js'
 
@@ -44,6 +42,8 @@ export default class SceneKayak extends BaseScene {
     this.scene = this.WebGL.sceneKayak
     this.scene.fog = new Fog(0x9bc8fa, 0, 15)
     this.sizes = this.WebGL.sizes
+
+    this.envmap = this.assets.hdrs.kayak.texture
 
     this.CAM_3P_1 = {
       x: -0.15,
@@ -133,24 +133,17 @@ export default class SceneKayak extends BaseScene {
       new Vector3(-0.02, 0, -0.01)
     )
 
-    new RGBELoader().load(kayakHdr, (map) => {
-		  this.envmap = this.generator.fromEquirectangular(map)
-      this.map.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .25
-          // element.castShadow = true
-          // element.receiveShadow = true
-        }
-      })
-      this.characterContainer.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .25
-          // element.castShadow = true
-          // element.receiveShadow = true
-        }
-      })
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .25
+      }
+    })
+    this.characterContainer.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .25
+      }
     })
 
      // light
@@ -305,7 +298,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_pine',
       instances: this.pine,
       scaleMultiplier: .0475,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 
@@ -313,7 +306,7 @@ export default class SceneKayak extends BaseScene {
       name: 'bush',
       model: 'instance_bush',
       instances: this.bush,
-      hdr: kayakHdr
+      hdr: this.envmap
     })
 
     this.rockInstanced = new InstancedAssets({
@@ -321,7 +314,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_rock',
       instances: this.rock,
       scaleMultiplier: .0009,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 
@@ -330,7 +323,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_rock_v2',
       instances: this.rockV2,
       scaleMultiplier: .11,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 
@@ -339,7 +332,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_dead_wood',
       instances: this.deadWood,
       scaleMultiplier: .138,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 
@@ -348,7 +341,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_fir_wood',
       instances: this.firWood,
       scaleMultiplier: .05,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 
@@ -357,7 +350,7 @@ export default class SceneKayak extends BaseScene {
       model: 'instance_little_tree',
       instances: this.littleTree,
       scaleMultiplier: .15,
-      hdr: kayakHdr,
+      hdr: this.envmap,
       hasHdr: true,
     })
 

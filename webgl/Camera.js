@@ -12,7 +12,10 @@ export default class Camera {
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
     this.assets = this.WebGL.assets
-    this.audio = new AudioManager()
+
+    requestAnimationFrame(() => {
+      this.audio = new AudioManager()
+    })
 
     this.container = new Object3D()
     this.container.name = "CameraContainer"

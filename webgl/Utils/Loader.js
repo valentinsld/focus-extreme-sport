@@ -5,11 +5,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import { AudioLoader, LinearFilter, TextureLoader } from 'three'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 
 export default class Loader extends EventEmitter {
-	constructor() {
+	constructor(WebGL) {
 		// Get parent methods
 		super()
+
+		this.WebGL = WebGL
+
 		// Set up
 		this.ressourcesList = []
 		this.total = 0
@@ -19,6 +23,7 @@ export default class Loader extends EventEmitter {
 		this.textures = {}
 		this.sounds = {}
 		this.fonts = {}
+		this.hdrs = {}
 
 		this.URL_IMPORT = process.env.NODE_ENV !== 'production' ? window.location.origin : ''
 
@@ -100,6 +105,15 @@ export default class Loader extends EventEmitter {
 					)
 				},
 			},
+			{
+				filetype: ['hdr'],
+				action: (map) => {
+					new RGBELoader().load(map.src, (m) => {
+						const envmap = this.WebGL.renderer.generator.fromEquirectangular(m)
+						this.loadComplete(map, envmap)
+				  })
+				},
+			},
 		]
 	}
 	progress(xhr) {
@@ -137,6 +151,20 @@ export default class Loader extends EventEmitter {
 						.toLowerCase(),
 					src: this.URL_IMPORT + tex.default,
 					type: 'texture',
+				})
+			})
+		}
+
+		const hdrContext = import.meta.glob('@/assets/hdr/*.*')
+		for (const hdr in hdrContext) {
+			await hdrContext[hdr]().then((tex) => {
+				this.ressourcesList.push({
+					name: hdr
+						.split('/hdr/')[1]
+						.split('.')[0]
+						.toLowerCase(),
+					src: this.URL_IMPORT + tex.default,
+					type: 'hdr',
 				})
 			})
 		}

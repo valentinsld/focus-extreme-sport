@@ -1,12 +1,10 @@
 import { Group, AmbientLight, PointLight } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import Background from '../Components/Background.js'
 import BaseScene from './BaseScene.js'
 
 import MSDFText from '../Components/MSDFText.js'
 import TuskerAtlas from '~~/assets/MSDFfonts/TuskerGrotesk-2500Medium.png'
 import TuskerFNT from '~~/assets/MSDFfonts/TuskerGrotesk-2500Medium-msdf.json'
-import skiHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 
 import anime from 'animejs'
 
@@ -45,14 +43,11 @@ export default class SceneStickers extends BaseScene {
     this.helmet.scale.set(0.0, 0.0, 0.0)
     this.helmet.visible = false
 
-    new RGBELoader().load(skiHdr, (map) => {
-		  this.envmap = this.generator.fromEquirectangular(map)
-      this.helmet.getObjectByName('Helmet').traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .8
-        }
-      })
+    this.helmet.getObjectByName('Helmet').traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap =  this.assets.hdrs.snowy_park_01_1k.texture
+        element.material.envMapIntensity = .8
+      }
     })
 
     this.stickers = {

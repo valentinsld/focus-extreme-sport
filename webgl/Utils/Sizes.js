@@ -20,7 +20,11 @@ export default class Sizes extends EventEmitter {
   }
 
   testPixelRatioPerformance(lowPerf) {
-    this.maxPixelRatio = lowPerf < 40 ? 1 : 2
+    this.maxPixelRatio = lowPerf ? 1 : 2
+
+    console.log(this.maxPixelRatio)
+
+    this.resize()
   }
 
   /**

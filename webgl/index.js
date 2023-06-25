@@ -192,7 +192,10 @@ export default class WebGL extends EventEmitter {
   async testPerformance() {
     const gpuTier = await getGPUTier();
 
-    this.sizes.testPixelRatioPerformance(gpuTier.fps)
+    const low = gpuTier.fps < 40
+
+    this.sizes.testPixelRatioPerformance(low)
+    this.renderer.instance.antialias = !low
   }
 
   destroy() {

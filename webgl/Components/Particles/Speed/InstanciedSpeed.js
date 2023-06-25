@@ -42,7 +42,7 @@ export default class InstanciedSpeed {
 		this.mat = new RawShaderMaterial({
 			vertexShader: speedLineV,
 			fragmentShader: speedLineF,
-			transparent: false,
+			transparent: true,
 			depthTest: false,
 		})
 

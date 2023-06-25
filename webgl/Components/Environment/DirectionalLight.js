@@ -1,7 +1,7 @@
 import {
 	Object3D,
 	DirectionalLight,
-	DirectionalLightHelper,
+	// DirectionalLightHelper,
 	Vector3
 } from 'three'
 
@@ -67,8 +67,8 @@ export default class DirectionalLightSource {
 		this.light.position.y = this.params.positions.y
 		this.light.position.z = this.params.positions.z
 
-		const helper = new DirectionalLightHelper(this.light, 5)
-		this.container.add(helper)
+		// const helper = new DirectionalLightHelper(this.light, 5)
+		// this.container.add(helper)
 	}
 
 	setDebug() {

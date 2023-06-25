@@ -45,7 +45,7 @@ export default class InstancedSplash {
 		this.geo = new DodecahedronGeometry(0.5, 0)
 
 		this.mat = new MeshBasicMaterial({
-			transparent: false,
+			transparent: true,
 			opacity: 1,
 			side: FrontSide,
 		})

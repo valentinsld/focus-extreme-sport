@@ -1,5 +1,8 @@
 <template>
-  <footer class="footer flow-section">
+  <footer
+    class="footer flow-section"
+    data-lenis-prevent
+  >
     <img
       class="gobelins"
       src="/flow-state/footer/gobelins.png"

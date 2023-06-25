@@ -1,5 +1,7 @@
 <template>
-  <div class="page-flow">
+  <div
+    class="page-flow"
+  >
     <!-- <img src="/end.png"> -->
     <EndHeader />
 
@@ -31,6 +33,7 @@
 </template>
 
 <script setup>
+import EndHeader from '~~/components/Header/EndHeader.vue'
 import content from '~~/content/flow-state.json'
 import SceneManager from '~~/webgl/Managers/SceneManager'
 import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'

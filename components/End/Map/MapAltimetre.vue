@@ -1,14 +1,14 @@
 <template>
   <div
-    class="altimetre"
+    class="map-altimetre"
   >
     <div
-      class="altimetre-graduation"
+      class="map-altimetre-graduation"
     >
       <div
         v-for="i in 4"
         :key="i"
-        class="graduation"
+        class="map-graduation"
         :class="['gradution-'+ i]"
       >
         <span>
@@ -16,7 +16,7 @@
         </span>
       </div>
       <div
-        class="altimetre-cursor"
+        class="map-altimetre-cursor"
       >
         <svg
           viewBox="0 0 184 184"
@@ -45,14 +45,14 @@ const altitude = [
 </script>
 
 <style lang="scss" scoped>
-.altimetre {
+.map-altimetre {
 	position: absolute;
 	height: 100%;
 	top: 0;
 	right: 2%;
 }
 
-.altimetre-graduation {
+.map-altimetre-graduation {
 	height: 80%;
 	display: flex;
 	position: relative;
@@ -62,7 +62,7 @@ const altitude = [
 	border-right: .15rem solid colors(black);
 }
 
-.graduation {
+.map-graduation {
 	position: relative;
 	width: 1rem;
 	height: .15rem;
@@ -80,7 +80,7 @@ const altitude = [
 	}
 }
 
-.altimetre-cursor {
+.map-altimetre-cursor {
 	position: absolute;
 	transform: translateY(var(--graduation-translate));
 

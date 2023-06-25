@@ -108,6 +108,10 @@ export default class SceneKayak extends BaseScene {
       if(element.name.includes('Little_Tree')) {
 				this.littleTree.push(element)
 			}
+
+      if (element.isMesh) {
+        element.matrixAutoUpdate = false
+      }
 		})
 
     this.initInstancedAssets()
@@ -228,10 +232,6 @@ export default class SceneKayak extends BaseScene {
             this.water = element.children[1];
           }
         })
-      }
-
-      if (child.isMesh) {
-        child.matrixAutoUpdate = false
       }
     })
 

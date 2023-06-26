@@ -21,7 +21,7 @@
         ref="map"
         :data="content.map"
       />
-      <!-- <EndAthletes :data="content.athletes" /> -->
+      <EndAthletes :data="content.athletes" />
       <EndSports
         ref="sport"
         :data="content.sports"
@@ -42,9 +42,10 @@
 import EndHeader from '~~/components/Header/EndHeader.vue'
 import content from '~~/content/flow-state.json'
 import SceneManager from '~~/webgl/Managers/SceneManager'
-import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
-import Lenis from '@studio-freight/lenis'
 import RAFManager from '~~/webgl/Utils/RAFManager'
+import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
+
+import Lenis from '@studio-freight/lenis'
 
 const hero = ref()
 const definition = ref()
@@ -61,8 +62,6 @@ const observerList = [
   thanks
 ]
 
-let time = 0
-
 useIntersectObserver({
 		ref: observerList,
 		margin: '0px',
@@ -70,8 +69,6 @@ useIntersectObserver({
 	});
 
   const lenis = new Lenis()
-
-  console.log(lenis);
 
 onMounted(() => {
 	setScene()

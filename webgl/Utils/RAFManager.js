@@ -33,6 +33,7 @@ import store from './Store';
 // }());
 
 const LERP = 0.025;
+const MAX_FPS = 60;
 
 const RAFManager = {
 	timer: null,
@@ -41,10 +42,13 @@ const RAFManager = {
 	lastTime: new Date(),
 	currentTime: 0,
 	dt: 0,
+	realDt: 0,
 	elapsedTime: 0,
 	speed: 1,
 	targetSpeed: store.targetSpeed,
 	state: 'stop',
+	fpsLimiter: MAX_FPS,
+	dtLimiter: 1.5 / MAX_FPS,
 	animations: [],
 
 	has(name) {
@@ -94,6 +98,11 @@ const RAFManager = {
 		return this;
 	},
 
+	setFpsLimiter(fps) {
+		this.fpsLimiter = fps;
+		this.dtLimiter = 1.5 / fps;
+	},
+
 	tick() {
 		this.timer = requestAnimationFrame(() => { this.tick(); })
 		this.lastTime = this.time
@@ -101,9 +110,13 @@ const RAFManager = {
 
 		this.speed = lerp(this.speed, this.targetSpeed, LERP)
 
-		this.realDt = (this.time - this.lastTime) / 1000
+		this.realDt += (this.time - this.lastTime) / 1000
 		this.dt = this.realDt * this.speed
-		// this.elapsedTime = (this.time - this.startTime) / 1000;
+
+		// Vérifier si le temps écoulé entre deux trames est inférieur à la limite des FPS
+		if (this.realDt < this.dtLimiter) {
+			return;
+		}
 
 		this.currentTime += this.dt;
 
@@ -112,6 +125,8 @@ const RAFManager = {
 
 			aniData.callback(this.currentTime, this.dt, this.realDt, aniData.param)
 		}
+
+		this.realDt = 0
 	}
 }
 

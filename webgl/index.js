@@ -196,6 +196,10 @@ export default class WebGL extends EventEmitter {
 
     this.sizes.testPixelRatioPerformance(low)
     this.renderer.instance.antialias = !low
+
+    if (low) {
+      RAFManager.setFpsLimiter(45)
+    }
   }
 
   destroy() {

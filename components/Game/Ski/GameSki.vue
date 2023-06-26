@@ -235,6 +235,7 @@ function initStates(scene) {
 
 const endQteFigure = (isSucess) => {
   store.state.gamestatestep = 6
+  store.state.sucess.ski = isSucess
 
   currentScene.setCameraQteFigure()
 

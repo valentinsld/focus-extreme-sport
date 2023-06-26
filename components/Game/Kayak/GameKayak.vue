@@ -213,6 +213,7 @@ function initStates (scene) {
 
 function chooseLine (d) {
   if (d === 'right') {
+    store.state.sucess.kayak = true
     currentScene.switchCurve()
   }
 

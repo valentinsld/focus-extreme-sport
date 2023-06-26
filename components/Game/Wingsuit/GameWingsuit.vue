@@ -240,6 +240,7 @@ const initStates = (scene) => {
 
 const endQteFigure = (isSucess) => {
   store.state.gamestatestep = 2
+  store.state.sucess.ski = isSucess
 
   if (isSucess) {
     currentScene.animationSucessQTE()

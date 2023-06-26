@@ -1,13 +1,13 @@
 <template>
   <div clas="stickers-intro">
     <div class="stickers-intro__image">
-      <img src="/end-photos/wingsuit.png">
+      <img :src="`/end-photos/wingsuit-${store.state.sucess.wingsuit ? 'sucess':'wrong'}.png`">
     </div>
     <div class="stickers-intro__image">
-      <img src="/end-photos/ski.png">
+      <img :src="`/end-photos/ski-${store.state.sucess.ski ? 'sucess':'wrong'}.png`">
     </div>
     <div class="stickers-intro__image">
-      <img src="/end-photos/kayak.png">
+      <img :src="`/end-photos/kayak-${store.state.sucess.kayak ? 'sucess':'wrong'}.png`">
     </div>
 
     <CtaUnderline
@@ -21,7 +21,9 @@
 <script setup>
 import AudioManager from '~~/webgl/Managers/AudioManager'
 import CtaUnderline from '~~/components/Common/CtaUnderline.vue';
+import useStore from '~~/stores';
 
+const store = useStore()
 const emit = defineEmits(['close'])
 
 function close() {

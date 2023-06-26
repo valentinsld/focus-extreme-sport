@@ -202,7 +202,7 @@ export default class SceneSki extends BaseScene {
       scales: new Vector2(0.01, 0.025),
       veloRandArr: [{x: 2, y: 4, z: 10}, {x: 5, y: 6, z: 15}]
     })
-    this.splashLeft.container.position.set(0, -0.1, -0.075)
+    this.splashLeft.container.position.set(0, 0, -0.075)
 
     this.character.add(...[this.splashLeft.container])
   }

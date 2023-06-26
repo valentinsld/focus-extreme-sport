@@ -1,5 +1,7 @@
 <template>
   <div>
+    <NotAvailable />
+
     <Transition
       name="loader"
       appear

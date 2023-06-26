@@ -21,7 +21,10 @@
         ref="map"
         :data="content.map"
       />
-      <EndAthletes :data="content.athletes" />
+      <EndAthletes
+        ref="athletes"
+        :data="content.athletes"
+      />
       <EndSports
         ref="sport"
         :data="content.sports"
@@ -50,6 +53,7 @@ import Lenis from '@studio-freight/lenis'
 const hero = ref()
 const definition = ref()
 const map = ref()
+const athletes = ref()
 const sport = ref()
 const thanks = ref()
 const scrollWrapper = ref()
@@ -58,6 +62,7 @@ const scrollContainer = ref()
 const observerList = [
   hero,
   definition,
+  athletes,
   sport,
   thanks
 ]

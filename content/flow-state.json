@@ -136,12 +136,12 @@
 						"link": "https://www.facebook.com/fredfugen.athlete"
 					},
 					{
-						"type": "instagram",
-						"link": "https://www.instagram.com/fredfugen/?hl=fr"
-					},
-					{
 						"type": "youtube",
 						"link": "https://www.youtube.com/@SoulFlyers"
+					},
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/fredfugen/?hl=fr"
 					}
 				]
 			},
@@ -208,7 +208,7 @@
 				"name": "Travis Pastrana",
 				"aptitude": "Pilote",
 				"type": "Terre",
-				"color": "brown",
+				"color": "pink",
 				"country": "CH",
 				"achieved": "600m de chute libre",
 				"image": "/flow-state/athletes/travis-pastrana.png",

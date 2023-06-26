@@ -22,6 +22,12 @@ $_constants: (
 	font-akira: #{'"AkiraExpanded", -apple-system, Roboto, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif'},
 	font-gotham: #{'"Gotham", -apple-system, Roboto, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif'},
 	font-tusker: #{'"Tusker", -apple-system, Roboto, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif'},
+
+	gradient-purple: linear-gradient(139deg, #FFF9F8 0%, #B297FF 14.06%, #FFFCFC 53.13%, #A38CFF 86.98%, #FFB5E6 100%),
+	gradient-pink: linear-gradient(61deg, #FFFEF1 0%, #FF6A85 25%, #FF84DC 44.27%, #FFFFEF 77.60%, #FF84DC 89.58%),
+	gradient-green: linear-gradient(209deg, #FFFCE5 0%, #C3FFED 16.28%, #D6FF62 30.33%, #FEFFE3 48.50%, #FFF 57.81%, #EEFFFB 61.46%, #ACFFEB 75.52%, #D2FF51 100%),
+
+
 );
 
 // You can get them with ease(EASING)

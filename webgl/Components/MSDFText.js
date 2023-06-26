@@ -1,11 +1,13 @@
 import {Object3D, Mesh, TextureLoader, Vector3, Color, DoubleSide} from 'three'
 import { MSDFTextGeometry, MSDFTextMaterial } from "three-msdf-text-utils";
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-// import RAFManager from '../Utils/RAFManager.js'
 
 import FontAtlas from '~~/assets/MSDFfonts/roboto-regular.png'
 import FontFNT from '~~/assets/MSDFfonts/roboto-regular.json'
 import WebGL from '../index.js';
+
+import fragmentShader from '~~/webgl/Shaders/MSDFText/main.frag'
+import vertexShader from '~~/webgl/Shaders/MSDFText/main.vert'
 
 import StrokeFrag from '~~/webgl/Shaders/MSDFText/Stroke.frag'
 
@@ -55,6 +57,8 @@ export default class MSDFText {
 
 			const material = new MSDFTextMaterial();
 			const uniforms = JSON.parse(JSON.stringify(material.uniforms))
+			material.fragmentShader = fragmentShader
+			material.vertexShader = vertexShader
 			material.uniforms = uniforms
 			material.uniforms.uMap.value = atlas
 			material.uniforms.uColor.value = new Color(this.color)

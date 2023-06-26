@@ -31,6 +31,7 @@
     "@pinia/nuxt": "^0.4.8",
     "@vueuse/core": "^10.2.0",
     "animejs": "^3.2.1",
+    "detect-gpu": "^5.0.29",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "keen-slider": "^6.8.5",

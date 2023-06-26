@@ -12,7 +12,10 @@ export default class Camera {
     this.sizes = this.WebGL.sizes
     this.scene = this.WebGL.currentScene
     this.assets = this.WebGL.assets
-    this.audio = new AudioManager()
+
+    requestAnimationFrame(() => {
+      this.audio = new AudioManager()
+    })
 
     this.container = new Object3D()
     this.container.name = "CameraContainer"
@@ -67,7 +70,7 @@ export default class Camera {
       name === '3p' ? 40 : 100,
       this.sizes.width / this.sizes.height,
       0.01,
-      200
+      80
     )
     this.listCamera[name].name = name
     this.listCamera[name].rotation.reorder('YXZ')

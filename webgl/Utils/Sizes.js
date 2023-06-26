@@ -14,6 +14,14 @@ export default class Sizes extends EventEmitter {
     // Resize event
     window.addEventListener('resize', this.resize.bind(this))
 
+    this.maxPixelRatio = 2
+
+    this.resize()
+  }
+
+  testPixelRatioPerformance(lowPerf) {
+    this.maxPixelRatio = lowPerf ? 1 : 2
+
     this.resize()
   }
 
@@ -24,7 +32,7 @@ export default class Sizes extends EventEmitter {
     this.width = window.innerWidth
     this.height = window.innerHeight
     this.ratio = window.innerWidth / window.innerHeight
-    this.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), 2)
+    this.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), this.maxPixelRatio)
 
     this.trigger('resize')
   }

@@ -1,7 +1,6 @@
 import anime from "animejs"
 
 import { Group, AmbientLight, AxesHelper, Vector3, AnimationMixer, MathUtils, FogExp2 } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 // import { Sky } from 'three/addons/objects/Sky.js';
 
 import BaseScene from './BaseScene.js'
@@ -10,7 +9,6 @@ import RAFManager from '../Utils/RAFManager.js'
 import QuoteBlock from '../Components/Quote.js'
 import DirectionalLightSource from '../Components/Environment/DirectionalLight.js'
 
-import wingsuitHdr from '~~/assets/hdr/snowy_park_01_1k.hdr'
 import SkyCustom from '../Components/Environment/Sky.js'
 import Clouds from '../Components/Environment/Clouds.js'
 
@@ -36,6 +34,8 @@ export default class SceneWingsuit extends BaseScene {
 
     this.scene.fog = new FogExp2(0x9bc8fa, 0.025)
 
+    this.envmap = this.assets.hdrs.snowy_park_01_1k.texture
+
     this.ices = []
     this.deadWood = []
 
@@ -59,6 +59,10 @@ export default class SceneWingsuit extends BaseScene {
       if(element.name.includes('ICE')) {
 				this.ices.push(element)
 			}
+
+      if (element.isMesh) {
+        element.matrixAutoUpdate = false
+      }
 		})
 
     this.initInstancedAssets()
@@ -74,27 +78,24 @@ export default class SceneWingsuit extends BaseScene {
     this.mixerCharacter.clipAction(this.assets.models["wingsuit_character"].animations[0]).play();
     this.characterContainer.add(this.character)
 
-    new RGBELoader().load(wingsuitHdr, (map) => {
-		  this.envmap = this.generator.fromEquirectangular(map)
-      this.map.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .5
-          // element.castShadow = true
-          // element.receiveShadow = true
-        }
-        if(element.name.includes("SKY")) {
-          element.material.envMapIntensity = .8
-        }
-      })
-      this.character.traverse((element) => {
-        if (element.isMesh) {
-          element.material.envMap = this.envmap.texture
-          element.material.envMapIntensity = .2
-          // element.castShadow = true
-          // element.receiveShadow = true
-        }
-      })
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .5
+        // element.castShadow = true
+        // element.receiveShadow = true
+      }
+      if(element.name.includes("SKY")) {
+        element.material.envMapIntensity = .8
+      }
+    })
+    this.character.traverse((element) => {
+      if (element.isMesh) {
+        element.material.envMap = this.envmap
+        element.material.envMapIntensity = .2
+        // element.castShadow = true
+        // element.receiveShadow = true
+      }
     })
 
     // light
@@ -209,7 +210,7 @@ export default class SceneWingsuit extends BaseScene {
       model: 'instance_ice',
       instances: this.ices,
       scaleMultiplier: .0009,
-      hdr: wingsuitHdr,
+      hdr: this.envmap,
       intensity: .8,
       hasHdr: true,
     })
@@ -226,7 +227,7 @@ export default class SceneWingsuit extends BaseScene {
       model: 'snow_dead_wood_2',
       instances: this.deadWood,
       scaleMultiplier: .25,
-      hdr: wingsuitHdr,
+      hdr: this.envmap,
       intensity: .8,
       hasHdr: true,
     })
@@ -255,6 +256,13 @@ export default class SceneWingsuit extends BaseScene {
       // this.cl2.container.rotation.copy(this.WebGL.camera.current.rotation)
       // animation mixer character
       this.mixerCharacter.update(dt);
+    })
+
+    // manually update of map
+    this.map.traverse((element) => {
+      if (element.isMesh) {
+        element.updateMatrix()
+      }
     })
 
     // set clearColor scene

@@ -1,16 +1,21 @@
 uniform float uTime;
-uniform float uBigWavesElevation;
-uniform vec2 uBigWavesFrequency;
-uniform float uBigWavesSpeed;
+// uniform float uBigWavesElevation;
+// uniform vec2 uBigWavesFrequency;
+// uniform float uBigWavesSpeed;
 
-uniform float uSmallWavesElevation;
-uniform float uSmallWavesFrequency;
-uniform float uSmallWavesSpeed;
-uniform float uSmallIterations;
+// uniform float uSmallWavesElevation;
+// uniform float uSmallWavesFrequency;
+// uniform float uSmallWavesSpeed;
+// uniform float uSmallIterations;
 
 varying float vElevation;
 varying vec2 vUv;
 
+
+bool isPerspectiveMatrix( mat4 m ) {
+	return m[ 2 ][ 3 ] == - 1.0;
+}
+#include <logdepthbuf_pars_vertex>
 #include <fog_pars_vertex>
 
 // Classic Perlin 3D Noise
@@ -104,8 +109,8 @@ void main()
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
 
     // Elevation
-    float elevation = sin(modelPosition.x * uBigWavesFrequency.x + uTime * uBigWavesSpeed) *
-                      sin(modelPosition.z * uBigWavesFrequency.y + uTime * uBigWavesSpeed) *
+    float elevation = sin(modelPosition.x * uBigWavesFrequencyX + uTime * uBigWavesSpeed) *
+                      sin(modelPosition.z * uBigWavesFrequencyY + uTime * uBigWavesSpeed) *
                       uBigWavesElevation;
 
     for(float i = 1.0; i <= uSmallIterations; i++)
@@ -121,4 +126,5 @@ void main()
     vElevation = elevation;
 
     #include <fog_vertex>
+    #include <logdepthbuf_vertex>
 }

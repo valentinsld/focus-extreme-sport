@@ -1,6 +1,6 @@
-import { Object3D, DodecahedronGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, InstancedBufferAttribute, Vector3, Vector2 } from 'three';
+import { Object3D, DodecahedronGeometry, MeshBasicMaterial, FrontSide, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, InstancedBufferAttribute, Vector3, Vector2 } from 'three';
 
-import splashV from '../../../Shaders/Particles/SplashParticles/splashV.vert'
+// import splashV from '../../../Shaders/Particles/SplashParticles/splashV.vert'
 import splashF from '../../../Shaders/Particles/SplashParticles/splashF.frag'
 
 export default class InstancedSplash {
@@ -44,13 +44,28 @@ export default class InstancedSplash {
 	init() {
 		this.geo = new DodecahedronGeometry(0.5, 0)
 
-		this.mat = new RawShaderMaterial({
-			vertexShader: splashV,
-			fragmentShader: splashF,
+		this.mat = new MeshBasicMaterial({
 			transparent: true,
-			depthTest: true,
-			// blending: AdditiveBlending,
+			opacity: 1,
+			side: FrontSide,
 		})
+
+		this.mat.onBeforeCompile = (shader) => {
+			// add custom shader chunks
+			shader.vertexShader = shader.vertexShader.replace(
+				'#include <common>',
+				'#include <common>\nattribute float aAlpha;\nvarying float vAlpha;\nattribute float aMaxAlpha;\nvarying float vMaxAlpha;\nvarying vec3 vInstanceColor;'
+			)
+			shader.vertexShader = shader.vertexShader.replace(
+				'void main() {',
+				`void main() {
+					vAlpha = aAlpha;
+					vMaxAlpha = aMaxAlpha;
+					vInstanceColor = instanceColor;`
+			)
+
+			shader.fragmentShader = splashF
+		}
 
 		this.instancedThem(this.geo, this.mat, this.params.count)
 	}

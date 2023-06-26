@@ -1,11 +1,11 @@
-import { Object3D, ShaderMaterial, DoubleSide, Color, Vector2, SphereGeometry, RawShaderMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
+import { Object3D, ShaderMaterial, FrontSide, Color, SphereGeometry, MeshBasicMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
 import WebGL from '~~/webgl'
 
 import WaterfallF from '~~/webgl/Shaders/River/WaterfallF.frag'
 import WaterfallV from '~~/webgl/Shaders/River/WaterfallV.vert'
 
 import splashF from '~~/webgl/Shaders/Particles/SplashParticles/splashF.frag'
-import splashV from '~~/webgl/Shaders/Particles/SplashParticles/splashV.vert'
+// import splashV from '~~/webgl/Shaders/Particles/SplashParticles/splashV.vert'
 import { DegToRad } from '~~/webgl/Utils/Math'
 // import Clouds from './Clouds'
 
@@ -50,25 +50,25 @@ export default class Waterfall {
 		this.plane.material = new ShaderMaterial({
 			vertexShader: WaterfallV,
 			fragmentShader: WaterfallF,
-			transparent: true,
+			transparent: false,
 			depthTest: true,
-			side: DoubleSide,
+			side: FrontSide,
 
 			uniforms: {
 				uTime: { value: this.time},
-				uBigWavesElevation: { value: 0.0025 },
-				uBigWavesFrequency: { value: new Vector2(1, -10) },
-				uBigWavesSpeed: { value: 0.5 },
+				// uBigWavesElevation: { value: 0.0025 },
+				// uBigWavesFrequency: { value: new Vector2(1, -10) },
+				// uBigWavesSpeed: { value: 0.5 },
 
-				uSmallWavesElevation: { value: 0.05 },
-				uSmallWavesFrequency: { value: 5 },
-				uSmallWavesSpeed: { value: 0.2 },
-				uSmallIterations: { value: 5 },
+				// uSmallWavesElevation: { value: 0.05 },
+				// uSmallWavesFrequency: { value: 5 },
+				// uSmallWavesSpeed: { value: 0.2 },
+				// uSmallIterations: { value: 5 },
 
 				uColorA: { value: new Color(this.params.colorA) },
 				uColorB: { value: new Color(this.params.colorB) },
 
-				uRotation: { value: -90},
+				// uRotation: { value: -90},
 
 				fogColor: { value: new Color(0x9bc8fa)},
 				fogNear: { value: 0},
@@ -76,7 +76,16 @@ export default class Waterfall {
 
 			  },
 			  defines: {
-				USE_FOG: true
+				USE_FOG: true,
+				uBigWavesElevation: 0.0025,
+				uBigWavesFrequencyX: '1.0',
+				uBigWavesFrequencyY: '-10.0',
+				uBigWavesSpeed: 0.5,
+				uSmallWavesElevation: 0.05,
+				uSmallWavesFrequency: '5.0',
+				uSmallWavesSpeed: 0.2,
+				uSmallIterations: '5.0',
+				uRotation: '-90.0',
 			  },
 		})
 
@@ -88,12 +97,28 @@ export default class Waterfall {
 	initSplash() {
 		this.geo = new SphereGeometry(0.5, 32, 16)
 
-		this.mat = new RawShaderMaterial({
-			vertexShader: splashV,
-			fragmentShader: splashF,
+		this.mat = new MeshBasicMaterial({
 			transparent: false,
-			// depthTest: true,
+			opacity: 1,
+			side: FrontSide,
 		})
+
+		this.mat.onBeforeCompile = (shader) => {
+			// add custom shader chunks
+			shader.vertexShader = shader.vertexShader.replace(
+				'#include <common>',
+				'#include <common>\nattribute float aAlpha;\nvarying float vAlpha;\nattribute float aMaxAlpha;\nvarying float vMaxAlpha;\nvarying vec3 vInstanceColor;'
+			)
+			shader.vertexShader = shader.vertexShader.replace(
+				'void main() {',
+				`void main() {
+					vAlpha = aAlpha;
+					vMaxAlpha = aMaxAlpha;
+					vInstanceColor = instanceColor;`
+			)
+
+			shader.fragmentShader = splashF
+		}
 
 		this.instancedThem(this.geo, this.mat, this.params.count)
 	}

@@ -1,5 +1,4 @@
 import { InstancedMesh, DynamicDrawUsage, Object3D, MeshStandardMaterial } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 
 import WebGL from '..'
 
@@ -43,11 +42,8 @@ export default class InstancedAssets {
 				this.mat = this.meshes[i].material;
 
 				if(this.hasHdr) {
-					new RGBELoader().load(this.hdr, (map) => {
-						this.envmap = this.generator.fromEquirectangular(map)
-						this.mat.envMap = this.envmap.texture
-						this.mat.envMapIntensity = this.intensity
-				  })
+					this.mat.envMap = this.hdr
+					this.mat.envMapIntensity = this.intensity
 				}
 			}
 

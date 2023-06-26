@@ -221,14 +221,14 @@ function initStates(scene) {
     // scene.initFinalCloudSnow()
   })
 
-  scene.setEventTimeline(0.94, () => {
+  scene.setEventTimeline(0.95, () => {
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
   })
 
 
   // event end next scene
-  scene.setEventTimeline(0.97, () => {
+  scene.setEventTimeline(0.98, () => {
     store.state.gamestate = 'kayak'
   })
 }

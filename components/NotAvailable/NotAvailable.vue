@@ -33,7 +33,7 @@ function testIsAvailable() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .not-available {
 	position: absolute;
 	z-index: 100;

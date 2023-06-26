@@ -1,5 +1,15 @@
 <template>
   <section class="thanks flow-section">
+    <img
+      src="/cloud.png"
+      draggable="false"
+      class="cloud"
+    >
+    <img
+      src="/STICKERS_HOLO.png"
+      draggable="false"
+      class="sticker"
+    >
     <h2
       class="thanks-title"
       data-in-view
@@ -112,6 +122,23 @@
   </script>
 
 <style lang="scss" scoped>
+.cloud {
+  position: absolute;
+  z-index: -1;
+  opacity: .5;
+  bottom: 0%;
+  left: -85%;
+}
+
+.sticker {
+  position: absolute;
+  width: 15rem;
+  z-index: -2;
+  left: -15%;
+  bottom: 20%;
+}
+
+
 .thanks-title {
   font-family: const(font-tusker);
   font-weight: 400;

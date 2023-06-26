@@ -5,6 +5,22 @@
     @mouseenter="hoverMap(true)"
     @mouseleave="hoverMap(false)"
   >
+    <img
+      src="/cloud.png"
+      draggable="false"
+      class="cloud"
+      :style="`transform:
+					translateY(${cloudTranslate}%)
+				`"
+    >
+    <img
+      src="/stickers/1-wingsuit.png"
+      draggable="false"
+      class="sticker"
+      :style="`transform:
+					translateY(${stickerTranslate}%)
+				`"
+    >
     <div
       class="map-wrapper"
     >
@@ -148,7 +164,15 @@ import MapAltimetre from '~~/components/End/Map/MapAltimetre.vue';
 	  data: {
 		  type: Object,
 		  required: true
-	  }
+	  },
+    cloudTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
+    stickerTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
   })
 
   let y = 0;
@@ -208,6 +232,23 @@ function update(elY, elH) {
 </script>
 
 <style lang="scss" scoped>
+.cloud {
+  position: absolute;
+  z-index: -2;
+  opacity: .25;
+  bottom: 15%;
+  left: -25%;
+}
+
+.sticker {
+  position: absolute;
+  z-index: -2;
+  width: 20rem;
+  bottom: 0%;
+  right: 25%;
+}
+
+
 .end-map {
   --delay: 25ms;
   position: relative;

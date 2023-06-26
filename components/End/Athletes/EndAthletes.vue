@@ -1,5 +1,10 @@
 <template>
   <section class="athletes flow-section">
+    <img
+      src="/cloud.png"
+      draggable="false"
+      class="cloud"
+    >
     <h2
       class="athletes-title"
       data-in-view
@@ -211,6 +216,15 @@ const [container] = useKeenSlider({
 </script>
 
 <style lang="scss" scoped>
+.cloud {
+  position: absolute;
+  z-index: -1;
+  opacity: .35;
+  bottom: 15%;
+  right: -70%;
+}
+
+
 .athletes-title {
   font-family: const(font-tusker);
   font-weight: 400;

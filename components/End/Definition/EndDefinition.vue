@@ -1,5 +1,21 @@
 <template>
-  <div class="definition">
+  <div class="definition flow-section">
+    <img
+      src="/cloud.png"
+      draggable="false"
+      class="cloud"
+      :style="`transform:
+					translateY(${cloudTranslate}%)
+				`"
+    >
+    <img
+      src="/stickers/1-kayak.png"
+      draggable="false"
+      class="kayak"
+      :style="`transform:
+					translateY(${stickerTranslate}%)
+				`"
+    >
     <div class="definition-title">
       <h2
         class="title"
@@ -70,7 +86,15 @@ const props = defineProps({
 	data: {
 		type: Object,
 		required: true
-	}
+	},
+  cloudTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
+  stickerTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
 })
 
   let x = 0
@@ -145,9 +169,27 @@ function handleHover(index, state) {
 </script>
 
 <style lang="scss" scoped>
+.cloud {
+  position: absolute;
+  z-index: -1;
+  opacity: .35;
+  top: 15%;
+  right: -70%;
+}
+
+.kayak {
+  position: absolute;
+  z-index: -1;
+  width: 20rem;
+  top: 35%;
+  right: -20%;
+}
+
+
 .definition {
+  position: relative;
   width: 100%;
-  margin: 2rem 0 13rem;
+  margin: 2rem auto 13rem;
   display: flex;
   align-items: center;
   justify-content: center;

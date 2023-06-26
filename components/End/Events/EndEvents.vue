@@ -1,5 +1,13 @@
 <template>
   <div class="events flow-section">
+    <img
+      src="/cloud.png"
+      draggable="false"
+      class="cloud"
+      :style="`transform:
+					translateY(${cloudTranslate}%)
+				`"
+    >
     <h2
       class="events-title"
       data-in-view
@@ -63,7 +71,11 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
-  }
+  },
+  cloudTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
 })
 
 const title = splitByWord(props.data.title)
@@ -80,6 +92,15 @@ const [container] = useKeenSlider({
 </script>
 
 <style lang="scss" scoped>
+.cloud {
+  position: absolute;
+  z-index: -1;
+  opacity: .25;
+  top: -15%;
+  right: 0%;
+}
+
+
 .events-title {
   font-family: const(font-tusker);
   font-weight: 400;

@@ -1,5 +1,10 @@
 <template>
   <section class="sport flow-section">
+    <img
+      src="/stickers/like_a_boss.png"
+      draggable="false"
+      class="cloud"
+    >
     <h2
       class="sport-title"
       data-in-view
@@ -90,11 +95,14 @@
 </script>
 
 <style lang="scss" scoped>
-// .sport {
-//   width: 100%;
-//   max-width: 980px;
-//   margin: 6.5rem auto;
-// }
+.cloud {
+  position: absolute;
+  z-index: 2;
+  width: 25rem;
+  bottom: 0%;
+  right: -25%;
+}
+
 
 .sport-title {
   font-family: const(font-tusker);

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 const useStore = defineStore('store', () => {
 	const state = reactive(
 		{
+			virtualScrollY: 0,
 			lastRoute: '',
 			ressourcesLoaded: false,
 			gamestate: 'home',

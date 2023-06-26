@@ -1,4 +1,4 @@
-import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, Vector2, DoubleSide, Color } from 'three'
+import { Group, AmbientLight, AxesHelper, Vector3, CurvePath, Fog, ShaderMaterial, DoubleSide, Color } from 'three'
 import BaseScene from './BaseScene.js'
 
 import TRAC_CAM from '@/assets/modelsCurves/kayak.json'

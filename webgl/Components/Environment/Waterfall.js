@@ -1,4 +1,4 @@
-import { Object3D, ShaderMaterial, FrontSide, Color, Vector2, SphereGeometry, MeshBasicMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
+import { Object3D, ShaderMaterial, FrontSide, Color, SphereGeometry, MeshBasicMaterial, InstancedMesh, DynamicDrawUsage, MathUtils, Matrix4, Vector3, InstancedBufferAttribute } from 'three'
 import WebGL from '~~/webgl'
 
 import WaterfallF from '~~/webgl/Shaders/River/WaterfallF.frag'

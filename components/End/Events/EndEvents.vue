@@ -14,25 +14,26 @@
         v-html="word.innerText"
       />
     </h2>
-    <div class="films-list">
+    <div
+      ref="container"
+      class="events-list keen-slider"
+    >
       <a
         v-for="(el, index) in data.list"
         :key="'event'+index"
         :href="el.url"
         target="_blank"
-        class="films-item"
+        class="events-item item  keen-slider__slide"
       >
-        <div class="item">
-          <img
-            :src="el.image"
-            class="films-picture"
-          >
-          <span class="films-date-container">
-            <span class="films-date">
-              {{ el.date }}
-            </span>
+        <img
+          :src="el.image"
+          class="events-picture"
+        >
+        <span class="events-date-container">
+          <span class="events-date">
+            {{ el.date }}
           </span>
-        </div>
+        </span>
       </a>
     </div>
     <div class="separator">
@@ -52,7 +53,11 @@
 </template>
 
 <script setup>
-  import { splitByWord } from '~~/webgl/Utils/splitText';
+import { useKeenSlider } from 'keen-slider/vue.es'
+import 'keen-slider/keen-slider.min.css'
+import WheelControls from '~/js/slider-plugin/wheel.js'
+
+import { splitByWord } from '~~/webgl/Utils/splitText';
 
 const props = defineProps({
   data: {
@@ -62,6 +67,16 @@ const props = defineProps({
 })
 
 const title = splitByWord(props.data.title)
+
+const [container] = useKeenSlider({
+  loop: false,
+	mode: "snap",
+	rtl: false,
+	slides: {
+    perView: "auto",
+		spacing: 20
+	},
+}, [WheelControls])
 </script>
 
 <style lang="scss" scoped>
@@ -100,17 +115,20 @@ const title = splitByWord(props.data.title)
   width: fit-content;
 }
 
-.films-list {
+.events-list {
   display: flex;
   align-items: stretch;
+
+  overflow: inherit !important;
 }
 
-.films-item {
+.events-item {
   position: relative;
-  margin-right: 2rem;
+
+  min-width: fit-content !important;
 }
 
-.films-picture {
+.events-picture {
   @include fluidSize("picture-size",
     (bpw(s): 200px,
       bpw(lg): 250px,
@@ -121,14 +139,14 @@ const title = splitByWord(props.data.title)
   display: block;
 }
 
-.films-date-container {
+.events-date-container {
   width: 100%;
   background-color: colors(white);
   padding: 1rem 0;
   display: block;
 }
 
-.films-date {
+.events-date {
   font-family: const(font-tusker);
   font-weight: 400;
   color: colors(black);

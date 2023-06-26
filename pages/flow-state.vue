@@ -29,15 +29,20 @@
         ref="sport"
         :data="content.sports"
       />
-      <!-- <EndFilms :data="content.films" /> -->
-      <!-- <EndEvents :data="content.events" /> -->
+      <EndFilms
+        ref="movie"
+        :data="content.films"
+      />
+      <EndEvents
+        ref="events"
+        :data="content.events"
+      />
       <EndThansk
         ref="thanks"
         :data="content.thanks"
       />
       <EndFooter />
     </div>
-    <!-- <img src="/end.png"> -->
   </div>
 </template>
 
@@ -55,6 +60,8 @@ const definition = ref()
 const map = ref()
 const athletes = ref()
 const sport = ref()
+const movie = ref()
+const events = ref()
 const thanks = ref()
 const scrollWrapper = ref()
 const scrollContainer = ref()
@@ -63,6 +70,8 @@ const observerList = [
   hero,
   definition,
   athletes,
+  movie,
+  events,
   sport,
   thanks
 ]

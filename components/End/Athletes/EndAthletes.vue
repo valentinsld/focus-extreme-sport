@@ -15,12 +15,15 @@
       />
     </h2>
 
-    <div class="athletes-list">
+    <div
+      ref="container"
+      class="athletes-list keen-slider"
+    >
       <div
         v-for="(el, index) in data.list"
         :key="'athletes'+index"
         :class="`is-${el.color}`"
-        class="athletes-card"
+        class="athletes-card keen-slider__slide"
       >
         <div class="card-background" />
         <p class="athletes-sport">
@@ -180,7 +183,11 @@
 </template>
 
 <script setup>
-  import { splitByWord } from '~~/webgl/Utils/splitText';
+import { useKeenSlider } from 'keen-slider/vue.es'
+import 'keen-slider/keen-slider.min.css'
+import WheelControls from '~/js/slider-plugin/wheel.js'
+
+import { splitByWord } from '~~/webgl/Utils/splitText';
 
 const props = defineProps({
   data: {
@@ -191,6 +198,16 @@ const props = defineProps({
 
 const title = splitByWord(props.data.title)
 
+
+const [container] = useKeenSlider({
+  loop: false,
+	mode: "snap",
+	rtl: false,
+	slides: {
+    perView: "auto",
+		spacing: 20
+	},
+}, [WheelControls])
 </script>
 
 <style lang="scss" scoped>
@@ -225,6 +242,8 @@ const title = splitByWord(props.data.title)
 .athletes-list {
   display: flex;
   align-items: stretch;
+
+  overflow: inherit !important;
 }
 
 .athletes-card {
@@ -239,6 +258,8 @@ const title = splitByWord(props.data.title)
   padding: 2rem 1.6rem;
   border-radius: .9rem;
   overflow: hidden;
+
+  min-width: fit-content;
 }
 
 .card-background {
@@ -457,6 +478,7 @@ const title = splitByWord(props.data.title)
 
 .athletes-socials {
   position: absolute;
+  left: 0;
   width: 100%;
   display: flex;
   align-items: center;

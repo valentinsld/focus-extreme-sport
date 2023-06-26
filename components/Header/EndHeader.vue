@@ -144,6 +144,7 @@ const emit = defineEmits(['anchor'])
   font-size: 1.2rem;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 
   span {
     position: relative;

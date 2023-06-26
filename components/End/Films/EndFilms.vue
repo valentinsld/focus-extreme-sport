@@ -17,13 +17,16 @@
       />
     </h2>
 
-    <div class="films-list">
+    <div
+      ref="container"
+      class="films-list keen-slider"
+    >
       <a
         v-for="(el, index) in data.list"
         :key="'film'+index"
         :href="el.url"
         target="_blank"
-        class="films-link"
+        class="films-link keen-slider__slide"
       >
         <img
           :src="el.image"
@@ -49,7 +52,11 @@
 </template>
 
 <script setup>
-  import { splitByWord } from '~~/webgl/Utils/splitText';
+import { useKeenSlider } from 'keen-slider/vue.es'
+import 'keen-slider/keen-slider.min.css'
+import WheelControls from '~/js/slider-plugin/wheel.js'
+
+import { splitByWord } from '~~/webgl/Utils/splitText';
 
 const props = defineProps({
   data: {
@@ -60,7 +67,16 @@ const props = defineProps({
 
 const title = splitByWord(props.data.title)
 
-  </script>
+const [container] = useKeenSlider({
+  loop: false,
+	mode: "snap",
+	rtl: false,
+	slides: {
+    perView: "auto",
+		spacing: 20
+	},
+}, [WheelControls])
+</script>
 
 <style lang="scss" scoped>
 .films-title {
@@ -93,20 +109,24 @@ const title = splitByWord(props.data.title)
 
 .films-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
   margin-top: 3rem;
+
+  overflow: inherit !important;
+}
+
+.films-link {
+  @include fluidSize("picture-size",
+    (bpw(s): 220px,
+      bpw(lg): 270px,
+      bpw(xxl): 320px));
+
+  min-width: var(--picture-size);
 }
 
 .films-picture {
-  @include fluidSize("picture-size",
-    (bpw(s): 200px,
-      bpw(lg): 250px,
-      bpw(xxl): 300px));
 
   aspect-ratio: 16/9;
-  width: var(--picture-size);
-  margin-right: 2rem;
+  width: 100%;
 }
 
 .separator {

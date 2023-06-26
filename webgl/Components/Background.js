@@ -34,6 +34,11 @@ export default class Background {
 			animDark: 0,
 		}
 
+		this.initResolution = {
+			x: Number(this.sizes.width),
+			y: Number(this.sizes.height)
+		}
+
 		this.options = { ...OPTIONS_DEFAULT, ...options }
 
 		this.init()
@@ -150,6 +155,11 @@ export default class Background {
 		// Resize
 		this.sizes.on('resize', () => {
 			material.uniforms.uResolution.value = [this.sizes.width, this.sizes.height]
+			this.plane.scale.set(
+				this.sizes.width / this.initResolution.x,
+				this.sizes.height / this.initResolution.y,
+				1
+			)
 		})
 	}
 

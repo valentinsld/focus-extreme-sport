@@ -119,7 +119,7 @@ function scrollTo (anchor) {
       break;
 
     case 'event':
-      destination = sport.value.$el
+      destination = events.value.$el
       break;
   }
   lenis.scrollTo(destination)

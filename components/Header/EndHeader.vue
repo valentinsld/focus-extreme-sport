@@ -114,8 +114,8 @@ const emit = defineEmits(['anchor'])
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
-  background: linear-gradient(180deg, rgba(#FFF, .6) 15.60%, rgba(255, 255, 255, 0.00) 60%);
+  height: 150px;
+  background: linear-gradient(180deg, rgba(#D8E3ED, 1) 15.60%, rgba(255, 255, 255, 0.00) 80%);
   z-index: -1;
   pointer-events: none;
 }

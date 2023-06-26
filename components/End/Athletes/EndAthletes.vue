@@ -162,6 +162,20 @@
         </div>
       </div>
     </div>
+
+    <div class="separator">
+      <svg
+        viewBox="0 0 31 31"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="separator-icon"
+      >
+        <path
+          d="M15.727 30.462A23.518 23.518 0 0 0 .91 15.645 23.518 23.518 0 0 0 15.727.828a23.518 23.518 0 0 0 14.817 14.817 23.518 23.518 0 0 0-14.817 14.817Z"
+        />
+      </svg>
+      <div class="arrow" />
+    </div>
   </section>
 </template>
 
@@ -461,5 +475,47 @@ const title = splitByWord(props.data.title)
 .athletes-link-icon {
   height: 1.5rem;
   margin: 0 1rem;
+}
+
+.separator {
+  margin-top: 5rem;
+  width: 100%;
+}
+
+.separator-icon {
+  width: 2rem;
+  fill: colors(black);
+  margin-right: 2rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.arrow {
+  position: relative;
+  width: 60%;
+  height: 1px;
+  background-color: colors(black);
+  display: inline-block;
+  vertical-align: middle;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: .75rem;
+    height: 1px;
+    right: 0;
+    display: block;
+    background-color: colors(black);
+    transform-origin: center right;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
 }
 </style>

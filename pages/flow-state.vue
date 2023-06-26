@@ -102,7 +102,7 @@ function scrollTo (anchor) {
       break;
 
     case 'athletes':
-      destination = map.value.$el
+      destination = athletes.value.$el
       break;
 
     case 'sport':

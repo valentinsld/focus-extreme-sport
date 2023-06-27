@@ -21,6 +21,10 @@ const useStickers = defineStore('stickers', () => {
 		})
 	)
 
+	const isEmpty = computed(() => {
+		return state.value.wingsuit.length === 0 && state.value.ski.length === 0 && state.value.kayak.length === 0 && !state.value.like_a_boss
+	})
+
 	//
 	// calculate stickers
 	//
@@ -53,6 +57,7 @@ const useStickers = defineStore('stickers', () => {
 
 	return {
 		state,
+		isEmpty,
 		calculateNewStickers
 	}
 })

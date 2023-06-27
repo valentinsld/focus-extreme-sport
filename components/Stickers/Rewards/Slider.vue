@@ -180,7 +180,7 @@ const [container, slider] = useKeenSlider({
   top: 50%;
   left: 0px;
   padding-left: 40px;
-  transform: translate3d(0, -50%, 0);
+  transform: translate3d(-100%, -50%, 0);
 
   height: 100vh;
   width: 180px;
@@ -200,10 +200,12 @@ const [container, slider] = useKeenSlider({
     0%,
     50% {
       opacity: 0;
+      transform: translate3d(-100%, -50%, 0);
     }
 
     100% {
       opacity: 1;
+      transform: translate3d(0, -50%, 0);
     }
   }
 

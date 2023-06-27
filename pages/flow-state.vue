@@ -68,6 +68,7 @@ import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
 
 import Lenis from '@studio-freight/lenis'
 import { useParallax } from '~~/webgl/Utils/useParallax'
+import WebGL from '~~/webgl'
 
 const hero = ref()
 const definition = ref()
@@ -161,7 +162,7 @@ lenis.on('scroll', (e) => {
 
 
 onMounted(() => {
-	setScene()
+	initWebGL()
 
   RAFManager.add('lenis',(currentTime) => {
     lenis.raf(currentTime * 1000)
@@ -232,10 +233,23 @@ onUnmounted(() => {
   lenis.destroy()
 })
 
+
+function initWebGL () {
+  const webgl = new WebGL()
+  if (webgl.ressourcesReady) {
+      setScene()
+  } else {
+    webgl.on('endLoading', () => {
+      requestAnimationFrame(setScene)
+    })
+  }
+}
 function setScene () {
   const sceneManager = new SceneManager()
 
-  sceneManager.setScene('stickers', 0)
+  sceneManager.setScene('stickers', 0, (scene) => {
+    scene.setSceneForEnd()
+  })
 }
 
 function scrollTo (anchor) {

@@ -277,6 +277,13 @@ const endQteFigure = (isSucess) => {
 .balance-enter-active,
 .balance-leave-active {
 
+  :deep(.text) {
+    transform: none;
+    opacity: 1;
+    transition: transform .3s ease(out-swift), opacity .3s ease(out-swift);
+  }
+
+
   :deep(.left) {
     transform: translateY(0) rotate(180deg);
     opacity: 1;
@@ -301,6 +308,12 @@ const endQteFigure = (isSucess) => {
 
 .balance-enter-from,
 .balance-leave-to {
+  :deep(.text) {
+    transform: translateY(4rem);
+    opacity: 0;
+  }
+
+
   :deep(.left) {
     transform: translateY(4rem) rotate(180deg);
     opacity: 0;

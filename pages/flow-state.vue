@@ -116,47 +116,46 @@ useIntersectObserver({
 		threshold: 0.2,
 	});
 
-  const lenis = new Lenis()
+const lenis = new Lenis()
 
-  lenis.on('scroll', (e) => {
-    if (cloudFParallax) {
-			cloudFParallax.setTranslate(e.animatedScroll);
-			cloudFlowT.value = cloudFParallax.translate.value;
-		}
-    if (stickerFParallax) {
-			stickerFParallax.setTranslate(e.animatedScroll);
-			stickerFlowT.value = stickerFParallax.translate.value;
-		}
+lenis.on('scroll', (e) => {
+  if (cloudFParallax) {
+    cloudFParallax.setTranslate(e.animatedScroll);
+    cloudFlowT.value = cloudFParallax.translate.value;
+  }
+  if (stickerFParallax) {
+    stickerFParallax.setTranslate(e.animatedScroll);
+    stickerFlowT.value = stickerFParallax.translate.value;
+  }
 
-    if (cloudMParallax) {
-			cloudMParallax.setTranslate(e.animatedScroll);
-			cloudMapT.value = cloudMParallax.translate.value;
-		}
-    if (stickerMParallax) {
-			stickerMParallax.setTranslate(e.animatedScroll);
-			stickerMapT.value = stickerMParallax.translate.value;
-		}
+  if (cloudMParallax) {
+    cloudMParallax.setTranslate(e.animatedScroll);
+    cloudMapT.value = cloudMParallax.translate.value;
+  }
+  if (stickerMParallax) {
+    stickerMParallax.setTranslate(e.animatedScroll);
+    stickerMapT.value = stickerMParallax.translate.value;
+  }
 
-    if (stickerSParallax) {
-      stickerSParallax.setTranslate(e.animatedScroll);
-			stickerSportT.value = stickerSParallax.translate.value;
-		}
+  if (stickerSParallax) {
+    stickerSParallax.setTranslate(e.animatedScroll);
+    stickerSportT.value = stickerSParallax.translate.value;
+  }
 
-    if (cloudEParallax) {
-      cloudEParallax.setTranslate(e.animatedScroll);
-			cloudEventT.value = cloudEParallax.translate.value;
-		}
+  if (cloudEParallax) {
+    cloudEParallax.setTranslate(e.animatedScroll);
+    cloudEventT.value = cloudEParallax.translate.value;
+  }
 
-    if (cloudTParallax) {
-      cloudTParallax.setTranslate(e.animatedScroll);
-			cloudThanksT.value = cloudTParallax.translate.value;
-		}
-  })
+  if (cloudTParallax) {
+    cloudTParallax.setTranslate(e.animatedScroll);
+    cloudThanksT.value = cloudTParallax.translate.value;
+  }
+})
 
 
 onMounted(() => {
 	setScene()
-
 
   RAFManager.add('lenis',(currentTime) => {
     lenis.raf(currentTime * 1000)

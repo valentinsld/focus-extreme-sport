@@ -54,7 +54,7 @@
 <script setup>
 import { useKeenSlider } from 'keen-slider/vue.es'
 import 'keen-slider/keen-slider.min.css'
-import WheelControls from '~/js/slider-plugin/wheel.js'
+import WheelControls from '~/js/slider-plugin/wheelLenis.js'
 
 import { splitByWord } from '~~/webgl/Utils/splitText';
 
@@ -67,6 +67,7 @@ const props = defineProps({
 
 const title = splitByWord(props.data.title)
 
+const emit = defineEmits(['stop-scroll', 'start-scroll'])
 const [container] = useKeenSlider({
   loop: false,
 	mode: "snap",
@@ -75,7 +76,9 @@ const [container] = useKeenSlider({
     perView: "auto",
 		spacing: 20
 	},
-}, [WheelControls])
+}, [(slider) => {
+  WheelControls(slider, emit)
+}])
 </script>
 
 <style lang="scss" scoped>

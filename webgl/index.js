@@ -71,7 +71,7 @@ export default class WebGL extends EventEmitter {
 
     RAFManager.add("webgl", (currentTime, dt) => {
       this.camera.update(dt);
-      this.fxComposer.update()
+      this.fxComposer.update(dt)
     });
 
     this.started = true;

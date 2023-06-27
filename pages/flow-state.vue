@@ -28,6 +28,8 @@
       <EndAthletes
         ref="athletes"
         :data="content.athletes"
+        @stop-scroll="stopLenis"
+        @start-scroll="startLenis"
       />
       <EndSports
         ref="sport"
@@ -37,11 +39,15 @@
       <EndFilms
         ref="movie"
         :data="content.films"
+        @stop-scroll="stopLenis"
+        @start-scroll="startLenis"
       />
       <EndEvents
         ref="events"
         :data="content.events"
         :cloud-translate="cloudEventT"
+        @stop-scroll="stopLenis"
+        @start-scroll="startLenis"
       />
       <EndThansk
         ref="thanks"
@@ -257,6 +263,13 @@ function scrollTo (anchor) {
       break;
   }
   lenis.scrollTo(destination)
+}
+
+function stopLenis() {
+  lenis.stop()
+}
+function startLenis() {
+  lenis.start()
 }
 </script>
 

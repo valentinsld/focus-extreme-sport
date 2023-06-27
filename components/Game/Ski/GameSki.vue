@@ -231,7 +231,7 @@ function initStates(scene) {
     // scene.initFinalCloudSnow()
   })
 
-  scene.setEventTimeline(0.95, () => {
+  scene.setEventTimeline(0.9485, () => {
     RAFManager.setSpeed(0.25)
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
@@ -239,7 +239,7 @@ function initStates(scene) {
 
 
   // event end next scene
-  scene.setEventTimeline(0.985, () => {
+  scene.setEventTimeline(0.988, () => {
     store.state.gamestate = 'kayak'
   })
 }

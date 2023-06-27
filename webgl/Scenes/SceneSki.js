@@ -494,7 +494,7 @@ export default class SceneSki extends BaseScene {
       x: '+='+TX*2.4,
       delay: 1500,
       duration: 14000,
-      easing: 'easeOutQuad'
+      easing: 'easeOutQuad',
     })
   }
 

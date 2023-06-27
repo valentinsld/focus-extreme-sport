@@ -217,6 +217,7 @@ function initStates(scene) {
 
   scene.setEventTimeline(0.89, () => {
     RAFManager.setSpeed(0.1)
+    scene.splashLeft.hideSplash()
     if (doBackFlip) {
       currentScene.animationSucessQTE()
     } else {
@@ -228,6 +229,7 @@ function initStates(scene) {
   scene.setEventTimeline(0.93, () => {
     scene.setCamera3P()
     RAFManager.setSpeed(0.45)
+    scene.splashLeft.showSplash()
     // scene.initFinalCloudSnow()
   })
 

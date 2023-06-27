@@ -99,7 +99,7 @@ function getLoaderData() {
 	&__percent {
 		position: relative;
 
-		height: 8px;
+		height: 5px;
 		width: 100%;
 
 		&::before {

@@ -128,7 +128,7 @@ function checkKey() {
 
 function checkFinish() {
 	if(currentFigure.value === figures.value.length) {
-		const isSucess = objectStates.every((objectState) => objectState.isRight)
+		const isSucess = objectStates.reduce((acc, objectState) => acc + (objectState.isRight ? 1 : 0), 0) >= props.dataChildren.length * 0.75
 		setTimeout(()=> {
 			setFinish(isSucess)
 		}, 500)

@@ -1,7 +1,7 @@
 <template>
   <div class="qte-focus">
     <p class="qte-focus__title">
-      Maintiens la touche
+      Entre dans la zone de flow avec
       <span class="space-container">
         <span class="space-wrapper">
           <svg

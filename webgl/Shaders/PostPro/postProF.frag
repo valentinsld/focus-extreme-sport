@@ -135,7 +135,7 @@ void main() {
 	float noiseColor = cnoise(vec3(noiseUv, uTime));
 
 	// vec4 whitePanel = vec4(1., 1., 1., 1.);
-	vec4 whitePanel = mix(vec4(1., 1., 1., 1.), vec4(.65, 0.65, 0.65, 1.), noiseColor);
+	vec4 whitePanel = mix(vec4(1., 1., 1., 1.), vec4(.6, 0.6, 0.6, 1.), noiseColor);
 
 	float r = (uProgress * (1.0 + uThreshold * 2.0) - uThreshold);
 	float mixf=clamp((noise.r - r)*(2.0/uThreshold), 0.0, 1.0);

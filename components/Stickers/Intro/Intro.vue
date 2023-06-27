@@ -54,7 +54,7 @@ $button-bottom: 40px;
 $button-right: 70px;
 
 $top: 4vh;
-$left: 20vh;
+$left: 30vh;
 
 .stickers-intro {
   position: relative;
@@ -84,7 +84,7 @@ $left: 20vh;
 
       left: calc(50% + $left);
 
-      transform: translate3d(-50%, -50%, 0) rotate(-11deg);
+      transform: translate3d(-50%, -45%, 0) rotate(11deg)
     }
 
     &:nth-child(3) {

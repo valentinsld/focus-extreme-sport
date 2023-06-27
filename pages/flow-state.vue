@@ -62,9 +62,6 @@ import { useIntersectObserver } from '~~/webgl/Utils/useIntersectObserver'
 
 import Lenis from '@studio-freight/lenis'
 import { useParallax } from '~~/webgl/Utils/useParallax'
-import useStore from '~~/stores'
-
-const store = useStore()
 
 const hero = ref()
 const definition = ref()
@@ -160,7 +157,7 @@ onMounted(() => {
 	setScene()
 
 
-  RAFManager.add('lenis',(currentTime, dt) => {
+  RAFManager.add('lenis',(currentTime) => {
     lenis.raf(currentTime * 1000)
   })
 

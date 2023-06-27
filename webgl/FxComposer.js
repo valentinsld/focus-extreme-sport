@@ -17,6 +17,8 @@ import useStore from '@/stores/index.js'
 
 const store = useStore()
 
+let time = 0
+
 export default class FXComposer {
 	constructor() {
 		this.webgl = new WebGL()
@@ -66,6 +68,7 @@ export default class FXComposer {
 			  uAngle: {value: 0},
 			  uOffset: {value: .75},
 			  uDarkness: {value: 0},
+			  uTime: {value: 0},
 			},
 			vertexShader: postProV,
 			fragmentShader: postProF,
@@ -113,11 +116,13 @@ export default class FXComposer {
 		this.postProcessingPass.uniforms.uDarkness.value = 0;
 	  }
 
-	update() {
+	update(dt) {
 		if (this.stats) {
 			this.stats.beforeRender()
 		}
+		time += dt
 
+		this.postProcessingPass.uniforms['uTime'].value = time
 		this.composer.render();
 
 		if (this.stats) {

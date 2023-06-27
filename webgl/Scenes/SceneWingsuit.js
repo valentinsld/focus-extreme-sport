@@ -181,9 +181,6 @@ export default class SceneWingsuit extends BaseScene {
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
 
-    this.WebGL.debug.addInput(this.quote.container, 'position')
-    this.WebGL.debug.addInput(this.quote.container, 'rotation')
-
     // add to scene
     this.instance.add(...[
       this.map,

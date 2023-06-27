@@ -147,47 +147,51 @@ function initLottie() {
 function initStates(scene) {
   currentScene = scene
 
+  scene.timelineValue = 0.1
+
   // Show lottie balance
-  scene.setEventTimeline(0.095, () => {
+  scene.setEventTimeline(0.21, () => {
     isBalanceVisible.value = true
   })
-  scene.setEventTimeline(0.14, () => {
+  scene.setEventTimeline(0.215, () => {
     balanceAnime.play()
     Audio.play('text_sound1', false, 1, 0)
   })
 
 
   // event QTE Balance
-  scene.setEventTimeline(0.175, () => {
+  scene.setEventTimeline(0.25, () => {
     store.state.gamestatestep = 1
   })
 
   // event QTE End Balance
-  scene.setEventTimeline(0.4, () => {
+  scene.setEventTimeline(0.475, () => {
     store.state.gamestatestep = 2
   })
 
   // start travelling 3P
   scene.setEventTimeline(0.555, () => {
+    RAFManager.setSpeed(1.25)
     scene.setCameraTravelling()
   })
 
   // end travelling 3P
-  scene.setEventTimeline(0.61, () => {
+  scene.setEventTimeline(0.62, () => {
+    RAFManager.setSpeed(1)
     scene.removeCameraTravelling()
   })
 
   // Show lottie focus
-  scene.setEventTimeline(0.615, () => {
+  scene.setEventTimeline(0.625, () => {
     isFocusVisible.value = true
   })
-  scene.setEventTimeline(0.62, () => {
+  scene.setEventTimeline(0.63, () => {
     focusAnime.play()
     Audio.play('text_sound1', false, 1, 0)
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.65, () => {
+  scene.setEventTimeline(0.66, () => {
     store.state.gamestatestep = 3
   })
 
@@ -223,18 +227,19 @@ function initStates(scene) {
   // set new Cam
   scene.setEventTimeline(0.93, () => {
     scene.setCamera3P()
-    RAFManager.setSpeed(0.25)
+    RAFManager.setSpeed(0.45)
     // scene.initFinalCloudSnow()
   })
 
   scene.setEventTimeline(0.95, () => {
+    RAFManager.setSpeed(0.25)
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
   })
 
 
   // event end next scene
-  scene.setEventTimeline(0.98, () => {
+  scene.setEventTimeline(0.985, () => {
     store.state.gamestate = 'kayak'
   })
 }

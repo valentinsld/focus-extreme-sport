@@ -57,9 +57,12 @@ import lottie  from 'lottie-web'
 import lineChoice from '~~/assets/lottieJson/LINE_CHOICE.json'
 import balance from '~~/assets/lottieJson/BALANCE_PURPLE.json'
 import focus from '~~/assets/lottieJson/STAY_FOCUS_PURPLE.json'
+import AudioManager from '~~/webgl/Managers/AudioManager'
 
 const store = useStore()
 const webgl = new WebGL()
+
+const Audio = new AudioManager()
 
 const choiceLottie = ref()
 const isChoiceVisible = ref(false)
@@ -132,6 +135,7 @@ function initStates (scene) {
   })
   scene.setEventTimeline(0.12, () => {
     balanceAnime.play()
+    Audio.play('text_sound2', false, 1, 0)
   })
 
   // event QTE Balance
@@ -149,6 +153,7 @@ function initStates (scene) {
   })
   scene.setEventTimeline(0.322, () => {
     choiceAnime.play()
+    Audio.play('text_sound1', false, 1, 0)
   })
 
   // QTE choose
@@ -173,6 +178,7 @@ function initStates (scene) {
   })
   scene.setEventTimeline(0.65, () => {
     focusAnime.play()
+    Audio.play('text_sound2', false, 1, 0)
   })
 
   // event QTE Focus

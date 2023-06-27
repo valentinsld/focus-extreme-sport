@@ -78,8 +78,11 @@ import lottie  from 'lottie-web'
 import backflip from '~~/assets/lottieJson/BACK_FLIP.json'
 import balance from '~~/assets/lottieJson/BALANCE_PINK.json'
 import focus from '~~/assets/lottieJson/STAY_FOCUS_PINK.json'
+import AudioManager from '~~/webgl/Managers/AudioManager';
 
 const store = useStore()
+
+const Audio = new AudioManager()
 
 const backflipLottie = ref()
 const isBackflipVisible = ref(false)
@@ -150,6 +153,7 @@ function initStates(scene) {
   })
   scene.setEventTimeline(0.14, () => {
     balanceAnime.play()
+    Audio.play('text_sound1', false, 1, 0)
   })
 
 
@@ -179,6 +183,7 @@ function initStates(scene) {
   })
   scene.setEventTimeline(0.62, () => {
     focusAnime.play()
+    Audio.play('text_sound1', false, 1, 0)
   })
 
   // event QTE Focus
@@ -197,6 +202,7 @@ function initStates(scene) {
   })
   scene.setEventTimeline(0.8, () => {
     backflipAnime.play()
+    Audio.play('text_sound2', false, 1, 0)
   })
 
 

@@ -176,7 +176,7 @@ const initStates = (scene) => {
   })
   scene.setEventTimeline(0.03, () => {
     rolloverAnime.play()
-    Audio.play('sound-rollover', false, 1, 0)
+    Audio.play('text_sound1', false, 1, 0)
   })
 
   // event QTE FIGURE
@@ -191,6 +191,7 @@ const initStates = (scene) => {
   })
   scene.setEventTimeline(0.24, () => {
     balanceAnime.play()
+    Audio.play('text_sound2', false, 1, 0)
   })
 
   // event QTE Balance
@@ -214,6 +215,7 @@ const initStates = (scene) => {
   })
   scene.setEventTimeline(0.64, () => {
     focusAnime.play()
+    Audio.play('text_sound2', false, 1, 0)
   })
   // event QTE Focus
   scene.setEventTimeline(0.68, () => {

@@ -1,5 +1,8 @@
 <template>
-  <header class="header">
+  <header
+    ref="header"
+    class="header"
+  >
     <NuxtLink
       to="/"
       class="page-link"
@@ -87,9 +90,17 @@
 
 <script setup>
 
+const header = ref()
+
 function emitAnchor(anchor) {
   emit('anchor', anchor)
 }
+
+onMounted(()=> {
+  setTimeout(() => {
+      header.value.classList.add('is-observed')
+    }, 500)
+})
 
 const emit = defineEmits(['anchor'])
 
@@ -106,6 +117,12 @@ const emit = defineEmits(['anchor'])
   padding: 2rem 4rem;
   width: 100vw;
   z-index: 4;
+  opacity: 0;
+  transition: opacity .5s ease(out-swift);
+
+  &.is-observed {
+    opacity: 1;
+  }
 }
 
 .background {

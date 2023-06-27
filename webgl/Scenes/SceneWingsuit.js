@@ -162,7 +162,7 @@ export default class SceneWingsuit extends BaseScene {
 
     // add quote
     this.quote = new QuoteBlock({
-      contentWidth: 1000,
+      contentWidth: 900,
       contentLineHeight: 50,
       quoteContent: 'On est autour des 200 kilomètres heure, mais si on prend de la vitesse on peut passer les 250, ça va très vite',
 
@@ -175,11 +175,14 @@ export default class SceneWingsuit extends BaseScene {
     })
     this.quote.container.position //.set(17.48, -5, -4.89)
       .copy(this.map.getObjectByName('CAM_F_TARGET').position)
-      .sub(new Vector3(-0.54, 0.5, 0.081))
+      .sub(new Vector3(-0.45, 0.31, -0.07))
 
-    this.quote.container.rotation.y = 1.53
+    this.quote.container.rotation.set(0.5, 1.1, -0.6)
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
+
+    this.WebGL.debug.addInput(this.quote.container, 'position')
+    this.WebGL.debug.addInput(this.quote.container, 'rotation')
 
     // add to scene
     this.instance.add(...[
@@ -209,7 +212,7 @@ export default class SceneWingsuit extends BaseScene {
       name: 'ices',
       model: 'instance_ice',
       instances: this.ices,
-      scaleMultiplier: .0009,
+      scaleMultiplier: .004,
       hdr: this.envmap,
       intensity: .8,
       hasHdr: true,

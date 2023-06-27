@@ -176,7 +176,7 @@ export default class SceneKayak extends BaseScene {
     this.initKayakSplash()
 
     this.quote = new QuoteBlock({
-      contentWidth: 1000,
+      contentWidth: 950,
       contentLineHeight: 50,
       quoteContent: 'En état de flow, c\'est comme si les secondes se rallongent. C\'est fou d\'arriver à changer le temps',
 
@@ -187,7 +187,7 @@ export default class SceneKayak extends BaseScene {
       jobWidth: 1000,
       quoteJob: 'Kayakiste professionnelle',
     })
-    this.quote.container.position.set(0.66, -1.05, -11.25)
+    this.quote.container.position.set(0.66, -1.1, -11.25)
     this.quote.container.rotation.y = DegToRad(145)
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
@@ -219,16 +219,7 @@ export default class SceneKayak extends BaseScene {
     }
   }
   initWater() {
-
-    this.map.traverse((child) => {
-      if(child.name.includes("LEVELDESIGN")) {
-        child.traverse((element) => {
-          if(element.name.includes("EAU")) {
-            this.water = element.children[1];
-          }
-        })
-      }
-    })
+    this.water = this.map.getObjectByName("EAU003").children[1];
 
     this.foam = this.water.material.map;
 

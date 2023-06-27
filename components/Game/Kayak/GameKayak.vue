@@ -208,6 +208,7 @@ function initStates (scene) {
   scene.setEventTimeline(0.92, () => {
     RAFManager.setSpeed(0.15)
     scene.setAnimationEnd(0, 1.3)
+    store.state.isTransitioning = true
   })
 
   // event end next scene

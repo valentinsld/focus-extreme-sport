@@ -66,7 +66,7 @@ export default class SceneManager {
 
 			} else {
 
-				this.store.state.isTransitioning = true
+				// this.store.state.isTransitioning = true
 				this.webgl.fxComposer.animationIn()
 
 				setTimeout(() => {

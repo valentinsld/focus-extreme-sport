@@ -232,6 +232,8 @@ const initStates = (scene) => {
     RAFManager.setSpeed(0.08)
 
     scene.setCamera3P()
+
+    store.state.isTransitioning = true
   })
 
   // event end next scene

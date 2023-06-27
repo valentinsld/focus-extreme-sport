@@ -235,6 +235,7 @@ function initStates(scene) {
     RAFManager.setSpeed(0.25)
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
+    store.state.isTransitioning = true
   })
 
 

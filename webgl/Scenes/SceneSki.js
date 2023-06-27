@@ -501,7 +501,6 @@ export default class SceneSki extends BaseScene {
   setCamera3P() {
     this.WebGL.camera.setCamera('3p', CAM_F, CAM_F_TARGET)
     this.quote.showQuote()
-    this.WebGL.debug.addInput(this.WebGL.camera.current, 'position')
   }
 
   //

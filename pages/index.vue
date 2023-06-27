@@ -60,27 +60,12 @@ const store = useStore()
 const isIntroFinished = computed(() => ['wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))
 
 onMounted(() => {
-  eventWebGLStarted()
   initDebugGameState()
 })
 
 onUnmounted(() => {
   debugFolder?.dispose()
 })
-
-//
-// event on webGL started
-//
-const eventWebGLStarted = () => {
-  const webgl = new WebGL()
-  webgl.on('endLoading', () => {
-    store.state.ressourcesLoaded = true
-
-    setTimeout(() => {
-      webgl.testPerformance()
-    }, 1000);
-  })
-}
 
 //
 // debug

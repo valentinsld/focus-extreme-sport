@@ -147,7 +147,7 @@ function initLottie() {
 function initStates(scene) {
   currentScene = scene
 
-  scene.timelineValue = 0.1
+  scene.timelineValue = 0.08
 
   // Show lottie balance
   scene.setEventTimeline(0.21, () => {
@@ -165,43 +165,43 @@ function initStates(scene) {
   })
 
   // event QTE End Balance
-  scene.setEventTimeline(0.475, () => {
+  scene.setEventTimeline(0.47, () => {
     store.state.gamestatestep = 2
   })
 
   // start travelling 3P
-  scene.setEventTimeline(0.555, () => {
+  scene.setEventTimeline(0.545, () => {
     RAFManager.setSpeed(1.25)
     scene.setCameraTravelling()
   })
 
   // end travelling 3P
-  scene.setEventTimeline(0.62, () => {
+  scene.setEventTimeline(0.61, () => {
     RAFManager.setSpeed(1)
     scene.removeCameraTravelling()
   })
 
   // Show lottie focus
-  scene.setEventTimeline(0.625, () => {
+  scene.setEventTimeline(0.615, () => {
     isFocusVisible.value = true
   })
-  scene.setEventTimeline(0.63, () => {
+  scene.setEventTimeline(0.62, () => {
     focusAnime.play()
     Audio.play('text_sound1', false, 1, 0)
   })
 
   // event QTE Focus
-  scene.setEventTimeline(0.66, () => {
+  scene.setEventTimeline(0.645, () => {
     store.state.gamestatestep = 3
   })
 
   // event END QTE Focus
-  scene.setEventTimeline(0.78, () => {
+  scene.setEventTimeline(0.77, () => {
     store.state.gamestatestep = 4
   })
 
   // Show lottie focus
-  scene.setEventTimeline(0.795, () => {
+  scene.setEventTimeline(0.79, () => {
     isBackflipVisible.value = true
   })
   scene.setEventTimeline(0.8, () => {
@@ -211,11 +211,11 @@ function initStates(scene) {
 
 
   // event QTE Figure
-  scene.setEventTimeline(0.845, () => {
+  scene.setEventTimeline(0.835, () => {
     store.state.gamestatestep = 5
   })
 
-  scene.setEventTimeline(0.89, () => {
+  scene.setEventTimeline(0.87, () => {
     RAFManager.setSpeed(0.1)
     scene.splashLeft.hideSplash()
     if (doBackFlip) {
@@ -223,6 +223,11 @@ function initStates(scene) {
     } else {
       currentScene.animationFailsQTE()
     }
+  })
+
+  scene.setEventTimeline(0.89, () => {
+    RAFManager.setSpeed(0.75)
+    // scene.initFinalCloudSnow()
   })
 
   // set new Cam
@@ -233,7 +238,7 @@ function initStates(scene) {
     // scene.initFinalCloudSnow()
   })
 
-  scene.setEventTimeline(0.9485, () => {
+  scene.setEventTimeline(0.935, () => {
     RAFManager.setSpeed(0.25)
     // scene.finalCloud.showSplash()
     scene.initFinalCloudSnow()
@@ -242,7 +247,7 @@ function initStates(scene) {
 
 
   // event end next scene
-  scene.setEventTimeline(0.988, () => {
+  scene.setEventTimeline(0.97, () => {
     store.state.gamestate = 'kayak'
   })
 }

@@ -191,6 +191,8 @@ $indicator: 10px;
 		align-items: center;
 		justify-content: center;
 
+		white-space: nowrap;
+
 		.space-container {
 			position: relative;
 			margin-left: 1rem;
@@ -222,7 +224,7 @@ $indicator: 10px;
 		height: $indicator;
 
 		$white: rgba(255, 255, 255, 0.5);
-		$zone: #c3fe1fb9;
+		$zone: #c3fe1f;
 
 		background: linear-gradient(to right,
 				$white 0%,

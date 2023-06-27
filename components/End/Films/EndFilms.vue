@@ -125,7 +125,6 @@ const [container] = useKeenSlider({
 
 .films-picture {
 
-  aspect-ratio: 16/9;
   width: 100%;
 }
 

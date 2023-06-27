@@ -160,7 +160,7 @@ onMounted(() => {
 		RAFManager.setSpeed(Math.max(1 - Math.abs(value.value) * 1.5, 0))
 		webgl.camera.speedLine.setSpeed(3 + (0.8 - Math.min(Math.abs(value.value), 0.8)) * 6)
 
-		score += deltaTime * Math.max(Math.abs(keydown), Math.round(1 - value.value * 0.625))
+		score += deltaTime * Math.max(Math.abs(keydown), Math.round(Math.abs(value.value) * 0.625))
 		scoreMax += deltaTime
 
 		balance.value.style.setProperty('--cursor-color', cursorGradient[Math.round(Math.abs(value.value) * (cursorGradient.length - 1))])

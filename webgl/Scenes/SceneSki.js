@@ -18,8 +18,8 @@ import { DegToRad } from '../Utils/Math.js'
 
 const CLEAR_COLOR = 0x93CBE5
 
-const CAM_F = new Vector3(19.8, 1.85, 4.1)
-const QUOTE_POS = new Vector3(18.60, 1.70, 3.90)
+const CAM_F = new Vector3(19.8, 1.85, 4.50)
+const QUOTE_POS = new Vector3(18.60, 1.60, 3.80)
 const CAM_F_TARGET = new Vector3(QUOTE_POS.x, QUOTE_POS.y, 3.98)
 
 const splashColors = [
@@ -169,7 +169,7 @@ export default class SceneSki extends BaseScene {
     })
     this.quote.container.position.copy(QUOTE_POS)
 
-    this.quote.container.rotation.y = 1.2
+    this.quote.container.rotation.y = 1
     this.quote.container.scale.set(.0005, .0005, .0005)
     this.quote.hideQuote()
 
@@ -501,6 +501,7 @@ export default class SceneSki extends BaseScene {
   setCamera3P() {
     this.WebGL.camera.setCamera('3p', CAM_F, CAM_F_TARGET)
     this.quote.showQuote()
+    this.WebGL.debug.addInput(this.WebGL.camera.current, 'position')
   }
 
   //

@@ -10,6 +10,8 @@
         v-else
         class="page page-stickers"
         :rewards="currentRewards"
+        :display="displayRewards"
+        @see-stickers="seeStickers"
       />
     </Transition>
   </div>
@@ -28,6 +30,7 @@ const stickers = useStickers()
 const isHide = ref(true)
 
 const isIntro = ref(true)
+const displayRewards = ref(true)
 const currentRewards = ref({
   wingsuit: 3,
   ski: 3,
@@ -36,27 +39,20 @@ const currentRewards = ref({
 })
 
 onMounted(()=> {
-  if (store.state.lastRoute !== 'index' && !process.dev) {
+  if (stickers.isEmpty) {
     return navigateTo('/flow-state');
   }
 
-  if (process.dev) {
-    const webgl = new WebGL()
-    if (webgl.ressourcesReady) {
-      setScene()
-    } else {
-      webgl.on('endLoading', () => {
-        requestAnimationFrame(setScene)
-      })
-    }
-
-    calculateStickers()
-
-    return
+  const webgl = new WebGL()
+  if (webgl.ressourcesReady) {
+    requestAnimationFrame(setScene)
+  } else {
+    webgl.on('endLoading', () => {
+      requestAnimationFrame(setScene)
+    })
   }
 
   calculateStickers()
-  setScene()
 })
 
 function calculateStickers() {
@@ -68,10 +64,21 @@ function calculateStickers() {
 }
 
 function setScene () {
+  console.log('setScene', store.state.lastRoute)
+  if (store.state.lastRoute === 'flow-state') {
+    isHide.value = false
+    displayRewards.value = false
+    seeStickers(true)
+  }
   const sceneManager = new SceneManager()
 
   sceneManager.setScene('stickers', .35, () => {
     isHide.value = false
+
+    if (store.state.lastRoute === 'stickers-rewards') {
+      displayRewards.value = false
+      seeStickers(true)
+    }
   })
 }
 
@@ -81,11 +88,24 @@ function seeRewards() {
   const scene = new SceneStickers()
   scene.seeHelmet()
 }
+function seeStickers(isDelay = false) {
+  isIntro.value = false
+
+  const scene = new SceneStickers()
+  if (isDelay) {
+    scene.seeStickers(toRaw(stickers.state), 4000, 1000)
+  } else {
+    scene.seeStickers(toRaw(stickers.state))
+  }
+}
 
 //
 // Unmounted
 //
 onUnmounted(() => {
+  const webgl = new WebGL()
+  if (!webgl.ressourcesReady) return
+
   const scene = new SceneStickers()
 
   scene.setSceneForEnd()

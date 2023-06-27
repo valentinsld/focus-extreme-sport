@@ -132,7 +132,7 @@ export default class SceneStickers extends BaseScene {
   //
   // EVENTS
   //
-  seeHelmet() {
+  seeHelmet(hasRotation = true, delay = 0) {
     this.helmet.visible = true
     this.text.container.visible = true
 
@@ -142,21 +142,25 @@ export default class SceneStickers extends BaseScene {
       y: 0.12,
       z: 0.12,
       duration: 4000,
+      delay,
       ease: 'easeOutElastic',
     })
-    anime({
-      targets: this.helmet.rotation,
-      y: Math.PI * 2,
-      duration: 4000,
-      ease: 'easeOutElastic',
-    })
-    anime({
-      targets: this.text.mesh.material.uniforms.uStrokeOpacity,
-      value: 0.7,
-      duration: 4000,
-      delay: 500,
-      ease: 'easeOutSine',
-    })
+    if (hasRotation) {
+      anime({
+        targets: this.helmet.rotation,
+        y: Math.PI * 2,
+        duration: 4000,
+        delay,
+        ease: 'easeOutElastic',
+      })
+      anime({
+        targets: this.text.mesh.material.uniforms.uStrokeOpacity,
+        value: 0.7,
+        duration: 4000,
+        delay: delay + 500,
+        ease: 'easeOutSine',
+      })
+    }
   }
 
   seeStickers(stickers, duration = 4000, delay = 300) {
@@ -177,6 +181,7 @@ export default class SceneStickers extends BaseScene {
       }
     }
 
+    this.seeHelmet(false, delay)
     anime({
       targets: this.helmet.rotation,
       y: Math.PI * 6,
@@ -194,7 +199,8 @@ export default class SceneStickers extends BaseScene {
     anime({
       targets: this.text.mesh.material.uniforms.uStrokeOpacity,
       value: 1,
-      duration: 1000,
+      delay,
+      duration: 3000,
       ease: 'easeOutSine',
     })
   }

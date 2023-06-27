@@ -4,12 +4,12 @@
       'rewards': true
     }"
   >
-    <StickersRewardsSlider v-if="currentSticker >= 3" />
+    <StickersRewardsSlider v-if="currentSticker >= 3 || !display" />
 
     <div
       :class="{
         'rewards__list': true,
-        'is-hide': currentSticker >= 3
+        'is-hide': currentSticker >= 3 || !display
       }"
     >
       <StickersRewardsItem
@@ -38,7 +38,7 @@
     <NuxtLink
       :class="{
         'btn-link': true,
-        'is-visible': currentSticker >= 3
+        'is-visible': currentSticker >= 3 || !display
       }"
       to="/flow-state"
     >
@@ -50,17 +50,18 @@
 </template>
 
 <script setup>
-import WebGL from '@/webgl/index.js'
-import useStickers from '@/stores/stickers.js'
-
 defineProps({
   rewards: {
     type: Object,
     required: true,
-  }
+  },
+  display: {
+    type: Boolean,
+    required: true,
+  },
 })
 
-const stickers = useStickers()
+const emit = defineEmits(['see-stickers'])
 const currentSticker = ref(-1)
 
 onMounted(() => {
@@ -76,9 +77,7 @@ function nextSticker() {
 // on end see stickers
 watch(currentSticker, (value) => {
   if (value === 3) {
-    const scene = (new WebGL()).sceneStickers.scene
-
-    scene.seeStickers(toRaw(stickers.state))
+    emit('see-stickers')
   }
 })
 </script>

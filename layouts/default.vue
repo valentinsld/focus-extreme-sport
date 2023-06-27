@@ -49,8 +49,10 @@ const route = useRoute()
 
 const IS_DEV = process.dev
 
+let lastRoute = route.name
 watch(() => route.name, (name) => {
-  store.state.lastRoute = name
+  store.state.lastRoute = lastRoute
+  lastRoute = name
 })
 
 onMounted(() => {

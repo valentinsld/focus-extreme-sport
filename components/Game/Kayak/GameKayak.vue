@@ -185,7 +185,7 @@ function initStates (scene) {
   scene.setEventTimeline(0.68, () => {
     webgl.fxComposer.isUpdatable = true
     store.state.gamestatestep = 5
-    RAFManager.setSpeed(1.15)
+    RAFManager.setSpeed(1.25)
   })
 
   // set camera position 3P

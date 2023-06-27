@@ -186,6 +186,7 @@ $indicator: 10px;
 	&__title {
 		font-size: 1.8rem;
 		font-family: const(font-gotham);
+		font-weight: 400;
 		// text-transform: uppercase;
 		margin-bottom: 1rem;
 		display: flex;

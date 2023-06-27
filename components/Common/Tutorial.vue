@@ -141,6 +141,7 @@ const store = useStore()
 
 .text {
 	font-family: const(font-gotham);
+	font-weight: 400;
 	font-size: 1.8rem;
 	margin-top: 1rem;
 	transform: translateY(4rem);

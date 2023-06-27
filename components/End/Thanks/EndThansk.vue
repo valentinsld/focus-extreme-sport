@@ -11,11 +11,15 @@
         draggable="false"
         class="cloud"
       >
-      <img
-        src="/STICKERS_HOLO.png"
-        draggable="false"
+      <div
         class="sticker"
+        data-in-view
       >
+        <img
+          src="/STICKERS_HOLO.png"
+          draggable="false"
+        >
+      </div>
     </div>
     <h2
       class="thanks-title"
@@ -146,12 +150,25 @@
 
 .sticker {
   position: absolute;
-  width: 15rem;
   z-index: -2;
   right: 0%;
   bottom: 45%;
-  filter: drop-shadow(0px 0px 5px rgba(colors(black), .25));
-  animation: RollingSticker 20s linear forwards infinite;
+  transform: rotate(20deg) scale(.25);
+  opacity: 0;
+  transition: transform .5s ease(out-bounce), opacity .5s ease(out-swift);
+
+  img {
+    width: 15rem;
+    filter: drop-shadow(0px 0px 5px rgba(colors(black), .25));
+    animation: RollingSticker 20s linear forwards infinite;
+
+  }
+
+  &.is-observed {
+    transform: none;
+    opacity: 1;
+
+  }
 }
 
 

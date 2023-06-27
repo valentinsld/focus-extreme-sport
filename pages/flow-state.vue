@@ -101,6 +101,7 @@ let cloudTParallax = null;
 const observerList = [
   hero,
   definition,
+  map,
   athletes,
   movie,
   events,

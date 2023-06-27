@@ -96,3 +96,11 @@
 		transform: scale(1);
 	}
 }
+
+@keyframes flipBook {
+	from {
+		background-position: 0;
+	}
+
+	to { background-position: -4890px }
+}

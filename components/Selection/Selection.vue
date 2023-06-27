@@ -30,22 +30,25 @@
             ]"
           >
             <div class="package-content">
-              <div class="background">
-                <div
-                  v-for="j in 3"
-                  :key="j"
-                  class="texts"
-                  :class="[items[i - 1].indicator]"
-                >
-                  <p class="word1">
-                    {{ items[i -1].word1 }}
-                  </p>
-                  <p class="word2">
-                    {{ items[i -1].word2 }}
-                  </p>
+              <div class="background-container">
+                <div class="background">
+                  <div
+                    v-for="j in 3"
+                    :key="j"
+                    class="texts"
+                    :class="[items[i - 1].indicator]"
+                  >
+                    <p class="word1">
+                      {{ items[i -1].word1 }}
+                    </p>
+                    <p class="word2">
+                      {{ items[i -1].word2 }}
+                    </p>
+                  </div>
                 </div>
                 <img
                   class="background-perso"
+                  :class="['perso-' + i]"
                   :src="items[i -1].image"
                 >
               </div>
@@ -95,7 +98,7 @@ const items = [
 			Surf,
 			SpeedRiding,
 		],
-		image: '/selection/coming-soon.png',
+		image: '/selection/coming-soon-1.png',
 		isAvaialable: false,
 	},
 	{
@@ -121,7 +124,7 @@ const items = [
 			ParachuteIco,
 			GymkhanaIco,
 		],
-		image: '/selection/coming-soon.png',
+		image: '/selection/coming-soon-2.png',
 		isAvaialable: false,
 	},
 ]
@@ -196,15 +199,24 @@ function selectPackage(value) {
 	position: relative;
 }
 
+.background-container {
+	position: relative;
+}
+
 .background-perso {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 80%;
-	height: 80%;
+	width: 120%;
+	// height: 100%;
 	transform: translate(-50%, -50%);
 
 	object-fit: contain;
+
+	&.perso-3 {
+		width: 135%;
+		transform: translate(-60%, -62%);
+	}
 }
 
 .texts {
@@ -361,11 +373,20 @@ function selectPackage(value) {
 				transition-delay: calc(100ms + (#{$i} * 75ms));
 			}
 
-			.background-perso {
+			.perso-1,
+			.perso-2 {
 				transform: translate(-50%, -50%);
 				opacity: 1;
 				transition: transform .8s ease(out-bounce), opacity .8s ease(out-swift);
 				transition-delay: calc(250ms + (#{$i} * 75ms));
+			}
+
+			.perso-3 {
+				transform: translate(-60%, -62%);
+				opacity: 1;
+				transition: transform .8s ease(out-bounce), opacity .8s ease(out-swift);
+				transition-delay: calc(250ms + (#{$i} * 75ms));
+
 			}
 
 			.title {
@@ -409,8 +430,14 @@ function selectPackage(value) {
 				opacity: 0;
 			}
 
-			.background-perso {
+			.perso-1,
+			.perso-2 {
 				transform: translate(-50%, 50%);
+				opacity: 0;
+			}
+
+			.perso-3 {
+				transform: translate(-60%, 62%);
 				opacity: 0;
 			}
 

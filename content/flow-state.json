@@ -175,13 +175,13 @@
 				]
 			},
 			{
-				"name": "Jérémie Heitz",
+				"name": "Jérémy Prevost",
 				"aptitude": "Freeride",
 				"type": "Neige",
 				"color": "pink",
-				"country": "CH",
-				"achieved": "Freerider le plus rapide du monde",
-				"image": "/flow-state/athletes/jeremie-heitz.png",
+				"country": "FR",
+				"achieved": "100 000m DÉNIVELÉ NÉGATIF",
+				"image": "/flow-state/athletes/jeremy-prevost.png",
 				"capacities": [
 					"vitesse",
 					"équilibre",
@@ -192,15 +192,11 @@
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "https://www.facebook.com/heitzjeremie"
-					},
-					{
-						"type": "youtube",
-						"link": "https://www.youtube.com/@jeremieheitz1430"
+						"link": "https://www.facebook.com/jeremyprevostski"
 					},
 					{
 						"type": "instagram",
-						"link": "https://www.instagram.com/jeremieheitz/?hl=fr"
+						"link": "https://www.instagram.com/jeremy_prevost/?hl=fr"
 					}
 				]
 			},
@@ -234,6 +230,36 @@
 				]
 			},
 			{
+				"name": "Jérémie Heitz",
+				"aptitude": "Freeride",
+				"type": "Neige",
+				"color": "pink",
+				"country": "CH",
+				"achieved": "Freerider le plus rapide du monde",
+				"image": "/flow-state/athletes/jeremie-heitz.png",
+				"capacities": [
+					"vitesse",
+					"équilibre",
+					"adresse",
+					"coordination",
+					"concentration"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "https://www.facebook.com/heitzjeremie"
+					},
+					{
+						"type": "youtube",
+						"link": "https://www.youtube.com/@jeremieheitz1430"
+					},
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/jeremieheitz/?hl=fr"
+					}
+				]
+			},
+			{
 				"name": "Éric Deguil",
 				"aptitude": "KAYAK",
 				"type": "Eau",
@@ -249,8 +275,8 @@
 				],
 				"socials": [
 					{
-						"type": "instagram",
-						"link": "https://www.instagram.com/tiphanie_perrotin/?hl=fr"
+						"type": "facebook",
+						"link": "https://www.facebook.com/eric.deguil/?locale=fr_FR"
 					}
 				]
 			},
@@ -270,6 +296,64 @@
 					{
 						"type": "instagram",
 						"link": "https://www.instagram.com/tiphanie_perrotin/?hl=fr"
+					}
+				]
+			},
+			{
+				"name": "Vincent Cotte",
+				"aptitude": "Wingsuit",
+				"type": "Air",
+				"color": "green",
+				"country": "FR",
+				"achieved": "a frôlé les pyramides de Gizeh",
+				"image": "/flow-state/athletes/vincent-cotte.png",
+				"capacities": [
+					"vitesse",
+					"adresse",
+					"coordination",
+					"réaction au stress"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "https://www.facebook.com/profile.php?id=100063717513368"
+					},
+					{
+						"type": "youtube",
+						"link": "https://www.youtube.com/@TheVeush/featured"
+					},
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/vincent.cotte/?hl=fr"
+					}
+				]
+			},
+			{
+				"name": "Evan Garcia",
+				"aptitude": "Kayak",
+				"type": "Eau",
+				"color": "purple",
+				"country": "FR",
+				"achieved": "Royal Flush sur l'American River",
+				"image": "/flow-state/athletes/evan-garcia.png",
+				"capacities": [
+					"vitesse",
+					"souplesse",
+					"coordination",
+					"contrôle de la peur"
+				],
+				"socials": [
+					{
+						"type": "facebook",
+						"link": "https://www.facebook.com/evan.garcia.71/?locale=fr_FR"
+					},
+					{
+						"type": "youtube",
+						"link": "https://www.youtube.com/channel/UCJ2GypvCrWW70IzxGgIl6fw/videos"
+					},
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/egthekilla/?hl=fr"
 					}
 				]
 			}

@@ -22,11 +22,12 @@
 
     <div
       class="qte-focus__indicator"
+      :style="`--zone-1: ${ZONE[0]}; --zone-2: ${ZONE[1]}`"
     >
       <div
         :style="{ width: valuePercent }"
         :class="[
-          {isMax: valuePercent === '100%'},
+          {isFocus: isFocus},
           {isFlashing: valuePercent === '100%' && score >= 4}
         ]"
       />
@@ -56,6 +57,8 @@ import NoEventKeyboard from '../NoEvent.js';
 
 const SCORE_MAX = 25
 const START_SPEED = 3
+const ZONE = [0.7, 0.85]
+const ZONE_MIDDLE = (ZONE[1] - ZONE[0]) / 2 + ZONE[0]
 
 const store = useStore()
 
@@ -69,7 +72,7 @@ const props = defineProps({
 const emit = defineEmits(['updated', 'onKeydown', 'onKeyup', 'onFinish'])
 
 const value = ref(0)
-const gradientMove = ref(0)
+const isFocus = ref(false)
 const keyPressed = ref(false)
 const valuePercent = computed(() => (value.value / props.duration) * 100 + '%')
 
@@ -110,21 +113,17 @@ onMounted(() => {
 		value.value += deltaTime * keydown * 1000
 		value.value = Math.min(props.duration, Math.max(0, value.value))
 
+		// calculate is focus ifvalue is between 0.7 & 0.9
+		isFocus.value = value.value / props.duration > ZONE[0] && value.value / props.duration <  ZONE[1]
+
 		const speedLine = START_SPEED + (value.value * 10 / props.duration)
 		webgl.camera.speedLine.setSpeed(speedLine)
 
 		score += deltaTime * Math.max(keydown, 0)
 		scoreMax += deltaTime
 
-		disto = (value.value / props.duration)
-
-		// if(value.value === 3000 && keyPressed.value) {
-		// 	gradientMove.value += deltaTime
-		// 	gradientMove.value =clamp(gradientMove.value, 0, 100)
-		// } else if(!keyPressed.value) {
-		// 	gradientMove.value += deltaTime * keydown
-		// 	gradientMove.value = clamp(gradientMove.value, 0, 100)
-		// }
+		// disto = (value.value / props.duration)
+		disto = Math.min(value.value / props.duration / ZONE_MIDDLE, 1) - Math.max((value.value / props.duration / ZONE_MIDDLE) - 1, 0) * 2
 
 		if(webgl.fxComposer.isUpdatable) {
 			webgl.fxComposer.postProcessingPass.uniforms.uK0.value.x = -(disto * .3) // (disto * .1) * 3
@@ -152,7 +151,6 @@ function setScore() {
 const destroyedEvents = () => {
 	const webgl = new WebGL()
 
-	gradientMove.value = 0
 	RAFManager.remove('QteFocus')
 	webgl.camera.speedLine.setSpeed()
 	// webgl.fxComposer.resetEffect()
@@ -223,7 +221,17 @@ $indicator: 10px;
 		width: 100%;
 		height: $indicator;
 
-		background-color: rgba(colors(white), .5);
+		$white: rgba(255, 255, 255, 0.5);
+		$zone: #c3fe1fb9;
+
+		background: linear-gradient(to right,
+				$white 0%,
+				$white calc(var(--zone-1, 0.7) * 100% - 1px),
+				$zone calc(var(--zone-1, 0.7) * 100%),
+				$zone calc(var(--zone-2, 0.85) * 100%),
+				$white calc(var(--zone-2, 0.85) * 100% + 1px),
+				$white 100%);
+
 		// border-radius: $indicator;
 		clip-path: url(#focusBar);
 
@@ -232,8 +240,7 @@ $indicator: 10px;
 			background-color: colors(white);
 			transition: background .3s ease(out-swift);
 
-			&.isMax {
-				// background-color: colors(f_green);
+			&.isFocus {
 				background: linear-gradient(-45deg, #C4FE1F, #1FF1FE, #A7A6F0, #C4FE1F);
 				background-size: 400% 400%;
 				animation: gradient 5s linear backwards infinite;

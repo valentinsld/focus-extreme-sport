@@ -8,14 +8,18 @@
 					translateY(${cloudTranslate}%)
 				`"
     >
-    <img
-      src="/stickers/1-kayak.png"
-      draggable="false"
-      class="kayak"
+    <div
+      class="sticker"
+      data-in-view
       :style="`transform:
-					translateY(${stickerTranslate}%)
-				`"
+            translateY(${stickerTranslate}%)
+          `"
     >
+      <img
+        src="/stickers/1-kayak.png"
+        draggable="false"
+      >
+    </div>
     <div class="definition-title">
       <h2
         class="title"
@@ -177,12 +181,26 @@ function handleHover(index, state) {
   right: -70%;
 }
 
-.kayak {
+.sticker {
   position: absolute;
   z-index: -1;
-  width: 20rem;
   top: 35%;
   right: -20%;
+
+  img {
+    width: 20rem;
+    transform: rotate(20deg) scale(.25);
+    opacity: 0;
+    transition: transform .5s ease(out-bounce), opacity .5s ease(out-swift);
+
+  }
+
+  &.is-observed {
+    img {
+      transform: none;
+      opacity: 1;
+    }
+  }
 }
 
 

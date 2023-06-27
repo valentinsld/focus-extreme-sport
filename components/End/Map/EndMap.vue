@@ -13,14 +13,18 @@
 					translateY(${cloudTranslate}%)
 				`"
     >
-    <img
-      src="/stickers/1-wingsuit.png"
-      draggable="false"
+    <div
       class="sticker"
+      data-in-view
       :style="`transform:
-					translateY(${stickerTranslate}%)
-				`"
+            translateY(${stickerTranslate}%)
+          `"
     >
+      <img
+        src="/stickers/1-wingsuit.png"
+        draggable="false"
+      >
+    </div>
     <div
       class="map-wrapper"
     >
@@ -243,9 +247,23 @@ function update(elY, elH) {
 .sticker {
   position: absolute;
   z-index: -2;
-  width: 20rem;
   bottom: 0%;
   right: 25%;
+
+  img {
+    width: 20rem;
+    transform: rotate(20deg) scale(.25);
+    opacity: 0;
+    transition: transform .5s ease(out-bounce), opacity .5s ease(out-swift);
+
+  }
+
+  &.is-observed {
+    img {
+      transform: none;
+      opacity: 1;
+    }
+  }
 }
 
 

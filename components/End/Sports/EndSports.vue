@@ -1,13 +1,17 @@
 <template>
   <section class="sport flow-section">
-    <img
-      src="/stickers/like_a_boss.png"
-      draggable="false"
-      class="cloud"
+    <div
+      class="sticker"
       :style="`transform:
-					translateY(${stickerTranslate}%)
-				`"
+            translateY(${stickerTranslate}%)
+          `"
+      data-in-view
     >
+      <img
+        src="/stickers/like_a_boss.png"
+        draggable="false"
+      >
+    </div>
     <h2
       class="sport-title"
       data-in-view
@@ -102,12 +106,27 @@
 </script>
 
 <style lang="scss" scoped>
-.cloud {
+.sticker {
   position: absolute;
   z-index: 2;
-  width: 25rem;
+
   top: 35%;
   right: -25%;
+
+  img {
+    width: 25rem;
+    transform: rotate(20deg) scale(.25);
+    opacity: 0;
+    transition: transform .5s ease(out-bounce), opacity .5s ease(out-swift);
+
+  }
+
+  &.is-observed {
+    img {
+      transform: none;
+      opacity: 1;
+    }
+  }
 }
 
 

@@ -383,8 +383,8 @@ export default class SceneKayak extends BaseScene {
     // 3- init animation with percent
     this.timelineValue = 0
     RAFManager.add('SceneKayak', (currentTime, dt) => {
-      this.timelineValue = (this.timelineValue + dt * 0.022)
-      // this.timelineValue = (this.timelineValue + dt * 0)
+      // this.timelineValue = (this.timelineValue + dt * 0.022)
+      this.timelineValue = (this.timelineValue + dt * 0)
       this.setTracking(this.timelineValue, this.characterContainer)
       this.splashLeft.updateParticles(currentTime, dt)
       this.splashRight.updateParticles(currentTime, dt)

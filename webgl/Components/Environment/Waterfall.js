@@ -23,7 +23,7 @@ export default class Waterfall {
 			colorB: '#418B84', // #668aac
 			colorC: '#ffffff', // #89ADCE
 			colorD: '#347F7A', // #89ADCE
-			count: 150,
+			count: 50,
 			speedMultiplier: MathUtils.randFloat(1, 5),
 		}
 
@@ -56,14 +56,6 @@ export default class Waterfall {
 
 			uniforms: {
 				uTime: { value: this.time},
-				// uBigWavesElevation: { value: 0.0025 },
-				// uBigWavesFrequency: { value: new Vector2(1, -10) },
-				// uBigWavesSpeed: { value: 0.5 },
-
-				// uSmallWavesElevation: { value: 0.05 },
-				// uSmallWavesFrequency: { value: 5 },
-				// uSmallWavesSpeed: { value: 0.2 },
-				// uSmallIterations: { value: 5 },
 
 				uColorA: { value: new Color(this.params.colorA) },
 				uColorB: { value: new Color(this.params.colorB) },
@@ -146,7 +138,7 @@ export default class Waterfall {
 
 			const randIndex = Math.round(MathUtils.randFloat(0 , this.colorsArr.length - 1))
 
-			const randScale = MathUtils.randFloat(.1, .25)
+			const randScale = MathUtils.randFloat(.2, .35)
 
 			this.dummy.position.x = posX;
 			this.dummy.position.y = 0;
@@ -187,7 +179,7 @@ export default class Waterfall {
 		// this.mesh.geometry.setAttribute('aMaxAlpha', new InstancedBufferAttribute(new Float32Array(maxAlphas), 1))
 		this.mesh.instanceMatrix.needsUpdate = true;
 
-		this.mesh.position.set(-.75, -.85, .1)
+		this.mesh.position.set(-.75, -.75, .1)
 		this.mesh.rotation.y = DegToRad(10)
 	}
 
@@ -201,7 +193,7 @@ export default class Waterfall {
 			this.dummy.matrix.copy(this.properties[i].mat)
 
 			this.mesh.setMatrixAt(i, this.dummy.matrix)
-			this.properties[i].pos.y = Math.sin(this.ages[i] * .15) * .15 + .15
+			this.properties[i].pos.y = Math.sin(this.ages[i] * .5) * .025 + .025
 			this.dummy.matrix.setPosition( this.properties[i].pos.x, this.properties[i].pos.y, this.properties[i].pos.z)
 
 			this.mesh.setMatrixAt(i, this.dummy.matrix)

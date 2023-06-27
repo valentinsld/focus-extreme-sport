@@ -178,7 +178,7 @@
 				"name": "Jérémie Heitz",
 				"aptitude": "Freeride",
 				"type": "Neige",
-				"color": "green",
+				"color": "pink",
 				"country": "CH",
 				"achieved": "Freerider le plus rapide du monde",
 				"image": "/flow-state/athletes/jeremie-heitz.png",
@@ -205,27 +205,71 @@
 				]
 			},
 			{
-				"name": "Travis Pastrana",
-				"aptitude": "Pilote",
-				"type": "Terre",
-				"color": "pink",
-				"country": "CH",
-				"achieved": "600m de chute libre",
-				"image": "/flow-state/athletes/travis-pastrana.png",
+				"name": "David Laffargue",
+				"aptitude": "Basejump",
+				"type": "Air",
+				"color": "green",
+				"country": "FR",
+				"achieved": "l'homme volant",
+				"image": "/flow-state/athletes/david-laffargue.png",
 				"capacities": [
 					"vitesse",
-					"équilibre",
+					"adresse",
 					"coordination",
-					"souplesse"
+					"réaction au stress"
 				],
 				"socials": [
 					{
 						"type": "facebook",
-						"link": "https://www.facebook.com/TravisPastrana"
+						"link": "https://www.facebook.com/dlaffargue"
 					},
 					{
 						"type": "instagram",
-						"link": "https://www.instagram.com/travispastrana/?hl=fr"
+						"link": "https://www.instagram.com/davidlaffargue/?hl=fr"
+					},
+					{
+						"type": "youtube",
+						"link": "https://www.youtube.com/watch?v=W5fWPJbVY3I"
+					}
+				]
+			},
+			{
+				"name": "Éric Deguil",
+				"aptitude": "KAYAK",
+				"type": "Eau",
+				"color": "purple",
+				"country": "FR",
+				"achieved": "Quadruple champion du monde",
+				"image": "/flow-state/athletes/eric-deguil.png",
+				"capacities": [
+					"vitesse",
+					"souplesse",
+					"coordination",
+					"contrôle de la peur"
+				],
+				"socials": [
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/tiphanie_perrotin/?hl=fr"
+					}
+				]
+			},
+			{
+				"name": "Tiphanie Perrotin",
+				"aptitude": "SNOW FREERIDE",
+				"type": "Neige",
+				"color": "pink",
+				"country": "FR",
+				"achieved": "championne du monde de snowboard freeride",
+				"image": "/flow-state/athletes/tiphanie-perrotin.png",
+				"capacities": [
+					"vitesse",
+					"équilibre"
+				],
+				"socials": [
+					{
+						"type": "instagram",
+						"link": "https://www.instagram.com/tiphanie_perrotin/?hl=fr"
 					}
 				]
 			}
@@ -394,6 +438,26 @@
 			{
 				"image": "/flow-state/films/5.png",
 				"url": "https://youtu.be/QmL711PPmgM"
+			},
+			{
+				"image": "/flow-state/films/6.png",
+				"url": "https://www.youtube.com/watch?v=DC5N2bzPk0w"
+			},
+			{
+				"image": "/flow-state/films/7.png",
+				"url": "https://youtu.be/THeoxGXfaUU"
+			},
+			{
+				"image": "/flow-state/films/8.png",
+				"url": "https://youtu.be/AkigzUFr3ys"
+			},
+			{
+				"image": "/flow-state/films/9.png",
+				"url": "https://vimeo.com/748675409"
+			},
+			{
+				"image": "/flow-state/films/10.png",
+				"url": "https://vimeo.com/748675409"
 			}
 		]
 	},

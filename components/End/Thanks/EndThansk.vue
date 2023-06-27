@@ -1,15 +1,22 @@
 <template>
   <section class="thanks flow-section">
-    <img
-      src="/cloud.png"
-      draggable="false"
-      class="cloud"
+    <div
+      class="parallax-container"
+      :style="`transform:
+					translateY(${cloudTranslate}%)
+				`"
     >
-    <img
-      src="/STICKERS_HOLO.png"
-      draggable="false"
-      class="sticker"
-    >
+      <img
+        src="/cloud.png"
+        draggable="false"
+        class="cloud"
+      >
+      <img
+        src="/STICKERS_HOLO.png"
+        draggable="false"
+        class="sticker"
+      >
+    </div>
     <h2
       class="thanks-title"
       data-in-view
@@ -115,27 +122,36 @@
 	  data: {
 		  type: Object,
 		  required: true
-	  }
+	  },
+    cloudTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
   })
 
   const title = splitByWord(props.data.title)
   </script>
 
 <style lang="scss" scoped>
-.cloud {
+.parallax-container {
   position: absolute;
-  z-index: -1;
-  opacity: .5;
   bottom: 0%;
-  left: -85%;
+  left: -75%;
+  z-index: -1;
+}
+
+.cloud {
+  opacity: .5;
 }
 
 .sticker {
   position: absolute;
   width: 15rem;
   z-index: -2;
-  left: -15%;
-  bottom: 20%;
+  right: 0%;
+  bottom: 45%;
+  filter: drop-shadow(0px 0px 5px rgba(colors(black), .25));
+  animation: RollingSticker 20s linear forwards infinite;
 }
 
 

@@ -28,11 +28,11 @@
       <EndAthletes
         ref="athletes"
         :data="content.athletes"
-        :cloud-translate="cloudAthT"
       />
       <EndSports
         ref="sport"
         :data="content.sports"
+        :sticker-translate="stickerSportT"
       />
       <EndFilms
         ref="movie"
@@ -41,10 +41,12 @@
       <EndEvents
         ref="events"
         :data="content.events"
+        :cloud-translate="cloudEventT"
       />
       <EndThansk
         ref="thanks"
         :data="content.thanks"
+        :cloud-translate="cloudThanksT"
       />
       <EndFooter />
     </div>
@@ -81,7 +83,11 @@ const stickerFlowT = ref(0);
 const cloudMapT = ref(0);
 const stickerMapT = ref(0);
 
-const cloudAthT = ref(0);
+const stickerSportT = ref(0);
+
+const cloudEventT = ref(0);
+
+const cloudThanksT = ref(0);
 
 let cloudFParallax = null;
 let stickerFParallax = null;
@@ -89,7 +95,11 @@ let stickerFParallax = null;
 let cloudMParallax = null;
 let stickerMParallax = null;
 
-let cloudAParallax = null;
+let stickerSParallax = null;
+
+let cloudEParallax = null;
+
+let cloudTParallax = null;
 
 const observerList = [
   hero,
@@ -129,10 +139,19 @@ useIntersectObserver({
 			stickerMapT.value = stickerMParallax.translate.value;
 		}
 
-    if (cloudAParallax) {
-			cloudAParallax.setTranslate(e.animatedScroll);
-			cloudAthT.value = cloudAParallax.translate.value;
-      console.log(cloudAthT.value);
+    if (stickerSParallax) {
+      stickerSParallax.setTranslate(e.animatedScroll);
+			stickerSportT.value = stickerSParallax.translate.value;
+		}
+
+    if (cloudEParallax) {
+      cloudEParallax.setTranslate(e.animatedScroll);
+			cloudEventT.value = cloudEParallax.translate.value;
+		}
+
+    if (cloudTParallax) {
+      cloudTParallax.setTranslate(e.animatedScroll);
+			cloudThanksT.value = cloudTParallax.translate.value;
 		}
   })
 
@@ -148,34 +167,48 @@ onMounted(() => {
   cloudFParallax = useParallax({
     section: definition.value.$el,
     page: scrollWrapper.value,
-    start: -30,
-    end: 20
+    start: -75,
+    end: 75
   });
   stickerFParallax = useParallax({
     section: definition.value.$el,
     page: scrollWrapper.value,
-    start: -40,
-    end: 40
+    start: -100,
+    end: 100
   });
 
   cloudMParallax = useParallax({
     section: map.value.$el,
     page: scrollWrapper.value,
-    start: -30,
-    end: 20
+    start: -50,
+    end: 40
   });
   stickerMParallax = useParallax({
     section: map.value.$el,
+    page: scrollWrapper.value,
+    start: -150,
+    end: 40
+  });
+
+  stickerSParallax = useParallax({
+    section: sport.value.$el,
+    page: scrollWrapper.value,
+    start: 0,
+    end: 100
+  });
+
+  cloudEParallax = useParallax({
+    section: events.value.$el,
     page: scrollWrapper.value,
     start: -40,
     end: 40
   });
 
-  cloudAParallax = useParallax({
-    section: athletes.value.$el,
+  cloudTParallax = useParallax({
+    section: thanks.value.$el,
     page: scrollWrapper.value,
-    start: -30,
-    end: 20
+    start: -40,
+    end: 40
   });
 
   cloudFParallax.getParallaxValues();
@@ -184,7 +217,16 @@ onMounted(() => {
   cloudMParallax.getParallaxValues();
   stickerMParallax.getParallaxValues();
 
-  cloudAParallax.getParallaxValues();
+  stickerSParallax.getParallaxValues();
+
+  cloudEParallax.getParallaxValues();
+
+  cloudTParallax.getParallaxValues();
+})
+
+onUnmounted(() => {
+  RAFManager.remove('lenis')
+  lenis.destroy()
 })
 
 function setScene () {

@@ -4,6 +4,9 @@
       src="/stickers/like_a_boss.png"
       draggable="false"
       class="cloud"
+      :style="`transform:
+					translateY(${stickerTranslate}%)
+				`"
     >
     <h2
       class="sport-title"
@@ -87,7 +90,11 @@
 	  data: {
 		  type: Object,
 		  required: true
-	  }
+	  },
+    stickerTranslate: {
+			type: [ Number, String ],
+			default: 0
+		},
   })
 
   const title = splitByWord(props.data.title)
@@ -99,7 +106,7 @@
   position: absolute;
   z-index: 2;
   width: 25rem;
-  bottom: 0%;
+  top: 35%;
   right: -25%;
 }
 

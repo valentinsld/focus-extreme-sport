@@ -23,7 +23,7 @@ const splashColors = [
   new Color(0x5CBDB6),
 ]
 
-const CLEAR_COLOR = 0xCFBF48
+const CLEAR_COLOR = 0xB3C1CA
 
 export default class SceneKayak extends BaseScene {
   static singleton
@@ -40,7 +40,7 @@ export default class SceneKayak extends BaseScene {
     this.assets = this.WebGL.assets
     this.generator = this.WebGL.renderer.generator
     this.scene = this.WebGL.sceneKayak
-    this.scene.fog = new Fog(0x9bc8fa, 0, 15)
+    this.scene.fog = new Fog(CLEAR_COLOR, 0, 15)
     this.sizes = this.WebGL.sizes
 
     this.envmap = this.assets.hdrs.kayak.texture
@@ -163,10 +163,12 @@ export default class SceneKayak extends BaseScene {
     // this.initSky();
     this.sky = new SkyCustom({
       debug: this.debug,
-      sphereTopColor: 0x0096ff,
-      sphereBottomColor: 0xa2dcfc,
-      offset: 20,
-      exponent: 2,
+      turbidity: 10,
+		  rayleigh: 3,
+		  mieCoefficient: 0.005,
+		  mieDirectionalG: .7,
+		  elevation: 5,
+		  azimuth: 225,
     })
 
     this.sky.container.position.set(0, -50, 0)
@@ -239,14 +241,6 @@ export default class SceneKayak extends BaseScene {
 
       uniforms: {
         uTime: { value: this.time},
-        // uBigWavesElevation: { value: 0.0025 },
-        // uBigWavesFrequency: { value: new Vector2(1, -10) },
-        // uBigWavesSpeed: { value: 0.5 },
-
-        // uSmallWavesElevation: { value: 0.05 },
-        // uSmallWavesFrequency: { value: 5 },
-        // uSmallWavesSpeed: { value: 0.2 },
-        // uSmallIterations: { value: 5 },
 
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
@@ -256,7 +250,7 @@ export default class SceneKayak extends BaseScene {
         uFoamTex: { value: this.foam },
         // uRotation: { value: -45.},
 
-        fogColor: { value: new Color(0x9bc8fa)},
+        fogColor: { value: new Color(CLEAR_COLOR)},
         fogNear: { value: 0},
         fogFar: { value: 15},
 
@@ -443,8 +437,8 @@ export default class SceneKayak extends BaseScene {
     this.curveCam = this.curveCam_R
     this.curveTrack = this.curveTrack_R
 
-    this.CAM_3P_1.x = 1.45
-    this.CAM_3P_1.y = .45
+    this.CAM_3P_1.x = 1.25
+    this.CAM_3P_1.y = .3
     this.CAM_3P_1.z = -3.85
   }
 

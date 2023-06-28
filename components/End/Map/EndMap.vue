@@ -572,8 +572,8 @@ function update(elY, elH) {
 
     .dot {
       display: block;
-      width: 1rem;
-      height: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
       border-radius: 50%;
       background-color: colors(black);
       margin-right: 1rem;
@@ -609,41 +609,51 @@ function update(elY, elH) {
 .wingsuit {
   top: 11.75%;
   left: 57.75%;
+  width: 8rem;
+  height: 25%;
+
+  .text {
+    right: -110%;
+  }
 }
 
 .wingsuit-place {
-  width: 7rem;
   fill: colors(black);
   opacity: .7;
+  height: 100%;
 }
 
 .ski {
   top: 37.5%;
   left: 65%;
+  width: 8rem;
+  height: 20%;
 
   .text {
-    right: -200%;
+    right: -150%;
   }
 }
 
 .ski-place {
-  width: 6rem;
   fill: colors(black);
   opacity: .7;
+  height: 100%;
 }
 
 .kayak-place {
-  width: 10rem;
+  height: 100%;
   fill: colors(black);
   opacity: .7;
 }
 
 .kayak {
-  top: 62%;
-  left: 72%;
+  top: 60%;
+  left: 70%;
+  width: 8rem;
+  height: 15%;
 
   .text {
-    right: -40%;
+    right: -70%;
   }
 }
 </style>

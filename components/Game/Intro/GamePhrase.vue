@@ -69,6 +69,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin: .5rem 0;
 }
 
 .sport {

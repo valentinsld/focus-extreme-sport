@@ -18,14 +18,11 @@
           :class="[
             'package-'+ i
           ]"
-          @mouseover="handleHover(i, true)"
-          @mouseleave="handleHover(null, false)"
           @click="selectPackage(items[i-1].isAvaialable)"
         >
           <div
             class="package-container"
             :class="[
-              { 'is-hidden': hoverIndex !== i && isHovered},
               (items[i-1].isAvaialable ? 'is-available' : 'not-available')
             ]"
           >
@@ -130,13 +127,6 @@ const items = [
 ]
 
 const packages = ref()
-const hoverIndex = ref(null);
-const isHovered = ref(false)
-
-function handleHover(index, state) {
-	hoverIndex.value = index;
-	isHovered.value = state
-}
 
 function selectPackage(value) {
 	if (!value) return
@@ -181,9 +171,10 @@ function selectPackage(value) {
 
 	&.not-available {
 		cursor: not-allowed;
+		opacity: .3;
 
 		@include hover() {
-			transform: scale(1.1) !important;
+			transform: scale(1) !important;
 		}
 	}
 

@@ -93,7 +93,7 @@ function seeStickers(isDelay = false) {
 
   const scene = new SceneStickers()
   if (isDelay) {
-    scene.seeStickers(toRaw(stickers.state), 4000, 1000)
+    scene.seeStickers(toRaw(stickers.state), 4000, 1000, true)
   } else {
     scene.seeStickers(toRaw(stickers.state))
   }

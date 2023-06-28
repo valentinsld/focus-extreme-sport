@@ -48,12 +48,16 @@
           'thanks-' + index
         ]"
       >
-        <img
+        <div
           class="thanks-picture"
           :class="['pic-' + index]"
-          :src="el.image"
-          draggable="false"
         >
+          <img
+            class="thanks-pic"
+            :src="el.image"
+            draggable="false"
+          >
+        </div>
         <h3
           class="thanks-name"
           :class="['name-' + index]"
@@ -245,11 +249,29 @@
 }
 
 .thanks-picture {
-  width: 10rem;
-  filter: grayscale(100%);
+
   transform: scale(0.25);
   opacity: 0;
   transition: transform .8s ease(out-bounce), opacity .7s ease(out-swift);
+
+  .is-observed & {
+    transform: none;
+    opacity: 1;
+  }
+
+  &:hover {
+    .thanks-pic {
+      filter: grayscale(0%);
+      transform: scale(1.15);
+    }
+  }
+}
+
+.thanks-pic {
+  width: 10rem;
+  filter: grayscale(100%);
+  transition: transform .5s ease(out-swift), filter .5s ease(out-swift);
+  transition-delay: 0;
 }
 
 .thanks-name {

@@ -135,6 +135,8 @@ export default class SceneStickers extends BaseScene {
   seeHelmet(hasRotation = true, delay = 0) {
     this.helmet.visible = true
     this.text.container.visible = true
+    this.helmet.scale.set(0.0, 0.0, 0.0)
+    this.text.mesh.material.uniforms.uStrokeOpacity.value = 0
 
     anime({
       targets: this.helmet.scale,

@@ -239,7 +239,7 @@ function update(elY, elH) {
 .cloud {
   position: absolute;
   z-index: -2;
-  opacity: .25;
+  opacity: .5;
   bottom: 15%;
   left: -25%;
 }

@@ -176,7 +176,7 @@ function handleHover(index, state) {
 .cloud {
   position: absolute;
   z-index: -1;
-  opacity: .35;
+  opacity: .5;
   top: 15%;
   right: -70%;
 }

@@ -64,7 +64,6 @@ function calculateStickers() {
 }
 
 function setScene () {
-  console.log('setScene', store.state.lastRoute)
   if (store.state.lastRoute === 'flow-state') {
     isHide.value = false
     displayRewards.value = false

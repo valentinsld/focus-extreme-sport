@@ -172,6 +172,7 @@ watch(currentSticker, (value) => {
       transform-origin: center center;
       transform: scaleX(0);
       transition: transform .35s ease(out-swift);
+      will-change: transform;
     }
   }
 }

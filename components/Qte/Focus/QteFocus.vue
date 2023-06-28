@@ -119,7 +119,7 @@ onMounted(() => {
 		const speedLine = START_SPEED + (value.value * 10 / props.duration)
 		webgl.camera.speedLine.setSpeed(speedLine)
 
-		score += deltaTime * Math.max(keydown, isFocus ? 1 : 0 , 0)
+		score += deltaTime * Math.max(keydown, isFocus.value ? 1 : 0 , 0)
 		scoreMax += deltaTime
 
 		// disto = (value.value / props.duration)

@@ -155,11 +155,6 @@ export default class Background {
 		// Resize
 		this.sizes.on('resize', () => {
 			material.uniforms.uResolution.value = [this.sizes.width, this.sizes.height]
-			console.log(this.sizes.width, this.sizes.height)
-			console.log(
-				Math.max(this.sizes.width / this.initResolution.x, this.initResolution.x / this.sizes.width),
-				Math.max(this.sizes.height / this.initResolution.y, this.initResolution.y / this.sizes.height),
-			)
 			this.plane.scale.set(
 				Math.max(this.sizes.width / this.initResolution.x, this.initResolution.x / this.sizes.width ) * 2,
 				Math.max(this.sizes.height / this.initResolution.y, this.initResolution.y / this.sizes.height) * 2,

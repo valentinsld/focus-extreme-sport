@@ -56,6 +56,7 @@
 import useStore from '@/stores/index.js'
 import WebGL from '~~/webgl';
 const store = useStore()
+store.resetScores()
 
 const isIntroFinished = computed(() => ['wingsuit', 'ski', 'kayak'].includes(store.state.gamestate))
 

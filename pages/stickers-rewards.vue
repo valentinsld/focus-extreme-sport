@@ -39,8 +39,19 @@ const currentRewards = ref({
 })
 
 onMounted(()=> {
-  if (stickers.isEmpty) {
+  const scoreZero = store.state.altimetre.scores.wingsuit <= 0 && store.state.altimetre.scores.ski <= 0 && store.state.altimetre.scores.kayak <= 0
+  console.log(
+    store.state.altimetre.scores.wingsuit,
+    store.state.altimetre.scores.ski,
+    store.state.altimetre.scores.kayak,
+    scoreZero, stickers.isEmpty
+  )
+  if (scoreZero && stickers.isEmpty) {
     return navigateTo('/flow-state');
+  }
+  if (scoreZero) {
+    isIntro.value = false
+    displayRewards.value = false
   }
 
   const webgl = new WebGL()

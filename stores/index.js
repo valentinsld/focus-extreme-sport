@@ -35,11 +35,18 @@ const useStore = defineStore('store', () => {
 		}
 	)
 
+	function resetScores() {
+		state.altimetre.scores.wingsuit = 0
+		state.altimetre.scores.ski = 0
+		state.altimetre.scores.kayak = 0
+	}
+
 	//
 	//
 	//
 	return {
-		state
+		state,
+		resetScores
 	}
 })
 

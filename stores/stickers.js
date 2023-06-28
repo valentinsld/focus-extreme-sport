@@ -2,13 +2,18 @@ import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 
 function getStickersValue(score) {
+	const arr = []
 	if (score > 90) {
-		return 1
-	} else if (score > 50) {
-		return 2
-	} else {
-		return 3
+		arr.push(1)
 	}
+	if (score > 50) {
+		arr.push(2)
+	}
+	if (score > 0) {
+		arr.push(3)
+	}
+
+	return arr
 }
 
 const useStickers = defineStore('stickers', () => {
@@ -34,13 +39,13 @@ const useStickers = defineStore('stickers', () => {
 		const stickerKayak = getStickersValue(kayak)
 
 		if (!state.value.wingsuit.includes(stickerWingsuit)) {
-			state.value.wingsuit.push(stickerWingsuit)
+			state.value.wingsuit.push(...stickerWingsuit)
 		}
 		if (!state.value.ski.includes(stickerSki)) {
-			state.value.ski.push(stickerSki)
+			state.value.ski.push(...stickerSki)
 		}
 		if (!state.value.kayak.includes(stickerKayak)) {
-			state.value.kayak.push(stickerKayak)
+			state.value.kayak.push(...stickerKayak)
 		}
 
 		if (state.value.wingsuit.length === 3 && state.value.ski.length === 3 && state.value.kayak.length === 3) {
@@ -48,9 +53,9 @@ const useStickers = defineStore('stickers', () => {
 		}
 
 		return {
-			wingsuit: stickerWingsuit,
-			ski: stickerSki,
-			kayak: stickerKayak,
+			wingsuit: stickerWingsuit[0],
+			ski: stickerSki[0],
+			kayak: stickerKayak[0],
 			like_a_boss: state.value.like_a_boss,
 		}
 	}

@@ -171,15 +171,14 @@ function selectPackage(value) {
 
 	&.not-available {
 		cursor: not-allowed;
-		opacity: .3;
+
+		.texts {
+			opacity: .3;
+		}
 
 		@include hover() {
 			transform: scale(1) !important;
 		}
-	}
-
-	&.is-hidden {
-		opacity: 0.3;
 	}
 }
 
@@ -357,6 +356,15 @@ function selectPackage(value) {
 	@for $i from 1 through 3 {
 		.package-#{$i} {
 
+			.not-available {
+				.texts {
+					transform: none;
+					opacity: 0.3;
+					transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
+					transition-delay: calc(100ms + (#{$i} * 75ms));
+				}
+			}
+
 			.texts {
 				transform: none;
 				opacity: 1;
@@ -415,6 +423,13 @@ function selectPackage(value) {
 .selection-enter-from {
 	@for $i from 1 through 3 {
 		.package-#{$i} {
+
+			.not-available {
+				.texts {
+					transform: translateY(4rem);
+					opacity: 0;
+				}
+			}
 
 			.texts {
 				transform: translateY(4rem);

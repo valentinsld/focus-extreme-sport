@@ -147,8 +147,7 @@ function initLottie() {
 function initStates(scene) {
   currentScene = scene
 
-  // scene.timelineValue = 0.08
-  scene.timelineValue = 0.8
+  scene.timelineValue = 0.08
 
   // Show lottie balance
   scene.setEventTimeline(0.21, () => {

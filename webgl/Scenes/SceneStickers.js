@@ -135,8 +135,10 @@ export default class SceneStickers extends BaseScene {
   seeHelmet(hasRotation = true, delay = 0) {
     this.helmet.visible = true
     this.text.container.visible = true
-    this.helmet.scale.set(0.0, 0.0, 0.0)
-    this.text.mesh.material.uniforms.uStrokeOpacity.value = 0
+    if (!hasRotation) {
+      this.helmet.scale.set(0.0, 0.0, 0.0)
+      this.text.mesh.material.uniforms.uStrokeOpacity.value = 0
+    }
 
     anime({
       targets: this.helmet.scale,
@@ -165,7 +167,7 @@ export default class SceneStickers extends BaseScene {
     }
   }
 
-  seeStickers(stickers, duration = 4000, delay = 300) {
+  seeStickers(stickers, duration = 4000, delay = 300, isFirst = false) {
     const arrayMaterialEdited = []
     for (const key in this.stickers) {
       const element = this.stickers[key];
@@ -183,10 +185,10 @@ export default class SceneStickers extends BaseScene {
       }
     }
 
-    this.seeHelmet(false, delay)
+    this.seeHelmet(!isFirst, delay)
     anime({
       targets: this.helmet.rotation,
-      y: Math.PI * 6,
+      y: '+='+Math.PI * 2,
       duration,
       delay,
       ease: 'easeOutElastic',

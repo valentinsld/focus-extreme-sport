@@ -98,7 +98,7 @@ const [container] = useKeenSlider({
 .cloud {
   position: absolute;
   z-index: -1;
-  opacity: .25;
+  opacity: .5;
   top: -15%;
   right: 0%;
 }

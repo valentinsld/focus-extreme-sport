@@ -128,6 +128,7 @@ onUnmounted(() => {
   :deep(button),
   :deep(a) {
     pointer-events: initial;
+    color: colors(black);
   }
 }
 

@@ -597,6 +597,8 @@ function update(elY, elH) {
   opacity: 0;
   transition: transform .5s ease(out-swift), opacity .4s ease(out-swift);
 
+  filter: drop-shadow(0px 0px 10px #2a292d5f);
+
   .is-hovered & {
     transform: none;
     opacity: 1;

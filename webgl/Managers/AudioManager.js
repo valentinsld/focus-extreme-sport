@@ -130,11 +130,11 @@ export default class AudioManager {
 		const name = RANDOM_SWITCH[Math.floor(Math.random() * RANDOM_SWITCH.length)]
 		this.play(name, false, volume, 0, false)
 	}
-	playRandomQteSuccess(volume = 0.5) {
+	playRandomQteSuccess(volume = 0.35) {
 		const name = RANDOM_QTE_SUCESS[Math.floor(Math.random() * RANDOM_QTE_SUCESS.length)]
 		this.play(name, false, volume, 0, false)
 	}
-	playRandomQteWrong(volume = 0.5) {
+	playRandomQteWrong(volume = 0.35) {
 		const name = RANDOM_QTE_WRONG[Math.floor(Math.random() * RANDOM_QTE_WRONG.length)]
 		this.play(name, false, volume, 0, false)
 	}

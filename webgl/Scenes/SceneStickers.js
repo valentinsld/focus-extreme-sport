@@ -161,7 +161,7 @@ export default class SceneStickers extends BaseScene {
         targets: this.text.mesh.material.uniforms.uStrokeOpacity,
         value: 0.7,
         duration: 4000,
-        delay: delay + 500,
+        delay: delay + 200,
         ease: 'easeOutSine',
       })
     }
@@ -203,7 +203,7 @@ export default class SceneStickers extends BaseScene {
     anime({
       targets: this.text.mesh.material.uniforms.uStrokeOpacity,
       value: 1,
-      delay,
+      delay: delay + 300,
       duration: 3000,
       ease: 'easeOutSine',
     })

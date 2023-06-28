@@ -26,7 +26,7 @@ void main() {
     vec3 s = texture2D(uMap, vUv).rgb;
 
     // Signed distance
-    float sigDist = median(s.r, s.g, s.b) - 0.5;
+    float sigDist = median(s.r, s.g, s.b) - 0.48;
 
     float afwidth = 1.4142135623730951 / 2.0;
 
@@ -41,7 +41,7 @@ void main() {
     float sigDistOutset = sigDist + uStrokeOutsetWidth * 0.5;
 
     // Inset
-    float sigDistInset = sigDist - uStrokeInsetWidth * 0.5;
+    float sigDistInset = sigDist - uStrokeInsetWidth * 0.4;
 
     #ifdef IS_SMALL
         float outset = smoothstep(uThreshold - afwidth, uThreshold + afwidth, sigDistOutset);

@@ -108,7 +108,7 @@ const items = [
 			SkiIco,
 			KayakIco,
 		],
-		image: '/selection/perso.png',
+		image: '/selection/perso.gif',
 		isAvaialable: true,
 	},
 	{

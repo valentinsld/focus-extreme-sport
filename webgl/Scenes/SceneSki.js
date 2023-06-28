@@ -216,13 +216,13 @@ export default class SceneSki extends BaseScene {
       count: 500,
       scales: new Vector2(0.01, 0.3),
       maxAlphas: new Vector2(0.9, 1),
-      veloRandArr: [{x: 10, y: 10, z: 10}, {x: 15, y: 15, z: 15}],
+      veloRandArr: [{x: 15, y: 15, z: 15}, {x: 20, y: 18, z: 20}],
       lifeTime: 15,
     })
 
-    this.finalCloud.container.position.set(18.75, 1.45, 4.275)
-    this.finalCloud.container.rotation.x = DegToRad(15)
-    this.finalCloud.container.rotation.z = DegToRad(2)
+    this.finalCloud.container.position.set(18.05, 1.4, 4.275)
+    this.finalCloud.container.rotation.x = DegToRad(5)
+    // this.finalCloud.container.rotation.z = DegToRad(2)
 
     this.instance.add(this.finalCloud.container)
   }
@@ -250,14 +250,6 @@ export default class SceneSki extends BaseScene {
 
       uniforms: {
         uTime: { value: this.time},
-        // uBigWavesElevation: { value: 0.0025 },
-        // uBigWavesFrequency: { value: new Vector2(1, -10) },
-        // uBigWavesSpeed: { value: 0.5 },
-
-        // uSmallWavesElevation: { value: 0.05 },
-        // uSmallWavesFrequency: { value: 5 },
-        // uSmallWavesSpeed: { value: 0.2 },
-        // uSmallIterations: { value: 5 },
 
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
@@ -295,14 +287,6 @@ export default class SceneSki extends BaseScene {
 
       uniforms: {
         uTime: { value: this.time},
-        // uBigWavesElevation: { value: 0.0025 },
-        // uBigWavesFrequency: { value: new Vector2(1, -10) },
-        // uBigWavesSpeed: { value: 0.5 },
-
-        // uSmallWavesElevation: { value: 0.05 },
-        // uSmallWavesFrequency: { value: 5 },
-        // uSmallWavesSpeed: { value: 0.2 },
-        // uSmallIterations: { value: 5 },
 
 				uResolution: { value: [this.sizes.width, this.sizes.height] },
 				uColorA: { value: new Color(this.params.colorA) },
@@ -363,29 +347,10 @@ export default class SceneSki extends BaseScene {
       intensity: .8,
     })
 
-    // this.deadWoodInstanced = new InstancedAssets({
-    //   name: 'deadWood',
-    //   model: 'snow_dead_wood_1',
-    //   instances: this.deadWood,
-    //   scaleMultiplier: .5,
-    //   hdr: this.envmap,
-    //   hasHdr: false,
-    // })
-
-    // this.deadWoord2Instanced = new InstancedAssets({
-    //   name: 'deadWood2',
-    //   model: 'snow_dead_wood_2',
-    //   instances: this.deadWoodV2,
-    //   scaleMultiplier: .05,
-    //   hdr: this.envmap,
-    //   hasHdr: false,
-    // })
-
     this.treeInstanced = new InstancedAssets({
       name: 'tree',
       model: 'snow_tree_v2',
       instances: this.tree,
-      // scaleMultiplier: .15,
       hdr: this.envmap,
       hasHdr: true,
       intensity: .8,
@@ -395,8 +360,6 @@ export default class SceneSki extends BaseScene {
       this.highTreeInstanced.container,
       this.bushInstanced.container,
       this.rockInstanced.container,
-      // this.deadWoodInstanced.container,
-      // this.deadWoord2Instanced.container,
       this.treeInstanced.container,
     ])
   }

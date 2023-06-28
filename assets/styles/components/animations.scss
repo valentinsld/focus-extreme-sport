@@ -104,3 +104,25 @@
 
 	to { background-position: -4890px }
 }
+
+@keyframes softBounceOut {
+	0% {
+		transform: scale(1, 0.5);
+	}
+
+	25% {
+		transform: scale(1, 1.4);
+	}
+
+	45% {
+		transform: scale(1, 0.9);
+	}
+
+	75% {
+		transform: scale(1, 1.08);
+	}
+
+	100% {
+		transform: scale(1, 1);
+	}
+}

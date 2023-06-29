@@ -168,6 +168,16 @@ onMounted(() => {
     lenis.raf(currentTime * 1000)
   })
 
+  const images = scrollContainer.value.querySelectorAll('img')
+  for (let i = 0; i < images.length; i++) {
+    const element = images[i];
+
+    element.addEventListener('load', () => {
+      console.log('load');
+      lenis.resize()
+    })
+  }
+
   cloudFParallax = useParallax({
     section: definition.value.$el,
     page: scrollWrapper.value,

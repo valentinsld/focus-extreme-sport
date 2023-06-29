@@ -173,7 +173,6 @@ onMounted(() => {
     const element = images[i];
 
     element.addEventListener('load', () => {
-      console.log('load');
       lenis.resize()
     })
   }

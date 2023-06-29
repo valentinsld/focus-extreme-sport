@@ -35,6 +35,8 @@
           <img
             :src="el.image"
             class="athletes-picture"
+            rel="preload"
+            fetchpriority="high"
           >
           <p class="athletes-type">
             <span>

@@ -56,6 +56,8 @@
             class="thanks-pic"
             :src="el.image"
             draggable="false"
+            rel="preload"
+            fetchpriority="high"
           >
         </div>
         <h3

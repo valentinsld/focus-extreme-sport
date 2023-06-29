@@ -17,7 +17,7 @@
 			},
 			{
 				"letter": "O",
-				"quote": "“C’est la plus belle des disciplines. Elle est riche en terme d’apprentissage et d’émotions. Chaque jour c’est une nouvelle journée et le cadre où l’on évolue est tout simplement incroyable. La montagne est une vraie carte postale.“",
+				"quote": "“Le flow se prononce toujours d'une manière différente. Le freeride est un sport de sensations.",
 				"role": "Skieur professionnel",
 				"author": "JÉRÉMY PREVOST",
 				"image": "/flow-state/hero/o.png"
@@ -64,11 +64,11 @@
 						"info": "de dénivelé"
 					},
 					{
-						"value": "200km/h",
+						"value": "250km/h",
 						"info": "Vitesse de pointe"
 					},
 					{
-						"value": "1-2min",
+						"value": "10min",
 						"info": "temps réel"
 					}
 				]
@@ -89,7 +89,7 @@
 						"info": "Vitesse de pointe"
 					},
 					{
-						"value": "4min",
+						"value": "15min",
 						"info": "temps réel"
 					}
 				]
@@ -102,7 +102,7 @@
 				"image": "/flow-state/map/kayak.png",
 				"datas": [
 					{
-						"value": "80 km/h",
+						"value": "88 km/h",
 						"info": "Vitesse de pointe"
 					},
 					{

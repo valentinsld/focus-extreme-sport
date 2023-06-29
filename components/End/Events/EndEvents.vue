@@ -36,6 +36,8 @@
         <img
           :src="el.image"
           class="events-picture"
+          rel="preload"
+          fetchpriority="high"
         >
         <span class="events-date-container">
           <span class="events-date">

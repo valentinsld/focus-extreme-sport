@@ -31,6 +31,8 @@
         <img
           :src="el.image"
           class="films-picture"
+          rel="preload"
+          fetchpriority="high"
         >
       </a>
     </div>

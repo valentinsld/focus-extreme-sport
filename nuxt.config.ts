@@ -10,7 +10,11 @@ export default defineNuxtConfig({
 			meta: [
 				{ charset: 'utf-8' },
 				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-				{ hid: 'description', name: 'description', content: 'Une expérience documentaire intéractive au coeur des sports d’actions.' }
+				{ hid: 'description', name: 'description', content: 'Une expérience documentaire intéractive au coeur des sports d’actions.' },
+				{ property:"og:description", content: "Une expérience documentaire intéractive au coeur des sports d’actions." },
+				{ property: "og:title", content: "Focus | A la poursuite de l\'état" },
+				{ property: "og:url", content: "https://focus-sports.vercel.app/" },
+				{ property: "og:image", content: "/media.png" },
 			],
 			link: [
 				{ rel: 'icon', type: 'image/x-icon', href: '/favicon-dark.ico', media: "(prefers-color-scheme: light)" },

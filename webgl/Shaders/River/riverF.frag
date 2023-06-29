@@ -8,6 +8,7 @@ uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform sampler2D uFoamTex;
 uniform sampler2D uVoronoiTex;
+uniform float uVoroMultiplier;
 // uniform float uRotation;
 
 // uniform anim
@@ -122,7 +123,7 @@ void main()
 	// VORONOI LAYER
 	vec2 voroSt = voroUv;
 	voroSt.y += uTime * .01;
-	voroSt *= 8.;
+	voroSt *= uVoroMultiplier;
 	voroSt = fract(voroSt);
 
 	vec4 voronoi = texture2D(uVoronoiTex, voroSt);

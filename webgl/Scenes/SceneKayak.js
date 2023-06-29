@@ -240,6 +240,7 @@ export default class SceneKayak extends BaseScene {
 
         uFoamTex: { value: this.foam },
         uVoronoiTex: { value: this.assets.textures['voronoitex'] },
+        uVoroMultiplier: { value: 8 },
         // uRotation: { value: -45.},
 
         fogColor: { value: new Color(CLEAR_COLOR)},

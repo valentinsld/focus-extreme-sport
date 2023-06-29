@@ -257,6 +257,8 @@ export default class SceneSki extends BaseScene {
 				uLineColor: { value: new Color(this.params.lineColor) },
 
         uFoamTex: { value: this.foam },
+        uVoronoiTex: { value: this.assets.textures['voronoitex'] },
+        uVoroMultiplier: { value: 3 },
         // uRotation: { value: -125.0},
 
         fogColor: { value: new Color(0x9bc8fa)},
@@ -294,6 +296,8 @@ export default class SceneSki extends BaseScene {
 				uLineColor: { value: new Color(this.params.lineColor) },
 
         uFoamTex: { value: this.foam2 },
+        uVoronoiTex: { value: this.assets.textures['voronoitex'] },
+        uVoroMultiplier: { value: 3 },
         // uRotation: { value: -125.0},
 
         fogColor: { value: new Color(0x9bc8fa)},

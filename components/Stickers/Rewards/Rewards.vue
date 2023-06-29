@@ -111,7 +111,7 @@ watch(currentSticker, (value) => {
 
     background: radial-gradient(72.4% 72.4% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0) 100%);
 
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1.6s ease-in-out;
 
     &.is-hide {
       opacity: 0;

@@ -3,8 +3,13 @@
     v-if="isNotAvailable"
     class="not-available"
   >
-    <h2 v-html="texte" />
-    <p>Veuillez changer d'appareil</p>
+    <img src="/logo.png">
+    <p>
+      {{ texte }}<br>
+      Mais rassure-toi ça arrive bientôt !
+    </p>
+
+    <img src="/Star.svg">
   </div>
 </template>
 
@@ -23,10 +28,10 @@ function testIsAvailable() {
      (navigator.maxTouchPoints > 0) ||
      (navigator.msMaxTouchPoints > 0)) {
 		isNotAvailable.value = true
-		texte.value = 'L\'Experience <b>Focus</b> n\'est pas encore disponible sur mobile.'
+		texte.value = 'L’expérience n’est pas disponible sur écran tactile.'
 	} else if (window.innerWidth < 1200) {
 		isNotAvailable.value = true
-		texte.value = 'L\'Experience <b>Focus</b> n\'est pas encore disponible sur un écran de moins de 1200px de large.'
+		texte.value = 'Ton écran est trop petit pour accéder à l’expérience.'
 	} else {
 		isNotAvailable.value = false
 	}
@@ -47,21 +52,27 @@ function testIsAvailable() {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 2rem;
 
 	font-size: 2rem;
 	color: colors(black);
 	background-color: colors(white);
+	background-image: url('/Fond.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 
-	&>h2 {
+
+	&>img {
+		max-width: 320px;
+	}
+
+	&>p {
 		text-align: center;
 		max-width: 550px;
 
-		line-height: 1.25;
-		margin-bottom: 1.5rem;
+		line-height: 2;
 
-		&>b {
-			color: colors(f_purple);
-		}
+		font-weight: 325;
 	}
 }
 </style>

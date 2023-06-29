@@ -212,7 +212,7 @@ function initStates (scene) {
   })
 
   // event end next scene
-  scene.setEventTimeline(0.98, () => {
+  scene.setEventTimeline(0.977, () => {
     store.state.gamestate = 'stickers'
     navigateTo('/stickers-rewards')
   })

@@ -114,9 +114,9 @@ const RAFManager = {
 		this.dt = this.realDt * this.speed
 
 		// Vérifier si le temps écoulé entre deux trames est inférieur à la limite des FPS
-		if (this.realDt < this.dtLimiter) {
-			return;
-		}
+		// if (this.realDt < this.dtLimiter) {
+		// 	return;
+		// }
 
 		this.currentTime += this.dt;
 

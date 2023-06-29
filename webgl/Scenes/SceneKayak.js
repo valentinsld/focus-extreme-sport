@@ -239,6 +239,7 @@ export default class SceneKayak extends BaseScene {
 				uLineColor: { value: new Color(this.params.lineColor) },
 
         uFoamTex: { value: this.foam },
+        uVoronoiTex: { value: this.assets.textures['voronoitex'] },
         // uRotation: { value: -45.},
 
         fogColor: { value: new Color(CLEAR_COLOR)},

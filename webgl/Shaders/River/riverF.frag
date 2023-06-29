@@ -7,6 +7,7 @@ uniform vec2 uResolution;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform sampler2D uFoamTex;
+uniform sampler2D uVoronoiTex;
 // uniform float uRotation;
 
 // uniform anim
@@ -94,72 +95,10 @@ float cnoise(vec3 P){
 	return 2.2 * n_xyz;
 }
 
-#define ANIMATE
-vec3 voronoi( in vec2 x, float rnd ) {
-    vec2 n = floor(x);
-    vec2 f = fract(x);
-
-    // first pass: regular voronoi
-    vec2 mg, mr;
-    float md = 8.0;
-    for (int j=-1; j<=1; j++ ) {
-        for (int i=-1; i<=1; i++ ) {
-            vec2 g = vec2(float(i),float(j));
-            vec2 o = random2( n + g )*rnd;
-            #ifdef ANIMATE
-            o = 0.5 + 0.5*sin( uTime + 6.2831*o );
-            #endif
-            vec2 r = g + o - f;
-            float d = dot(r,r);
-
-            if( d<md ) {
-                md = d;
-                mr = r;
-                mg = g;
-            }
-        }
-    }
-
-    // second pass: distance to borders
-    md = 8.0;
-    for (int j=-2; j<=2; j++ ) {
-        for (int i=-2; i<=2; i++ ) {
-            vec2 g = mg + vec2(float(i),float(j));
-            vec2 o = random2(n + g)*rnd;
-            #ifdef ANIMATE
-            o = 0.5 + 0.5*sin( uTime + 6.2831*o );
-            #endif
-            vec2 r = g + o - f;
-
-            if( dot(mr-r,mr-r)>0.00001 )
-            md = min( md, dot( 0.5*(mr+r), normalize(r-mr) ) );
-        }
-    }
-    return vec3( md, mr );
-}
-
 vec2 rotate(vec2 st, float a) {
 	st = mat2(cos(a), -sin(a), sin(a), cos(a)) * (st - .5);
 	return st + .5;
 }
-
-// float getDepth( const in vec2 screenPosition ) {
-// 	#if DEPTH_PACKING == 1
-// 		return unpackRGBAToDepth( texture2D( tDepth, screenPosition ) );
-// 	#else
-// 		return texture2D( tDepth, screenPosition ).x;
-// 	#endif
-// }
-
-// float getViewZ( const in float depth ) {
-// 	#if ORTHOGRAPHIC_CAMERA == 1
-// 		return orthographicDepthToViewZ( depth, cameraNear, cameraFar );
-// 	#else
-// 		return perspectiveDepthToViewZ( depth, cameraNear, cameraFar );
-// 	#endif
-// }
-
-// const float strength = 1.0;
 
 #include <logdepthbuf_pars_fragment>
 
@@ -181,19 +120,17 @@ void main()
 	vec3 color = mix(uColorA, uColorB, noise + (vElevation));
 
 	// VORONOI LAYER
-	vec2 voroSt = voroUv * 50.;
-    voroSt = (voroSt-.5)*.75+.5;
+	vec2 voroSt = voroUv;
+	voroSt.y += uTime * .01;
+	voroSt *= 8.;
+	voroSt = fract(voroSt);
 
-	vec3 voroColor = vec3(0.);
-	float d = dot(voroSt-.5,voroSt-.5);
-    vec3 c = voronoi( voroSt * .95 , pow(d,.6) );
-
-	// vec3 lineColor = mix(color, vec3(1.), cnoise(vec3(voroSt * 20., uTime * .5)));
-	 // borders
-    voroColor = mix( uLineColor, color, smoothstep( 0., .01, c.x ));
+	vec4 voronoi = texture2D(uVoronoiTex, voroSt);
+	vec4 voroColor = mix(vec4(color, 1.), voronoi, sin(uTime * .01) * .05 + .05);
 
 	vec4 foam = texture2D(uFoamTex, foamUv);
-	vec4 finalColor = mix(vec4(voroColor, 1.), foam, sin(uTime * 2.) * .07 + .25);
+
+	vec4 finalColor = mix(voroColor, foam, sin(uTime * 2.) * .07 + .25);
 
 	gl_FragColor = finalColor;
 

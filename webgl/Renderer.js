@@ -5,7 +5,7 @@ import {
 } from 'three'
 import WebGL from './index.js'
 
-const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+import Browser from './Utils/Browser.js'
 
 export default class Renderer {
   constructor() {
@@ -35,7 +35,7 @@ export default class Renderer {
       canvas: this.WebGL.canvas,
       powerPreference: "high-performance",
       // THIS IS IMPORTANT : delete flickering between planes with fxComposer (only on chrome)
-      logarithmicDepthBuffer: isChrome
+      logarithmicDepthBuffer: !Browser.isFirefox
     })
     this.instance.domElement.style.position = 'absolute'
     this.instance.domElement.style.top = 0

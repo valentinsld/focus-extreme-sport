@@ -1,3 +1,4 @@
+import Browser from './Browser.js'
 import EventEmitter from './EventEmitter.js'
 
 export default class Sizes extends EventEmitter {
@@ -14,7 +15,7 @@ export default class Sizes extends EventEmitter {
     // Resize event
     window.addEventListener('resize', this.resize.bind(this))
 
-    this.maxPixelRatio = 2
+    this.maxPixelRatio = Browser.isSafari ? 1 : 2
 
     this.resize()
   }

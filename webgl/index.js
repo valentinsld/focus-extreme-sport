@@ -106,12 +106,12 @@ export default class WebGL extends EventEmitter {
         RAFManager.setSpeed(Store.targetSpeed);
       });
     }
-    if (process.dev) {
-      this.stats = new Stats(true);
-      RAFManager.add('stats', () => {
-        this.stats.update()
-      })
-    }
+    // if (process.dev) {
+    //   this.stats = new Stats(true);
+    //   RAFManager.add('stats', () => {
+    //     this.stats.update()
+    //   })
+    // }
   }
 
   setScene() {
